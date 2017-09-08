@@ -213,7 +213,7 @@
   <target name="clean" depends="clean.module.pearplanner" description="cleanup all"/>
   
   <target name="build.modules" depends="init, clean, compile.module.pearplanner, jar" description="build all modules"/>
-  
+	
   <target name="all" depends="build.modules" description="build all"/>
 
     <target name="test" depends="build.modules" >
