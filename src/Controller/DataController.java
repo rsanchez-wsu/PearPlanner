@@ -346,6 +346,7 @@ public class DataController
                     String moduleCode = moduleValues.get("moduleCode").getString();
                     Module thisModule = new Module(organiser, moduleCode);
 
+                    System.out.println("Hi");
 
                     addVCEproperties(thisModule, moduleValues);
 
