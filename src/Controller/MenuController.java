@@ -44,6 +44,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
@@ -139,6 +140,14 @@ public class MenuController implements Initializable
      */
     public void loadDashboard()
     {
+    	//set ToolTips
+    	
+    	openMenu.setTooltip(new Tooltip("Menu"));
+    	showNotification.setTooltip(new Tooltip("Notifications"));
+    	addActivity.setTooltip(new Tooltip("Add activity"));
+    	calendar.setTooltip(new Tooltip("Open Calendar"));
+    	
+    	
         // Update main pane:
         this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
         this.topBox.getChildren().clear();
@@ -188,7 +197,7 @@ public class MenuController implements Initializable
         }
         // =================
 
-        GridPane.setColumnSpan(modules, GridPane.REMAINING);
+        //GridPane.setColumnSpan(modules, GridPane.REMAINING);
         GridPane.setMargin(modules, new Insets(10));
         this.mainContent.addRow(2, modules);
     }
@@ -972,6 +981,7 @@ public class MenuController implements Initializable
         this.milestones.setOnAction(e -> this.main(Window.Milestones));
         this.calendar.setOnAction(e -> MainController.ui.showCalendar());
         // =================
+        
 
         // Welcome text:
         this.welcome = new Label("Welcome back, " + MainController.getSPC().getPlanner().getUserName() + "!");
