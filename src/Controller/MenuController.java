@@ -141,7 +141,6 @@ public class MenuController implements Initializable
     public void loadDashboard()
     {
     	//set ToolTips
-    	
     	openMenu.setTooltip(new Tooltip("Menu"));
     	showNotification.setTooltip(new Tooltip("Notifications"));
     	addActivity.setTooltip(new Tooltip("Add activity"));
@@ -197,7 +196,7 @@ public class MenuController implements Initializable
         }
         // =================
 
-        //GridPane.setColumnSpan(modules, GridPane.REMAINING);
+        GridPane.setColumnSpan(modules, GridPane.REMAINING);
         GridPane.setMargin(modules, new Insets(10));
         this.mainContent.addRow(2, modules);
     }
