@@ -71,7 +71,6 @@ public class DataController
         HashMap<String, XMLcontroller.NodeReturn> fValues = xmlTools.getSchemaValues(nList,
                 HubFile.SCHEMA_UPDATE_FILE);
 
-        int rootVersion = fValues.get("version").getInt();
         NodeList updates = fValues.get("updates").getNodeList();
 
         int i = -1;
