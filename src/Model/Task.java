@@ -41,7 +41,7 @@ public class Task extends ModelEntity
 {
     // private data
     private ArrayList<Task> dependencies = new ArrayList<>();
-    private Deadline deadline;
+    private Event deadline;
     private ArrayList<Requirement> requirements = new ArrayList<>();
     private ArrayList<Note> notes;
     private boolean checkedComplete;
@@ -397,7 +397,7 @@ public class Task extends ModelEntity
     public Task(String name, String details, LocalDate deadline, int weighting, String type)
     {
         super(name, details);
-        this.deadline = new Deadline(deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "T00:00:01Z");
+        this.deadline = new Event(deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "T00:00:01Z");
         this.weighting = weighting;
         this.type = TaskType.get(type);
     }

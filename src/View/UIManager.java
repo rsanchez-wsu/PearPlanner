@@ -534,7 +534,7 @@ public class UIManager
                                 .withEndLocalDateTime(sTime.plusMinutes(((ExamEvent) e).getDuration()))
                                 .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group20"))
                 );
-            } else if (e instanceof Deadline)
+            } else if (e instanceof Event)
             {
                 LocalDateTime sTime = LocalDateTime.ofInstant(e.getDate().toInstant(), ZoneId.systemDefault());
                 content.appointments().addAll(

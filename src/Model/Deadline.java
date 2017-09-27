@@ -24,7 +24,6 @@ package Model;
 /**
  * PearPlanner
  * Created by Team BRONZE on 4/27/17
- */
 public class Deadline extends Event
 {
     // maybe we can get rid of this
@@ -33,3 +32,7 @@ public class Deadline extends Event
         super(cDate);
     }
 }
+*/
+
+//Added as a data field in the Event Class
+//Can be added back in if needed

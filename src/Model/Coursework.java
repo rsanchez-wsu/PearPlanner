@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class Coursework extends Assignment
 {
     private Event startDate;
-    private Deadline deadline;
+    private Event deadline;
     private ArrayList<Extension> extensions;
 
     // private methods
@@ -65,7 +65,7 @@ public class Coursework extends Assignment
         return startDate;
     }
 
-    public Deadline getDeadline()
+    public Event getDeadline()
     {
         return deadline;
     }
@@ -110,7 +110,7 @@ public class Coursework extends Assignment
 
     // Constructors
     public Coursework(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks, Event cStartDate,
-                      Deadline cDeadline, ArrayList<Extension> cExtensions)
+                      Event cDeadline, ArrayList<Extension> cExtensions)
     {
         super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);
         startDate = cStartDate;

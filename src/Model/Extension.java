@@ -28,7 +28,7 @@ package Model;
 public class Extension extends VersionControlEntity
 {
     // private data
-    private Deadline newDeadline;
+    private Event deadline;
     private MultilineString circumstances;
     private ApprovalStatus approvalStatus;
 
@@ -38,7 +38,7 @@ public class Extension extends VersionControlEntity
         if (receivedVCE instanceof Extension)
         {
             Extension castedVCE = (Extension) receivedVCE;
-            this.newDeadline = castedVCE.getNewDeadline();
+            this.deadline = castedVCE.getNewDeadline();
             this.circumstances = castedVCE.getCircumstances();
             this.approvalStatus = castedVCE.getApprovalStatus();
         }
@@ -54,10 +54,10 @@ public class Extension extends VersionControlEntity
     // public methods
 
     // getters
-    public Deadline getNewDeadline()
+    public Event getNewDeadline()
     {
         // initial set up code below - check if this needs updating
-        return newDeadline;
+        return deadline;
     }
 
     public MultilineString getCircumstances()
@@ -79,10 +79,10 @@ public class Extension extends VersionControlEntity
         circumstances = newCircumstances;
     }
 
-    public void setNewDeadline(Deadline newNewDeadline)
+    public void setNewDeadline(Event newNewDeadline)
     {
         // initial set up code below - check if this needs updating
-        newDeadline = newNewDeadline;
+        deadline = newNewDeadline;
     }
 
     public void setApprovalStatus(ApprovalStatus newApprovalStatus)
