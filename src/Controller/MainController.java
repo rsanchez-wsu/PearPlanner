@@ -74,6 +74,7 @@ public class MainController
                 CipherInputStream cipherInputStream = new CipherInputStream(new BufferedInputStream(new FileInputStream(fileName)), cipher);
                 ObjectInputStream inputStream = new ObjectInputStream(cipherInputStream);
                 SealedObject sealedObject = (SealedObject) inputStream.readObject();
+                inputStream.close();
                 SPC = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
                 /**
                  * Begin note to examiner:
