@@ -36,7 +36,7 @@ public class Milestone extends ModelEntity
 {
     // private data
     private ArrayList<Task> tasks = new ArrayList<>();
-    private Deadline deadline;
+    private Event deadline;
 
     // public methods
 
@@ -228,6 +228,6 @@ public class Milestone extends ModelEntity
     public Milestone(String name, String details, LocalDate deadline)
     {
         super(name, details);
-        this.deadline = new Deadline(deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "T00:00:01Z");
+        this.deadline = new Event(deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "T00:00:01Z");
     }
 }

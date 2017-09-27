@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 public class Event extends VersionControlEntity
 {
     protected GregorianCalendar date = null;
+    protected GregorianCalendar deadline = null;
 
     private static Pattern dateRegex = Pattern.compile("(\\d\\d)/(\\d\\d)/(\\d\\d\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)Z");
 
@@ -71,6 +72,21 @@ public class Event extends VersionControlEntity
     {
         return this.date.getTime().toString();
     }
+    
+    public Date getDeadLine()
+    {
+        return this.deadline.getTime();
+    }
+
+    public GregorianCalendar getDLCalendar()
+    {
+        return deadline;
+    }
+
+    public String toDLString()
+    {
+        return this.deadline.getTime().toString();
+    }
 
     // setters:
     public void setDate(String dateString)
@@ -89,6 +105,26 @@ public class Event extends VersionControlEntity
                     MainController.isNumeric(sSecond))
             {
                 date = new GregorianCalendar(Integer.parseInt(sYear), Integer.parseInt(sMonth) - 1, Integer.parseInt(sDay)
+                        , Integer.parseInt(sHour), Integer.parseInt(sMinute), Integer.parseInt(sSecond));
+            }
+        }
+    }
+    public void setDeadLine(String dateString)
+    {
+        // 09/04/2017T15:00:00Z
+        if (validDateString(dateString))
+        {
+            String sDay = dateString.substring(0, 2);
+            String sMonth = dateString.substring(3, 5);
+            String sYear = dateString.substring(6, 10);
+            String sHour = dateString.substring(11, 13);
+            String sMinute = dateString.substring(14, 16);
+            String sSecond = dateString.substring(17, 19);
+            if (MainController.isNumeric(sDay) && MainController.isNumeric(sMonth) && MainController.isNumeric(sYear) &&
+                    MainController.isNumeric(sHour) && MainController.isNumeric(sMinute) &&
+                    MainController.isNumeric(sSecond))
+            {
+                deadline = new GregorianCalendar(Integer.parseInt(sYear), Integer.parseInt(sMonth) - 1, Integer.parseInt(sDay)
                         , Integer.parseInt(sHour), Integer.parseInt(sMinute), Integer.parseInt(sSecond));
             }
         }
@@ -113,7 +149,7 @@ public class Event extends VersionControlEntity
     {
         setDate(cDate);
     }
-
+    
     public Event()
     {
     }

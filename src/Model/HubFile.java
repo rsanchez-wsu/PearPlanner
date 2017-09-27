@@ -493,7 +493,7 @@ public class HubFile implements Serializable
 
         Person cwSetBy, cwMarkedBy, cwReviewedBy;
         Event cwStartDate;
-        Deadline cwDeadline;
+        Event cwDeadline;
 
         // extensions to be added later
         ArrayList<Extension> cwExtensions = new ArrayList<>();
@@ -533,7 +533,7 @@ public class HubFile implements Serializable
                     xmlTools.getSchemaValues(courseworkValues.get("deadline").getNodeList(),
                             HubFile.SCHEMA_EVENT);
 
-            cwDeadline = new Deadline(eventValues.get("date").getString());
+            cwDeadline = new Event(eventValues.get("deadline").getString());
 
 
             DataController.addVCEproperties(cwDeadline, eventValues);
