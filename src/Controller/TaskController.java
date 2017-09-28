@@ -480,7 +480,7 @@ public class TaskController implements Initializable
         TableColumn<Task, String> nameColumn = new TableColumn<>("Task");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<Task, String> assignmentColumn = new TableColumn<>("Assignments");
+        TableColumn<Task, String> assignmentColumn = new TableColumn<Task,String>("Assignments");
         assignmentColumn.setCellValueFactory(new PropertyValueFactory("assignments")
         {
             @Override public ObservableValue call(TableColumn.CellDataFeatures param)

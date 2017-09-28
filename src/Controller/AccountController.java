@@ -130,6 +130,7 @@ public class AccountController implements Initializable
         if (account_no.getText().trim().isEmpty())
             this.submit.setDisable(true);
         else
+            this.account_no.setStyle("-fx-text-box-border:red;");
             this.handleChange();
     }
 
