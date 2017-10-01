@@ -69,6 +69,7 @@ public class Person extends VersionControlEntity {
 	 * @param famNameLast true to indicate that family comes last in the
 	 * 				<b>name</b> parameter; false to indicate it comes first
 	 */
+	@SuppressWarnings("unchecked")
 	public Person(String salutation, ArrayList<String> givenNames,
 			String famName, Boolean famNameLast) {
 
@@ -136,6 +137,7 @@ public class Person extends VersionControlEntity {
 	 * 				indicate it comes first
 	 * @param newEmail The person's email address
 	 */
+	@SuppressWarnings("unchecked")
 	public Person(String salutation, ArrayList<String> givenNames, String famName,
 			Boolean famNameLast, String newEmail) {
 
@@ -216,6 +218,7 @@ public class Person extends VersionControlEntity {
 	 *
 	 * @return a list of given names for this person
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<String> getGivenNames() {
 		return (ArrayList<String>) givenNames.clone();
 	}

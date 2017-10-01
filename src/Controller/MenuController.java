@@ -277,6 +277,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Display the Milestones pane.
 	 */
+	@SuppressWarnings("unchecked")
 	public void loadMilestones() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -500,6 +501,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Display the Study Profiles pane.
 	 */
+	@SuppressWarnings("unchecked")
 	public void loadStudyProfiles() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -573,6 +575,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Display the Modules pane.
 	 */
+	@SuppressWarnings("unchecked")
 	public void loadModules() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -636,6 +639,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Display the Module pane.
 	 */
+	@SuppressWarnings("unchecked")
 	public void loadModule(Module module, Window previousWindow, ModelEntity previous) {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -722,6 +726,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Display the Assignment pane.
 	 */
+	@SuppressWarnings("unchecked")
 	public void loadAssignment(Assignment assignment, Window previousWindow, ModelEntity previous) {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());

@@ -109,7 +109,8 @@ public class Coursework extends Assignment
     }
 
     // Constructors
-    public Coursework(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks, Event cStartDate,
+    @SuppressWarnings("unchecked")
+	public Coursework(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks, Event cStartDate,
                       Deadline cDeadline, ArrayList<Extension> cExtensions)
     {
         super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);

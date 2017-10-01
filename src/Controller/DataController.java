@@ -139,7 +139,8 @@ public class DataController
         return r;
     }
 
-    public static <T extends VersionControlEntity> T inList(HashMap<String, VersionControlEntity> list, String uid) throws Exception
+    @SuppressWarnings("unchecked")
+	public static <T extends VersionControlEntity> T inList(HashMap<String, VersionControlEntity> list, String uid) throws Exception
     {
         VersionControlEntity vce = null;
         if (list.containsKey(uid))
