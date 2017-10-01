@@ -52,9 +52,14 @@ public class MainController {
 	private static StudyPlannerController SPC;
 
 	// Used for serialization:
+<<<<<<< HEAD
 	private static SecretKey key64 = new SecretKeySpec(
 			new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 }, "Blowfish");
 	private static File plannerFile = null;
+=======
+	private static SecretKey key64 = new SecretKeySpec(new byte[]{0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07}, "Blowfish");
+	private static String fileName = "StudyPlanner.dat";
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
 
 	/**
 	 * Returns a StudyPlannerController.
@@ -66,6 +71,7 @@ public class MainController {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Sets StudyPlannerController SPC
 	 *
 	 * @param s SPC is set to s.
@@ -75,16 +81,24 @@ public class MainController {
 	}
 
 	/**
+=======
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
 	 * Initializes the Study Planner by either registering a new account or
 	 * importing an existing Study Planner file.
 	 */
 	public static void initialise() {
+<<<<<<< HEAD
 		try {
 			ui.showStartup();
+=======
+		File plannerFile = new File("StudyPlanner.dat");
+		try {
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
 			// If a file is present:
 			if (plannerFile.exists()) {
 				Cipher cipher = Cipher.getInstance("Blowfish");
 				cipher.init(Cipher.DECRYPT_MODE, key64);
+<<<<<<< HEAD
 				CipherInputStream cipherInputStream = new CipherInputStream(
 						new BufferedInputStream(new FileInputStream(plannerFile)), cipher);
 				ObjectInputStream inputStream = new ObjectInputStream(cipherInputStream);
@@ -108,6 +122,30 @@ public class MainController {
 				System.exit(1);
 			}
 
+=======
+				CipherInputStream cipherInputStream = new CipherInputStream(new BufferedInputStream(new FileInputStream(fileName)), cipher);
+				ObjectInputStream inputStream = new ObjectInputStream(cipherInputStream);
+				SealedObject sealedObject = (SealedObject) inputStream.readObject();
+				SPC = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
+				/**
+				 * Begin note to examiner:
+				 */
+				if (SPC.getPlanner().getCurrentStudyProfile() != null && SPC.getPlanner().getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
+					UIManager.reportSuccess("Note to examiner: This is a pre-loaded StudyPlanner, as used by Harry Potter, to reset the software delete or rename the 'StudyPlanner.dat' file in the root directory.");
+				/**
+				 * End note to examiner.
+				 */
+				}
+			} else {
+			// If not, prompt to create a new account:
+			
+				Account newAccount = ui.createAccount();
+				SPC = new StudyPlannerController(newAccount);
+				// Welcome notification:
+				Notification not = new Notification("Welcome!", new GregorianCalendar(), "Thank you for using RaiderPlanner!");
+				SPC.getPlanner().addNotification(not);
+			}
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
 		} catch (FileNotFoundException e) {
 			UIManager.reportError("File does not exist");
 			System.exit(1);
@@ -178,7 +216,11 @@ public class MainController {
 	 */
 	public static boolean save() {
 		try {
+<<<<<<< HEAD
 			SPC.save(MainController.key64, MainController.plannerFile.getAbsolutePath());
+=======
+			SPC.save(MainController.key64, MainController.fileName);
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
 			return true;
 		} catch (Exception e) {
 			UIManager.reportError("FAILED TO SAVE YOUR DATA!");
@@ -187,6 +229,7 @@ public class MainController {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Sets the planner file that is loaded/saved.
 	 *
 	 * @param file is the path used to load and save files.
@@ -203,18 +246,62 @@ public class MainController {
 	 * <p>Therefore, we are using this proposed isNumeric method from:
 	 *
 	 * <p>http://stackoverflow.com/a/1102916
+=======
+	 * Apparently (according to Stackoverflow) the Java Standard library doesn't have a
+	 * standard check for testing if a string value is a number or not?!)
+	 * <p>
+	 * Therefore, we are using this proposed isNumeric method from:
+	 * <p>
+	 * http://stackoverflow.com/a/1102916
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
 	 *
 	 * @param str String to be tested
 	 * @return whether the given String is numeric.
 	 */
 	public static boolean isNumeric(String str) {
 		try {
+<<<<<<< HEAD
 			// No need to assign the result; the exception or lack of is what matters
 			Double.parseDouble(str);
+=======
+			double d = Double.parseDouble(str);
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
 		} catch (NumberFormatException nfe) {
 			return false;
 		}
 		return true;
 	}
 
+<<<<<<< HEAD
 }
+=======
+	/**
+	 * Early console based implementation.
+	 *
+	 * @param menu menu option.
+	 */
+	private static void consoleUI(String menu) {
+		while (!menu.equals("")) {
+			switch (menu) {
+			case "Quit Program":
+				menu = "";
+				break;
+			case "Main Menu":
+			case "Return to Main Menu":
+				menu = View.ConsoleIO.view_main();
+				break;
+			case "Create Study Profile":
+				menu = View.ConsoleIO.view_createSP();
+				break;
+			case "View Study Profile":
+				menu = View.ConsoleIO.view_viewSP(SPC);
+				break;
+			case "Load Study Profile File":
+				menu = View.ConsoleIO.view_loadSP(SPC);
+			default:
+				menu = "";
+			}
+		}
+	}
+}
+>>>>>>> d7321420b270789891f801ee3b2d7cb96871204a
