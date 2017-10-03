@@ -146,7 +146,8 @@ public class HubFile implements Serializable
      * @param a   VersionControlEntity list
      * @param cal Calendar events list
      */
-    public HubFile(int v, int y, int s, ArrayList<Module> m, ArrayList<VersionControlEntity> a, ArrayList<Event> cal)
+    @SuppressWarnings("unchecked")
+	public HubFile(int v, int y, int s, ArrayList<Module> m, ArrayList<VersionControlEntity> a, ArrayList<Event> cal)
     {
         version = v;
         year = y;
@@ -173,7 +174,8 @@ public class HubFile implements Serializable
      * @param e ExtensionApplication list
      * @param u VersionControlEntity list
      */
-    public HubFile(int v, ArrayList<ExtensionApplication> e, ArrayList<VersionControlEntity> u)
+    @SuppressWarnings("unchecked")
+	public HubFile(int v, ArrayList<ExtensionApplication> e, ArrayList<VersionControlEntity> u)
     {
         version = v;
         extensions = (ArrayList<ExtensionApplication>) e.clone();
