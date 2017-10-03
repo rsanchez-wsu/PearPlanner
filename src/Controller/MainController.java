@@ -62,19 +62,22 @@ public class MainController
      * importing an existing Study Planner file.
      */
     public static void initialise()
-    {
-        File plannerFile = new File("StudyPlanner.dat");
+    throws Exception{
+        ObjectInputStream inputStream = 	null;
+        CipherInputStream cipherInputStream = null;
+        SealedObject sealedObject = null;
+    	File plannerFile = null; 
         try
         {
+            plannerFile = new File("StudyPlanner.dat");
             // If a file is present:
             if (plannerFile.exists())
             {
                 Cipher cipher = Cipher.getInstance("Blowfish");
                 cipher.init(Cipher.DECRYPT_MODE, key64);
-                CipherInputStream cipherInputStream = new CipherInputStream(new BufferedInputStream(new FileInputStream(fileName)), cipher);
-                ObjectInputStream inputStream = new ObjectInputStream(cipherInputStream);
-                SealedObject sealedObject = (SealedObject) inputStream.readObject();
-                inputStream.close();
+                cipherInputStream = new CipherInputStream(new BufferedInputStream(new FileInputStream(fileName)), cipher);
+                inputStream = new ObjectInputStream(cipherInputStream);
+                sealedObject = (SealedObject) inputStream.readObject();
                 SPC = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
                 /**
                  * Begin note to examiner:
