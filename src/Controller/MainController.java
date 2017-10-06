@@ -49,7 +49,7 @@ public class MainController
         try (
         		CipherInputStream cipherInputStream = new CipherInputStream(new BufferedInputStream(new FileInputStream(fileName)), cipher);
         		ObjectInputStream inputStream = new ObjectInputStream(cipherInputStream);
-        	)
+            )
         {
         	File plannerFile = new File("StudyPlanner.dat");
             // If a file is present:
