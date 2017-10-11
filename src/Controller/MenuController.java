@@ -56,7 +56,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -65,6 +64,8 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -74,21 +75,22 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import jfxtras.scene.control.agenda.Agenda;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -108,7 +110,7 @@ public class MenuController implements Initializable {
 	 * Initializes switch names and other buttons.
 	 */
 	public enum Window {
-		Empty, Dashboard, Profiles, Modules, Milestones, Calendar
+		Empty, Dashboard, Profiles, Modules, Milestones, Calendar, Chat
 	}
 
 	private Window current;
@@ -136,6 +138,8 @@ public class MenuController implements Initializable {
 	private Button modules;
 	@FXML
 	private Button calendar;
+	@FXML
+	private Button chat;
 
 	// Panes:
 	@FXML
@@ -148,6 +152,23 @@ public class MenuController implements Initializable {
 	private GridPane mainContent;
 	@FXML
 	private HBox topBox;
+	//chat variables
+	private final BorderPane mainPane = new BorderPane();
+	private final GridPane firstPane = new GridPane();
+	private final GridPane userMessagePane = new GridPane();
+	private final HBox spacingBox = new HBox();
+	private TextField tfName = new TextField("");
+	private TextField tfHost = new TextField("");
+	private TextField tfMessageToSend = new TextField();
+	private TextArea msgArea = new TextArea();
+	private final Label name = new Label("Name:");
+	private final Label host = new Label("Host:");
+	private final Button submitButton = new Button("Submit");
+	private final Button sendButton = new Button("Send");
+
+	private String sUserName;
+	private String sHostName;
+	private int nPortNumber = 1111;
 
 	/**
 	 * Sets this.current to equal passed variable and calls this.main().
@@ -191,6 +212,10 @@ public class MenuController implements Initializable {
 			this.loadCalendar();
 			break;
 		}
+		case Chat: {
+			this.obtainUserInformation();
+			break;
+		}
 		default:
 			break;
 		}
@@ -221,13 +246,13 @@ public class MenuController implements Initializable {
 		GridPane.setMargin(studyProfile, new Insets(10));
 		this.mainContent.addRow(1, studyProfile);
 		this.mainContent.setMaxSize(Control.USE_COMPUTED_SIZE, 1000);
-        this.mainContent.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, 2000, Priority.ALWAYS, HPos.CENTER, true));
+		this.mainContent.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, 2000, Priority.ALWAYS, HPos.CENTER, true));
 		GridPane modules = new GridPane();
-        modules.setHgap(30);
-        modules.setVgap(20);
-        // This code will be added when wanting to resize the modules to grow with the page
-        // modules.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, 200, Priority.ALWAYS, VPos.CENTER, true));
-        int i = 0;
+		modules.setHgap(30);
+		modules.setVgap(20);
+		// This code will be added when wanting to resize the modules to grow with the page
+		// modules.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, 200, Priority.ALWAYS, VPos.CENTER, true));
+		int i = 0;
 		for (Module module : profile.getModules()) {
 			VBox vbox = new VBox();
 			vbox.setSpacing(5);
@@ -254,9 +279,9 @@ public class MenuController implements Initializable {
 			view.setOnAction(e -> module.open(this.current));
 			vbox.getChildren().add(view);
 			modules.setMaxSize(800, 1000);
-            modules.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, 1000, Priority.ALWAYS, HPos.CENTER, true));         
-            i++;
-            modules.addColumn(i,vbox);
+			modules.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, 1000, Priority.ALWAYS, HPos.CENTER, true));		 
+			i++;
+			modules.addColumn(i,vbox);
 		}
 		// =================
 
@@ -724,6 +749,118 @@ public class MenuController implements Initializable {
 
 		this.mainContent.addRow(3, moduleContent);
 	}
+	/**
+	 * This method will clear the current content on the GUI and load the firstpane
+	 * into the maincontent pane.
+	 * This will then call on the createFirstWindow method and submitButtonAction method.
+	 */
+
+	public void obtainUserInformation() {
+
+		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
+		this.topBox.getChildren().clear();
+		this.title.setText("");
+		this.mainContent.getChildren().addAll(firstPane);
+		createFirstWindow();
+		submitButtonAction();
+	}
+	/**
+	 * This will load the chat window but first it will clear the user interface.
+	 * then it will put the mainpane into the maincontent pane.
+	 */
+
+	public void loadChatWindow() {
+
+		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
+		this.topBox.getChildren().clear();
+		this.title.setText("");
+		this.mainContent.getChildren().addAll(mainPane);
+		createUserMessagePane();
+		createMainPane();
+	}
+	/**
+	 * This will load the msg_area and textfield into the mainPane at certain locations.
+	 */
+
+	public void createMainPane() {
+
+		mainPane.setCenter(msgArea);
+		mainPane.setBottom(userMessagePane);
+	}
+		/**
+		* This will set the message area to uneditable and set the size for all the buttons
+		* Then it will load them into the userMessagePane at specific locations.
+		*/
+
+	public void createUserMessagePane() {
+		msgArea.setEditable(false);
+		tfMessageToSend.setPrefWidth(500);
+		userMessagePane.setPadding(new Insets(10, 10, 10, 10));
+		sendButton.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
+		spacingBox.setPadding(new Insets(0, 5, 0, 5));
+		userMessagePane.add(tfMessageToSend, 0, 0);
+		userMessagePane.add(spacingBox, 1, 0);
+		userMessagePane.add(sendButton, 2, 0);
+	}
+		/**
+		* This will load all the textfields and labels and buttons for the
+		* first window to obtain the users information.
+		*/
+
+	public void createFirstWindow() {
+		firstPane.add(name, 0, 0);
+		firstPane.add(tfName, 1, 0);
+		firstPane.add(host, 0, 1);
+		firstPane.add(tfHost, 1, 1);
+		firstPane.add(submitButton, 1, 2);
+	}
+		/**
+		 * This will do an action when the user clicks submit.
+		 * Then it will store those values into specific varaibles which can be
+		 * accessed outside of the class.
+		 * This will handle all errors and display appropriate alert boxes
+		 */
+
+	public void submitButtonAction() {
+		submitButton.setOnAction((ActionEvent exception1) -> {
+			if (tfName.getText().equals("")) {
+				tfName.setText("User" + Math.random());
+			} else {
+				sUserName = tfName.getText();
+			}
+			sHostName = tfHost.getText();
+			loadChatWindow();
+		});
+	}
+		/**
+		 *This is a setter for sUsername.
+		 */
+
+	public void setsUserName(String sUser) {
+		sUserName = sUser;
+	}
+
+		/**
+		 * This is a setter for SHostName.
+		 */
+
+	public void setsPortNumber(int nUserPort) {
+		nPortNumber = nUserPort;
+	}
+		/**
+		 * this is a getter for sUserName.
+		 */
+
+	public String getsUserName() {
+		return sUserName;
+	}
+		/**
+		 * this is a getter for sHostName.
+		 */
+
+	public String getsHostName() {
+		return sHostName;
+	}
 
 	/**
 	 * Display the Assignment pane.
@@ -1093,6 +1230,7 @@ public class MenuController implements Initializable {
 		this.modules.setOnAction(e -> this.main(Window.Modules));
 		this.milestones.setOnAction(e -> this.main(Window.Milestones));
 		this.calendar.setOnAction(e -> this.main(Window.Calendar));
+		this.chat.setOnAction(e -> this.main(Window.Chat));
 		// =================
 
 		// Welcome text:
@@ -1256,7 +1394,7 @@ public class MenuController implements Initializable {
 	 * RowFactory for a TableView of Requirement.
 	 *
 	 * @param e
-	 *            TableView that contains the RowFactory.
+	 *			TableView that contains the RowFactory.
 	 * @return new RowFactory
 	 */
 	protected static TableRow<Requirement> requirementRowFactory(TableView<Requirement> e1,
