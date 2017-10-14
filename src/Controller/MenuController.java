@@ -147,11 +147,8 @@ public class MenuController implements Initializable {
 	@FXML
 	private Button calendar;
 	@FXML
-<<<<<<< HEAD
 	private Button chat;
-=======
 	private Button closeDrawer;
->>>>>>> upstream/master
 
 	// Panes:
 	@FXML
