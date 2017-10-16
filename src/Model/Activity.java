@@ -108,10 +108,8 @@ public class Activity extends Event {
 	 * @return a formatted String representation of this Activity's date.
 	 */
 	public String getDateString() {
-		// TODO: fix this to use SimpleDateFormat
-		return this.date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
-				+ " " + this.date.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
-				+ " " + this.date.get(Calendar.DAY_OF_MONTH);
+		return this.date.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()) 
+				+ " " + this.date.get(Calendar.DAY_OF_MONTH) + " " + this.date.get(Calendar.YEAR);
 	}
 
 	/**
@@ -131,21 +129,13 @@ public class Activity extends Event {
 	}
 
 	/**
-	 * Add all given Tasks to this Activity.
-	 *
+	 * Add all given Tasks to this Activity if a new collection of taskList was added. 
 	 * @param tasks a Collection of Tasks to be added.
-	 *
-	 * @return true if the collection of taskList was added (even if only one is
-	 * 				new), false if all of the taskList were already in the list.
 	 */
-	public boolean addTasks(Collection<Task> tasks) {
-		// TODO: Returning a boolean from this seems odd; rethink the objective
-		if (this.taskList.containsAll(tasks)) {
-			return false;
+	public void addTasks(Collection<Task> tasks) {
+		if (!(this.taskList.containsAll(tasks))) {
+			this.taskList.addAll(tasks);
 		}
-
-		this.taskList.addAll(tasks);
-		return true;
 	}
 
 	/**
