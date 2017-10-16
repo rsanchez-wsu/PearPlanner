@@ -95,13 +95,13 @@ public class MainController {
 			ui.showStartup();
 			Cipher cipher = Cipher.getInstance("Blowfish");
 			cipher.init(Cipher.DECRYPT_MODE, key64);
-			try (CipherInputStream cipherInputStream = new CipherInputStream(
+			try (CipherInputStream cis = new CipherInputStream(
 						new BufferedInputStream(new FileInputStream(plannerFile)), cipher);
-					ObjectInputStream inputStream = new ObjectInputStream(cipherInputStream);) {
+					ObjectInputStream ois = new ObjectInputStream(cis)) {
 
 				// If a file is present:
 				if (plannerFile.exists()) {
-					SealedObject sealedObject = (SealedObject) inputStream.readObject();
+					SealedObject sealedObject = (SealedObject) ois.readObject();
 					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
 
 					// Sample note
@@ -114,9 +114,10 @@ public class MainController {
 					}
 
 				} else {
-				// This should never happen unless a file changes permissions or existence in the
-				// miliseconds
-				// that it runs the above code after checks in StartupController
+					// TODO - fix this, as it is clearly a race condition
+					// This should never happen unless a file changes permissions
+					// or existence in the milliseconds that it runs the above code
+					// after checks in StartupController
 					UIManager.reportError("Failed to load file.");
 					System.exit(1);
 				}
@@ -128,13 +129,13 @@ public class MainController {
 				UIManager.reportError("Invalid file");
 				System.exit(1);
 			} catch (BadPaddingException e) {
-				UIManager.reportError("Invalid file");
+				UIManager.reportError("Invalid file, Bad Padding Exception");
 				System.exit(1);
 			} catch (IOException e) {
 				UIManager.reportError("Invalid file");
 				System.exit(1);
 			} catch (IllegalBlockSizeException e) {
-				UIManager.reportError("Invalid file");
+				UIManager.reportError("Invalid file, Illegal Block Size Exception");
 				System.exit(1);
 			} catch (Exception e) {
 				UIManager.reportError(e.getMessage());
