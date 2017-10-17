@@ -28,6 +28,7 @@ import Model.Deadline;
 import Model.Event;
 import Model.Exam;
 import Model.ExamEvent;
+import Model.ICalExport;
 import Model.Milestone;
 import Model.ModelEntity;
 import Model.Module;
@@ -36,10 +37,10 @@ import Model.QuantityType;
 import Model.Requirement;
 import Model.StudyProfile;
 import Model.Task;
-import Model.ICalExport;
 import Model.TimetableEvent;
 import View.GanttishDiagram;
 import View.UIManager;
+
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
@@ -93,41 +94,46 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import jfxtras.scene.control.agenda.Agenda;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Created by Zilvinas on 05/05/2017.
+ * Actions associated with the menu and its items.
+ *
+ * @author Zilvinas Ceikauskas
  */
 
 public class MenuController implements Initializable {
+
 	/**
 	 * Initializes switch names and other buttons.
 	 */
 	public enum Window {
-		Empty, Dashboard, Profiles, Modules, Milestones, Calendar, Chat
+		EMPTY, DASHBOARD, PROFILES, MODULES, MILESTONES, CALENDAR, CHAT
 	}
 
 	private Window current;
 	private boolean isNavOpen;
-	
+
 	//Shadows
 	private int shadowRadius = 44;
 	private int shadowOffset = 7;
 	private int shadowRadius2 = 27;
 	private int shadowOffset2 = 13;
-	
+
 	// Labels:
 	private Label welcome;
 	@FXML
-	Label title;
+	private Label title;
 
 	// Buttons:
 	@FXML
@@ -190,7 +196,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Main method containing switch statements.
 	 */
-	public void main() {		
+	public void main() {
 		if (isNavOpen) {
 			openMenu.fire();
 		}
@@ -199,29 +205,29 @@ public class MenuController implements Initializable {
 		this.updateMenu();
 
 		switch (this.current) {
-		case Dashboard: {
-			if (MainController.getSPC().getPlanner().getCurrentStudyProfile() != null) {
+		case DASHBOARD: {
+			if (MainController.getSpc().getPlanner().getCurrentStudyProfile() != null) {
 				this.loadDashboard();
 			}
 			break;
 		}
-		case Profiles: {
+		case PROFILES: {
 			this.loadStudyProfiles();
 			break;
 		}
-		case Modules: {
+		case MODULES: {
 			this.loadModules();
 			break;
 		}
-		case Milestones: {
+		case MILESTONES: {
 			this.loadMilestones();
 			break;
 		}
-		case Calendar: {
+		case CALENDAR: {
 			this.loadCalendar();
 			break;
 		}
-		case Chat: {
+		case CHAT: {
 			this.obtainUserInformation();
 			break;
 		}
@@ -231,23 +237,22 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Study Dashboard pane.
+	 * Display the Study DASHBOARD pane.
 	 */
 	public void loadDashboard() {
 		//set ToolTips
 		openMenu.setTooltip(new Tooltip("Menu"));
 		showNotification.setTooltip(new Tooltip("Notifications"));
 		addActivity.setTooltip(new Tooltip("Add activity"));
-		calendar.setTooltip(new Tooltip("Open Calendar"));
-		
+		calendar.setTooltip(new Tooltip("Open CALENDAR"));
+
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.topBox.getChildren().add(this.welcome);
-		this.title.setText("Study Dashboard");
-		// =================
+		this.title.setText("Study DASHBOARD");
 
-		StudyProfile profile = MainController.getSPC().getPlanner().getCurrentStudyProfile();
+		StudyProfile profile = MainController.getSpc().getPlanner().getCurrentStudyProfile();
 
 		// Display studyProfile:
 		Label studyProfile = new Label(profile.getName());
@@ -255,13 +260,27 @@ public class MenuController implements Initializable {
 		GridPane.setMargin(studyProfile, new Insets(10));
 		this.mainContent.addRow(1, studyProfile);
 		this.mainContent.setMaxSize(Control.USE_COMPUTED_SIZE, 1000);
-		this.mainContent.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, 2000, Priority.ALWAYS, HPos.CENTER, true));
+		this.mainContent.getColumnConstraints().add(
+				new ColumnConstraints(
+						Control.USE_COMPUTED_SIZE,
+						Double.POSITIVE_INFINITY,
+						2000,
+						Priority.ALWAYS,
+						HPos.CENTER,
+						true));
 		GridPane modules = new GridPane();
 		modules.setHgap(30);
 		modules.setVgap(20);
 		// This code will be added when wanting to resize the modules to grow with the page
-		// modules.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, 200, Priority.ALWAYS, VPos.CENTER, true));
-		int i = 0;
+		//modules.getRowConstraints().add(
+		//		new RowConstraints(
+		//				1,
+		//				Control.USE_COMPUTED_SIZE,
+		//				200,
+		//				Priority.ALWAYS,
+		//				VPos.CENTER,
+		//				true));
+		int colIdx = 0;
 		for (Module module : profile.getModules()) {
 			VBox vbox = new VBox();
 			vbox.setSpacing(5);
@@ -273,7 +292,8 @@ public class MenuController implements Initializable {
 			name.setTextAlignment(TextAlignment.CENTER);
 			vbox.getChildren().add(name);
 
-			BufferedImage buff = GanttishDiagram.getBadge(module.calculateProgress(), true, 1);
+			BufferedImage buff =
+					GanttishDiagram.getBadge(module.calculateProgress(), true, 1);
 			Image image = SwingFXUtils.toFXImage(buff, null);
 			Pane badge = new Pane();
 			VBox.setMargin(badge, new Insets(0, 0, 0, 50));
@@ -288,11 +308,17 @@ public class MenuController implements Initializable {
 			view.setOnAction(e -> module.open(this.current));
 			vbox.getChildren().add(view);
 			modules.setMaxSize(800, 1000);
-			modules.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, 1000, Priority.ALWAYS, HPos.CENTER, true));		 
-			i++;
-			modules.addColumn(i,vbox);
+			modules.getColumnConstraints().add(
+					new ColumnConstraints(
+							Control.USE_COMPUTED_SIZE,
+							Double.POSITIVE_INFINITY,
+							1000,
+							Priority.ALWAYS,
+							HPos.CENTER,
+							true));
+			colIdx++;
+			modules.addColumn(colIdx,vbox);
 		}
-		// =================
 
 		GridPane.setColumnSpan(modules, GridPane.REMAINING);
 		GridPane.setMargin(modules, new Insets(10));
@@ -306,7 +332,7 @@ public class MenuController implements Initializable {
 		try {
 			Activity activity = MainController.ui.addActivity();
 			if (activity != null) {
-				MainController.getSPC().addActivity(activity);
+				MainController.getSpc().addActivity(activity);
 			}
 
 		} catch (Exception e) {
@@ -315,20 +341,18 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Milestones pane.
+	 * Display the MILESTONES pane.
 	 */
 	public void loadMilestones() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("");
-		// =================
 
 		// Display milestones:
-		Label milestones = new Label("Milestones");
+		Label milestones = new Label("MILESTONES");
 		milestones.getStyleClass().add("title");
 		this.mainContent.addRow(1, milestones);
-		// =================
 
 		// Columns:
 		TableColumn<Milestone, String> nameColumn = new TableColumn<>("Milestone");
@@ -346,14 +370,17 @@ public class MenuController implements Initializable {
 		progressColumn.setCellValueFactory(new PropertyValueFactory<>("progressPercentage"));
 		progressColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
+		ArrayList<TableColumn<Milestone, ?>> colList =
+				new ArrayList<>(Arrays.asList(
+						nameColumn, deadlineColumn, completedColumn, progressColumn));
+
 		ObservableList<Milestone> list = FXCollections.observableArrayList(
-				MainController.getSPC().getPlanner().getCurrentStudyProfile().getMilestones());
-		// =================
+				MainController.getSpc().getPlanner().getCurrentStudyProfile().getMilestones());
 
 		// Create a table:
 		TableView<Milestone> table = new TableView<>();
 		table.setItems(list);
-		table.getColumns().addAll(nameColumn, deadlineColumn, completedColumn, progressColumn);
+		table.getColumns().addAll(colList);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(table, Priority.ALWAYS);
 		GridPane.setVgrow(table, Priority.ALWAYS);
@@ -384,7 +411,6 @@ public class MenuController implements Initializable {
 			});
 			return row;
 		});
-		// =================
 
 		this.mainContent.addRow(2, table);
 		this.mainContent.getStyleClass().add("list-item");
@@ -394,13 +420,11 @@ public class MenuController implements Initializable {
 		GridPane.setHgrow(actions, Priority.ALWAYS);
 		actions.setSpacing(5);
 		actions.setPadding(new Insets(5, 5, 10, 0));
-		// =================
 
 		// Buttons:
 		Button add = new Button("Add a new Milestone");
 		Button remove = new Button("Remove");
 		remove.setDisable(true);
-		// =================
 
 		// Bind properties on buttons:
 		remove.disableProperty().bind(new BooleanBinding() {
@@ -413,7 +437,6 @@ public class MenuController implements Initializable {
 				return !(list.size() > 0 && table.getSelectionModel().getSelectedItem() != null);
 			}
 		});
-		// =================
 
 		// Bind actions on buttons:
 		add.setOnAction(e -> {
@@ -421,11 +444,10 @@ public class MenuController implements Initializable {
 				Milestone milestone = MainController.ui.addMilestone();
 				if (milestone != null) {
 					list.add(milestone);
-					MainController.getSPC().addMilestone(milestone);
+					MainController.getSpc().addMilestone(milestone);
 				}
-			} catch (IOException e1) {
-				UIManager.reportError("Unable to open View file");
 			} catch (Exception e1) {
+				UIManager.reportError("Unable to open View file");
 			}
 		});
 
@@ -433,47 +455,40 @@ public class MenuController implements Initializable {
 			if (UIManager.confirm("Are you sure you want to remove this milestone?")) {
 				Milestone mm = table.getSelectionModel().getSelectedItem();
 				list.remove(mm);
-				MainController.getSPC().removeMilestone(mm);
+				MainController.getSpc().removeMilestone(mm);
 			}
 		});
-		// =================
 
 		actions.getChildren().addAll(add, remove);
 
 		mainContent.addRow(3, actions);
-		// =================
 	}
 
 	/**
-	 * Display the Calendar pane.
+	 * Display the CALENDAR pane.
 	 */
 	public void loadCalendar() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("");
-		// =================
 		// Layout:
 		VBox layout = new VBox();
 		GridPane.setHgrow(layout, Priority.ALWAYS);
 		layout.setSpacing(10);
 		layout.setPadding(new Insets(15));
 		layout.getStylesheets().add("/Content/stylesheet.css");
-		// =================
 		// Nav bar:
 		HBox nav = new HBox();
 		nav.setSpacing(15.0);
-		// =================
 		// Title:
-		Label title = new Label("Calendar");
+		Label title = new Label("CALENDAR");
 		title.getStyleClass().add("title");
 		HBox xx = new HBox();
 		HBox.setHgrow(xx, Priority.ALWAYS);
-		// =================
 		// Buttons:
 		Button agendaFwd = new Button(">");
 		Button agendaBwd = new Button("<");
-		// =================
 		nav.getChildren().addAll(title, xx, agendaBwd, agendaFwd);
 		// Content:
 		Agenda content = new Agenda();
@@ -488,23 +503,24 @@ public class MenuController implements Initializable {
 				.setDisplayedLocalDateTime(content.getDisplayedLocalDateTime().minusDays(7)));
 		agendaFwd.setOnMouseClicked(event -> content
 				.setDisplayedLocalDateTime(content.getDisplayedLocalDateTime().plusDays(7)));
-		// =================
 		// Populate Agenda:
-		ArrayList<Event> calendar = MainController.getSPC().getPlanner().getCurrentStudyProfile().getCalendar();
+		ArrayList<Event> calendar =
+				MainController.getSpc().getPlanner().getCurrentStudyProfile().getCalendar();
 		//Counter to create unique ICS file names for export
 		int counter = 0;
 		//Creation of ICS export factory
-		ICalExport iExport = new ICalExport();
+		ICalExport icalExport = new ICalExport();
 		//Preparation of export directory
-		iExport.icalSetup();
+		icalExport.icalSetup();
 		for (Event e : calendar) {
-			iExport.createExportEvent(e, counter);
+			icalExport.createExportEvent(e, counter);
+			// TODO - find a way to eliminate this if/else-if/instanceof anti-pattern
 			if (e instanceof TimetableEvent) {
 				LocalDateTime stime = LocalDateTime.ofInstant(e.getDate().toInstant(),
 						ZoneId.systemDefault());
 				content.appointments().addAll(new Agenda.AppointmentImplLocal()
 						.withStartLocalDateTime(stime)
-						.withEndLocalDateTime(stime.plusMinutes(((TimetableEvent) e).getDuration()))
+						.withEndLocalDateTime(stime.plusMinutes(e.getDuration()))
 
 						.withSummary(e.getName() + "\n" + "@ "
 								+ ((TimetableEvent) e).getRoom().getLocation())
@@ -517,7 +533,7 @@ public class MenuController implements Initializable {
 						.withStartLocalDateTime(stime)
 						.withSummary(
 								e.getName() + "\n" + "@ " + ((ExamEvent) e).getRoom().getLocation())
-						.withEndLocalDateTime(stime.plusMinutes(((ExamEvent) e).getDuration()))
+						.withEndLocalDateTime(stime.plusMinutes(e.getDuration()))
 						.withAppointmentGroup(
 								new Agenda.AppointmentGroupImpl().withStyleClass("group20")));
 			} else if (e instanceof Deadline) {
@@ -544,17 +560,16 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Study Profiles pane.
+	 * Display the Study PROFILES pane.
 	 */
 	public void loadStudyProfiles() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("");
-		// =================
 
 		// Display profiles:
-		Label profiles = new Label("Study Profiles");
+		Label profiles = new Label("Study PROFILES");
 		profiles.getStyleClass().add("title");
 		this.mainContent.addRow(1, profiles);
 		// =================
@@ -571,19 +586,20 @@ public class MenuController implements Initializable {
 		semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semesterNo"));
 		semesterColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
+		ArrayList<TableColumn<StudyProfile, ?>> colList =
+				new ArrayList<>(Arrays.asList(nameColumn, yearColumn, semesterColumn));
+
 		ObservableList<StudyProfile> list = FXCollections
-				.observableArrayList(MainController.getSPC().getPlanner().getStudyProfiles());
-		// =================
+				.observableArrayList(MainController.getSpc().getPlanner().getStudyProfiles());
 
 		// Create a table:
 
 		TableView<StudyProfile> table = new TableView<>();
 		table.setItems(list);
-		table.getColumns().addAll(nameColumn, yearColumn, semesterColumn);
+		table.getColumns().addAll(colList);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(table, Priority.ALWAYS);
 		GridPane.setVgrow(table, Priority.ALWAYS);
-		// =================
 
 		// Set click event:
 		table.setRowFactory(e -> {
@@ -610,27 +626,24 @@ public class MenuController implements Initializable {
 			});
 			return row;
 		});
-		// =================
 
 		this.mainContent.addRow(2, table);
 		this.mainContent.getStyleClass().add("list-item");
 	}
 
 	/**
-	 * Display the Modules pane.
+	 * Display the MODULES pane.
 	 */
 	public void loadModules() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("");
-		// =================
 
 		// Display modules:
-		Label modules = new Label("Modules");
+		Label modules = new Label("MODULES");
 		modules.getStyleClass().add("title");
 		this.mainContent.addRow(1, modules);
-		// =================
 
 		// Columns:
 		TableColumn<Module, String> codeColumn = new TableColumn<>("Module code");
@@ -639,28 +652,30 @@ public class MenuController implements Initializable {
 		TableColumn<Module, String> nameColumn = new TableColumn<>("Module name");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-		TableColumn<Module, Integer> timeSpent = new TableColumn<>("Time spent");
-		timeSpent.setCellValueFactory(new PropertyValueFactory("timeSpent") {
+		TableColumn<Module, Number> timeSpent = new TableColumn<>("Time spent");
+		timeSpent.setCellValueFactory(new PropertyValueFactory<Module, Number>("timeSpent") {
 			@Override
-			public ObservableValue call(TableColumn.CellDataFeatures param) {
-				return new SimpleIntegerProperty(MainController.getSPC().getPlanner()
-						.getTimeSpent((Module) param.getValue()));
+			public ObservableValue<Number> call(
+					TableColumn.CellDataFeatures<Module, Number> param) {
+				return new SimpleIntegerProperty(MainController.getSpc().getPlanner()
+						.getTimeSpent(param.getValue()));
 			}
 		});
 		timeSpent.setStyle("-fx-alignment: CENTER-RIGHT;");
 
+		ArrayList<TableColumn<Module, ?>> colList =
+				new ArrayList<>(Arrays.asList(codeColumn, nameColumn, timeSpent));
+
 		ObservableList<Module> list = FXCollections.observableArrayList(
-				MainController.getSPC().getPlanner().getCurrentStudyProfile().getModules());
-		// =================
+				MainController.getSpc().getPlanner().getCurrentStudyProfile().getModules());
 
 		// Create a table:
 		TableView<Module> table = new TableView<>();
 		table.setItems(list);
-		table.getColumns().addAll(codeColumn, nameColumn, timeSpent);
+		table.getColumns().addAll(colList);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(table, Priority.ALWAYS);
 		GridPane.setVgrow(table, Priority.ALWAYS);
-		// =================
 
 		// Set click event:
 		table.setRowFactory(e -> {
@@ -673,7 +688,6 @@ public class MenuController implements Initializable {
 			});
 			return row;
 		});
-		// =================
 
 		this.mainContent.addRow(2, table);
 		this.mainContent.getStyleClass().add("list-item");
@@ -687,7 +701,6 @@ public class MenuController implements Initializable {
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("");
-		// =================
 
 		// Create a back button:
 		this.backButton(previousWindow, previous);
@@ -697,7 +710,6 @@ public class MenuController implements Initializable {
 		Label modules = new Label(module.getModuleCode() + " " + module.getName());
 		modules.getStyleClass().add("title");
 		this.mainContent.addRow(1, modules);
-		// =================
 
 		// Create a details pane:
 		VBox detailsBox = new VBox(5);
@@ -707,7 +719,6 @@ public class MenuController implements Initializable {
 				details);
 		GridPane.setVgrow(detailsBox, Priority.SOMETIMES);
 		GridPane.setHgrow(detailsBox, Priority.ALWAYS);
-		// =================
 
 		mainContent.addRow(2, detailsBox);
 
@@ -716,34 +727,41 @@ public class MenuController implements Initializable {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 		TableColumn<Assignment, String> deadlineColumn = new TableColumn<>("Date");
-		deadlineColumn.setCellValueFactory(new PropertyValueFactory("deadlineString") {
-			@Override
-			public ObservableValue call(TableColumn.CellDataFeatures param) {
-				SimpleStringProperty value = new SimpleStringProperty();
-				if (param.getValue() instanceof Coursework) {
-					Coursework c = (Coursework) param.getValue();
-					value.setValue(c.getDeadlineString());
-				} else if (param.getValue() instanceof Exam) {
-					Exam e = (Exam) param.getValue();
-					value.setValue(e.getTimeSlot().getDateString());
-				}
-				return value;
-			}
-		});
+		deadlineColumn.setCellValueFactory(
+				new PropertyValueFactory<Assignment, String>("deadlineString") {
+					@Override
+					public ObservableValue<String> call(
+							TableColumn.CellDataFeatures<Assignment, String> param) {
+
+						SimpleStringProperty value = new SimpleStringProperty();
+						// TODO - find a way to get rid of this instanceof
+						if (param.getValue() instanceof Coursework) {
+							Coursework cw = (Coursework) param.getValue();
+							value.setValue(cw.getDeadlineString());
+						} else if (param.getValue() instanceof Exam) {
+							Exam exam = (Exam) param.getValue();
+							value.setValue(exam.getTimeSlot().getDateString());
+						}
+						return value;
+
+					}
+				});
 		deadlineColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
 		TableColumn<Assignment, Integer> weightingColumn = new TableColumn<>("Weighting");
 		weightingColumn.setCellValueFactory(new PropertyValueFactory<>("weighting"));
 		weightingColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
+		ArrayList<TableColumn<Assignment, ?>> colList =
+				new ArrayList<>(Arrays.asList(nameColumn, deadlineColumn, weightingColumn));
+
 		ObservableList<Assignment> list = FXCollections
 				.observableArrayList(module.getAssignments());
-		// =================
 
 		// Create a moduleContent:
 		TableView<Assignment> moduleContent = new TableView<>();
 		moduleContent.setItems(list);
-		moduleContent.getColumns().addAll(nameColumn, deadlineColumn, weightingColumn);
+		moduleContent.getColumns().addAll(colList);
 		moduleContent.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(moduleContent, Priority.ALWAYS);
 		GridPane.setVgrow(moduleContent, Priority.ALWAYS);
@@ -755,12 +773,11 @@ public class MenuController implements Initializable {
 			row.setOnMouseClicked(event -> {
 				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
 						&& event.getClickCount() == 2) {
-					this.loadAssignment(row.getItem(), Window.Empty, module);
+					this.loadAssignment(row.getItem(), Window.EMPTY, module);
 				}
 			});
 			return row;
 		});
-		// =================
 
 		this.mainContent.addRow(3, moduleContent);
 	}
@@ -885,17 +902,14 @@ public class MenuController implements Initializable {
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("");
-		// =================
 
 		// Create a back button:
 		this.backButton(previousWindow, previous);
-		// =================
 
 		// Display modules:
 		Label assignments = new Label(assignment.getName());
 		assignments.getStyleClass().add("title");
 		this.mainContent.addRow(1, assignments);
-		// =================
 
 		// Ganttish chart button:
 		Button gantt = new Button("Generate a Ganttish Diagram");
@@ -903,7 +917,6 @@ public class MenuController implements Initializable {
 		GridPane.setHalignment(gantt, HPos.RIGHT);
 		GridPane.setColumnSpan(gantt, GridPane.REMAINING);
 		this.mainContent.add(gantt, 0, 1);
-		// =================
 
 		// Create a details pane:
 		VBox detailsBox = new VBox(5);
@@ -924,7 +937,6 @@ public class MenuController implements Initializable {
 				details);
 		GridPane.setVgrow(detailsBox, Priority.SOMETIMES);
 		GridPane.setHgrow(detailsBox, Priority.ALWAYS);
-		// =================
 
 		mainContent.addRow(2, detailsBox);
 
@@ -933,11 +945,10 @@ public class MenuController implements Initializable {
 		GridPane.setVgrow(content, Priority.ALWAYS);
 		GridPane.setHgrow(content, Priority.ALWAYS);
 		content.setVgap(5);
-		// =================
 
 		// Requirements columns:
-		TableColumn<Requirement, String> rNameColumn = new TableColumn<>("Requirement");
-		rNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		TableColumn<Requirement, String> reqNameColumn = new TableColumn<>("Requirement");
+		reqNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 		TableColumn<Requirement, Integer> remainingColumn = new TableColumn<>("Remaining");
 		remainingColumn.setCellValueFactory(new PropertyValueFactory<>("remainingQuantity"));
@@ -946,18 +957,19 @@ public class MenuController implements Initializable {
 		TableColumn<Requirement, QuantityType> typeColumn = new TableColumn<>("Quantity type");
 		typeColumn.setCellValueFactory(new PropertyValueFactory<>("quantityType"));
 
+		ArrayList<TableColumn<Requirement, ?>> colList =
+				new ArrayList<>(Arrays.asList(reqNameColumn, remainingColumn, typeColumn));
+
 		ObservableList<Requirement> requirementList = FXCollections
 				.observableArrayList(assignment.getRequirements());
-		// =================
 
 		// Create Requirements table:
 		TableView<Requirement> requirements = new TableView<>();
 		requirements.setItems(requirementList);
-		requirements.getColumns().addAll(rNameColumn, remainingColumn, typeColumn);
+		requirements.getColumns().addAll(colList);
 		requirements.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(requirements, Priority.ALWAYS);
 		GridPane.setVgrow(requirements, Priority.ALWAYS);
-		// =================
 
 		// Set RowFactory:
 		requirements
@@ -971,14 +983,12 @@ public class MenuController implements Initializable {
 		GridPane.setHgrow(actionsReq, Priority.ALWAYS);
 		actionsReq.setSpacing(5);
 		actionsReq.setPadding(new Insets(5, 5, 10, 0));
-		// =================
 
 		// Buttons:
 		Button addNewReq = new Button("Add a new requirement");
 
 		Button deleteReq = new Button("Remove");
 		deleteReq.setDisable(true);
-		// =================
 
 		// Bind properties on buttons:
 		deleteReq.disableProperty().bind(new BooleanBinding() {
@@ -992,7 +1002,6 @@ public class MenuController implements Initializable {
 						&& requirements.getSelectionModel().getSelectedItem() != null);
 			}
 		});
-		// =================
 
 		// Bind actions on buttons:
 		addNewReq.setOnAction(e -> {
@@ -1003,9 +1012,8 @@ public class MenuController implements Initializable {
 					assignment.addRequirement(req);
 					requirements.refresh();
 				}
-			} catch (IOException e1) {
-				UIManager.reportError("Unable to open View file");
 			} catch (Exception e1) {
+				UIManager.reportError("Unable to open View file");
 			}
 		});
 
@@ -1017,12 +1025,10 @@ public class MenuController implements Initializable {
 				requirements.refresh();
 			}
 		});
-		// =================
 
 		actionsReq.getChildren().addAll(addNewReq, deleteReq);
 
 		content.add(actionsReq, 0, 1);
-		// =================
 
 		// Tasks columns:
 		TableColumn<Task, String> nameColumn = new TableColumn<>("Task");
@@ -1036,17 +1042,18 @@ public class MenuController implements Initializable {
 		canComplete.setCellValueFactory(new PropertyValueFactory<>("possibleToComplete"));
 		canComplete.setStyle("-fx-alignment: CENTER-RIGHT;");
 
+		ArrayList<TableColumn<Task, ?>> taskColList =
+				new ArrayList<>(Arrays.asList(nameColumn, deadlineColumn, canComplete));
+
 		ObservableList<Task> list = FXCollections.observableArrayList(assignment.getTasks());
-		// =================
 
 		// Create Tasks table:
 		TableView<Task> tasks = new TableView<>();
 		tasks.setItems(list);
-		tasks.getColumns().addAll(nameColumn, deadlineColumn, canComplete);
+		tasks.getColumns().addAll(taskColList);
 		tasks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(tasks, Priority.ALWAYS);
 		GridPane.setVgrow(tasks, Priority.ALWAYS);
-		// =================
 
 		// Set click event:
 		tasks.setRowFactory(e -> {
@@ -1075,7 +1082,6 @@ public class MenuController implements Initializable {
 			});
 			return row;
 		});
-		// =================
 
 		content.addColumn(1, tasks);
 
@@ -1084,7 +1090,6 @@ public class MenuController implements Initializable {
 		GridPane.setHgrow(actionsTask, Priority.ALWAYS);
 		actionsTask.setSpacing(5);
 		actionsTask.setPadding(new Insets(5, 5, 10, 0));
-		// =================
 
 		// Buttons:
 		Button addNew = new Button("Add a new task");
@@ -1095,7 +1100,6 @@ public class MenuController implements Initializable {
 
 		Button delete = new Button("Remove");
 		delete.setDisable(true);
-		// =================
 
 		// Bind properties on buttons:
 		delete.disableProperty().bind(new BooleanBinding() {
@@ -1120,7 +1124,6 @@ public class MenuController implements Initializable {
 						&& tasks.getSelectionModel().getSelectedItem().canCheckComplete());
 			}
 		});
-		// =================
 
 		// Bind actions on buttons:
 		addNew.setOnAction(e -> {
@@ -1131,9 +1134,8 @@ public class MenuController implements Initializable {
 					assignment.addTask(task);
 				}
 				this.updateMenu();
-			} catch (IOException e1) {
-				UIManager.reportError("Unable to open View file");
 			} catch (Exception e1) {
+				UIManager.reportError("Unable to open View file");
 			}
 		});
 
@@ -1150,12 +1152,10 @@ public class MenuController implements Initializable {
 				this.updateMenu();
 			}
 		});
-		// =================
 
 		// Gap:
 		HBox gap = new HBox();
 		HBox.setHgrow(gap, Priority.ALWAYS);
-		// =================
 
 		actionsTask.getChildren().addAll(addNew, gap, check, delete);
 
@@ -1168,7 +1168,7 @@ public class MenuController implements Initializable {
 	 * Handles the 'Mark all as read' button event.
 	 */
 	public void handleMarkAll() {
-		Notification[] nots = MainController.getSPC().getPlanner().getUnreadNotifications();
+		Notification[] nots = MainController.getSpc().getPlanner().getUnreadNotifications();
 		// Mark all notifications as read:
 		for (int i = 0; i < nots.length; ++i) {
 			int index = this.notificationList.getChildren().size() - 1 - i;
@@ -1192,12 +1192,12 @@ public class MenuController implements Initializable {
 	/**
 	 * Handles clicking on a specific notification.
 	 *
-	 * @param id
+	 * @param id The identifier of the notification which was clicked.
 	 */
 	public void handleRead(int id) {
 		// Get notification:
-		int idInList = MainController.getSPC().getPlanner().getNotifications().length - 1 - id;
-		Notification not = MainController.getSPC().getPlanner().getNotifications()[idInList];
+		int idInList = MainController.getSpc().getPlanner().getNotifications().length - 1 - id;
+		Notification not = MainController.getSpc().getPlanner().getNotifications()[idInList];
 
 		// If not read:
 		if (!not.isRead()) {
@@ -1206,7 +1206,7 @@ public class MenuController implements Initializable {
 
 			// Swap styles:
 			this.notificationList.getChildren().get(id).getStyleClass().remove("unread-item");
-			if (MainController.getSPC().getPlanner().getUnreadNotifications().length <= 0) {
+			if (MainController.getSpc().getPlanner().getUnreadNotifications().length <= 0) {
 				this.showNotification.getStyleClass().remove("unread-button");
 				if (!this.showNotification.getStyleClass().contains("read-button")) {
 					this.showNotification.getStyleClass().add("read-button");
@@ -1238,44 +1238,44 @@ public class MenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.prepareAnimations();
 		this.isNavOpen = false;
-		
+
 		//Set shadows
-		notifications.setEffect(new DropShadow(this.shadowRadius2, 0, this.shadowOffset2, Color.BLACK));
-		navList.setEffect(new DropShadow(this.shadowRadius, this.shadowOffset, 0, Color.BLACK));
+		notifications.setEffect(new DropShadow(
+				this.shadowRadius2, 0, this.shadowOffset2, Color.BLACK));
+		navList.setEffect(new DropShadow(
+				this.shadowRadius, this.shadowOffset, 0, Color.BLACK));
 
 		// Set button actions:
 		this.closeDrawer.setOnAction(e -> openMenu.fire());
-		this.showDash.setOnAction(e -> this.main(Window.Dashboard));
-		this.studyProfiles.setOnAction(e -> this.main(Window.Profiles));
-		this.modules.setOnAction(e -> this.main(Window.Modules));
-		this.milestones.setOnAction(e -> this.main(Window.Milestones));
-		this.calendar.setOnAction(e -> this.main(Window.Calendar));
-		this.chat.setOnAction(e -> this.main(Window.Chat));
-		// =================
+		this.showDash.setOnAction(e -> this.main(Window.DASHBOARD));
+		this.studyProfiles.setOnAction(e -> this.main(Window.PROFILES));
+		this.modules.setOnAction(e -> this.main(Window.MODULES));
+		this.milestones.setOnAction(e -> this.main(Window.MILESTONES));
+		this.calendar.setOnAction(e -> this.main(Window.CALENDAR));
+		this.chat.setOnAction(e -> this.main(Window.CHAT));
+
 
 		// Welcome text:
 		this.welcome = new Label(
-				"Welcome back, " + MainController.getSPC().getPlanner().getUserName() + "!");
+				"Welcome back, " + MainController.getSpc().getPlanner().getUserName() + "!");
 		this.welcome.setPadding(new Insets(10, 15, 10, 15));
 		this.topBox.getChildren().add(this.welcome);
-		// =================
 
 		this.mainContent.setVgap(10);
 		this.mainContent.setPadding(new Insets(15));
 
 		// Render dashboard:
-		this.main(Window.Dashboard);
-		// =================
+		this.main(Window.DASHBOARD);
 	}
 
 	/**
 	 * Prepare notifications.
 	 */
 	private void updateNotifications() {
-		MainController.getSPC().checkForNotifications();
+		MainController.getSpc().checkForNotifications();
 
 		// Set notification button style:
-		if (MainController.getSPC().getPlanner().getUnreadNotifications().length > 0) {
+		if (MainController.getSpc().getPlanner().getUnreadNotifications().length > 0) {
 			if (!this.showNotification.getStyleClass().contains("unread-button")) {
 				this.showNotification.getStyleClass().remove("read-button");
 				this.showNotification.getStyleClass().add("unread-button");
@@ -1287,7 +1287,7 @@ public class MenuController implements Initializable {
 
 		// Process notifications:
 		this.notificationList.getChildren().clear();
-		Notification[] notifications = MainController.getSPC().getPlanner().getNotifications();
+		Notification[] notifications = MainController.getSpc().getPlanner().getNotifications();
 		for (int i = notifications.length - 1; i >= 0; i--) {
 			GridPane pane = new GridPane();
 
@@ -1308,15 +1308,18 @@ public class MenuController implements Initializable {
 			title.getStyleClass().add("notificationItem-title");
 			title.setMaxWidth(250.0);
 
-			Label details = notifications[i].getDetails() != null ? new Label(notifications[i].getDetailsAsString())
+			Label details = (notifications[i].getDetails() != null)
+					? new Label(notifications[i].getDetailsAsString())
 					: new Label();
 			details.getStyleClass().add("notificationItem-details");
 			details.setMaxWidth(250.0);
 
-			String dateFormatted = notifications[i].getDateTime().get(Calendar.DAY_OF_MONTH) + " "
-					+ notifications[i].getDateTime().getDisplayName(Calendar.MONTH, Calendar.LONG,
-							Locale.getDefault())
-					+ " at " + notifications[i].getDateTime().get(Calendar.HOUR) + " " + notifications[i].getDateTime()
+			String dateFormatted =
+					notifications[i].getDateTime().get(Calendar.DAY_OF_MONTH)
+					+ " " + notifications[i].getDateTime()
+							.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+					+ " at " + notifications[i].getDateTime().get(Calendar.HOUR)
+					+ " " + notifications[i].getDateTime()
 							.getDisplayName(Calendar.AM_PM, Calendar.LONG, Locale.getDefault());
 			Label date = new Label(dateFormatted);
 			date.getStyleClass().addAll("notificationItem-date");
@@ -1334,7 +1337,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Handles menu options.
 	 */
-	private void updateMenu() {		
+	private void updateMenu() {
 		this.addActivity.setDisable(false);
 		this.milestones.setDisable(false);
 		this.studyProfiles.setDisable(false);
@@ -1342,19 +1345,19 @@ public class MenuController implements Initializable {
 		this.calendar.setDisable(false);
 
 		// Disable relevant menu options:
-		if (MainController.getSPC().getPlanner().getCurrentStudyProfile() == null) {
+		if (MainController.getSpc().getPlanner().getCurrentStudyProfile() == null) {
 			this.addActivity.setDisable(true);
 			this.milestones.setDisable(true);
 			this.studyProfiles.setDisable(true);
 			this.modules.setDisable(true);
 			this.calendar.setDisable(true);
 		} else {
-			if (MainController.getSPC().getCurrentTasks().size() <= 0) {
+			if (MainController.getSpc().getCurrentTasks().size() <= 0) {
 				this.addActivity.setDisable(true);
 				this.milestones.setDisable(true);
 			}
 
-			if (MainController.getSPC().getPlanner().getCurrentStudyProfile()
+			if (MainController.getSpc().getPlanner().getCurrentStudyProfile()
 					.getModules().length <= 0) {
 				this.modules.setDisable(true);
 			}
@@ -1365,11 +1368,11 @@ public class MenuController implements Initializable {
 	 * Creates a back button.
 	 */
 	public void backButton(Window previousWindow, ModelEntity previous) {
-		if (previous != null || previousWindow != Window.Empty) {
+		if (previous != null || previousWindow != Window.EMPTY) {
 			Button back = new Button();
 			back.getStyleClass().addAll("button-image", "back-button");
 
-			if (previous == null && previousWindow != Window.Empty) {
+			if (previous == null && previousWindow != Window.EMPTY) {
 				back.setOnAction(e -> this.main(previousWindow));
 			} else {
 				back.setOnAction(e -> previous.open(this.current));
@@ -1413,12 +1416,12 @@ public class MenuController implements Initializable {
 	/**
 	 * RowFactory for a TableView of Requirement.
 	 *
-	 * @param e
-	 *			TableView that contains the RowFactory.
+	 * @param e1 TableView that contains the RowFactory.
 	 * @return new RowFactory
 	 */
-	protected static TableRow<Requirement> requirementRowFactory(TableView<Requirement> e1,
-			Assignment assignment) {
+	protected static TableRow<Requirement> requirementRowFactory(
+			TableView<Requirement> e1, Assignment assignment) {
+
 		TableRow<Requirement> row = new TableRow<Requirement>() {
 			@Override
 			protected void updateItem(final Requirement item, final boolean empty) {
