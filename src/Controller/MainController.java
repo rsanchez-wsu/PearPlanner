@@ -139,7 +139,7 @@ public class MainController {
 				UIManager.reportError("Invalid file, No Such Padding, please contact support.");
 				System.exit(1);
 			}  catch (Exception e) {
-				UIManager.reportError(e.getMessage() + "Please contact support.");
+				UIManager.reportError(e.getMessage() + "Unknown error, please contact support.");
 				System.exit(1);
 			}
 		} else {
