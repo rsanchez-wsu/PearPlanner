@@ -181,9 +181,9 @@ public class MenuController implements Initializable {
 	private final Button submitButton = new Button("Submit");
 	private final Button sendButton = new Button("Send");
 
-	private String sUserName;
-	private String sHostName;
-	private int nPortNumber = 1111;
+	private String suserName;
+	private String shostName;
+	private int nportNumber = 1111;
 
 	/**
 	 * Sets this.current to equal passed variable and calls this.main().
@@ -858,9 +858,9 @@ public class MenuController implements Initializable {
 			if (tfName.getText().equals("")) {
 				tfName.setText("User" + Math.random());
 			} else {
-				sUserName = tfName.getText();
+				suserName = tfName.getText();
 			}
-			sHostName = tfHost.getText();
+			shostName = tfHost.getText();
 			loadChatWindow();
 		});
 	}
@@ -868,30 +868,30 @@ public class MenuController implements Initializable {
 		 *This is a setter for sUsername.
 		 */
 
-	public void setsUserName(String sUser) {
-		sUserName = sUser;
+	public void setsuserName(String suser) {
+		suserName = suser;
 	}
 
 		/**
 		 * This is a setter for SHostName.
 		 */
 
-	public void setsPortNumber(int nUserPort) {
-		nPortNumber = nUserPort;
+	public void setsPortNumber(int nuserPort) {
+		nportNumber = nuserPort;
 	}
 		/**
 		 * this is a getter for sUserName.
 		 */
 
-	public String getsUserName() {
-		return sUserName;
+	public String getsuserName() {
+		return suserName;
 	}
 		/**
 		 * this is a getter for sHostName.
 		 */
 
-	public String getsHostName() {
-		return sHostName;
+	public String getshostName() {
+		return shostName;
 	}
 
 	/**
