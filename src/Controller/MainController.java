@@ -112,31 +112,34 @@ public class MainController {
 					}
 				}
 			} catch (FileNotFoundException e) {
-				UIManager.reportError("File does not exist");
+				UIManager.reportError("File does not exist, please contact support.");
 				System.exit(1);
 			} catch (ClassNotFoundException e) {
-				UIManager.reportError("Invalid file");
+				UIManager.reportError("Class NotFoundException, please contact support.");
 				System.exit(1);
 			} catch (BadPaddingException e) {
-				UIManager.reportError("Invalid file, Bad Padding Exception");
+				UIManager.reportError("Invalid file, Bad Padding Exception,"
+						+ " please contact support.");
 				System.exit(1);
 			} catch (IOException e) {
-				UIManager.reportError("Invalid file");
+				UIManager.reportError("Invalid file, please contact support.");
 				System.exit(1);
 			} catch (IllegalBlockSizeException e) {
-				UIManager.reportError("Invalid file, Illegal Block Size Exception");
+				UIManager.reportError("Invalid file, Illegal Block Size Exception,"
+						+ " please contact support.");
 				System.exit(1);
 			}  catch (InvalidKeyException e) {
-				UIManager.reportError("Invalid Key, Cannot decode the given file");
+				UIManager.reportError("Invalid Key, Cannot decode the given file,"
+						+ " please contact support.");
 				System.exit(1);
 			} catch (NoSuchAlgorithmException e) {
-				UIManager.reportError("Cannot decode the given file");
+				UIManager.reportError("Cannot decode the given file, please contact support.");
 				System.exit(1);
 			} catch (NoSuchPaddingException e) {
-				UIManager.reportError("Invalid file, No Such Padding");
+				UIManager.reportError("Invalid file, No Such Padding, please contact support.");
 				System.exit(1);
 			}  catch (Exception e) {
-				UIManager.reportError(e.getMessage());
+				UIManager.reportError(e.getMessage() + "Unknown error, please contact support.");
 				System.exit(1);
 			}
 		} else {
