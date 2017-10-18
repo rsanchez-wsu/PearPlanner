@@ -64,8 +64,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by Zilvinas on 04/05/2017.
@@ -554,10 +558,29 @@ public class UIManager {
 
 	/**
 	 * Displays an error message.
-	 *
+	 *Helper method for displaying error messages to users that don't throw an exception
 	 * @param message to be displayed
 	 */
 	public static void reportError(String message) {
+		reportError(message,"No stacktrace available");
+	}
+
+	/**
+	 * Displays an error to the user while also logging error message.
+	 * @param message to be displayed to user and stacktrace from exception to be logged
+	 */
+	public static void reportError(String message,String stacktrace) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("errorlog.txt", true));) {
+			//Time stamp code from
+			//https://stackoverflow.com/questions/5175728/how-to-get-the-current-date-time-in-java
+			String timeStamp = new SimpleDateFormat(
+					"yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+			bw.write(timeStamp + " " +  message + " " + stacktrace);
+			bw.newLine();
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Alert alert = new Alert(Alert.AlertType.ERROR, message);
 		alert.showAndWait();
 	}
