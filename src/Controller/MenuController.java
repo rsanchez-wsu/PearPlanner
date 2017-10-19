@@ -287,7 +287,7 @@ public class MenuController implements Initializable {
 			}
 
 		} catch (Exception e) {
-			UIManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file", e.getStackTrace());
 		}
 	}
 
@@ -355,7 +355,7 @@ public class MenuController implements Initializable {
 						MainController.ui.milestoneDetails(row.getItem());
 						this.main();
 					} catch (IOException e1) {
-						UIManager.reportError("Unable to open View file");
+						UIManager.reportError("Unable to open View file", e1.getStackTrace());
 					}
 				}
 			});
@@ -401,8 +401,9 @@ public class MenuController implements Initializable {
 					MainController.getSpc().addMilestone(milestone);
 				}
 			} catch (IOException e1) {
-				UIManager.reportError("Unable to open View file");
+				UIManager.reportError("Unable to open View file", e1.getStackTrace());
 			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 
@@ -581,7 +582,7 @@ public class MenuController implements Initializable {
 						MainController.ui.studyProfileDetails(row.getItem());
 						this.main();
 					} catch (IOException e1) {
-						UIManager.reportError("Unable to open View file");
+						UIManager.reportError("Unable to open View file", e1.getStackTrace());
 					}
 				}
 			});
@@ -869,8 +870,9 @@ public class MenuController implements Initializable {
 					requirements.refresh();
 				}
 			} catch (IOException e1) {
-				UIManager.reportError("Unable to open View file");
+				UIManager.reportError("Unable to open View file", e1.getStackTrace());
 			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 
@@ -934,7 +936,7 @@ public class MenuController implements Initializable {
 						MainController.ui.taskDetails(row.getItem());
 						tasks.refresh();
 					} catch (IOException e1) {
-						UIManager.reportError("Unable to open View file");
+						UIManager.reportError("Unable to open View file", e1.getStackTrace());
 					}
 				}
 			});
@@ -997,8 +999,9 @@ public class MenuController implements Initializable {
 				}
 				this.updateMenu();
 			} catch (IOException e1) {
-				UIManager.reportError("Unable to open View file");
+				UIManager.reportError("Unable to open View file", e1.getStackTrace());
 			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		});
 
@@ -1308,7 +1311,7 @@ public class MenuController implements Initializable {
 					MainController.ui.requirementDetails(row.getItem());
 					e1.refresh();
 				} catch (IOException e) {
-					UIManager.reportError("Unable to open View file");
+					UIManager.reportError("Unable to open View file", e.getStackTrace());
 				}
 			}
 		});

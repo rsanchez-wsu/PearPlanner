@@ -1,0 +1,6 @@
+<FindBugsFilter>
+    <Match>
+        <Source name="~*.png" />
+        <Source name="~*.fxml" />
+    </Match>
+</FindBugsFilter>

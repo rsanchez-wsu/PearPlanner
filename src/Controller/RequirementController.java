@@ -37,6 +37,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -212,7 +213,12 @@ public class RequirementController implements Initializable {
 						MainController.ui.activityDetails(row.getItem());
 						this.activities.refresh();
 					} catch (IOException e1) {
-						UIManager.reportError("Unable to open View file");
+<<<<<<< HEAD
+						UIManager.reportError("Unable to open View file", e1.getStackTrace());
+=======
+						UIManager.reportError("Unable to open View file",
+								Arrays.toString(e1.getStackTrace()));
+>>>>>>> e5fa818... Added stack trace to reportError method calls.
 					}
 				}
 			});

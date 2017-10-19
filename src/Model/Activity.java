@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Locale;
@@ -201,7 +202,12 @@ public class Activity extends Event {
 		try {
 			MainController.ui.activityDetails(this);
 		} catch (IOException e) {
-			UIManager.reportError("Unable to open View file");
+<<<<<<< HEAD
+			UIManager.reportError("Unable to open View file", e.getStackTrace());
+=======
+			UIManager.reportError("Unable to open View file",
+					Arrays.toString(e.getStackTrace()));
+>>>>>>> e5fa818... Added stack trace to reportError method calls.
 		}
 	}
 
