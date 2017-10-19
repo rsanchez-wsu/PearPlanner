@@ -149,7 +149,6 @@
                             <Button onAction="#importFile" style="-fx-background-color: transparent;-fx-text-fill:white; -fx-cursor: hand;"
                                     text="Import HUB file"
                             />
-<<<<<<< HEAD
                         </HBox>
 						<HBox GridPane.rowIndex="6">
                             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -165,11 +164,8 @@
                             />
                         </HBox>
 
-
-=======
                           </HBox>
                         </GridPane>
->>>>>>> upstream/master
 
                     </children>
                 </GridPane>
