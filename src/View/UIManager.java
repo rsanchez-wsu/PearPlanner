@@ -591,6 +591,7 @@ public class UIManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		displayError(displayMessage);
 	}
 
 	/**
