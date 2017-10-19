@@ -69,6 +69,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -557,30 +558,46 @@ public class UIManager {
 	}
 
 	/**
-	 * Displays an error message.
-	 *Helper method for displaying error messages to users that don't throw an exception
-	 * @param message to be displayed
+	 * reporting errors without logging.
+	 * @param displayMessage message to display to user
 	 */
-	public static void reportError(String message) {
-		reportError(message,"No stacktrace available");
+	public static void reportError(String displayMessage) {
+		displayError(displayMessage);
 	}
 
 	/**
-	 * Displays an error to the user while also logging error message.
-	 * @param message to be displayed to user and stacktrace from exception to be logged
+	 * Error reporting with stack trace.
+	 * @param displayMessage message to display to user.
+	 * @param stackTrace StackTrace from thrown exception
 	 */
-	public static void reportError(String message,String stacktrace) {
+	public static void reportError(String displayMessage,StackTraceElement[] stackTrace) {
+		reportError(displayMessage,Arrays.toString(stackTrace));
+	}
+
+	/**
+	 * Error reporting with string.
+	 * @param displayMessage message to be displayed to user
+	 * @param errorMessage error to log, can be string or stack trace
+	 */
+	public static void reportError(String displayMessage,String errorMessage) {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("errorlog.txt", true));) {
 			//Time stamp code from
 			//https://stackoverflow.com/questions/5175728/how-to-get-the-current-date-time-in-java
 			String timeStamp = new SimpleDateFormat(
 					"yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-			bw.write(timeStamp + " " +  message + " " + stacktrace);
+			bw.write(timeStamp + " " +  displayMessage + " " + errorMessage);
 			bw.newLine();
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Displays an error to the user.
+	 * @param message to be displayed to user
+	 */
+	public static void displayError(String message) {
 		Alert alert = new Alert(Alert.AlertType.ERROR, message);
 		alert.showAndWait();
 	}
