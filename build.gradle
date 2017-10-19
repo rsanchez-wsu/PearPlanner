@@ -98,7 +98,9 @@ dependencies {
 	compile 'org.testfx:testfx-junit5:4.0.6-alpha'
 	compile 'org.testfx:testfx-legacy:4.0.6-alpha'
 	compile 'com.github.mangstadt:vinnie:2.0.1'
-
+	compile 'org.apache.derby:derby:+'
+	// https://mvnrepository.com/artifact/org.apache.derby/derby
+	testCompile group: 'org.apache.derby', name: 'derby', version: '+'
 	compile fileTree(dir: 'src')
 
 }
