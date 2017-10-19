@@ -429,15 +429,17 @@ public class MenuController implements Initializable {
 					list.add(milestone);
 					MainController.getSpc().addMilestone(milestone);
 				}
-<<<<<<< HEAD
 			} catch (IOException e1) {
 				UIManager.reportError("Unable to open View file", e1.getStackTrace());
 			} catch (Exception e1) {
 				e1.printStackTrace();
+<<<<<<< HEAD
 =======
 			} catch (Exception e1) {
 				UIManager.reportError("Unable to open View file");
 >>>>>>> d88f493... Style cleanup, improve Javadoc, TODO notes, and fix compiler warnings.
+=======
+>>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			}
 		});
 
@@ -923,15 +925,17 @@ public class MenuController implements Initializable {
 					assignment.addRequirement(req);
 					requirements.refresh();
 				}
-<<<<<<< HEAD
 			} catch (IOException e1) {
 				UIManager.reportError("Unable to open View file", e1.getStackTrace());
 			} catch (Exception e1) {
 				e1.printStackTrace();
+<<<<<<< HEAD
 =======
 			} catch (Exception e1) {
 				UIManager.reportError("Unable to open View file");
 >>>>>>> d88f493... Style cleanup, improve Javadoc, TODO notes, and fix compiler warnings.
+=======
+>>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			}
 		});
 
@@ -1060,15 +1064,17 @@ public class MenuController implements Initializable {
 					assignment.addTask(task);
 				}
 				this.updateMenu();
-<<<<<<< HEAD
 			} catch (IOException e1) {
 				UIManager.reportError("Unable to open View file", e1.getStackTrace());
 			} catch (Exception e1) {
 				e1.printStackTrace();
+<<<<<<< HEAD
 =======
 			} catch (Exception e1) {
 				UIManager.reportError("Unable to open View file");
 >>>>>>> d88f493... Style cleanup, improve Javadoc, TODO notes, and fix compiler warnings.
+=======
+>>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			}
 		});
 

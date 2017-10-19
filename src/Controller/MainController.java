@@ -33,8 +33,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -125,7 +123,6 @@ public class MainController {
 			}
 
 		} catch (FileNotFoundException e) {
-<<<<<<< HEAD
 			UIManager.reportError("File does not exist", e.getStackTrace());
 			System.exit(1);
 		} catch (ClassNotFoundException e) {
@@ -148,6 +145,7 @@ public class MainController {
 			System.exit(1);
 		} catch (IllegalBlockSizeException e) {
 			UIManager.reportError("Invalid file", e.getStackTrace());
+<<<<<<< HEAD
 =======
 			UIManager.reportError("File does not exist", Arrays.toString(e.getStackTrace()));
 			System.exit(1);
@@ -174,6 +172,8 @@ public class MainController {
 		} catch (IllegalBlockSizeException e) {
 			UIManager.reportError("Invalid file", Arrays.toString(e.getStackTrace()));
 >>>>>>> e5fa818... Added stack trace to reportError method calls.
+=======
+>>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			System.exit(1);
 		} catch (Exception e) {
 			UIManager.reportError(e.getMessage(), e.getStackTrace());
@@ -225,11 +225,13 @@ public class MainController {
 			spc.save(MainController.key64, MainController.plannerFile.getAbsolutePath());
 			return true;
 		} catch (Exception e) {
-<<<<<<< HEAD
 			UIManager.reportError("FAILED TO SAVE YOUR DATA!", e.getStackTrace());
+<<<<<<< HEAD
 =======
 			UIManager.reportError("FAILED TO SAVE YOUR DATA!", Arrays.toString(e.getStackTrace()));
 >>>>>>> e5fa818... Added stack trace to reportError method calls.
+=======
+>>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			return false;
 		}
 	}

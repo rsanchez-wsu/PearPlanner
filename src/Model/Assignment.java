@@ -27,7 +27,6 @@ import View.UIManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * PearPlanner/RaiderPlanner
@@ -203,12 +202,14 @@ public class Assignment extends VersionControlEntity {
 		try {
 			MainController.ui.assignmentDetails(this, current);
 		} catch (IOException e) {
-<<<<<<< HEAD
 			UIManager.reportError("Unable to open View file", e.getStackTrace());
+<<<<<<< HEAD
 =======
 			UIManager.reportError("Unable to open View file",
 					Arrays.toString(e.getStackTrace()));
 >>>>>>> e5fa818... Added stack trace to reportError method calls.
+=======
+>>>>>>> dad8bc3... Fixed errors caused by failed merge.
 		}
 	}
 

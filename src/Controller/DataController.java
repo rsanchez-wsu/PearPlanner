@@ -42,7 +42,6 @@ import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -530,12 +529,14 @@ public class DataController {
 				}
 
 			} catch (Exception e) {
-<<<<<<< HEAD
 				UIManager.reportError("Invalid File: \n", e.getStackTrace());
+<<<<<<< HEAD
 =======
 				UIManager.reportError("Invalid File: \n" + e.getMessage()
 					+ Arrays.toString(e.getStackTrace()));
 >>>>>>> e5fa818... Added stack trace to reportError method calls.
+=======
+>>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			}
 		}
 		return hub;
