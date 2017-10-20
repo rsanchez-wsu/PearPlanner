@@ -53,7 +53,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -190,8 +189,7 @@ public class TaskController implements Initializable
                 this.requirements.getItems().add(req);
         } catch (IOException e1)
         {
-            UIManager.reportError("Unable to open View file",
-            		Arrays.toString(e1.getStackTrace()));
+            UIManager.reportError("Unable to open View file");
         } catch (Exception e1)
         {
         }
@@ -577,8 +575,7 @@ public class TaskController implements Initializable
                     e.refresh();
                 } catch (IOException e1)
                 {
-                    UIManager.reportError("Unable to open View file",
-                    		Arrays.toString(e1.getStackTrace()));
+                    UIManager.reportError("Unable to open View file");
                 }
             }
         });

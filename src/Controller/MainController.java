@@ -126,57 +126,28 @@ public class MainController {
 			UIManager.reportError("File does not exist", e.getStackTrace());
 			System.exit(1);
 		} catch (ClassNotFoundException e) {
-			UIManager.reportError("Invalid file", e.getStackTrace());
+			UIManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (NoSuchAlgorithmException e) {
-			UIManager.reportError("Cannot decode the given file", e.getStackTrace());
+			UIManager.reportError("Cannot decode the given file");
 			System.exit(1);
 		} catch (BadPaddingException e) {
-			UIManager.reportError("Invalid file", e.getStackTrace());
+			UIManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (InvalidKeyException e) {
-			UIManager.reportError("Cannot decode the given file", e.getStackTrace());
+			UIManager.reportError("Cannot decode the given file");
 			System.exit(1);
 		} catch (NoSuchPaddingException e) {
-			UIManager.reportError("Invalid file", e.getStackTrace());
+			UIManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (IOException e) {
-			UIManager.reportError("Invalid file", e.getStackTrace());
+			UIManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (IllegalBlockSizeException e) {
 			UIManager.reportError("Invalid file", e.getStackTrace());
-<<<<<<< HEAD
-=======
-			UIManager.reportError("File does not exist", Arrays.toString(e.getStackTrace()));
-			System.exit(1);
-		} catch (ClassNotFoundException e) {
-			UIManager.reportError("Invalid file", Arrays.toString(e.getStackTrace()));
-			System.exit(1);
-		} catch (NoSuchAlgorithmException e) {
-			UIManager.reportError("Cannot decode the given file",
-					Arrays.toString(e.getStackTrace()));
-			System.exit(1);
-		} catch (BadPaddingException e) {
-			UIManager.reportError("Invalid file", Arrays.toString(e.getStackTrace()));
-			System.exit(1);
-		} catch (InvalidKeyException e) {
-			UIManager.reportError("Cannot decode the given file",
-					Arrays.toString(e.getStackTrace()));
-			System.exit(1);
-		} catch (NoSuchPaddingException e) {
-			UIManager.reportError("Invalid file", Arrays.toString(e.getStackTrace()));
-			System.exit(1);
-		} catch (IOException e) {
-			UIManager.reportError("Invalid file", Arrays.toString(e.getStackTrace()));
-			System.exit(1);
-		} catch (IllegalBlockSizeException e) {
-			UIManager.reportError("Invalid file", Arrays.toString(e.getStackTrace()));
->>>>>>> e5fa818... Added stack trace to reportError method calls.
-=======
->>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			System.exit(1);
 		} catch (Exception e) {
-			UIManager.reportError(e.getMessage(), e.getStackTrace());
+			UIManager.reportError(e.getMessage());
 			System.exit(1);
 		}
 	}
@@ -226,12 +197,6 @@ public class MainController {
 			return true;
 		} catch (Exception e) {
 			UIManager.reportError("FAILED TO SAVE YOUR DATA!", e.getStackTrace());
-<<<<<<< HEAD
-=======
-			UIManager.reportError("FAILED TO SAVE YOUR DATA!", Arrays.toString(e.getStackTrace()));
->>>>>>> e5fa818... Added stack trace to reportError method calls.
-=======
->>>>>>> dad8bc3... Fixed errors caused by failed merge.
 			return false;
 		}
 	}

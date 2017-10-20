@@ -27,7 +27,6 @@ import View.UIManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * PearPlanner/RaiderPlanner
@@ -200,8 +199,7 @@ public class Module extends VersionControlEntity
             MainController.ui.moduleDetails(this, current);
         } catch (IOException e)
         {
-            UIManager.reportError("Unable to open View file",
-            		Arrays.toString(e.getStackTrace()));
+            UIManager.reportError("Unable to open View file");
         }
     }
 

@@ -207,19 +207,12 @@ public class RequirementController implements Initializable {
 		this.activities.setRowFactory(e -> {
 			TableRow<Activity> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
-				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY&& event.getClickCount() == 2) {
 					try {
 						MainController.ui.activityDetails(row.getItem());
 						this.activities.refresh();
 					} catch (IOException e1) {
 						UIManager.reportError("Unable to open View file", e1.getStackTrace());
-<<<<<<< HEAD
-=======
-						UIManager.reportError("Unable to open View file",
-								Arrays.toString(e1.getStackTrace()));
->>>>>>> e5fa818... Added stack trace to reportError method calls.
-=======
->>>>>>> dad8bc3... Fixed errors caused by failed merge.
 					}
 				}
 			});

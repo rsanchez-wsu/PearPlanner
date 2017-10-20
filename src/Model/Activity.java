@@ -202,13 +202,6 @@ public class Activity extends Event {
 			MainController.ui.activityDetails(this);
 		} catch (IOException e) {
 			UIManager.reportError("Unable to open View file", e.getStackTrace());
-<<<<<<< HEAD
-=======
-			UIManager.reportError("Unable to open View file",
-					Arrays.toString(e.getStackTrace()));
->>>>>>> e5fa818... Added stack trace to reportError method calls.
-=======
->>>>>>> dad8bc3... Fixed errors caused by failed merge.
 		}
 	}
 

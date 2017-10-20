@@ -27,7 +27,6 @@ import View.UIManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * PearPlanner/RaiderPlanner
@@ -177,8 +176,7 @@ public class StudyProfile extends VersionControlEntity
             MainController.ui.studyProfileDetails(this);
         } catch (IOException e)
         {
-            UIManager.reportError("Unable to open View file",
-            		Arrays.toString(e.getStackTrace()));
+            UIManager.reportError("Unable to open View file");
         }
     }
 
