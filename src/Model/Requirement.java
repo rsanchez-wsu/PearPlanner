@@ -34,7 +34,11 @@ import java.util.ArrayList;
  */
 public class Requirement extends ModelEntity
 {
-    protected boolean checkedCompleted;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6784600947667494980L;
+	protected boolean checkedCompleted;
     protected double estimatedTimeInHours;
     protected ArrayList<Activity> activityLog = new ArrayList<>();
     protected int initialQuantity;

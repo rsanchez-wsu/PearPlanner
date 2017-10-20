@@ -30,6 +30,10 @@ import java.util.HashMap;
  * Created by Team BRONZE on 4/27/17
  */
 public class VersionControlEntity extends ModelEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8015228884552591551L;
 	protected int version;
 	protected String uid;
 	protected boolean sealed;

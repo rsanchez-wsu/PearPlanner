@@ -26,6 +26,10 @@ package Model;
  * Created by Team BRONZE on 4/27/17
  */
 public class Building extends VersionControlEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -754576463045731146L;
 	// private Data
 	private String code = null;
 	private double latitude;

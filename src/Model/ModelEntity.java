@@ -32,7 +32,11 @@ import java.util.ArrayList;
  */
 public class ModelEntity implements Serializable
 {
-    protected String name = "";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2536798493663466670L;
+	protected String name = "";
     protected MultilineString details = null;
     protected ArrayList<Note> notes;
 
@@ -119,6 +123,6 @@ public class ModelEntity implements Serializable
     public ModelEntity(String cName, String[] cDetails, ArrayList<Note> cNotes)
     {
         this(cName, cDetails);
-        notes = (ArrayList<Note>) cNotes.clone();
+        notes = new ArrayList<>(cNotes);
     }
 }

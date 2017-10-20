@@ -30,7 +30,11 @@ import java.util.Arrays;
  */
 public class MultilineString implements Serializable
 {
-    // private Data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7137189102583225853L;
+	// private Data;
     private ArrayList<String> lines;
 
     // public methods

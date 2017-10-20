@@ -31,7 +31,11 @@ import java.util.ArrayList;
  */
 public class QuantityType extends ModelEntity
 {
-    private static ArrayList<QuantityType> quantityDatabase = new ArrayList<>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5872076719268398409L;
+	private static ArrayList<QuantityType> quantityDatabase = new ArrayList<>();
 
     public static String[] listOfNames()
     {
@@ -184,7 +188,8 @@ public class QuantityType extends ModelEntity
         int ii = staticTypes.length;
         while (++i < ii)
         {
-            QuantityType t = new QuantityType(staticTypes[i].a, staticTypes[i].b);
+            @SuppressWarnings("unused")
+			QuantityType t = new QuantityType(staticTypes[i].a, staticTypes[i].b);
         }
     }
 
@@ -206,8 +211,7 @@ public class QuantityType extends ModelEntity
         }
     }
 
-    @Override
-    public boolean equals(Object obj)
+    public boolean isEquals(Object obj)
     {
         QuantityType that = (QuantityType) obj;
         return getName().equals(that.getName());

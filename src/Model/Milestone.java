@@ -34,7 +34,11 @@ import java.util.Date;
  */
 public class Milestone extends ModelEntity
 {
-    // private data
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3454351364120432534L;
+	// private data
     private ArrayList<Task> tasks = new ArrayList<>();
     private Deadline deadline;
 
@@ -186,7 +190,7 @@ public class Milestone extends ModelEntity
      */
     public boolean addTasks(Collection<Task> tasks)
     {
-        if (this.tasks.contains(tasks))
+        if (this.tasks.containsAll(tasks))
             return false;
 
         this.tasks.addAll(tasks);

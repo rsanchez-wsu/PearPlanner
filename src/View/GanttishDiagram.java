@@ -140,6 +140,7 @@ public class GanttishDiagram {
 		private int b;
 		private int a = 255;
 
+		@SuppressWarnings("unused")
 		private int[] getColor() {
 			int[] cols = new int[4];
 			cols[0] = r;
@@ -208,6 +209,7 @@ public class GanttishDiagram {
 		String IMPOSSIBLE = "Not possible to start";
 
 		String[] categoryList = {COMPLETED, STARTED, POSSIBLE, IMPOSSIBLE};
+		@SuppressWarnings("unused")
 		badgeColors[][] badges = {{badgeColors.FINISHED, badgeColors.FINISHED_FILL},
 				{badgeColors.STARTED, badgeColors.STARTED_FILL},
 				{badgeColors.CANSTART, badgeColors.CANSTART_FILL},

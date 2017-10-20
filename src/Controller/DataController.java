@@ -168,6 +168,7 @@ public class DataController {
 	 * @return the entity from the list or the library.
 	 * @throws Exception TODO - fix this  (#108).
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T extends VersionControlEntity> T
 			inList(Map<String, VersionControlEntity> list, String uid)
 					throws Exception {

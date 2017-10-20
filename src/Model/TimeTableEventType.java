@@ -27,7 +27,12 @@ package Model;
  */
 public class TimeTableEventType extends VersionControlEntity
 {
-    public String toString()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3296947435752907002L;
+
+	public String toString()
     {
         return name;
     }

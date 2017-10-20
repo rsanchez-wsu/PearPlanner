@@ -31,7 +31,11 @@ import java.util.ArrayList;
  */
 public class TaskType extends ModelEntity
 {
-    private static ArrayList<TaskType> taskDatabase = new ArrayList<>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4304502782860761907L;
+	private static ArrayList<TaskType> taskDatabase = new ArrayList<>();
 
     public static String[] listOfNames()
     {
@@ -177,7 +181,8 @@ public class TaskType extends ModelEntity
         int ii = staticTypes.length;
         while (++i < ii)
         {
-            TaskType t = new TaskType(staticTypes[i].a, staticTypes[i].b);
+            @SuppressWarnings("unused")
+			TaskType t = new TaskType(staticTypes[i].a, staticTypes[i].b);
         }
     }
 
@@ -199,8 +204,7 @@ public class TaskType extends ModelEntity
         }
     }
 
-    @Override
-    public boolean equals(Object obj)
+    public boolean isEqual(Object obj)
     {
         TaskType that = (TaskType) obj;
         return getName().equals(that.getName());

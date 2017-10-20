@@ -34,6 +34,10 @@ import java.util.HashMap;
  * Created by Team BRONZE on 4/27/17
  */
 public class HubFile implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5754065946186570614L;
 	// private data
 	private ArrayList<VersionControlEntity> assets = new ArrayList<VersionControlEntity>();
 	private ArrayList<Module> modules = new ArrayList<>();
@@ -51,6 +55,13 @@ public class HubFile implements Serializable {
 	// public methods
 
 	// getters
+	/**
+	 * @return the assets
+	 */
+	public ArrayList<VersionControlEntity> getAssets() {
+		return assets;
+	}
+	
 	public ArrayList<Module> getModules() {
 		return modules;
 	}
@@ -133,9 +144,9 @@ public class HubFile implements Serializable {
 		version = v;
 		year = y;
 		semester = s;
-		modules = (ArrayList<Module>) m.clone();
-		assets = (ArrayList<VersionControlEntity>) a.clone();
-		calendarList = (ArrayList<Event>) cal.clone();
+		modules = new ArrayList<Module>(m);
+		assets = new ArrayList<VersionControlEntity>(a);
+		calendarList = new ArrayList<Event>(cal);
 		updateFile = false;
 	}
 
@@ -156,8 +167,8 @@ public class HubFile implements Serializable {
 	 */
 	public HubFile(int v, ArrayList<ExtensionApplication> e, ArrayList<VersionControlEntity> u) {
 		version = v;
-		extensions = (ArrayList<ExtensionApplication>) e.clone();
-		updates = (ArrayList<VersionControlEntity>) u.clone();
+		extensions = new ArrayList<ExtensionApplication>(e);
+		updates = new ArrayList<VersionControlEntity>(u);
 		updateFile = true;
 	}
 
