@@ -430,11 +430,8 @@ public class MenuController implements Initializable {
 					MainController.getSpc().addMilestone(milestone);
 				}
 			} catch (Exception e1) {
-<<<<<<< HEAD
 				e1.printStackTrace();
-=======
 				UIManager.reportError("Unable to open View file");
->>>>>>> ec999c62d476a375dc51dda9a35c0b4e2fcf3463
 			}
 		});
 
