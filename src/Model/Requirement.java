@@ -188,21 +188,57 @@ public class Requirement extends ModelEntity
         return this.name;
     }
 
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
+    /* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((activityLog == null) ? 0 : activityLog.hashCode());
+		result = prime * result + (checkedCompleted ? 1231 : 1237);
+		long temp;
+		temp = Double.doubleToLongBits(estimatedTimeInHours);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + initialQuantity;
+		result = prime * result + ((quantityType == null) ? 0 : quantityType.hashCode());
+		result = prime * result + remainingQuantity;
+		return result;
+	}
 
-        Requirement that = (Requirement) o;
-
-        if (checkedCompleted != that.checkedCompleted) return false;
-        if (Double.compare(that.estimatedTimeInHours, estimatedTimeInHours) != 0) return false;
-        if (initialQuantity != that.initialQuantity) return false;
-        if (remainingQuantity != that.remainingQuantity) return false;
-        if (!activityLog.equals(that.activityLog)) return false;
-        return quantityType.equals(that.quantityType);
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Requirement other = (Requirement) obj;
+		if (activityLog == null) {
+			if (other.activityLog != null)
+				return false;
+		} else if (!activityLog.equals(other.activityLog))
+			return false;
+		if (checkedCompleted != other.checkedCompleted)
+			return false;
+		if (Double.doubleToLongBits(estimatedTimeInHours) != Double
+				.doubleToLongBits(other.estimatedTimeInHours))
+			return false;
+		if (initialQuantity != other.initialQuantity)
+			return false;
+		if (quantityType == null) {
+			if (other.quantityType != null)
+				return false;
+		} else if (!quantityType.equals(other.quantityType))
+			return false;
+		if (remainingQuantity != other.remainingQuantity)
+			return false;
+		return true;
+	}
 
     @Override
     public void open(MenuController.Window current)
