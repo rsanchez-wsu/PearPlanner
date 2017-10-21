@@ -1148,6 +1148,13 @@ public class MenuController implements Initializable {
 		this.main();
 	}
 
+	/**
+	 * Handles the 'Help' event.
+	 */
+	public void openBrowser() {
+		MainController.openBrowser();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.prepareAnimations();
