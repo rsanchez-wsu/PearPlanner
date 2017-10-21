@@ -91,10 +91,15 @@ public class MainController {
 	 * importing an existing Study Planner file.
 	 */
 	public static void initialise() {
+		try {
+			ui.showStartup();
+		} catch (IOException e) {
+			UIManager.reportError("Invalid file, please contact support.");
+			System.exit(1);
+		}
 		// If a file is present:
 		if (plannerFile.exists()) {
 			try {
-				ui.showStartup();
 				Cipher cipher = Cipher.getInstance("Blowfish");
 				cipher.init(Cipher.DECRYPT_MODE, key64);
 				try (CipherInputStream cis = new CipherInputStream(
