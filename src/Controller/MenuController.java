@@ -154,6 +154,7 @@ public class MenuController implements Initializable {
 	private Button calendar;
 	@FXML
 	private Button chat;
+	@FXML
 	private Button closeDrawer;
 
 	// Panes:
@@ -181,9 +182,9 @@ public class MenuController implements Initializable {
 	private final Button submitButton = new Button("Submit");
 	private final Button sendButton = new Button("Send");
 
-	private String suserName;
-	private String shostName;
-	private int nportNumber = 1111;
+	private String sUserName;
+	private String sHostName;
+	private int nPortNumber = 1111;
 
 	/**
 	 * Sets this.current to equal passed variable and calls this.main().
@@ -781,12 +782,12 @@ public class MenuController implements Initializable {
 
 		this.mainContent.addRow(3, moduleContent);
 	}
+
 	/**
 	 * This method will clear the current content on the GUI and load the firstpane
 	 * into the maincontent pane.
 	 * This will then call on the createFirstWindow method and submitButtonAction method.
 	 */
-
 	public void obtainUserInformation() {
 
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -796,11 +797,11 @@ public class MenuController implements Initializable {
 		createFirstWindow();
 		submitButtonAction();
 	}
+
 	/**
 	 * This will load the chat window but first it will clear the user interface.
 	 * then it will put the mainpane into the maincontent pane.
 	 */
-
 	public void loadChatWindow() {
 
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -810,20 +811,19 @@ public class MenuController implements Initializable {
 		createUserMessagePane();
 		createMainPane();
 	}
+
 	/**
 	 * This will load the msg_area and textfield into the mainPane at certain locations.
 	 */
-
 	public void createMainPane() {
-
 		mainPane.setCenter(msgArea);
 		mainPane.setBottom(userMessagePane);
 	}
-		/**
-		* This will set the message area to uneditable and set the size for all the buttons
-		* Then it will load them into the userMessagePane at specific locations.
-		*/
 
+	/**
+	* This will set the message area to uneditable and set the size for all the buttons
+	* Then it will load them into the userMessagePane at specific locations.
+	*/
 	public void createUserMessagePane() {
 		msgArea.setEditable(false);
 		tfMessageToSend.setPrefWidth(500);
@@ -834,11 +834,11 @@ public class MenuController implements Initializable {
 		userMessagePane.add(spacingBox, 1, 0);
 		userMessagePane.add(sendButton, 2, 0);
 	}
-		/**
-		* This will load all the textfields and labels and buttons for the
-		* first window to obtain the users information.
-		*/
 
+	/**
+	* This will load all the textfields and labels and buttons for the
+	* first window to obtain the users information.
+	*/
 	public void createFirstWindow() {
 		firstPane.add(name, 0, 0);
 		firstPane.add(tfName, 1, 0);
@@ -846,52 +846,54 @@ public class MenuController implements Initializable {
 		firstPane.add(tfHost, 1, 1);
 		firstPane.add(submitButton, 1, 2);
 	}
-		/**
-		 * This will do an action when the user clicks submit.
-		 * Then it will store those values into specific varaibles which can be
-		 * accessed outside of the class.
-		 * This will handle all errors and display appropriate alert boxes
-		 */
 
+	/**
+	 * This will do an action when the user clicks submit.
+	 * Then it will store those values into specific varaibles which can be
+	 * accessed outside of the class.
+	 * This will handle all errors and display appropriate alert boxes
+	 */
 	public void submitButtonAction() {
 		submitButton.setOnAction((ActionEvent exception1) -> {
 			if (tfName.getText().equals("")) {
 				tfName.setText("User" + Math.random());
 			} else {
-				suserName = tfName.getText();
+				sUserName = tfName.getText();
 			}
-			shostName = tfHost.getText();
+			sHostName = tfHost.getText();
 			loadChatWindow();
 		});
 	}
-		/**
-		 *This is a setter for sUsername.
-		 */
 
-	public void setsuserName(String suser) {
-		suserName = suser;
+	/**
+	 *This will set the username for the peer-to-peer chat.
+	 *
+	 */
+	public void setsUserName(String sUser) {
+		sUserName = sUser;
 	}
 
-		/**
-		 * This is a setter for SHostName.
-		 */
-
-	public void setsPortNumber(int nuserPort) {
-		nportNumber = nuserPort;
+	/**
+	 * This will set the PortNumber for the peer-to-peer chat.
+	 */
+	public void setsPortNumber(int nUserPort) {
+		nPortNumber = nUserPort;
 	}
-		/**
-		 * this is a getter for sUserName.
-		 */
 
-	public String getsuserName() {
-		return suserName;
+	/**
+	 * @return
+	 * this will get the currently registed users chat ID.
+	 */
+	public String getsUserName() {
+		return sUserName;
 	}
-		/**
-		 * this is a getter for sHostName.
-		 */
 
-	public String getshostName() {
-		return shostName;
+	/**
+	 * @return
+	 * This will get the current host name registed to the chat user.
+	 */
+	public String getsHostName() {
+		return sHostName;
 	}
 
 	/**
@@ -1417,6 +1419,7 @@ public class MenuController implements Initializable {
 	 * RowFactory for a TableView of Requirement.
 	 *
 	 * @param e1 TableView that contains the RowFactory.
+	 * 
 	 * @return new RowFactory
 	 */
 	protected static TableRow<Requirement> requirementRowFactory(
