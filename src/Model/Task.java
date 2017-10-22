@@ -351,7 +351,7 @@ public class Task extends ModelEntity {
 		try {
 			MainController.ui.taskDetails(this);
 		} catch (IOException e) {
-			UIManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file", e.getStackTrace());
 		}
 	}
 

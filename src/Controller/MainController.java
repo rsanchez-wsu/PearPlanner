@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -124,7 +123,7 @@ public class MainController {
 			}
 
 		} catch (FileNotFoundException e) {
-			UIManager.reportError("File does not exist");
+			UIManager.reportError("File does not exist", e.getStackTrace());
 			System.exit(1);
 		} catch (ClassNotFoundException e) {
 			UIManager.reportError("Invalid file");
@@ -145,7 +144,7 @@ public class MainController {
 			UIManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (IllegalBlockSizeException e) {
-			UIManager.reportError("Invalid file");
+			UIManager.reportError("Invalid file", e.getStackTrace());
 			System.exit(1);
 		} catch (Exception e) {
 			UIManager.reportError(e.getMessage());
@@ -197,7 +196,7 @@ public class MainController {
 			spc.save(MainController.key64, MainController.plannerFile.getAbsolutePath());
 			return true;
 		} catch (Exception e) {
-			UIManager.reportError("FAILED TO SAVE YOUR DATA!");
+			UIManager.reportError("FAILED TO SAVE YOUR DATA!", e.getStackTrace());
 			return false;
 		}
 	}

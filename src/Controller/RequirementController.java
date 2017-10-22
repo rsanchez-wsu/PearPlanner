@@ -207,12 +207,12 @@ public class RequirementController implements Initializable {
 		this.activities.setRowFactory(e -> {
 			TableRow<Activity> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
-				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+				if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY&& event.getClickCount() == 2) {
 					try {
 						MainController.ui.activityDetails(row.getItem());
 						this.activities.refresh();
 					} catch (IOException e1) {
-						UIManager.reportError("Unable to open View file");
+						UIManager.reportError("Unable to open View file", e1.getStackTrace());
 					}
 				}
 			});

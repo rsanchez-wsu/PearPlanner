@@ -201,7 +201,7 @@ public class Activity extends Event {
 		try {
 			MainController.ui.activityDetails(this);
 		} catch (IOException e) {
-			UIManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file", e.getStackTrace());
 		}
 	}
 

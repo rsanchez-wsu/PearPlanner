@@ -202,7 +202,7 @@ public class Assignment extends VersionControlEntity {
 		try {
 			MainController.ui.assignmentDetails(this, current);
 		} catch (IOException e) {
-			UIManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file", e.getStackTrace());
 		}
 	}
 
