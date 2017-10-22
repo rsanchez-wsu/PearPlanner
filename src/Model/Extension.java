@@ -26,6 +26,10 @@ package Model;
  * Created by Team BRONZE on 4/27/17
  */
 public class Extension extends VersionControlEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6849275750390712203L;
 	// private data
 	private Deadline newDeadline;
 	private MultilineString circumstances;

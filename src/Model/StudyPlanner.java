@@ -371,4 +371,18 @@ public class StudyPlanner implements Serializable {
 		// Add Default Task types:
 		Collections.addAll(this.taskTypes, TaskType.listOfTaskTypes());
 	}
+
+	/**
+	 * @return the timeTableEventTypes
+	 */
+	public ArrayList<TimeTableEventType> getTimeTableEventTypes() {
+		return timeTableEventTypes;
+	}
+
+	/**
+	 * @param timeTableEventTypes the timeTableEventTypes to set
+	 */
+	public void setTimeTableEventTypes(ArrayList<TimeTableEventType> timeTableEventTypes) {
+		this.timeTableEventTypes = timeTableEventTypes;
+	}
 }

@@ -29,6 +29,10 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17
  */
 public class Coursework extends Assignment {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5621701916095916584L;
 	private Event startDate;
 	private Deadline deadline;
 	private ArrayList<Extension> extensions;
@@ -99,7 +103,7 @@ public class Coursework extends Assignment {
 		super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);
 		startDate = cStartDate;
 		deadline = cDeadline;
-		extensions = (ArrayList<Extension>) cExtensions.clone();
+		extensions = new ArrayList<>(cExtensions);
 	}
 
 }

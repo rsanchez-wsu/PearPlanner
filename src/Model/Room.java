@@ -28,7 +28,11 @@ package Model;
  */
 public class Room extends VersionControlEntity
 {
-    // private data
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4397560912648311748L;
+	// private data
     private Building building = null;
     private String roomNumber;
 

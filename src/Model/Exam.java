@@ -27,7 +27,11 @@ package Model;
  */
 public class Exam extends Assignment
 {
-    // private data
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6435468033960550569L;
+	// private data
     private Exam resit = null;
     private ExamEvent timeSlot = null;
 

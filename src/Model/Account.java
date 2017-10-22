@@ -28,6 +28,10 @@ import java.io.Serializable;
  * Created by Team BRONZE on 4/27/17
  */
 public class Account implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7030935356356331525L;
 	// private data
 	private Person studentDetails;
 	private String studentNumber;

@@ -28,6 +28,10 @@ import java.io.Serializable;
  * Created by Team BRONZE on 4/27/17
  */
 public class ExtensionApplication implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7093231337425579125L;
 	// private data
 	private Extension extension;
 	private String moduleCode;
@@ -50,6 +54,13 @@ public class ExtensionApplication implements Serializable {
 	public String getAssignmentUID() {
 		// initial set up code below - check if this needs updating
 		return assignmentUID;
+	}
+
+	/**
+	 * @return the account
+	 */
+	public Account getAccount() {
+		return account;
 	}
 
 	// constructors

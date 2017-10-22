@@ -39,9 +39,11 @@ import biweekly.util.Duration;
 public class ICalExport {
 	private Date eventStart;
 	private String title;
+	@SuppressWarnings("unused")
 	private MultilineString description;
 	private int hours;
 	private int minutes;
+	@SuppressWarnings("unused")
 	private int counter;
 
 	/**Method creates an event to be exported to an ICS file.

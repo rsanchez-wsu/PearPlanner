@@ -52,6 +52,7 @@ public class ConsoleIO {
 			System.out.println(message);
 			r = scan.nextLine();
 		}
+		scan.close();
 		return r;
 	}
 
@@ -68,6 +69,7 @@ public class ConsoleIO {
 			System.out.println(message);
 			r = scan.next();
 		}
+		scan.close();
 		return r.equals("y");
 	}
 
@@ -159,6 +161,7 @@ public class ConsoleIO {
 			}
 			option = scan.nextInt();
 		}
+		scan.close();
 		return option;
 	}
 

@@ -468,7 +468,8 @@ public class TaskController implements Initializable
      * @param list List of Tasks to be put into the window.
      * @return A list of selected Tasks
      */
-    protected static ObservableList<Task> taskSelectionWindow(ObservableList<Task> list)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	protected static ObservableList<Task> taskSelectionWindow(ObservableList<Task> list)
     {
         // Layout:
         VBox layout = new VBox();

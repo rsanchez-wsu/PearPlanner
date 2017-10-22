@@ -38,6 +38,10 @@ import java.util.Date;
  * Created by Team BRONZE on 4/27/17
  */
 public class Task extends ModelEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -306478464668256557L;
 	// private data
 	private ArrayList<Task> dependencies = new ArrayList<>();
 	private Deadline deadline;

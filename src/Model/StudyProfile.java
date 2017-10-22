@@ -34,7 +34,11 @@ import java.util.ArrayList;
  */
 public class StudyProfile extends VersionControlEntity
 {
-    // private data
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3183933025991973879L;
+	// private data
     private ArrayList<Module> modules;
     private ArrayList<Milestone> milestones;
     private ArrayList<ExtensionApplication> extensions;

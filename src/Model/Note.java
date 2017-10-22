@@ -30,7 +30,11 @@ import java.util.GregorianCalendar;
  */
 public class Note implements Serializable
 {
-    // private data
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5727477113455798093L;
+	// private data
     private String title;
     private GregorianCalendar timeStamp;
     private MultilineString text;

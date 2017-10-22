@@ -33,6 +33,10 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17
  */
 public class Assignment extends VersionControlEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8889413763401987226L;
 	protected ArrayList<Task> tasks = new ArrayList<>();
 	protected ArrayList<Requirement> requirements = new ArrayList<>();
 	protected int weighting;
