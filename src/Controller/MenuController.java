@@ -1419,7 +1419,7 @@ public class MenuController implements Initializable {
 	 * RowFactory for a TableView of Requirement.
 	 *
 	 * @param e1 TableView that contains the RowFactory.
-	 * 
+	 *
 	 * @return new RowFactory
 	 */
 	protected static TableRow<Requirement> requirementRowFactory(
