@@ -182,9 +182,9 @@ public class MenuController implements Initializable {
 	private final Button submitButton = new Button("Submit");
 	private final Button sendButton = new Button("Send");
 
-	private String sUserName;
-	private String sHostName;
-	private int nPortNumber = 1111;
+	private String userName;
+	private String hostName;
+	private int portNumber = 1111;
 
 	/**
 	 * Sets this.current to equal passed variable and calls this.main().
@@ -858,9 +858,9 @@ public class MenuController implements Initializable {
 			if (tfName.getText().equals("")) {
 				tfName.setText("User" + Math.random());
 			} else {
-				sUserName = tfName.getText();
+				userName = tfName.getText();
 			}
-			sHostName = tfHost.getText();
+			hostName = tfHost.getText();
 			loadChatWindow();
 		});
 	}
@@ -869,31 +869,31 @@ public class MenuController implements Initializable {
 	 *This will set the username for the peer-to-peer chat.
 	 *
 	 */
-	public void setsUserName(String sUser) {
-		sUserName = sUser;
+	public void setuserName(String user) {
+		userName = user;
 	}
 
 	/**
 	 * This will set the PortNumber for the peer-to-peer chat.
 	 */
-	public void setsPortNumber(int nUserPort) {
-		nPortNumber = nUserPort;
+	public void setportNumber(int userPort) {
+		portNumber = userPort;
 	}
 
 	/**
 	 * @return
 	 * this will get the currently registed users chat ID.
 	 */
-	public String getsUserName() {
-		return sUserName;
+	public String getuserName() {
+		return userName;
 	}
 
 	/**
 	 * @return
 	 * This will get the current host name registed to the chat user.
 	 */
-	public String getsHostName() {
-		return sHostName;
+	public String gethostName() {
+		return hostName;
 	}
 
 	/**
