@@ -784,9 +784,9 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * This method will clear the current content on the GUI and load the firstpane
-	 * into the maincontent pane.
-	 * This will then call on the createFirstWindow method and submitButtonAction method.
+	 * This method will create a window that will prompt the user for a username and
+	 * host name.  If a name is not entered then a username is randomly chosen.
+	 * When the submit button is pressed a new interface will be loaded which is the chat window.
 	 */
 	public void obtainUserInformation() {
 
@@ -799,8 +799,9 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * This will load the chat window but first it will clear the user interface.
-	 * then it will put the mainpane into the maincontent pane.
+	 * This method will create the peer to peer chat
+	 * window.  It will load the text area where the user will see messages from
+	 * peers and a place for the user to send his or her own message.
 	 */
 	public void loadChatWindow() {
 
@@ -813,7 +814,9 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * This will load the msg_area and textfield into the mainPane at certain locations.
+	 * This will load the msg_area which is where the user will see messages from other users
+	 * and him or herself.  This will also load the text field where the user will be able to send
+	 * his or her own message to peers.
 	 */
 	public void createMainPane() {
 		mainPane.setCenter(msgArea);
@@ -821,9 +824,10 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	* This will set the message area to uneditable and set the size for all the buttons
-	* Then it will load them into the userMessagePane at specific locations.
-	*/
+	 * This will set the message area to uneditable and set the size for all the buttons
+	 * This method will also create padding between the textarea and the message area.
+	 * and the send button.
+	 */
 	public void createUserMessagePane() {
 		msgArea.setEditable(false);
 		tfMessageToSend.setPrefWidth(500);
@@ -836,9 +840,9 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	* This will load all the textfields and labels and buttons for the
-	* first window to obtain the users information.
-	*/
+	 * This will load all the textfields,labels and buttons for the
+	 * window that prompts the user for his or her username and host name.
+	 */
 	public void createFirstWindow() {
 		firstPane.add(name, 0, 0);
 		firstPane.add(tfName, 1, 0);
@@ -848,10 +852,10 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * This will do an action when the user clicks submit.
-	 * Then it will store those values into specific varaibles which can be
-	 * accessed outside of the class.
-	 * This will handle all errors and display appropriate alert boxes
+	 * This will take in the action of when the submit button is pressed.
+	 * The submit button is for the chat window where the user inputs his or her
+	 * information.  If the user does not enter a username then one will be appointed for
+	 * them.  Then at the very end the chat window will be loaded.
 	 */
 	public void submitButtonAction() {
 		submitButton.setOnAction((ActionEvent exception1) -> {
@@ -867,32 +871,29 @@ public class MenuController implements Initializable {
 
 	/**
 	 *This will set the username for the peer-to-peer chat.
-	 *
 	 */
-	public void setuserName(String user) {
+	public void setUserName(String user) {
 		userName = user;
 	}
 
 	/**
 	 * This will set the PortNumber for the peer-to-peer chat.
 	 */
-	public void setportNumber(int userPort) {
+	public void setPortNumber(int userPort) {
 		portNumber = userPort;
 	}
 
 	/**
-	 * @return
-	 * this will get the currently registed users chat ID.
+	 * @return this will get the currently registed users chat ID.
 	 */
-	public String getuserName() {
+	public String getUserName() {
 		return userName;
 	}
 
 	/**
-	 * @return
-	 * This will get the current host name registed to the chat user.
+	 * @return This will get the current host name registed to the chat user.
 	 */
-	public String gethostName() {
+	public String getHostName() {
 		return hostName;
 	}
 
