@@ -1326,11 +1326,9 @@ public class MenuController implements Initializable {
 		this.prepareAnimations();
 		this.isNavOpen = false;
 
-		//Set shadows
-		notifications.setEffect(new DropShadow(
-				this.shadowRadius2, 0, this.shadowOffset2, Color.BLACK));
-		navList.setEffect(new DropShadow(
-				this.shadowRadius, this.shadowOffset, 0, Color.BLACK));
+		// Set shadows
+		notifications.setEffect(notifShadow);
+		navList.setEffect(navShadow);
 
 		// Set button actions:
 		this.closeDrawer.setOnAction(e -> openMenu.fire());
