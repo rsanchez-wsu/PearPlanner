@@ -373,14 +373,13 @@ public class StudyPlanner implements Serializable {
 			// Add Default Task types:
 			Collections.addAll(this.taskTypes, TaskType.listOfTaskTypes());
 		} catch (UnsupportedOperationException e) {
-			UIManager.reportError("Error, Unsupported Operation Exception,"
-					+ " please contact support.");
+			UIManager.reportError("Error, Unsupported Operation Exception.");
 			System.exit(1);
 		} catch (NullPointerException e) {
-			UIManager.reportError("Error, Illegal Pointer Exception, please contact support.");
+			UIManager.reportError("Error, Null Pointer Exception.");
 			System.exit(1);
 		} catch (IllegalArgumentException e) {
-			UIManager.reportError("Error, Illegal Argument Exception, please contact support.");
+			UIManager.reportError("Error, Illegal Argument Exception.");
 			System.exit(1);
 		}
 	}

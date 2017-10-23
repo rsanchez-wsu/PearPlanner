@@ -94,7 +94,7 @@ public class MainController {
 		try {
 			ui.showStartup();
 		} catch (IOException e) {
-			UIManager.reportError("Invalid file, please contact support.");
+			UIManager.reportError("Invalid file.");
 			System.exit(1);
 		}
 		// If a file is present:
@@ -117,34 +117,31 @@ public class MainController {
 					}
 				}
 			} catch (FileNotFoundException e) {
-				UIManager.reportError("File does not exist, please contact support.");
+				UIManager.reportError("Error, File does not exist.");
 				System.exit(1);
 			} catch (ClassNotFoundException e) {
-				UIManager.reportError("Class NotFoundException, please contact support.");
+				UIManager.reportError("Error, Class NotFoundException.");
 				System.exit(1);
 			} catch (BadPaddingException e) {
-				UIManager.reportError("Invalid file, Bad Padding Exception,"
-						+ " please contact support.");
+				UIManager.reportError("Error, Invalid file, Bad Padding Exception.");
 				System.exit(1);
 			} catch (IOException e) {
-				UIManager.reportError("Invalid file, please contact support.");
+				UIManager.reportError("Error, Invalid file.");
 				System.exit(1);
 			} catch (IllegalBlockSizeException e) {
-				UIManager.reportError("Invalid file, Illegal Block Size Exception,"
-						+ " please contact support.");
+				UIManager.reportError("Error, Invalid file, Illegal Block Size Exception.");
 				System.exit(1);
 			}  catch (InvalidKeyException e) {
-				UIManager.reportError("Invalid Key, Cannot decode the given file,"
-						+ " please contact support.");
+				UIManager.reportError("Error, Invalid Key, Cannot decode the given file.");
 				System.exit(1);
 			} catch (NoSuchAlgorithmException e) {
-				UIManager.reportError("Cannot decode the given file, please contact support.");
+				UIManager.reportError("Error, Cannot decode the given file.");
 				System.exit(1);
 			} catch (NoSuchPaddingException e) {
-				UIManager.reportError("Invalid file, No Such Padding, please contact support.");
+				UIManager.reportError("Error, Invalid file, No Such Padding.");
 				System.exit(1);
 			}  catch (Exception e) {
-				UIManager.reportError(e.getMessage() + "Unknown error, please contact support.");
+				UIManager.reportError(e.getMessage() + "Unknown error.");
 				System.exit(1);
 			}
 		} else {
