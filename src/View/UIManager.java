@@ -152,6 +152,7 @@ public class UIManager {
 	 * Display the 'Add Activity' window.
 	 *
 	 * @return newly created Activity
+	 * @throws IOException if IO error is triggered
 	 */
 	public Activity addActivity() throws IOException {
 		ActivityController ac = new ActivityController();
@@ -178,6 +179,7 @@ public class UIManager {
 	 * Displays the Activity details page
 	 *
 	 * @param activity for which the details should be displayed.
+	 * @throws IOException if IO error is triggered
 	 */
 	public void activityDetails(Activity activity) throws IOException {
 		ActivityController ac = new ActivityController(activity);
@@ -199,6 +201,7 @@ public class UIManager {
 	 * Displays the 'Add Milestone' window.
 	 *
 	 * @return newly created Milestone object.
+	 * @throws IOException if IO error is triggered
 	 */
 	public Milestone addMilestone() throws IOException {
 		MilestoneController mc = new MilestoneController();
@@ -225,6 +228,7 @@ public class UIManager {
 	 * Displays the Milestone details page
 	 *
 	 * @param milestone for which the details should be shown.
+	 * @throws IOException if IO error is triggered
 	 */
 	public void milestoneDetails(Milestone milestone) throws IOException {
 		MilestoneController mc = new MilestoneController(milestone);
@@ -246,6 +250,7 @@ public class UIManager {
 	 * Displays the StudyProfile details page
 	 *
 	 * @param profile StudyProfile for which the details should be shown.
+	 * @throws IOException if IO error is triggered
 	 */
 	public void studyProfileDetails(StudyProfile profile) throws IOException {
 		StudyProfileController spc = new StudyProfileController(profile);
@@ -386,6 +391,7 @@ public class UIManager {
 	 * Displays the Requirement details page.
 	 *
 	 * @param requirement for which the details should be displayed
+	 * @throws IOException if IO error is triggered
 	 */
 	public void requirementDetails(Requirement requirement) throws IOException {
 		RequirementController rc = new RequirementController(requirement);
@@ -405,6 +411,7 @@ public class UIManager {
 
 	/**
 	 * Display startup window.
+	 * @throws IOException if IO error is triggered
 	 */
 	public void showStartup() throws IOException {
 		StartupController sc = new StartupController();
