@@ -1227,7 +1227,7 @@ public class MenuController implements Initializable {
 		}
 		this.main();
 	}
-	
+
 	/**
 	 * Handles the 'Help' event.
 	 */
