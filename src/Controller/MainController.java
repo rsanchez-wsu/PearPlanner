@@ -246,10 +246,8 @@ public class MainController {
 				Desktop.getDesktop().browse(new URI("https://rsanchez-wsu.github.io/RaiderPlanner/"));
 			} catch (IOException e) {
 				UIManager.reportError("Default browser not found or failed to launch");
-				System.exit(1);
 			} catch (URISyntaxException e) {
 				UIManager.reportError("Invaild URI syntax");
-				System.exit(1);
 			}
 		}
 	}
