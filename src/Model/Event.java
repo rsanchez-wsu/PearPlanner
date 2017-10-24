@@ -21,8 +21,8 @@
 
 package Model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import Controller.MainController;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
@@ -39,7 +39,6 @@ public class Event extends VersionControlEntity {
 	private static final int DEFAULT_DURATION = 0;
 	private static Pattern dateRegex =
 			Pattern.compile("(\\d\\d)/(\\d\\d)/(\\d\\d\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)Z");
-	private static SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy'T'hh:mm:ss'Z'");
 
 	protected GregorianCalendar date = null;
 	protected int duration = DEFAULT_DURATION;
@@ -86,14 +85,21 @@ public class Event extends VersionControlEntity {
 	 * @param dateString input of the date
 	 */
 	public void setDate(String dateString) {
+		// TODO: Fix this to use SimpleDateFormat
 		// 09/04/2017T15:00:00Z
 		if (validDateString(dateString)) {
-			try {
-				Date parsedDate = formatter.parse(dateString);
-				this.date = new GregorianCalendar();
-				this.date.setTime(parsedDate);
-			} catch (ParseException e) {
-				e.printStackTrace();
+			String day = dateString.substring(0, 2);
+			String month = dateString.substring(3, 5);
+			String year = dateString.substring(6, 10);
+			String hour = dateString.substring(11, 13);
+			String minute = dateString.substring(14, 16);
+			String second = dateString.substring(17, 19);
+			if (MainController.isNumeric(day) && MainController.isNumeric(month)
+					&& MainController.isNumeric(year) && MainController.isNumeric(hour)
+					&& MainController.isNumeric(minute) && MainController.isNumeric(second)) {
+				date = new GregorianCalendar(Integer.parseInt(year), Integer.parseInt(month) - 1,
+						Integer.parseInt(day), Integer.parseInt(hour), Integer.parseInt(minute),
+						Integer.parseInt(second));
 			}
 		}
 	}
@@ -123,4 +129,5 @@ public class Event extends VersionControlEntity {
 	public String toString() {
 		return this.date.getTime().toString();
 	}
+
 }

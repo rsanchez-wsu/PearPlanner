@@ -21,6 +21,8 @@
 
 package Controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import Model.Building;
 import Model.Coursework;
 import Model.Event;
@@ -82,9 +84,9 @@ public class DataController {
 	 * @param nodes the list of nodes to process for the update.
 	 *
 	 * @return The updated HUB file.
-	 * @throws Exception TODO - fix this (#108).
+	 * @throws IOException if IO error is triggered, FileNotFoundException if file is not found
 	 */
-	private static HubFile processUpdateHubFile(NodeList nodes) throws Exception {
+	private static HubFile processUpdateHubFile(NodeList nodes) throws IOException, FileNotFoundException {
 
 		HubFile hub = null;
 		XMLcontroller xmlTools = new XMLcontroller();
@@ -166,11 +168,11 @@ public class DataController {
 	 * @param uid the identifier to look up.
 	 *
 	 * @return the entity from the list or the library.
-	 * @throws Exception TODO - fix this  (#108).
+	 * @throws IOException if IO error is triggered
 	 */
 	public static <T extends VersionControlEntity> T
 			inList(Map<String, VersionControlEntity> list, String uid)
-					throws Exception {
+					throws IOException {
 
 		VersionControlEntity vce = null;
 		if (list.containsKey(uid)) {
@@ -214,9 +216,9 @@ public class DataController {
 	 * @param nodes the list of nodes to use for constituting the HUB file.
 	 *
 	 * @return the HUB file.
-	 * @throws Exception TODO - fix this (#108).
+	 * @throws IOException if IO error is triggered
 	 */
-	private static HubFile processNewHubFile(NodeList nodes) throws Exception {
+	private static HubFile processNewHubFile(NodeList nodes) throws IOException {
 
 		int beginLog = ConsoleIO.getLogSize();
 		ConsoleIO.setConsoleMessage("Importing New Hub File", true);
