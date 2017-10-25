@@ -8,12 +8,12 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 
-<GridPane  style="-fx-color: #096424;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane  style="-fx-color: #096424;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	<columnConstraints>
 		<ColumnConstraints percentWidth="100"  /> 
 	</columnConstraints>
 	<rowConstraints>
-		<RowConstraints maxHeight="550.0" minHeight="10.0" prefHeight="450.0" vgrow="SOMETIMES" />
+		<RowConstraints maxHeight="600.0" minHeight="10.0" prefHeight="550.0" vgrow="SOMETIMES" />
 	</rowConstraints>
 		<children>
 			<GridPane prefHeight="400.0" prefWidth="400.0" GridPane.rowIndex="0">
@@ -27,37 +27,10 @@
 					<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 				</rowConstraints>
 			<children>
-				<StackPane fx:id="pane">
+				<StackPane style="-fx-color: #096424" fx:id="pane" minHeight="10.0" prefHeight="30.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
 					<children>
-						<Rectangle fx:id="labelRectangle" height="100.0" layoutX="0.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="10.0" width="380.0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" >
-							<fill>
-                				<LinearGradient startX="0.0" startY="0.0" endX="1.0" endY="0.0" proportional="true" cycleMethod="NO_CYCLE">
-                    				<stops>
-                        				<Stop offset="0">
-                            				<color>
-                                				<Color red=".7" green=".6" blue="0.0" />
-                            				</color>
-                        				</Stop>
-                        				<Stop offset="0.3">
-                            				<color>
-                                				<Color red=".04" green=".5" blue=".16" />
-                            				</color>
-                        				</Stop>
-                        				<Stop offset="0.7">
-                            				<color>
-                                				<Color red=".04" green=".5" blue=".16" />
-                            				</color>
-                        				</Stop>
-                        				<Stop offset="1.0">
-                            				<color>
-                                				<Color red=".7" green=".6" blue="0.0" />
-                            				</color>
-                        				</Stop>
-                    				</stops>
-                				</LinearGradient>
-							</fill>
-						</Rectangle>
- 						<Label text="Welcome to Raider Planner!" textFill="WHITE" style=" -fx-stroke: black -fx-stroke-width: 1">
+						<Rectangle fx:id="labelRectangle" fill="#096424" height="100.0" layoutX="0.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="10.0" width="410.0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP"/>
+ 						<Label text="Welcome to Raider Planner!" textFill="WHITE" >
 							<font>
 								<Font size="28.0" />
 							</font>
