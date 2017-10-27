@@ -30,14 +30,12 @@ import static org.junit.Assert.*;
  */
 public class RequirementTest {
 
-    @Test
-    public void isComplete() throws Exception
-    {
-    }
+	@Test
+	public void isComplete() throws Exception {
+	}
 
-    @Test
-    public void requirementProgress() throws Exception
-    {
-    }
+	@Test
+	public void requirementProgress() throws Exception {
+	}
 
 }

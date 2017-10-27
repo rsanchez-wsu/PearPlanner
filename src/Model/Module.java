@@ -23,194 +23,216 @@ package Model;
 
 import Controller.MainController;
 import Controller.MenuController;
-import View.UIManager;
+import View.UiManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17 at 20:59
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17 at 20:59.
  */
-public class Module extends VersionControlEntity
-{
-    /**
-	 * 
+public class Module extends VersionControlEntity {
+	/**
+	 * serial version uid.
 	 */
 	private static final long serialVersionUID = -2128360383796838996L;
 	// private data
-    private ArrayList<Assignment> assignments = new ArrayList<>();
-    private Person organiser;
-    private String moduleCode;
-    private ArrayList<TimetableEvent> timetable = new ArrayList<>();
+	private ArrayList<Assignment> assignments = new ArrayList<>();
+	private Person organiser;
+	private String moduleCode;
+	private ArrayList<TimetableEvent> timetable = new ArrayList<>();
 
-    @Override
-    protected void replace(VersionControlEntity receivedVCE)
-    {
-        if (receivedVCE instanceof Module)
-        {
-            Module castedVCE = (Module) receivedVCE;
-            if (castedVCE.getOrganiser() != null)
-            {
-                this.organiser = castedVCE.getOrganiser();
-            }
-            if (castedVCE.getModuleCode() != null)
-            {
-                this.moduleCode = castedVCE.getModuleCode();
-            }
-            if (castedVCE.getAssignments() != null)
-            {
-                this.assignments = castedVCE.getAssignments();
-            }
-            if (castedVCE.getAssignments() != null)
-            {
-                this.timetable = castedVCE.getTimetable();
-            }
-        }
+	@Override
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Module) {
+			Module castedVce = (Module) receivedVce;
+			if (castedVce.getOrganiser() != null) {
+				this.organiser = castedVce.getOrganiser();
+			}
+			if (castedVce.getModuleCode() != null) {
+				this.moduleCode = castedVce.getModuleCode();
+			}
+			if (castedVce.getAssignments() != null) {
+				this.assignments = castedVce.getAssignments();
+			}
+			if (castedVce.getAssignments() != null) {
+				this.timetable = castedVce.getTimetable();
+			}
+		}
 
-        super.replace(receivedVCE);
-    }
+		super.replace(receivedVce);
+	}
 
+	// public methods
+	/**
+	 * verbose true recursively build a verbose report, false call method toString.
+	 *
+	 * @param verbose
+	 *            boolean
+	 * @return String
+	 */
+	public String toString(boolean verbose) {
+		if (verbose) {
+			StringBuilder r = new StringBuilder();
+			r.append(toString());
+			r.append("\n");
+			r.append("Organiser: " + organiser.toString());
+			r.append("\n");
+			r.append("Total Assignments: " + Integer.toString(assignments.size()));
+			r.append("\n");
 
-    // public methods
-    public String toString(boolean verbose)
-    {
-        if (verbose)
-        {
-            StringBuilder r = new StringBuilder();
-            r.append(toString());
-            r.append("\n");
-            r.append("Organiser: " + organiser.toString());
-            r.append("\n");
-            r.append("Total Assignments: " + Integer.toString(assignments.size()));
-            r.append("\n");
+			int i = -1;
+			int ii = assignments.size();
 
-            int i = -1;
-            int ii = assignments.size();
+			while (++i < ii) {
+				r.append("\n");
+				r.append(assignments.get(i).toString(true));
+			}
 
-            while (++i < ii)
-            {
-                r.append("\n");
-                r.append(assignments.get(i).toString(true));
-            }
+			return r.toString();
 
-            return r.toString();
+		} else {
+			return toString();
+		}
+	}
 
-        } else
-        {
-            return toString();
-        }
-    }
+	@Override
+	public String toString() {
+		return "Module: " + this.name + " ( " + this.moduleCode + " )";
+	}
 
-    @Override
-    public String toString()
-    {
-        return "Module: " + this.name + " ( " + this.moduleCode + " )";
-    }
+	// getters
+	/**
+	 * get list of assignments.
+	 *
+	 * @return assignments
+	 */
+	public ArrayList<Assignment> getAssignments() {
+		return assignments;
+	}
 
-    // getters
-    public ArrayList<Assignment> getAssignments()
-    {
-        return assignments;
-    }
+	/**
+	 * get the person that is an organiser.
+	 *
+	 * @return organsier
+	 */
+	public Person getOrganiser() {
+		return organiser;
+	}
 
-    public Person getOrganiser()
-    {
-        return organiser;
-    }
+	/**
+	 * get module code.
+	 *
+	 * @return moduleCode
+	 */
+	public String getModuleCode() {
+		return moduleCode;
+	}
 
-    public String getModuleCode()
-    {
-        return moduleCode;
-    }
+	/**
+	 * get list of time table.
+	 *
+	 * @return timetable
+	 */
+	public ArrayList<TimetableEvent> getTimetable() {
+		return timetable;
+	}
 
-    public ArrayList<TimetableEvent> getTimetable()
-    {
-        return timetable;
-    }
+	/**
+	 * get the number of assignments.
+	 *
+	 * @return int
+	 */
+	public int getNoOfAssignments() {
+		return this.assignments.size();
+	}
 
-    public int getNoOfAssignments()
-    {
-        return this.assignments.size();
-    }
+	/**
+	 * Calculates how much of this Module has been completed in percentage.
+	 *
+	 * @return int (0-100)
+	 */
+	public int calculateProgress() {
+		if (this.assignments.size() == 0) {
+			return 0;
+		}
 
-    /**
-     * Calculates how much of this Module has been completed in percentage.
-     *
-     * @return int (0-100)
-     */
-    public int calculateProgress()
-    {
-        if (this.assignments.size() == 0)
-            return 0;
+		int sum = 0;
+		for (Assignment assignment : this.assignments) {
+			sum += assignment.calculateProgress();
+		}
+		return sum / this.assignments.size();
+	}
 
-        int sum = 0;
-        for (Assignment assignment : this.assignments)
-            sum += assignment.calculateProgress();
-        return sum / this.assignments.size();
-    }
+	// setters
+	/**add new assignment.
+	 * @param newAssignment assignment to be added
+	 */
+	public void addAssignment(Assignment newAssignment) {
+		// initial set up code below - check if this needs updating
+		if (!assignments.contains(newAssignment)) {
+			assignments.add(newAssignment);
+		}
+	}
 
-    // setters
-    public void addAssignment(Assignment newAssignment)
-    {
-        // initial set up code below - check if this needs updating
-        if (!assignments.contains(newAssignment))
-        {
-            assignments.add(newAssignment);
-        }
-    }
+	/**remove assignment.
+	 * @param newAssignment assignment to be removed
+	 */
+	public void removeAssignment(Assignment newAssignment) {
+		// initial set up code below - check if this needs updating
+		if (assignments.contains(newAssignment)) {
+			assignments.remove(newAssignment);
+		}
+	}
 
-    public void removeAssignment(Assignment newAssignment)
-    {
-        // initial set up code below - check if this needs updating
-        if (assignments.contains(newAssignment))
-        {
-            assignments.remove(newAssignment);
-        }
-    }
+	/**set organiser.
+	 * @param newOrganiser person that to be an organiser
+	 */
+	public void setOrganiser(Person newOrganiser) {
+		organiser = newOrganiser;
+	}
 
-    public void setOrganiser(Person newOrganiser)
-    {
-        organiser = newOrganiser;
-    }
+	/**set module code.
+	 * @param newModuleCode new module code to be added
+	 */
+	public void setModuleCode(String newModuleCode) {
+		moduleCode = newModuleCode;
+	}
 
-    public void setModuleCode(String newModuleCode)
-    {
-        moduleCode = newModuleCode;
-    }
+	/**add time table event.
+	 * @param newTimetableEvent TimeTableEvent to be added
+	 */
+	public void addTimetableEvent(TimetableEvent newTimetableEvent) {
+		if (!timetable.contains(newTimetableEvent)) {
+			timetable.add(newTimetableEvent);
+		}
+	}
 
-    public void addTimetableEvent(TimetableEvent newTimetableEvent)
-    {
-        if (!timetable.contains(newTimetableEvent))
-        {
-            timetable.add(newTimetableEvent);
-        }
-    }
+	/**remove time table event.
+	 * @param newTimetableEvent TimeTableEvent to be removed
+	 */
+	public void removeTimetableEvent(TimetableEvent newTimetableEvent) {
+		if (timetable.contains(newTimetableEvent)) {
+			timetable.remove(newTimetableEvent);
+		}
+	}
 
-    public void removeTimetableEvent(TimetableEvent newTimetableEvent)
-    {
-        if (timetable.contains(newTimetableEvent))
-        {
-            timetable.remove(newTimetableEvent);
-        }
-    }
+	@Override
+	public void open(MenuController.Window current) {
+		try {
+			MainController.ui.moduleDetails(this, current);
+		} catch (IOException e) {
+			UiManager.reportError("Unable to open View file");
+		}
+	}
 
-    @Override
-    public void open(MenuController.Window current)
-    {
-        try
-        {
-            MainController.ui.moduleDetails(this, current);
-        } catch (IOException e)
-        {
-            UIManager.reportError("Unable to open View file");
-        }
-    }
-
-    // constructors
-    public Module(Person cOrganiser, String cModuleCode)
-    {
-        setOrganiser(cOrganiser);
-        setModuleCode(cModuleCode);
-    }
+	// constructors
+	/**costructor.
+	 * @param cOrganiser orgainiser to be set
+	 * @param cModuleCode	modul code to be set
+	 */
+	public Module(Person cOrganiser, String cModuleCode) {
+		setOrganiser(cOrganiser);
+		setModuleCode(cModuleCode);
+	}
 }

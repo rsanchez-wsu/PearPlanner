@@ -26,11 +26,11 @@ import java.util.ArrayList;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class Coursework extends Assignment {
 	/**
-	 * 
+	 *serial version uid.
 	 */
 	private static final long serialVersionUID = 5621701916095916584L;
 	private Event startDate;
@@ -39,37 +39,49 @@ public class Coursework extends Assignment {
 
 	// private methods
 	@Override
-	protected void replace(VersionControlEntity receivedVCE) {
-		if (receivedVCE instanceof Coursework) {
-			Coursework castedVCE = (Coursework) receivedVCE;
-			if (castedVCE.getStartDate() != null) {
-				this.startDate = castedVCE.getStartDate();
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Coursework) {
+			Coursework castedVce = (Coursework) receivedVce;
+			if (castedVce.getStartDate() != null) {
+				this.startDate = castedVce.getStartDate();
 			}
-			if (castedVCE.getDeadline() != null) {
-				this.deadline = castedVCE.getDeadline();
+			if (castedVce.getDeadline() != null) {
+				this.deadline = castedVce.getDeadline();
 			}
-			if (castedVCE.getExtensions() != null) {
-				this.extensions = castedVCE.getExtensions();
+			if (castedVce.getExtensions() != null) {
+				this.extensions = castedVce.getExtensions();
 			}
 		}
 
-		super.replace(receivedVCE);
+		super.replace(receivedVce);
 	}
 	// public methods
 
 	// getters
+	/**get the start date of an event.
+	 * @return startDate
+	 */
 	public Event getStartDate() {
 		return startDate;
 	}
 
+	/**get dead line.
+	 * @return deadline
+	 */
 	public Deadline getDeadline() {
 		return deadline;
 	}
 
+	/**get an array list of extensions.
+	 * @return extension
+	 */
 	public ArrayList<Extension> getExtensions() {
 		return extensions;
 	}
 
+	/**get an array list of notes.
+	 * @return notes
+	 */
 	public ArrayList<Note> getNotes() {
 		return notes;
 	}
@@ -85,12 +97,18 @@ public class Coursework extends Assignment {
 	}
 
 	// setters
+	/**add a note.
+	 * @param newNote new note to be added
+	 */
 	public void addNote(Note newNote) {
 		if (!notes.contains(newNote)) {
 			notes.add(newNote);
 		}
 	}
 
+	/**remove a note.
+	 * @param oldNote note to be removed
+	 */
 	public void removeNote(Note oldNote) {
 		if (notes.contains(oldNote)) {
 			notes.remove(oldNote);
@@ -98,8 +116,19 @@ public class Coursework extends Assignment {
 	}
 
 	// Constructors
-	public Coursework(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks, Event cStartDate,
-					  Deadline cDeadline, ArrayList<Extension> cExtensions) {
+	/**contructor.
+	 * @param cWeighting	int
+	 * @param cSetBy	Person
+	 * @param cMarkedBy	Person
+	 * @param cReviewedBy	Person
+	 * @param cMarks	int
+	 * @param cStartDate	Event
+	 * @param cDeadline	Deadline
+	 * @param cExtensions ArrayList of Extension
+	 */
+	public Coursework(int cWeighting, Person cSetBy, Person cMarkedBy,
+						Person cReviewedBy, int cMarks, Event cStartDate,
+						Deadline cDeadline, ArrayList<Extension> cExtensions) {
 		super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);
 		startDate = cStartDate;
 		deadline = cDeadline;

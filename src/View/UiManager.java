@@ -71,7 +71,7 @@ import java.io.IOException;
  * Created by Zilvinas on 04/05/2017.
  */
 
-public class UIManager {
+public class UiManager {
 	private static Stage mainStage = new Stage();
 	private static MenuController mc = new MenuController();
 
@@ -117,7 +117,7 @@ public class UIManager {
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/MainMenu.fxml"));
-		loader.setController(UIManager.mc);
+		loader.setController(UiManager.mc);
 		Parent root = loader.load();
 
 		// Set the scene:
@@ -265,7 +265,7 @@ public class UIManager {
 	 * @throws IOException Throws exception if IO error is triggered
 	 */
 	public void moduleDetails(Module module, MenuController.Window current) throws IOException {
-		UIManager.mc.loadModule(module, current, null);
+		UiManager.mc.loadModule(module, current, null);
 	}
 
 	/**
@@ -276,7 +276,7 @@ public class UIManager {
 	 * @throws IOException Throws exception if IO error is triggered
 	 */
 	public void moduleDetails(Module module, ModelEntity current) throws IOException {
-		UIManager.mc.loadModule(module, MenuController.Window.EMPTY, current);
+		UiManager.mc.loadModule(module, MenuController.Window.EMPTY, current);
 	}
 
 	/**
@@ -288,7 +288,7 @@ public class UIManager {
 	 */
 	public void assignmentDetails(Assignment assignment, MenuController.Window current)
 			throws IOException {
-		UIManager.mc.loadAssignment(assignment, current, null);
+		UiManager.mc.loadAssignment(assignment, current, null);
 	}
 
 	/**
@@ -299,7 +299,7 @@ public class UIManager {
 	 * @throws IOException Throws exception if IO error is triggered
 	 */
 	public void assignmentDetails(Assignment assignment, ModelEntity current) throws IOException {
-		UIManager.mc.loadAssignment(assignment, MenuController.Window.EMPTY, current);
+		UiManager.mc.loadAssignment(assignment, MenuController.Window.EMPTY, current);
 	}
 
 	/**
@@ -596,7 +596,7 @@ public class UIManager {
 	 * Please don't use.
 	 */
 	public static void areYouFeelingLucky() {
-		while (UIManager.confirm("Are you feeling lucky?") == (Math.random() < 0.5)) {
+		while (UiManager.confirm("Are you feeling lucky?") == (Math.random() < 0.5)) {
 		}
 	}
 

@@ -33,8 +33,8 @@ import Model.Room;
 import Model.TimeTableEventType;
 import Model.TimetableEvent;
 import Model.VersionControlEntity;
-import View.ConsoleIO;
-import View.UIManager;
+import View.ConsoleIo;
+import View.UiManager;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -68,10 +68,10 @@ public class DataController {
 	 * @param vce the entity to update.
 	 */
 	private static void processVceUpdate(VersionControlEntity vce) {
-		if (vce.addToLibrary() || VersionControlEntity.get(vce.getUID()).update(vce)) {
-			ConsoleIO.setConsoleMessage(vce + " added", true);
+		if (vce.addToLibrary() || VersionControlEntity.get(vce.getUId()).update(vce)) {
+			ConsoleIo.setConsoleMessage(vce + " added", true);
 		} else {
-			ConsoleIO.setConsoleMessage(vce + " not added", true);
+			ConsoleIo.setConsoleMessage(vce + " not added", true);
 		}
 	}
 
@@ -87,9 +87,9 @@ public class DataController {
 	private static HubFile processUpdateHubFile(NodeList nodes) throws Exception {
 
 		HubFile hub = null;
-		XMLcontroller xmlTools = new XMLcontroller();
+		XmlController xmlTools = new XmlController();
 
-		HashMap<String, XMLcontroller.NodeReturn> fileValues =
+		HashMap<String, XmlController.NodeReturn> fileValues =
 				xmlTools.getSchemaValues(nodes, HubFile.SCHEMA_UPDATE_FILE);
 
 		NodeList updates = fileValues.get("updates").getNodeList();
@@ -98,9 +98,9 @@ public class DataController {
 			Node node = updates.item(i);
 			if (node.getNodeType() == Node.ELEMENT_NODE
 					&& HubFile.updateableNode(node.getNodeName())
-					&& XMLcontroller.matchesSchema(node.getChildNodes(), HubFile.SCHEMA_VCE)) {
+					&& XmlController.matchesSchema(node.getChildNodes(), HubFile.SCHEMA_VCE)) {
 				String nodeName = node.getNodeName();
-				HashMap<String, XMLcontroller.NodeReturn> nodeValues =
+				HashMap<String, XmlController.NodeReturn> nodeValues =
 						xmlTools.getSchemaValues(node.getChildNodes(),
 								HubFile.schemaList.get(nodeName));
 
@@ -109,7 +109,7 @@ public class DataController {
 				if (VersionControlEntity.inLibrary(uid)
 						&& VersionControlEntity.get(uid).getVersion() < version) {
 
-					NodeList nc = XMLcontroller.getNodes(node);
+					NodeList nc = XmlController.getNodes(node);
 					switch (nodeName) {
 					case "person":
 						processVceUpdate(HubFile.createPerson(nc));
@@ -199,13 +199,13 @@ public class DataController {
 	 * @param values the values to use for the update.
 	 */
 	public static void addVceProperties(VersionControlEntity vce,
-			Map<String, XMLcontroller.NodeReturn> values) {
+			Map<String, XmlController.NodeReturn> values) {
 
 		vce.addProperties(values.get("name").getString(),
 				values.get("details").getMultilineString());
 		String uid = values.get("uid").getString();
 		vce.makeImporter();
-		vce.setUID(uid, values.get("version").getInt());
+		vce.setUId(uid, values.get("version").getInt());
 
 	}
 
@@ -219,24 +219,24 @@ public class DataController {
 	 */
 	private static HubFile processNewHubFile(NodeList nodes) throws Exception {
 
-		int beginLog = ConsoleIO.getLogSize();
-		ConsoleIO.setConsoleMessage("Importing New Hub File", true);
+		int beginLog = ConsoleIo.getLogSize();
+		ConsoleIo.setConsoleMessage("Importing New Hub File", true);
 		HubFile hub = null;
-		XMLcontroller xmlTools = new XMLcontroller();
+		XmlController xmlTools = new XmlController();
 
-		HashMap<String, XMLcontroller.NodeReturn> fileValues =
+		HashMap<String, XmlController.NodeReturn> fileValues =
 				xmlTools.getSchemaValues(nodes, HubFile.SCHEMA_NEW_STUDYPROFILE);
 
 		int version = fileValues.get("version").getInt();
 		NodeList assetNodes = fileValues.get("assets").getNodeList();
 		NodeList studyProfileNodes = fileValues.get("studyProfile").getNodeList();
 
-		if (XMLcontroller.matchesSchema(assetNodes, HubFile.SCHEMA_ASSETS)
-				&& XMLcontroller.matchesSchema(studyProfileNodes, HubFile.SCHEMA_STUDYPROFILE)) {
-			ConsoleIO.setConsoleMessage("Schema Validates: assets", true);
-			ConsoleIO.setConsoleMessage("Schema Validates: studyProfile", true);
+		if (XmlController.matchesSchema(assetNodes, HubFile.SCHEMA_ASSETS)
+				&& XmlController.matchesSchema(studyProfileNodes, HubFile.SCHEMA_STUDYPROFILE)) {
+			ConsoleIo.setConsoleMessage("Schema Validates: assets", true);
+			ConsoleIo.setConsoleMessage("Schema Validates: studyProfile", true);
 
-			HashMap<String, XMLcontroller.NodeReturn> studyProfileValues =
+			HashMap<String, XmlController.NodeReturn> studyProfileValues =
 					xmlTools.getSchemaValues(studyProfileNodes, HubFile.SCHEMA_STUDYPROFILE);
 
 			int year = studyProfileValues.get("year").getInt();
@@ -248,7 +248,7 @@ public class DataController {
 			}
 
 			HashMap<String, VersionControlEntity> assetList = new HashMap<>();
-			HashMap<String, XMLcontroller.NodeReturn> assetValues =
+			HashMap<String, XmlController.NodeReturn> assetValues =
 					xmlTools.getSchemaValues(assetNodes, HubFile.SCHEMA_ASSETS);
 
 			ArrayList<Module> newModules = new ArrayList<>();
@@ -262,22 +262,22 @@ public class DataController {
 				NodeList personList = assetValues.get("persons").getNodeList();
 				Person tp;
 				int pll = personList.getLength();
-				ConsoleIO.setConsoleMessage("Reading persons tag, "
+				ConsoleIo.setConsoleMessage("Reading persons tag, "
 						+ Integer.toString(pll) + " nodes:", true);
 				for (int i = 0; i < pll; i++) {
 					node = personList.item(i);
 					if (node.getNodeType() == Node.ELEMENT_NODE) {
-						nc = XMLcontroller.getNodes(node);
+						nc = XmlController.getNodes(node);
 						if (node.getNodeName().equals("person")
-								&& XMLcontroller.matchesSchema(nc, HubFile.SCHEMA_PERSON)) {
+								&& XmlController.matchesSchema(nc, HubFile.SCHEMA_PERSON)) {
 
-							ConsoleIO.setConsoleMessage("Valid Node found:", true);
+							ConsoleIo.setConsoleMessage("Valid Node found:", true);
 
 							tp = HubFile.createPerson(nc);
 
-							assetList.put(tp.getUID(), tp);
+							assetList.put(tp.getUId(), tp);
 
-							ConsoleIO.setConsoleMessage("Adding person: " + tp.toString(), true);
+							ConsoleIo.setConsoleMessage("Adding person: " + tp.toString(), true);
 						}
 					}
 				}
@@ -288,21 +288,21 @@ public class DataController {
 				NodeList buildingList = assetValues.get("buildings").getNodeList();
 				Building tb;
 				int bll = buildingList.getLength();
-				ConsoleIO.setConsoleMessage("Reading buildings tag, "
+				ConsoleIo.setConsoleMessage("Reading buildings tag, "
 						+ Integer.toString(bll) + " nodes:", true);
 				for (int i = 0; i < bll; i++) {
 					node = buildingList.item(i);
 					if (node.getNodeType() == Node.ELEMENT_NODE) {
-						nc = XMLcontroller.getNodes(node);
+						nc = XmlController.getNodes(node);
 						if (node.getNodeName().equals("building")
-								&& XMLcontroller.matchesSchema(nc, HubFile.SCHEMA_BUILDING)) {
-							ConsoleIO.setConsoleMessage("Valid Node found:", true);
+								&& XmlController.matchesSchema(nc, HubFile.SCHEMA_BUILDING)) {
+							ConsoleIo.setConsoleMessage("Valid Node found:", true);
 
 
 							tb = HubFile.createBuilding(nc);
 
-							assetList.put(tb.getUID(), tb);
-							ConsoleIO.setConsoleMessage("Adding buiding: " + tb.toString(), true);
+							assetList.put(tb.getUId(), tb);
+							ConsoleIo.setConsoleMessage("Adding buiding: " + tb.toString(), true);
 						}
 					}
 				}
@@ -313,19 +313,19 @@ public class DataController {
 				NodeList roomList = assetValues.get("rooms").getNodeList();
 				Room tr;
 				int rll = roomList.getLength();
-				ConsoleIO.setConsoleMessage("Reading rooms tag, "
+				ConsoleIo.setConsoleMessage("Reading rooms tag, "
 						+ Integer.toString(rll) + " nodes:", true);
 				for (int i = 0; i < rll; i++) {
 					node = roomList.item(i);
 					if (node.getNodeType() == Node.ELEMENT_NODE) {
-						nc = XMLcontroller.getNodes(node);
+						nc = XmlController.getNodes(node);
 						if (node.getNodeName().equals("room")
-								&& XMLcontroller.matchesSchema(nc, HubFile.SCHEMA_ROOM)) {
-							ConsoleIO.setConsoleMessage("Valid Node found:", true);
+								&& XmlController.matchesSchema(nc, HubFile.SCHEMA_ROOM)) {
+							ConsoleIo.setConsoleMessage("Valid Node found:", true);
 
 							tr = HubFile.createRoom(nc, assetList);
-							assetList.put(tr.getUID(), tr);
-							ConsoleIO.setConsoleMessage("Adding room: " + tr.toString(), true);
+							assetList.put(tr.getUId(), tr);
+							ConsoleIo.setConsoleMessage("Adding room: " + tr.toString(), true);
 						}
 					}
 				}
@@ -335,21 +335,21 @@ public class DataController {
 			if (assetValues.containsKey("timetableEventTypes")) {
 				NodeList ttetList = assetValues.get("timetableEventTypes").getNodeList();
 				int tll = ttetList.getLength();
-				ConsoleIO.setConsoleMessage("Reading timetableEventTypes tag, "
+				ConsoleIo.setConsoleMessage("Reading timetableEventTypes tag, "
 						+ Integer.toString(tll) + " nodes:", true);
 				for (int i = 0; i < tll; i++) {
 					node = ttetList.item(i);
 					if (node.getNodeType() == Node.ELEMENT_NODE) {
-						nc = XMLcontroller.getNodes(node);
+						nc = XmlController.getNodes(node);
 						if (node.getNodeName().equals("timetableEventType")
-								&& XMLcontroller.matchesSchema(nc,
+								&& XmlController.matchesSchema(nc,
 										HubFile.SCHEMA_TIMETABLE_EVENT_TYPE)) {
-							ConsoleIO.setConsoleMessage("Valid Node found:", true);
+							ConsoleIo.setConsoleMessage("Valid Node found:", true);
 							TimeTableEventType ttet = HubFile.createTimetableEventType(nc);
 
 
-							assetList.put(ttet.getUID(), ttet);
-							ConsoleIO.setConsoleMessage("Adding timetable event: "
+							assetList.put(ttet.getUId(), ttet);
+							ConsoleIo.setConsoleMessage("Adding timetable event: "
 									+ ttet.toString(), true);
 						}
 					}
@@ -364,10 +364,10 @@ public class DataController {
 				if (modules.item(i).getNodeType() == Node.ELEMENT_NODE
 						&& modules.item(i).getNodeName().equals("module")
 						&& modules.item(i).hasChildNodes()
-						&& XMLcontroller.matchesSchema(modules.item(i).getChildNodes(),
+						&& XmlController.matchesSchema(modules.item(i).getChildNodes(),
 								HubFile.SCHEMA_MODULE)) {
 
-					HashMap<String, XMLcontroller.NodeReturn> moduleValues =
+					HashMap<String, XmlController.NodeReturn> moduleValues =
 							xmlTools.getSchemaValues(modules.item(i).getChildNodes(),
 									HubFile.SCHEMA_MODULE);
 
@@ -384,7 +384,7 @@ public class DataController {
 
 					NodeList assignments = moduleValues.get("assignments").getNodeList();
 					int all = assignments.getLength();
-					ConsoleIO.setConsoleMessage("Reading assignments tag, "
+					ConsoleIo.setConsoleMessage("Reading assignments tag, "
 							+ Integer.toString(all) + " nodes:", true);
 					for (int j = 0; j < all; j++) {
 						if (assignments.item(j).getNodeType() == Node.ELEMENT_NODE) {
@@ -392,30 +392,30 @@ public class DataController {
 							String nodeName = assignments.item(j).getNodeName();
 							switch (nodeName) {
 							case "coursework":
-								if (XMLcontroller.matchesSchema(
+								if (XmlController.matchesSchema(
 										assignments.item(j).getChildNodes(),
 										HubFile.SCHEMA_COURSEWORK)) {
-									ConsoleIO.setConsoleMessage("Valid Node found:", true);
+									ConsoleIo.setConsoleMessage("Valid Node found:", true);
 									Coursework newCoursework =
 											HubFile.createCoursework(nc, assetList);
-									assetList.put(newCoursework.getUID(), newCoursework);
+									assetList.put(newCoursework.getUId(), newCoursework);
 									thisModule.addAssignment(newCoursework);
-									ConsoleIO.setConsoleMessage("Adding coursework: "
+									ConsoleIo.setConsoleMessage("Adding coursework: "
 											+ newCoursework.toString(), true);
 								}
 								break;
 
 							case "exam":
-								if (XMLcontroller.matchesSchema(
+								if (XmlController.matchesSchema(
 										assignments.item(j).getChildNodes(),
 										HubFile.SCHEMA_EXAM)) {
-									ConsoleIO.setConsoleMessage("Valid Node found:", true);
+									ConsoleIo.setConsoleMessage("Valid Node found:", true);
 
 
 									Exam newExam = HubFile.createExam(nc, assetList);
-									assetList.put(newExam.getUID(), newExam);
+									assetList.put(newExam.getUId(), newExam);
 									thisModule.addAssignment(newExam);
-									ConsoleIO.setConsoleMessage("Adding exam: "
+									ConsoleIo.setConsoleMessage("Adding exam: "
 											+ newExam.toString(), true);
 								}
 
@@ -428,22 +428,22 @@ public class DataController {
 					}
 					NodeList timetable = moduleValues.get("timetable").getNodeList();
 					int ttll = timetable.getLength();
-					ConsoleIO.setConsoleMessage("Reading timetable tag, "
+					ConsoleIo.setConsoleMessage("Reading timetable tag, "
 							+ Integer.toString(ttll) + " nodes:", true);
 					for (int j = 0; j < ttll; j++) {
 						if (timetable.item(j).getNodeType() == Node.ELEMENT_NODE
 								&& timetable.item(j).getNodeName().equals("timetableEvent")
-								&& XMLcontroller.matchesSchema(timetable.item(j).getChildNodes(),
+								&& XmlController.matchesSchema(timetable.item(j).getChildNodes(),
 										HubFile.SCHEMA_TIMETABLE_EVENT)) {
-							ConsoleIO.setConsoleMessage("Valid Node found:", true);
+							ConsoleIo.setConsoleMessage("Valid Node found:", true);
 							nc = timetable.item(j).getChildNodes();
 
 							TimetableEvent newTte =
 									HubFile.createTimetableEvent(nc, assetList);
-							assetList.put(newTte.getUID(), newTte);
+							assetList.put(newTte.getUId(), newTte);
 							thisModule.addTimetableEvent(newTte);
 
-							ConsoleIO.setConsoleMessage("Adding TimetableEvent: "
+							ConsoleIo.setConsoleMessage("Adding TimetableEvent: "
 									+ newTte.toString(), true);
 						}
 					}
@@ -451,36 +451,36 @@ public class DataController {
 				}
 			}
 
-			ConsoleIO.setConsoleMessage("Attempting to import "
+			ConsoleIo.setConsoleMessage("Attempting to import "
 					+ Integer.toString(assetList.size())
 					+ " items to VersionControl...", true);
-			ConsoleIO.setConsoleMessage("Starting with "
+			ConsoleIo.setConsoleMessage("Starting with "
 					+ VersionControlEntity.libraryReport() + " entries");
 
 			ArrayList<Event> calendarItems = new ArrayList<>();
 
 			for (String key : assetList.keySet()) {
-				ConsoleIO.setConsoleMessage("Adding Asset: " + key, true);
+				ConsoleIo.setConsoleMessage("Adding Asset: " + key, true);
 				if (assetList.get(key).addToLibrary()) {
-					ConsoleIO.setConsoleMessage("New Asset, adding... ", true);
+					ConsoleIo.setConsoleMessage("New Asset, adding... ", true);
 					if (assetList.get(key) instanceof Event) {
 
-						ConsoleIO.setConsoleMessage("Event - adding to Calendar: ", true);
+						ConsoleIo.setConsoleMessage("Event - adding to Calendar: ", true);
 						calendarItems.add((Event) assetList.get(key));
 					}
 				} else if (assetList.get(key).isImporter()) {
-					ConsoleIO.setConsoleMessage("In library, attempting update: ", true);
-					ConsoleIO.setConsoleMessage(assetList.get(key).toString()
+					ConsoleIo.setConsoleMessage("In library, attempting update: ", true);
+					ConsoleIo.setConsoleMessage(assetList.get(key).toString()
 							+ (VersionControlEntity.get(key).update(assetList.get(key))
 									? " updated" : " not updated"), true);
 				} else {
-					ConsoleIO.setConsoleMessage(assetList.get(key).toString()
+					ConsoleIo.setConsoleMessage(assetList.get(key).toString()
 							+ " not imported", true);
 				}
 			}
-			ConsoleIO.setConsoleMessage("Ending with "
+			ConsoleIo.setConsoleMessage("Ending with "
 					+ VersionControlEntity.libraryReport() + " entries");
-			ConsoleIO.saveLog("import_report.txt", beginLog, ConsoleIO.getLogSize());
+			ConsoleIo.saveLog("import_report.txt", beginLog, ConsoleIo.getLogSize());
 
 			String name = studyProfileValues.get("name").getString();
 			MultilineString details = studyProfileValues.get("details").getMultilineString();
@@ -517,20 +517,20 @@ public class DataController {
 				// check it is a hubfile
 				if (rootElementTag.equals("hubfile")
 						&& rootElement.hasChildNodes()) {
-					NodeList nodes = XMLcontroller.getNodes(rootElement);
-					if (XMLcontroller.matchesSchema(nodes, HubFile.SCHEMA_NEW_STUDYPROFILE)) {
+					NodeList nodes = XmlController.getNodes(rootElement);
+					if (XmlController.matchesSchema(nodes, HubFile.SCHEMA_NEW_STUDYPROFILE)) {
 						hub = processNewHubFile(nodes);
-					} else if (XMLcontroller.matchesSchema(nodes, HubFile.SCHEMA_UPDATE_FILE)) {
+					} else if (XmlController.matchesSchema(nodes, HubFile.SCHEMA_UPDATE_FILE)) {
 						hub = processUpdateHubFile(nodes);
 					} else {
-						UIManager.reportError("Invalid Parent Nodes");
+						UiManager.reportError("Invalid Parent Nodes");
 					}
 				} else {
-					UIManager.reportError("Invalid XML file");
+					UiManager.reportError("Invalid XML file");
 				}
 
 			} catch (Exception e) {
-				UIManager.reportError("Invalid File: \n" + e.getMessage());
+				UiManager.reportError("Invalid File: \n" + e.getMessage());
 			}
 		}
 		return hub;

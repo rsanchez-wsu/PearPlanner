@@ -22,64 +22,78 @@
 package Model;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class Exam extends Assignment
-{
-    /**
-	 * 
+public class Exam extends Assignment {
+	/**
+	 * serial version uid.
 	 */
 	private static final long serialVersionUID = 6435468033960550569L;
 	// private data
-    private Exam resit = null;
-    private ExamEvent timeSlot = null;
+	private Exam resit = null;
+	private ExamEvent timeSlot = null;
 
-    @Override
-    protected void replace(VersionControlEntity receivedVCE)
-    {
-        if (receivedVCE instanceof Exam)
-        {
-            Exam castedVCE = (Exam) receivedVCE;
-            if (castedVCE.getResit() != null)
-            {
-                this.resit = castedVCE.getResit();
-            }
-            if (castedVCE.getTimeSlot() != null)
-            {
-                this.timeSlot = castedVCE.getTimeSlot();
-            }
-        }
+	@Override
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Exam) {
+			Exam castedVce = (Exam) receivedVce;
+			if (castedVce.getResit() != null) {
+				this.resit = castedVce.getResit();
+			}
+			if (castedVce.getTimeSlot() != null) {
+				this.timeSlot = castedVce.getTimeSlot();
+			}
+		}
 
-        super.replace(receivedVCE);
-    }
+		super.replace(receivedVce);
+	}
 
-    // public methods
+	// public methods
 
-    // getters
-    public Exam getResit()
-    {
-        return resit;
-    }
+	// getters
+	/**get resit.
+	 * @return resit
+	 */
+	public Exam getResit() {
+		return resit;
+	}
 
-    public ExamEvent getTimeSlot()
-    {
-        return timeSlot;
-    }
+	/**get time slot.
+	 * @return timeSlot
+	 */
+	public ExamEvent getTimeSlot() {
+		return timeSlot;
+	}
 
+	// constructors
+	/**constructor.
+	 * @param cWeighting	int
+	 * @param cSetBy	Person
+	 * @param cMarkedBy	Person
+	 * @param cReviewedBy	Person
+	 * @param cMarks	int
+	 * @param cTimeSlot	ExamEvent
+	 * @param cResit	Exam
+	 */
+	public Exam(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks,
+			ExamEvent cTimeSlot, Exam cResit) {
+		super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);
+		timeSlot = cTimeSlot;
+		resit = cResit;
+	}
 
-    // constructors
-    public Exam(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks, ExamEvent cTimeSlot, Exam cResit)
-    {
-        super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);
-        timeSlot = cTimeSlot;
-        resit = cResit;
-    }
-
-    public Exam(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks, ExamEvent cTimeSlot)
-    {
-        super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);
-        timeSlot = cTimeSlot;
-        resit = null;
-    }
+	/**constructor.
+	 * @param cWeighting	int
+	 * @param cSetBy	Person
+	 * @param cMarkedBy	Person
+	 * @param cReviewedBy	Person
+	 * @param cMarks	int
+	 * @param cTimeSlot	ExamEvent
+	 */
+	public Exam(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks,
+			ExamEvent cTimeSlot) {
+		super(cWeighting, cSetBy, cMarkedBy, cReviewedBy, cMarks);
+		timeSlot = cTimeSlot;
+		resit = null;
+	}
 }

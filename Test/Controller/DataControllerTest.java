@@ -31,29 +31,39 @@ import static org.junit.Assert.*;
  */
 public class DataControllerTest {
 
-    @Before
-    public void setUp() throws Exception
-    {
-    }
+	/** set up method.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Before
+	public void setUp() throws Exception {
+	}
 
-    @Test
-    public void existingSettingsFile() throws Exception
-    {
-    }
+	/**existing setting file method.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void existingSettingsFile() throws Exception {
+	}
 
-    @Test
-    public void getNodes() throws Exception
-    {
-    }
+	/**get Nodes method.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void getNodes() throws Exception {
+	}
 
-    @Test
-    public void validNodeList() throws Exception
-    {
-    }
+	/**validate node list.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void validNodeList() throws Exception {
+	}
 
-    @Test
-    public void loadHubFile() throws Exception
-    {
-    }
+	/**load new hub file.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void loadHubFile() throws Exception {
+	}
 
 }

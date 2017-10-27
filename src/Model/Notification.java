@@ -25,98 +25,127 @@ import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class Notification implements Serializable
-{
-    /**
-	 * 
+public class Notification implements Serializable {
+	/**
+	 *serial version uid.
 	 */
 	private static final long serialVersionUID = 4080378715756030248L;
 	// private data
-    private String title;
-    private GregorianCalendar dateTime;
-    private MultilineString details;
-    private boolean read;
-    private ModelEntity link;
+	private String title;
+	private GregorianCalendar dateTime;
+	private MultilineString details;
+	private boolean read;
+	private ModelEntity link;
 
-    // public methods
+	// public methods
 
-    // getters
-    public String getTitle()
-    {
-        return title;
-    }
+	// getters
+	/**get title.
+	 * @return String
+	 */
+	public String getTitle() {
+		return title;
+	}
 
-    public GregorianCalendar getDateTime()
-    {
-        return dateTime;
-    }
+	/**get date time.
+	 * @return GregorianCalendar
+	 */
+	public GregorianCalendar getDateTime() {
+		return dateTime;
+	}
 
-    public MultilineString getDetails()
-    {
-        return details;
-    }
+	/**get details.
+	 * @return MultilineString
+	 */
+	public MultilineString getDetails() {
+		return details;
+	}
 
-    public String getDetailsAsString()
-    {
-        return this.details.getAsString();
-    }
+	/**get details as String.
+	 * @return String
+	 */
+	public String getDetailsAsString() {
+		return this.details.getAsString();
+	}
 
-    public boolean isRead()
-    {
-        return read;
-    }
+	/**check whether it is read or not.
+	 * @return boolean
+	 */
+	public boolean isRead() {
+		return read;
+	}
 
-    public ModelEntity getLink()
-    {
-        return link;
-    }
+	/**get link.
+	 * @return ModelEntity
+	 */
+	public ModelEntity getLink() {
+		return link;
+	}
 
-    public String toString()
-    {
-        return this.title + ": " + this.getDetailsAsString();
-    }
+	@Override
+	public String toString() {
+		return this.title + ": " + this.getDetailsAsString();
+	}
 
-    // setters
-    public void read()
-    {
-        this.read = true;
-    }
+	// setters
+	/**
+	 * set it is read.
+	 */
+	public void read() {
+		this.read = true;
+	}
 
-    public void unread()
-    {
-        this.read = false;
-    }
+	/**
+	 * set read as false.
+	 */
+	public void unread() {
+		this.read = false;
+	}
 
-    public void toggle()
-    {
-        this.read = !read;
-    }
+	/**
+	 *change the current value of read to the opposite value e.g false to true and vice versa.
+	 */
+	public void toggle() {
+		this.read = !read;
+	}
 
-    // constructors
-    public Notification(String title, GregorianCalendar dateTime, String details, ModelEntity link)
-    {
-        this.title = title;
-        this.dateTime = dateTime;
-        this.details = new MultilineString(details);
-        this.read = false;
-        this.link = link;
-    }
+	// constructors
+	/**constructor.
+	 * @param title		String title to be set
+	 * @param dateTime	GregorianCalendar date to be set
+	 * @param details	String details to be set
+	 * @param link		ModelEntity
+	 */
+	public Notification(String title, GregorianCalendar dateTime, String details,
+			ModelEntity link) {
+		this.title = title;
+		this.dateTime = dateTime;
+		this.details = new MultilineString(details);
+		this.read = false;
+		this.link = link;
+	}
 
-    public Notification(String title, GregorianCalendar dateTime, String details)
-    {
-        this.title = title;
-        this.dateTime = dateTime;
-        this.details = new MultilineString(details);
-        this.read = false;
-    }
+	/**Constructor.
+	 * @param title		String title to be set
+	 * @param dateTime	GregorianCalendar date to be set
+	 * @param details	String details to be set
+	 */
+	public Notification(String title, GregorianCalendar dateTime, String details) {
+		this.title = title;
+		this.dateTime = dateTime;
+		this.details = new MultilineString(details);
+		this.read = false;
+	}
 
-    public Notification(String title, GregorianCalendar dateTime)
-    {
-        this.title = title;
-        this.dateTime = dateTime;
-        this.read = false;
-    }
+	/**constructors.
+	 * @param title		String
+	 * @param dateTime	GregorianCalendar
+	 */
+	public Notification(String title, GregorianCalendar dateTime) {
+		this.title = title;
+		this.dateTime = dateTime;
+		this.read = false;
+	}
 }

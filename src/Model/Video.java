@@ -23,7 +23,7 @@ package Model;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class Video /*extends Requirement*/ {
 	// private data
@@ -32,12 +32,18 @@ public class Video /*extends Requirement*/ {
 	// public methods
 
 	// getters
+	/**get Url.
+	 * @return String
+	 */
 	public String getUrl() {
 		return url;
 	}
 
 	// setters
-	public void setUrl(String newURL) {
-		url = newURL;
+	/**set URL.
+	 * @param newUrl newURL to be set
+	 */
+	public void setUrl(String newUrl) {
+		url = newUrl;
 	}
 }

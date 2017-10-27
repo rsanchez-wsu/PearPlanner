@@ -22,7 +22,7 @@
 package Model;
 
 import Controller.DataController;
-import Controller.XMLcontroller;
+import Controller.XmlController;
 import org.w3c.dom.NodeList;
 
 import java.io.Serializable;
@@ -31,11 +31,11 @@ import java.util.HashMap;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class HubFile implements Serializable {
-	/**
-	 * 
+	/**serial version uid.
+	 *
 	 */
 	private static final long serialVersionUID = 5754065946186570614L;
 	// private data
@@ -49,69 +49,106 @@ public class HubFile implements Serializable {
 	private int year;
 	private boolean updateFile;
 	private String semesterName;
-	private String semesterUID;
+	private String semesterUId;
 	private MultilineString semesterDetails;
 
 	// public methods
 
 	// getters
-	/**
+	/**get the array list of assets.
 	 * @return the assets
 	 */
 	public ArrayList<VersionControlEntity> getAssets() {
 		return assets;
 	}
-	
+
+	/**get the array list of modules.
+	 * @return modules
+	 */
 	public ArrayList<Module> getModules() {
 		return modules;
 	}
 
+	/**get the array list of extensions.
+	 * @return extensions
+	 */
 	public ArrayList<ExtensionApplication> getExtensions() {
 		return extensions;
 	}
 
+	/**get the array list of events.
+	 * @return calendarList
+	 */
 	public ArrayList<Event> getCalendarList() {
 		return calendarList;
 	}
 
+	/**get the array list of the update of the version control entity.
+	 * @return updates
+	 */
 	public ArrayList<VersionControlEntity> getUpdates() {
 		return updates;
 	}
 
+	/**get version.
+	 * @return version
+	 */
 	public int getVersion() {
 		return version;
 	}
 
+	/**get semester.
+	 * @return semester
+	 */
 	public int getSemester() {
 		return semester;
 	}
 
+	/**get year.
+	 * @return year
+	 */
 	public int getYear() {
 		return year;
 	}
 
+	/**get semester name.
+	 * @return semesterName
+	 */
 	public String getSemesterName() {
 		return semesterName;
 	}
 
-	public String getSemesterUID() {
-		return semesterUID;
+	/**get semester uid.
+	 * @return semesterUid
+	 */
+	public String getSemesterUId() {
+		return semesterUId;
 	}
 
+	/**get semester details.
+	 * @return semesterDetails
+	 */
 	public MultilineString getSemesterDetails() {
 		return semesterDetails;
 	}
 
+	/**check whether it is successfully update or not.
+	 * @return boolean
+	 */
 	public boolean isUpdate() {
 		return updateFile;
 	}
 
 	@Override
 	public String toString() {
-		return "HubFile for " + Integer.toString(year) + " semester: " + Integer.toString(semester) + " | Module Count: " +
-				Integer.toString(modules.size());
+		return "HubFile for " + Integer.toString(year) + " semester: " + Integer.toString(semester)
+				+ " | Module Count: " + Integer.toString(modules.size());
 	}
 
+	/**true recursively build string and return verbose report, false call toString method.
+	 * @param verbose boolean
+	 * @return String
+	 */
 	public String toString(boolean verbose) {
 		if (verbose) {
 			StringBuilder r = new StringBuilder();
@@ -131,7 +168,7 @@ public class HubFile implements Serializable {
 	// constructors
 
 	/**
-	 * Constructor for new Study Profile
+	 * Constructor for new Study Profile.
 	 *
 	 * @param v   version
 	 * @param y   year
@@ -140,7 +177,8 @@ public class HubFile implements Serializable {
 	 * @param a   VersionControlEntity list
 	 * @param cal CALENDAR events list
 	 */
-	public HubFile(int v, int y, int s, ArrayList<Module> m, ArrayList<VersionControlEntity> a, ArrayList<Event> cal) {
+	public HubFile(int v, int y, int s, ArrayList<Module> m,
+			ArrayList<VersionControlEntity> a, ArrayList<Event> cal) {
 		version = v;
 		year = y;
 		semester = s;
@@ -150,28 +188,45 @@ public class HubFile implements Serializable {
 		updateFile = false;
 	}
 
-	public HubFile(int v, int y, int s, ArrayList<Module> m, ArrayList<VersionControlEntity> a, ArrayList<Event> cal,
-				   String n, MultilineString d, String u) {
+	/**constructor for new student profile.
+	 * @param v		version
+	 * @param y		year
+	 * @param s		semester
+	 * @param m		Module List
+	 * @param a		VersionControlEntity List
+	 * @param cal	CalendarEvent List
+	 * @param n		semester name
+	 * @param d		semester details
+	 * @param u		semester Uid
+	 */
+	public HubFile(int v, int y, int s, ArrayList<Module> m,
+			ArrayList<VersionControlEntity> a, ArrayList<Event> cal,
+				String n, MultilineString d, String u) {
 		this(v, y, s, m, a, cal);
 		semesterName = n;
 		semesterDetails = d;
-		semesterUID = u;
+		semesterUId = u;
 	}
 
 	/**
-	 * Constructor for update
+	 * Constructor for update.
 	 *
 	 * @param v version
 	 * @param e ExtensionApplication list
 	 * @param u VersionControlEntity list
 	 */
-	public HubFile(int v, ArrayList<ExtensionApplication> e, ArrayList<VersionControlEntity> u) {
+	public HubFile(int v, ArrayList<ExtensionApplication> e,
+			ArrayList<VersionControlEntity> u) {
 		version = v;
 		extensions = new ArrayList<ExtensionApplication>(e);
 		updates = new ArrayList<VersionControlEntity>(u);
 		updateFile = true;
 	}
 
+	/**check whether this node exist in schema list.
+	 * @param name String
+	 * @return boolean
+	 */
 	public static boolean updateableNode(String name) {
 		return schemaList.containsKey(name);
 	}
@@ -181,208 +236,209 @@ public class HubFile implements Serializable {
 	// long term, these would be imported from a settings file
 
 	// special SCHEMA for update file
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_VCE;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_VCE;
 
 	static {
 		SCHEMA_VCE = new HashMap<>();
-		SCHEMA_VCE.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_VCE.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_VCE.put("uid", XMLcontroller.ImportAs.STRING);
-		SCHEMA_VCE.put("version", XMLcontroller.ImportAs.INTEGER);
+		SCHEMA_VCE.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_VCE.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_VCE.put("uid", XmlController.ImportAs.STRING);
+		SCHEMA_VCE.put("version", XmlController.ImportAs.INTEGER);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_ROOT;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_ROOT;
 
 	static {
 		SCHEMA_ROOT = new HashMap<>();
-		SCHEMA_ROOT.put("hubfile", XMLcontroller.ImportAs.NODELIST);
+		SCHEMA_ROOT.put("hubfile", XmlController.ImportAs.NODELIST);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_NEW_STUDYPROFILE;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_NEW_STUDYPROFILE;
 
 	static {
 		SCHEMA_NEW_STUDYPROFILE = new HashMap<>();
-		SCHEMA_NEW_STUDYPROFILE.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_NEW_STUDYPROFILE.put("assets", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_NEW_STUDYPROFILE.put("studyProfile", XMLcontroller.ImportAs.NODELIST);
+		SCHEMA_NEW_STUDYPROFILE.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_NEW_STUDYPROFILE.put("assets", XmlController.ImportAs.NODELIST);
+		SCHEMA_NEW_STUDYPROFILE.put("studyProfile", XmlController.ImportAs.NODELIST);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_UPDATE_FILE;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_UPDATE_FILE;
 
 	static {
 		SCHEMA_UPDATE_FILE = new HashMap<>();
-		SCHEMA_UPDATE_FILE.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_UPDATE_FILE.put("extensions", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_UPDATE_FILE.put("updates", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_UPDATE_FILE.put("new", XMLcontroller.ImportAs.NODELIST);
+		SCHEMA_UPDATE_FILE.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_UPDATE_FILE.put("extensions", XmlController.ImportAs.NODELIST);
+		SCHEMA_UPDATE_FILE.put("updates", XmlController.ImportAs.NODELIST);
+		SCHEMA_UPDATE_FILE.put("new", XmlController.ImportAs.NODELIST);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_ASSETS;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_ASSETS;
 
 	static {
 		SCHEMA_ASSETS = new HashMap<>();
-		SCHEMA_ASSETS.put("persons", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_ASSETS.put("buildings", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_ASSETS.put("rooms", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_ASSETS.put("timetableEventTypes", XMLcontroller.ImportAs.NODELIST);
+		SCHEMA_ASSETS.put("persons", XmlController.ImportAs.NODELIST);
+		SCHEMA_ASSETS.put("buildings", XmlController.ImportAs.NODELIST);
+		SCHEMA_ASSETS.put("rooms", XmlController.ImportAs.NODELIST);
+		SCHEMA_ASSETS.put("timetableEventTypes", XmlController.ImportAs.NODELIST);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_STUDYPROFILE;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_STUDYPROFILE;
 
 	static {
 		SCHEMA_STUDYPROFILE = new HashMap<>();
-		SCHEMA_STUDYPROFILE.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_STUDYPROFILE.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_STUDYPROFILE.put("uid", XMLcontroller.ImportAs.STRING);
-		SCHEMA_STUDYPROFILE.put("year", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_STUDYPROFILE.put("semester", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_STUDYPROFILE.put("modules", XMLcontroller.ImportAs.NODELIST);
+		SCHEMA_STUDYPROFILE.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_STUDYPROFILE.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_STUDYPROFILE.put("uid", XmlController.ImportAs.STRING);
+		SCHEMA_STUDYPROFILE.put("year", XmlController.ImportAs.INTEGER);
+		SCHEMA_STUDYPROFILE.put("semester", XmlController.ImportAs.INTEGER);
+		SCHEMA_STUDYPROFILE.put("modules", XmlController.ImportAs.NODELIST);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_PERSON;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_PERSON;
 
 	static {
 		SCHEMA_PERSON = new HashMap<>();
-		SCHEMA_PERSON.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_PERSON.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_PERSON.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_PERSON.put("uid", XMLcontroller.ImportAs.STRING);
-		SCHEMA_PERSON.put("givenNames", XMLcontroller.ImportAs.STRING);
-		SCHEMA_PERSON.put("familyName", XMLcontroller.ImportAs.STRING);
-		SCHEMA_PERSON.put("salutation", XMLcontroller.ImportAs.STRING);
-		SCHEMA_PERSON.put("email", XMLcontroller.ImportAs.STRING);
-		SCHEMA_PERSON.put("familyNameLast", XMLcontroller.ImportAs.BOOLEAN);
+		SCHEMA_PERSON.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_PERSON.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_PERSON.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_PERSON.put("uid", XmlController.ImportAs.STRING);
+		SCHEMA_PERSON.put("givenNames", XmlController.ImportAs.STRING);
+		SCHEMA_PERSON.put("familyName", XmlController.ImportAs.STRING);
+		SCHEMA_PERSON.put("salutation", XmlController.ImportAs.STRING);
+		SCHEMA_PERSON.put("email", XmlController.ImportAs.STRING);
+		SCHEMA_PERSON.put("familyNameLast", XmlController.ImportAs.BOOLEAN);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_BUILDING;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_BUILDING;
 
 	static {
 		SCHEMA_BUILDING = new HashMap<>();
-		SCHEMA_BUILDING.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_BUILDING.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_BUILDING.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_BUILDING.put("uid", XMLcontroller.ImportAs.STRING);
-		SCHEMA_BUILDING.put("code", XMLcontroller.ImportAs.STRING);
-		SCHEMA_BUILDING.put("latitude", XMLcontroller.ImportAs.DOUBLE);
-		SCHEMA_BUILDING.put("longitude", XMLcontroller.ImportAs.DOUBLE);
+		SCHEMA_BUILDING.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_BUILDING.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_BUILDING.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_BUILDING.put("uid", XmlController.ImportAs.STRING);
+		SCHEMA_BUILDING.put("code", XmlController.ImportAs.STRING);
+		SCHEMA_BUILDING.put("latitude", XmlController.ImportAs.DOUBLE);
+		SCHEMA_BUILDING.put("longitude", XmlController.ImportAs.DOUBLE);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_ROOM;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_ROOM;
 
 	static {
 		SCHEMA_ROOM = new HashMap<>();
-		SCHEMA_ROOM.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_ROOM.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_ROOM.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_ROOM.put("uid", XMLcontroller.ImportAs.STRING);
-		SCHEMA_ROOM.put("building", XMLcontroller.ImportAs.STRING);
-		SCHEMA_ROOM.put("roomNumber", XMLcontroller.ImportAs.STRING);
+		SCHEMA_ROOM.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_ROOM.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_ROOM.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_ROOM.put("uid", XmlController.ImportAs.STRING);
+		SCHEMA_ROOM.put("building", XmlController.ImportAs.STRING);
+		SCHEMA_ROOM.put("roomNumber", XmlController.ImportAs.STRING);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_TIMETABLE_EVENT_TYPE;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_TIMETABLE_EVENT_TYPE;
 
 	static {
 		SCHEMA_TIMETABLE_EVENT_TYPE = new HashMap<>();
-		SCHEMA_TIMETABLE_EVENT_TYPE.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_TIMETABLE_EVENT_TYPE.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_TIMETABLE_EVENT_TYPE.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_TIMETABLE_EVENT_TYPE.put("uid", XMLcontroller.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT_TYPE.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT_TYPE.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_TIMETABLE_EVENT_TYPE.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_TIMETABLE_EVENT_TYPE.put("uid", XmlController.ImportAs.STRING);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_MODULE;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_MODULE;
 
 	static {
 		SCHEMA_MODULE = new HashMap<>();
-		SCHEMA_MODULE.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_MODULE.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_MODULE.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_MODULE.put("uid", XMLcontroller.ImportAs.STRING);
-		SCHEMA_MODULE.put("organiser", XMLcontroller.ImportAs.STRING);
-		SCHEMA_MODULE.put("moduleCode", XMLcontroller.ImportAs.STRING);
-		SCHEMA_MODULE.put("timetable", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_MODULE.put("assignments", XMLcontroller.ImportAs.NODELIST);
+		SCHEMA_MODULE.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_MODULE.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_MODULE.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_MODULE.put("uid", XmlController.ImportAs.STRING);
+		SCHEMA_MODULE.put("organiser", XmlController.ImportAs.STRING);
+		SCHEMA_MODULE.put("moduleCode", XmlController.ImportAs.STRING);
+		SCHEMA_MODULE.put("timetable", XmlController.ImportAs.NODELIST);
+		SCHEMA_MODULE.put("assignments", XmlController.ImportAs.NODELIST);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_COURSEWORK;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_COURSEWORK;
 
 	static {
 		SCHEMA_COURSEWORK = new HashMap<>();
-		SCHEMA_COURSEWORK.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_COURSEWORK.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_COURSEWORK.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_COURSEWORK.put("uid", XMLcontroller.ImportAs.STRING);
+		SCHEMA_COURSEWORK.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_COURSEWORK.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_COURSEWORK.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_COURSEWORK.put("uid", XmlController.ImportAs.STRING);
 
-		SCHEMA_COURSEWORK.put("weighting", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_COURSEWORK.put("setBy", XMLcontroller.ImportAs.STRING);
-		SCHEMA_COURSEWORK.put("markedBy", XMLcontroller.ImportAs.STRING);
-		SCHEMA_COURSEWORK.put("reviewedBy", XMLcontroller.ImportAs.STRING);
-		SCHEMA_COURSEWORK.put("marks", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_COURSEWORK.put("startDate", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_COURSEWORK.put("deadline", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_COURSEWORK.put("extensions", XMLcontroller.ImportAs.NODELIST);
+		SCHEMA_COURSEWORK.put("weighting", XmlController.ImportAs.INTEGER);
+		SCHEMA_COURSEWORK.put("setBy", XmlController.ImportAs.STRING);
+		SCHEMA_COURSEWORK.put("markedBy", XmlController.ImportAs.STRING);
+		SCHEMA_COURSEWORK.put("reviewedBy", XmlController.ImportAs.STRING);
+		SCHEMA_COURSEWORK.put("marks", XmlController.ImportAs.INTEGER);
+		SCHEMA_COURSEWORK.put("startDate", XmlController.ImportAs.NODELIST);
+		SCHEMA_COURSEWORK.put("deadline", XmlController.ImportAs.NODELIST);
+		SCHEMA_COURSEWORK.put("extensions", XmlController.ImportAs.NODELIST);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_EXAM;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_EXAM;
 
 	static {
 		SCHEMA_EXAM = new HashMap<>();
-		SCHEMA_EXAM.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAM.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_EXAM.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_EXAM.put("uid", XMLcontroller.ImportAs.STRING);
+		SCHEMA_EXAM.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_EXAM.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_EXAM.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_EXAM.put("uid", XmlController.ImportAs.STRING);
 
-		SCHEMA_EXAM.put("resit", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAM.put("timeslot", XMLcontroller.ImportAs.NODELIST);
-		SCHEMA_EXAM.put("weighting", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_EXAM.put("setBy", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAM.put("markedBy", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAM.put("reviewedBy", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAM.put("marks", XMLcontroller.ImportAs.INTEGER);
+		SCHEMA_EXAM.put("resit", XmlController.ImportAs.STRING);
+		SCHEMA_EXAM.put("timeslot", XmlController.ImportAs.NODELIST);
+		SCHEMA_EXAM.put("weighting", XmlController.ImportAs.INTEGER);
+		SCHEMA_EXAM.put("setBy", XmlController.ImportAs.STRING);
+		SCHEMA_EXAM.put("markedBy", XmlController.ImportAs.STRING);
+		SCHEMA_EXAM.put("reviewedBy", XmlController.ImportAs.STRING);
+		SCHEMA_EXAM.put("marks", XmlController.ImportAs.INTEGER);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_TIMETABLE_EVENT;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_TIMETABLE_EVENT;
 
 	static {
 		SCHEMA_TIMETABLE_EVENT = new HashMap<>();
-		SCHEMA_TIMETABLE_EVENT.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_TIMETABLE_EVENT.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_TIMETABLE_EVENT.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_TIMETABLE_EVENT.put("uid", XMLcontroller.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_TIMETABLE_EVENT.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_TIMETABLE_EVENT.put("uid", XmlController.ImportAs.STRING);
 
-		SCHEMA_TIMETABLE_EVENT.put("date", XMLcontroller.ImportAs.STRING);
-		SCHEMA_TIMETABLE_EVENT.put("room", XMLcontroller.ImportAs.STRING);
-		SCHEMA_TIMETABLE_EVENT.put("lecturer", XMLcontroller.ImportAs.STRING);
-		SCHEMA_TIMETABLE_EVENT.put("timetableEventType", XMLcontroller.ImportAs.STRING);
-		SCHEMA_TIMETABLE_EVENT.put("duration", XMLcontroller.ImportAs.INTEGER);
+		SCHEMA_TIMETABLE_EVENT.put("date", XmlController.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT.put("room", XmlController.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT.put("lecturer", XmlController.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT.put("timetableEventType", XmlController.ImportAs.STRING);
+		SCHEMA_TIMETABLE_EVENT.put("duration", XmlController.ImportAs.INTEGER);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_EVENT;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_EVENT;
 
 	static {
 		SCHEMA_EVENT = new HashMap<>();
-		SCHEMA_EVENT.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EVENT.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_EVENT.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_EVENT.put("uid", XMLcontroller.ImportAs.STRING);
+		SCHEMA_EVENT.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_EVENT.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_EVENT.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_EVENT.put("uid", XmlController.ImportAs.STRING);
 
-		SCHEMA_EVENT.put("date", XMLcontroller.ImportAs.STRING);
+		SCHEMA_EVENT.put("date", XmlController.ImportAs.STRING);
 	}
 
-	public static HashMap<String, XMLcontroller.ImportAs> SCHEMA_EXAMEVENT;
+	public static HashMap<String, XmlController.ImportAs> SCHEMA_EXAMEVENT;
 
 	static {
 		SCHEMA_EXAMEVENT = new HashMap<>();
-		SCHEMA_EXAMEVENT.put("name", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAMEVENT.put("details", XMLcontroller.ImportAs.MULTILINESTRING);
-		SCHEMA_EXAMEVENT.put("version", XMLcontroller.ImportAs.INTEGER);
-		SCHEMA_EXAMEVENT.put("uid", XMLcontroller.ImportAs.STRING);
+		SCHEMA_EXAMEVENT.put("name", XmlController.ImportAs.STRING);
+		SCHEMA_EXAMEVENT.put("details", XmlController.ImportAs.MULTILINESTRING);
+		SCHEMA_EXAMEVENT.put("version", XmlController.ImportAs.INTEGER);
+		SCHEMA_EXAMEVENT.put("uid", XmlController.ImportAs.STRING);
 
-		SCHEMA_EXAMEVENT.put("date", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAMEVENT.put("room", XMLcontroller.ImportAs.STRING);
-		SCHEMA_EXAMEVENT.put("duration", XMLcontroller.ImportAs.INTEGER);
+		SCHEMA_EXAMEVENT.put("date", XmlController.ImportAs.STRING);
+		SCHEMA_EXAMEVENT.put("room", XmlController.ImportAs.STRING);
+		SCHEMA_EXAMEVENT.put("duration", XmlController.ImportAs.INTEGER);
 	}
 
-	public static HashMap<String, HashMap<String, XMLcontroller.ImportAs>> schemaList = new HashMap<>();
+	public static HashMap<String,
+					HashMap<String, XmlController.ImportAs>> schemaList = new HashMap<>();
 
 	static {
 		schemaList.put("person",SCHEMA_PERSON);
@@ -399,13 +455,18 @@ public class HubFile implements Serializable {
 	}
 
 
-	private static XMLcontroller xmlTools = new XMLcontroller();
+	private static XmlController xmlTools = new XmlController();
 
+	/**create new person.
+	 * @param nc node list to be set
+	 * @return person
+	 */
 	public static Person createPerson(NodeList nc) {
-		HashMap<String, XMLcontroller.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
+		HashMap<String, XmlController.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_PERSON);
 
-		Person r = new Person(pValues.get("salutation").getString(), pValues.get("givenNames").getString(),
+		Person r = new Person(pValues.get("salutation").getString(),
+				pValues.get("givenNames").getString(),
 				pValues.get("familyName").getString(), pValues.get("familyNameLast").getBoolean(),
 				pValues.get("email").getString());
 
@@ -413,25 +474,35 @@ public class HubFile implements Serializable {
 		return r;
 	}
 
+	/**create new building.
+	 * @param nc node list to be set
+	 * @return building
+	 */
 	public static Building createBuilding(NodeList nc) {
-		HashMap<String, XMLcontroller.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
+		HashMap<String, XmlController.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_BUILDING);
 
-		Building r = new Building(pValues.get("code").getString(), pValues.get("latitude").getDouble(),
+		Building r = new Building(pValues.get("code").getString(),
+				pValues.get("latitude").getDouble(),
 				pValues.get("longitude").getDouble());
 
 		DataController.addVceProperties(r, pValues);
 		return r;
 	}
 
+	/**create new room.
+	 * @param nc	node list to be set
+	 * @param assetList	list of assets in the room
+	 * @return Room
+	 */
 	public static Room createRoom(NodeList nc, HashMap<String, VersionControlEntity> assetList) {
-		HashMap<String, XMLcontroller.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
+		HashMap<String, XmlController.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_ROOM);
 
 		Room r;
 		String linkedBuilding = pValues.get("building").getString();
-		if (assetList.containsKey(linkedBuilding) &&
-				assetList.get(linkedBuilding) instanceof Building) {
+		if (assetList.containsKey(linkedBuilding)
+				&& assetList.get(linkedBuilding) instanceof Building) {
 			r = new Room(pValues.get("roomNumber").getString(),
 					(Building) assetList.get(linkedBuilding));
 		} else {
@@ -441,8 +512,12 @@ public class HubFile implements Serializable {
 		return r;
 	}
 
+	/**create new time table event type.
+	 * @param nc node list to be set
+	 * @return TimeTableEventType
+	 */
 	public static TimeTableEventType createTimetableEventType(NodeList nc) {
-		HashMap<String, XMLcontroller.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
+		HashMap<String, XmlController.NodeReturn> pValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_TIMETABLE_EVENT_TYPE);
 
 		TimeTableEventType r = new TimeTableEventType();
@@ -451,18 +526,24 @@ public class HubFile implements Serializable {
 		return r;
 	}
 
-	public static Coursework createCoursework(NodeList nc, HashMap<String, VersionControlEntity> assetList) throws Exception {
+	/**create new coursework.
+	 * @param nc	node list to be set
+	 * @param assetList	list of asset
+	 * @return Coursework
+	 * @throws Exception throw any exception that occur
+	 */
+	public static Coursework createCoursework(NodeList nc,
+			HashMap<String, VersionControlEntity> assetList) throws Exception {
 		Coursework r;
-		HashMap<String, XMLcontroller.NodeReturn> courseworkValues = xmlTools.getSchemaValues(nc,
+		HashMap<String, XmlController.NodeReturn> courseworkValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_COURSEWORK);
 
 
-		Person cwSetBy, cwMarkedBy, cwReviewedBy;
+		Person cwSetBy;
+		Person cwMarkedBy;
+		Person cwReviewedBy;
 		Event cwStartDate;
 		Deadline cwDeadline;
-
-		// extensions to be added later
-		ArrayList<Extension> cwExtensions = new ArrayList<>();
 
 		String linkedSetBy = courseworkValues.get("setBy").getString();
 		String linkedMarkedBy = courseworkValues.get("markedBy").getString();
@@ -475,9 +556,9 @@ public class HubFile implements Serializable {
 
 
 		if (courseworkValues.containsKey("startDate")
-				&& XMLcontroller.matchesSchema(courseworkValues.get("startDate").getNodeList(),
+				&& XmlController.matchesSchema(courseworkValues.get("startDate").getNodeList(),
 						HubFile.SCHEMA_EVENT)) {
-			HashMap<String, XMLcontroller.NodeReturn> eventValues =
+			HashMap<String, XmlController.NodeReturn> eventValues =
 					xmlTools.getSchemaValues(courseworkValues.get("startDate").getNodeList(),
 							HubFile.SCHEMA_EVENT);
 			cwStartDate = new Event(eventValues.get("date").getString());
@@ -490,9 +571,9 @@ public class HubFile implements Serializable {
 			cwStartDate = null;
 		}
 		if (courseworkValues.containsKey("deadline")
-				&& XMLcontroller.matchesSchema(courseworkValues.get("deadline").getNodeList(),
+				&& XmlController.matchesSchema(courseworkValues.get("deadline").getNodeList(),
 						HubFile.SCHEMA_EVENT)) {
-			HashMap<String, XMLcontroller.NodeReturn> eventValues =
+			HashMap<String, XmlController.NodeReturn> eventValues =
 					xmlTools.getSchemaValues(courseworkValues.get("deadline").getNodeList(),
 							HubFile.SCHEMA_EVENT);
 
@@ -507,6 +588,9 @@ public class HubFile implements Serializable {
 		}
 
 
+		// extensions to be added later
+		ArrayList<Extension> cwExtensions = new ArrayList<>();
+
 		r = new Coursework(courseworkValues.get("weighting").getInt(),
 				cwSetBy, cwMarkedBy, cwReviewedBy, courseworkValues.get("marks").getInt(),
 				cwStartDate, cwDeadline, cwExtensions);
@@ -515,13 +599,22 @@ public class HubFile implements Serializable {
 		return r;
 	}
 
-	public static Exam createExam(NodeList nc, HashMap<String, VersionControlEntity> assetList) throws Exception {
+	/**create new exam.
+	 * @param nc node list to be set
+	 * @param assetList list of asset
+	 * @return Exam
+	 * @throws Exception throws any exception that occur
+	 */
+	public static Exam createExam(NodeList nc,
+			HashMap<String, VersionControlEntity> assetList) throws Exception {
 
-		HashMap<String, XMLcontroller.NodeReturn> examValues = xmlTools.getSchemaValues(nc,
+		HashMap<String, XmlController.NodeReturn> examValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_EXAM);
 
 
-		Person exSetBy, exMarkedBy, exReviewedBy;
+		Person exSetBy;
+		Person exMarkedBy;
+		Person exReviewedBy;
 		ExamEvent exTimeSlot;
 
 		String linkedSetBy = examValues.get("setBy").getString();
@@ -533,9 +626,9 @@ public class HubFile implements Serializable {
 		exReviewedBy = DataController.inList(assetList, linkedReviewedBy);
 
 		if (examValues.containsKey("timeslot")
-				&& XMLcontroller.matchesSchema(examValues.get("timeslot").getNodeList(),
+				&& XmlController.matchesSchema(examValues.get("timeslot").getNodeList(),
 				HubFile.SCHEMA_EXAMEVENT)) {
-			HashMap<String, XMLcontroller.NodeReturn> eventValues =
+			HashMap<String, XmlController.NodeReturn> eventValues =
 					xmlTools.getSchemaValues(examValues.get("timeslot").getNodeList(),
 							HubFile.SCHEMA_EXAMEVENT);
 			//Room exRoom;
@@ -582,29 +675,36 @@ public class HubFile implements Serializable {
 		return newExam;
 	}
 
-	public static TimetableEvent createTimetableEvent(NodeList nc, HashMap<String, VersionControlEntity> assetList) throws Exception {
-		TimetableEvent newTTE;
+	/**create new time table event.
+	 * @param nc node list to be set
+	 * @param assetList list of assest
+	 * @return TimeTableEvent
+	 * @throws Exception throw any exception that occur
+	 */
+	public static TimetableEvent createTimetableEvent(NodeList nc, HashMap<String,
+			VersionControlEntity> assetList) throws Exception {
+		TimetableEvent newTte;
 
 
-		HashMap<String, XMLcontroller.NodeReturn> tteValues = xmlTools.getSchemaValues(nc,
+		HashMap<String, XmlController.NodeReturn> tteValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_TIMETABLE_EVENT);
 
 
 		String linkedRoom = tteValues.get("room").getString();
 		String linkedLecturer = tteValues.get("lecturer").getString();
-		String linkedTTET = tteValues.get("timetableEventType").getString();
+		String linkedTTet = tteValues.get("timetableEventType").getString();
 
 		Room tRoom = DataController.inList(assetList, linkedRoom);
 		Person tLecturer = DataController.inList(assetList, linkedLecturer);
-		TimeTableEventType tTTET = DataController.inList(assetList, linkedTTET);
+		TimeTableEventType tTTet = DataController.inList(assetList, linkedTTet);
 
 
-		newTTE = new TimetableEvent(tteValues.get("date").getString(), tRoom, tLecturer
-				, tTTET, tteValues.get("duration").getInt());
-		DataController.addVceProperties(newTTE, tteValues);
+		newTte = new TimetableEvent(tteValues.get("date").getString(), tRoom, tLecturer,
+				tTTet, tteValues.get("duration").getInt());
+		DataController.addVceProperties(newTte, tteValues);
 
 
-		return newTTE;
+		return newTte;
 	}
 
 

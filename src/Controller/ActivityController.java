@@ -24,7 +24,7 @@ package Controller;
 import Model.Activity;
 import Model.QuantityType;
 import Model.Task;
-import View.UIManager;
+import View.UiManager;
 
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
@@ -242,7 +242,7 @@ public class ActivityController implements Initializable {
 
 		// Button actions:
 		this.removeTask.setOnAction(e -> {
-			if (UIManager.confirm("Are you sure you want to remove this Task from the list?")) {
+			if (UiManager.confirm("Are you sure you want to remove this Task from the list?")) {
 				Task task = this.tasks.getSelectionModel().getSelectedItem();
 				this.tasks.getItems().remove(task);
 				if (this.activity != null) {

@@ -21,16 +21,17 @@
 
 package Model;
 
-import javax.crypto.NoSuchPaddingException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import javax.crypto.NoSuchPaddingException;
+
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class StudyPlanner implements Serializable {
 	// private data
@@ -54,14 +55,17 @@ public class StudyPlanner implements Serializable {
 
 	// getters
 
+	/**get calendar.
+	 * @return ArrayList of Event
+	 */
 	public ArrayList<Event> getCalendar() {
 		return calendar;
 	}
 
 	/**
-	 * returns a String array of studyProfile names
+	 * returns a String array of studyProfile names.
 	 *
-	 * @return
+	 * @return Array of String
 	 */
 
 	public String[] getListOfStudyProfileNames() {
@@ -74,9 +78,9 @@ public class StudyPlanner implements Serializable {
 	}
 
 	/**
-	 * Returns an array of study profiles
+	 * Returns an array of study profiles.
 	 *
-	 * @return
+	 * @return Array of StudyProfile
 	 */
 	public StudyProfile[] getStudyProfiles() {
 		StudyProfile[] sp = new StudyProfile[this.studyProfiles.size()];
@@ -86,22 +90,29 @@ public class StudyPlanner implements Serializable {
 
 	/**
 	 * This was added at the last minute before releasing and should be in the Module class, however
-	 * if we had done that our Java Serialized file, which took 3 hours prepare, would no longer have worked.
-	 * This is temporary solution so you can still use our prepared Study Planner save file, but in the next iteration
+	 * if we had done that our Java Serialized file,
+	 *  which took 3 hours prepare, would no longer have worked.
+	 * This is temporary solution
+	 *  so you can still use our prepared Study Planner save file, but in the next iteration
 	 * it will be moved to the correct place and would not consist of 4 nested loops.
-	 * Also, for public release, we would create a file format for saving in so Java Serialization issues would not
+	 * Also, for public release,
+	 *  we would create a file format for saving in so Java Serialization issues would not
 	 * occur for the end user.
 	 *
-	 * @param module
-	 * @return
+	 * @param module module used to get time spent
+	 * @return int
 	 */
 	public int getTimeSpent(Module module) {
 		int time = 0;
-		for (Assignment assignment : module.getAssignments())
-			for (Task task : assignment.getTasks())
-				for (Requirement requirement : task.getRequirements())
-					for (Activity activity : requirement.getActivityLog())
+		for (Assignment assignment : module.getAssignments()) {
+			for (Task task : assignment.getTasks()) {
+				for (Requirement requirement : task.getRequirements()) {
+					for (Activity activity : requirement.getActivityLog()) {
 						time += activity.getDuration();
+					}
+				}
+			}
+		}
 		return time;
 	}
 
@@ -135,7 +146,7 @@ public class StudyPlanner implements Serializable {
 	}
 
 	/**
-	 * Returns the current StudyProfile
+	 * Returns the current StudyProfile.
 	 *
 	 * @return current StudyProfile
 	 */
@@ -169,14 +180,15 @@ public class StudyPlanner implements Serializable {
 	 * @return an array of unread notifications.
 	 */
 	public Notification[] getUnreadNotifications() {
-		Notification[] r = this.notifications.stream().filter(e -> !e.isRead()).toArray(Notification[]::new);
+		Notification[] r = this.notifications.stream().filter(
+				e -> !e.isRead()).toArray(Notification[]::new);
 		return r;
 	}
 
 	/**
 	 * Returns a HashMap that contains information about Deadline notifications.
 	 *
-	 * @return
+	 * @return HashMap Key: ModelEntity, Value: array of boolean.
 	 */
 	public HashMap<ModelEntity, boolean[]> getDeadlineNotifications() {
 		return deadlineNotifications;
@@ -185,7 +197,7 @@ public class StudyPlanner implements Serializable {
 	/**
 	 * Returns an ArrayList of QuantityTypes.
 	 *
-	 * @return ArrayList<QuantityType>
+	 * @return ArrayList of QuatityType.
 	 */
 	public ArrayList<QuantityType> getQuantityTypes() {
 		return this.quantityTypes;
@@ -194,7 +206,7 @@ public class StudyPlanner implements Serializable {
 	/**
 	 * Returns an ArrayList of TaskTypes.
 	 *
-	 * @return ArrayList<QuantityType>
+	 * @return ArrayList of TaskType
 	 */
 	public ArrayList<TaskType> getTaskTypes() {
 		return this.taskTypes;
@@ -223,17 +235,17 @@ public class StudyPlanner implements Serializable {
 	/**
 	 * Change the current Study Profile to a Study Profile with the given ID.
 	 *
-	 * @param profileID ID of a Study Profile
+	 * @param profileId ID of a Study Profile
 	 * @return whether changed successfully.
 	 */
-	public boolean setCurrentStudyProfile(String profileID) {
+	public boolean setCurrentStudyProfile(String profileId) {
 		this.studyProfiles.forEach(e -> {
-			if (e.getUID().equals(profileID)) {
+			if (e.getUId().equals(profileId)) {
 				this.setCurrentStudyProfile(e);
 			}
 		});
 
-		return this.currentStudyProfile.getUID().equals(profileID);
+		return this.currentStudyProfile.getUId().equals(profileId);
 	}
 
 	/**
@@ -358,13 +370,22 @@ public class StudyPlanner implements Serializable {
 		}
 	}
 
+	/**get version.
+	 * @return int
+	 */
 	public int getVersion() {
 		return version;
 	}
 
 	// constructors
 
-	public StudyPlanner(Account newAccount) throws NoSuchPaddingException, NoSuchAlgorithmException {
+	/**constructor.
+	 * @param newAccount					new account to be set
+	 * @throws NoSuchPaddingException		https://docs.oracle.com/javase/7/docs/api/javax/crypto/NoSuchPaddingException.html
+	 * @throws NoSuchAlgorithmException		https://docs.oracle.com/javase/8/docs/api/java/security/NoSuchAlgorithmException.html
+	 */
+	public StudyPlanner(Account newAccount)
+			throws NoSuchPaddingException, NoSuchAlgorithmException {
 		this.account = newAccount;
 		// Add Default Quantity types:
 		Collections.addAll(this.quantityTypes, QuantityType.listOfQuantityTypes());
@@ -372,14 +393,14 @@ public class StudyPlanner implements Serializable {
 		Collections.addAll(this.taskTypes, TaskType.listOfTaskTypes());
 	}
 
-	/**
+	/** get time table event types.
 	 * @return the timeTableEventTypes
 	 */
 	public ArrayList<TimeTableEventType> getTimeTableEventTypes() {
 		return timeTableEventTypes;
 	}
 
-	/**
+	/**set timme table event types.
 	 * @param timeTableEventTypes the timeTableEventTypes to set
 	 */
 	public void setTimeTableEventTypes(ArrayList<TimeTableEventType> timeTableEventTypes) {

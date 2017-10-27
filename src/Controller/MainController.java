@@ -23,7 +23,7 @@ package Controller;
 
 import Model.HubFile;
 import Model.StudyPlanner;
-import View.UIManager;
+import View.UiManager;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -58,7 +58,7 @@ public class MainController {
 	}
 
 	// TODO - Determine if this really should be public
-	public static UIManager ui = new UIManager();
+	public static UiManager ui = new UiManager();
 
 	// TODO - StudyPlannerController is a public class; determine if managing an
 	// instance in this way is best
@@ -107,9 +107,10 @@ public class MainController {
 					// Sample note
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
-						UIManager.reportSuccess(
+						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
-								+ "Potter. To make your own StudyPlanner, restart the application "
+								+ "Potter. To make your own StudyPlanner, "
+								+ "restart the application "
 								+ "and choose \"New File\".");
 					}
 				}
@@ -119,36 +120,36 @@ public class MainController {
 				// This should never happen unless a file changes permissions
 				// or existence in the milliseconds that it runs the above code
 				// after checks in StartupController
-				UIManager.reportError("Failed to load file.");
+				UiManager.reportError("Failed to load file.");
 				System.exit(1);
 			}
 
 		} catch (FileNotFoundException e) {
-			UIManager.reportError("File does not exist");
+			UiManager.reportError("File does not exist");
 			System.exit(1);
 		} catch (ClassNotFoundException e) {
-			UIManager.reportError("Invalid file");
+			UiManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (NoSuchAlgorithmException e) {
-			UIManager.reportError("Cannot decode the given file");
+			UiManager.reportError("Cannot decode the given file");
 			System.exit(1);
 		} catch (BadPaddingException e) {
-			UIManager.reportError("Invalid file");
+			UiManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (InvalidKeyException e) {
-			UIManager.reportError("Cannot decode the given file");
+			UiManager.reportError("Cannot decode the given file");
 			System.exit(1);
 		} catch (NoSuchPaddingException e) {
-			UIManager.reportError("Invalid file");
+			UiManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (IOException e) {
-			UIManager.reportError("Invalid file");
+			UiManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (IllegalBlockSizeException e) {
-			UIManager.reportError("Invalid file");
+			UiManager.reportError("Invalid file");
 			System.exit(1);
 		} catch (Exception e) {
-			UIManager.reportError(e.getMessage());
+			UiManager.reportError(e.getMessage());
 			System.exit(1);
 		}
 	}
@@ -160,7 +161,7 @@ public class MainController {
 		try {
 			ui.mainMenu();
 		} catch (Exception e) {
-			UIManager.reportError(e.getMessage());
+			UiManager.reportError(e.getMessage());
 		}
 	}
 
@@ -178,7 +179,7 @@ public class MainController {
 			if (fileData != null) {
 				if (!fileData.isUpdate()
 						&& !MainController.spc.createStudyProfile(fileData)) {
-					UIManager.reportError("This Study Profile is already created!");
+					UiManager.reportError("This Study Profile is already created!");
 				} else {
 					return true;
 				}
@@ -197,7 +198,7 @@ public class MainController {
 			spc.save(MainController.key64, MainController.plannerFile.getAbsolutePath());
 			return true;
 		} catch (Exception e) {
-			UIManager.reportError("FAILED TO SAVE YOUR DATA!");
+			UiManager.reportError("FAILED TO SAVE YOUR DATA!");
 			return false;
 		}
 	}

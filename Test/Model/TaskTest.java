@@ -30,24 +30,20 @@ import static org.junit.Assert.*;
  */
 public class TaskTest {
 
-    @Test
-    public void dependenciesComplete() throws Exception
-    {
-    }
+	@Test
+	public void dependenciesComplete() throws Exception {
+	}
 
-    @Test
-    public void hasDependencies() throws Exception
-    {
-    }
+	@Test
+	public void hasDependencies() throws Exception {
+	}
 
-    @Test
-    public void isComplete() throws Exception
-    {
-    }
+	@Test
+	public void isComplete() throws Exception {
+	}
 
-    @Test
-    public void canCheckComplete() throws Exception
-    {
-    }
+	@Test
+	public void canCheckComplete() throws Exception {
+	}
 
 }

@@ -33,52 +33,70 @@ import static org.junit.Assert.*;
  */
 public class StudyPlannerControllerTest {
 
-    @Before
-    public void setUp() throws Exception
-    {
-        Account a = new Account(new Person("Mr","Adrew",true),"100125464");
-        StudyPlannerController studyPlannerController = new StudyPlannerController(a);
-    }
+	/**set up.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Before
+	public void setUp() throws Exception {
+		Account a = new Account(new Person("Mr", "Adrew", true), "100125464");
+		StudyPlannerController studyPlannerController = new StudyPlannerController(a);
+	}
 
-    @Test
-    public void getStudyProfiles() throws Exception
-    {
-    }
+	/**get study profile.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void getStudyProfiles() throws Exception {
+	}
 
-    @Test
-    public void fileValidation() throws Exception
-    {
-    }
+	/**validate file.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void fileValidation() throws Exception {
+	}
 
-    @Test
-    public void containsStudyProfile() throws Exception
-    {
-    }
+	/**check whether that file exist.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void containsStudyProfile() throws Exception {
+	}
 
-    @Test
-    public void getCurrentVersion() throws Exception
-    {
-    }
+	/**get current version.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void getCurrentVersion() throws Exception {
+	}
 
-    @Test
-    public void createStudyProfile() throws Exception
-    {
-    }
+	/**create new study profile.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void createStudyProfile() throws Exception {
+	}
 
-    @Test
-    public void updateStudyProfile() throws Exception
-    {
-    }
+	/**update study profile.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void updateStudyProfile() throws Exception {
+	}
 
-    @Test
-    public void getListOfTasks() throws Exception
-    {
+	/**get list of tasks.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void getListOfTasks() throws Exception {
 
-    }
+	}
 
-    @Test
-    public void newActivity() throws Exception
-    {
-    }
+	/**add new activity.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void newActivity() throws Exception {
+	}
 
 }

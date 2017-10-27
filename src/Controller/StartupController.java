@@ -23,7 +23,7 @@ package Controller;
 
 import Model.Account;
 import Model.Notification;
-import View.UIManager;
+import View.UiManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -93,14 +93,14 @@ public class StartupController {
 						Stage stage = (Stage) this.openFileButton.getScene().getWindow();
 						stage.close();
 					} else {
-						UIManager.reportError("Directory can not be written to.");
+						UiManager.reportError("Directory can not be written to.");
 					}
 				} else {
-					UIManager.reportError("Directory cannot be read from.");
+					UiManager.reportError("Directory cannot be read from.");
 				}
 
 			} else {
-				UIManager.reportError("Directory does not exist.");
+				UiManager.reportError("Directory does not exist.");
 			}
 		}
 	}
@@ -122,14 +122,14 @@ public class StartupController {
 						Stage stage = (Stage) this.openFileButton.getScene().getWindow();
 						stage.close();
 					} else {
-						UIManager.reportError("Cannot write to file.");
+						UiManager.reportError("Cannot write to file.");
 					}
 				} else {
-					UIManager.reportError("Cannot read file.");
+					UiManager.reportError("Cannot read file.");
 				}
 
 			} else {
-				UIManager.reportError("File does not exist.");
+				UiManager.reportError("File does not exist.");
 			}
 		}
 

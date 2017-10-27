@@ -23,7 +23,7 @@ package Model;
 
 import Controller.MainController;
 import Controller.MenuController;
-import View.UIManager;
+import View.UiManager;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -39,7 +39,7 @@ import java.util.Date;
  */
 public class Task extends ModelEntity {
 	/**
-	 * 
+	 * serial version uid.
 	 */
 	private static final long serialVersionUID = -306478464668256557L;
 	// private data
@@ -54,14 +54,23 @@ public class Task extends ModelEntity {
 	// public methods
 
 	// Getters:
+	/**get deadline.
+	 * @return String
+	 */
 	public String getDeadline() {
 		return new SimpleDateFormat("dd/MM/yyyy").format(this.deadline.getDate());
 	}
 
+	/**get deadline Date.
+	 * @return Date
+	 */
 	public Date getDeadlineDate() {
 		return this.deadline.getDate();
 	}
 
+	/**get weighting.s
+	 * @return int
+	 */
 	public int getWeighting() {
 		return this.weighting;
 	}
@@ -69,24 +78,36 @@ public class Task extends ModelEntity {
 	/**
 	 * Wrapper for JavaFX TableView.
 	 *
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isCheckedComplete() {
 		return canCheckComplete() && checkedComplete;
 	}
 
+	/**get task type.
+	 * @return TaskType
+	 */
 	public TaskType getType() {
 		return this.type;
 	}
 
+	/**get dependencies.
+	 * @return Array of Task
+	 */
 	public Task[] getDependencies() {
 		return this.dependencies.toArray(new Task[this.dependencies.size()]);
 	}
 
+	/**get requirements.
+	 * @return array of requirements
+	 */
 	public Requirement[] getRequirements() {
 		return this.requirements.toArray(new Requirement[this.requirements.size()]);
 	}
 
+	/**get requirement count.
+	 * @return int
+	 */
 	public int requirementCount() {
 		return requirements.size();
 	}
@@ -157,7 +178,7 @@ public class Task extends ModelEntity {
 	/**
 	 * Same as canCheckComplete(), wrapper for TableView.
 	 *
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isPossibleToComplete() {
 		return canCheckComplete();
@@ -167,7 +188,7 @@ public class Task extends ModelEntity {
 	 * Checks whether this Task can be checked as complete. If it cannot, makes sure it is marked as
 	 * incomplete.
 	 *
-	 * @return
+	 * @return boolean
 	 */
 	public boolean canCheckComplete() {
 		int i = -1;
@@ -313,7 +334,7 @@ public class Task extends ModelEntity {
 	/**
 	 * Set a new weighting for this Task.
 	 *
-	 * @param weighting
+	 * @param weighting weighting to be set
 	 */
 	public void setWeighting(int weighting) {
 		this.weighting = weighting;
@@ -355,11 +376,18 @@ public class Task extends ModelEntity {
 		try {
 			MainController.ui.taskDetails(this);
 		} catch (IOException e) {
-			UIManager.reportError("Unable to open View file");
+			UiManager.reportError("Unable to open View file");
 		}
 	}
 
 	// Constructors:
+	/**constructor.
+	 * @param name		name to be set
+	 * @param details	details
+	 * @param deadline	date
+	 * @param weighting	weighting
+	 * @param type		type
+	 */
 	public Task(String name, String details, LocalDate deadline, int weighting, String type) {
 		super(name, details);
 		this.deadline = new Deadline(deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))

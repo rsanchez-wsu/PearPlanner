@@ -37,9 +37,12 @@ public class AccountTest {
 	Person person;
 	Account account;
 
+	/**set up.
+	 * @throws Exception catch any exception that occur
+	 */
 	@Before
 	public void setUp() throws Exception {
-		person = new Person("Mr","Andrew Odintsov", true);
+		person = new Person("Mr", "Andrew Odintsov", true);
 		account = new Account(person, "10012721-UG");
 	}
 
@@ -55,7 +58,7 @@ public class AccountTest {
 
 	@Test
 	public void setStudentDetails() throws Exception {
-		Person person2 = new Person("Dr","Zilvinas Ceikauskas", true, "zil.Cei@gmail.com");
+		Person person2 = new Person("Dr", "Zilvinas Ceikauskas", true, "zil.Cei@gmail.com");
 		account.setStudentDetails(person2);
 		assertEquals(person2, account.getStudentDetails());
 	}
@@ -66,6 +69,9 @@ public class AccountTest {
 		assertEquals("99222213-UG", account.getStudentNumber());
 	}
 
+	/**tear down the accout set person to null, account to null.
+	 * @throws Exception catch any exception that occur
+	 */
 	@After
 	public void tearDown() throws Exception {
 		person = null;

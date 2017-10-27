@@ -127,9 +127,9 @@ checkstyle {
 }
 
 //http://mark.koli.ch/fail-build-on-java-compiler-warnings
-tasks.withType(JavaCompile) {
-  options.compilerArgs << "-Xlint:all" << "-Xlint:-processing" << "-Xlint:-serial" << "-Werror"
-}
+//tasks.withType(JavaCompile) {
+//  options.compilerArgs << "-Xlint:all" << "-Werror"
+//}
 tasks.withType(FindBugs) {
 	reports {
 		xml.enabled false

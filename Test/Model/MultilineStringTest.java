@@ -34,103 +34,111 @@ import static org.junit.Assert.*;
  */
 public class MultilineStringTest {
 
-    private MultilineString multilineStringEmpty, multilineStringNormal, multilineStringArray;
+	private MultilineString multilineStringEmpty;
+	private MultilineString multilineStringNormal;
+	private MultilineString multilineStringArray;
 
-    @Before
-    public void setUp() throws Exception
-    {
-        multilineStringEmpty = new MultilineString();
+	/**set up.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Before
+	public void setUp() throws Exception {
+		multilineStringEmpty = new MultilineString();
 
-        String text = "Much did had call new drew that kept.\n" +
-            "Limits expect wonder law she. Now has you views woman noisy match money rooms.\n" +
-            "To up remark it eldest length oh passed. Off because yet mistake feeling has men.";
-        multilineStringNormal = new MultilineString(text);
+		String text = "Much did had call new drew that kept.\n"
+				+ "Limits expect wonder law she. Now has you views woman noisy match money rooms.\n"
+				+ "To up remark it eldest length oh passed."
+				+ " Off because yet mistake feeling has men.";
+		multilineStringNormal = new MultilineString(text);
 
-        String[] textArray = {"Much did had call new drew that kept.",
-                "Limits expect wonder law she. Now has you views woman noisy match money rooms.",
-                "To up remark it eldest length oh passed. Off because yet mistake feeling has men."};
-        multilineStringArray = new MultilineString(textArray);
-    }
+		String[] textArray = { "Much did had call new drew that kept.",
+				"Limits expect wonder law she. Now has you views woman noisy match money rooms.",
+				"To up remark it eldest length oh passed."
+				+ " Off because yet mistake feeling has men." };
+		multilineStringArray = new MultilineString(textArray);
+	}
 
-    @Test
-    public void getLines() throws Exception
-    {
-        // Checking an empty MultilineString
-        assertEquals(0, multilineStringEmpty.getLines());
+	@Test
+	public void getLines() throws Exception {
+		// Checking an empty MultilineString
+		assertEquals(0, multilineStringEmpty.getLines());
 
-        // Checking a MultilineString with 3 lines
-        assertEquals(3, multilineStringNormal.getLines());
+		// Checking a MultilineString with 3 lines
+		assertEquals(3, multilineStringNormal.getLines());
 
-        // Checking a MultilineString with 3 lines (Created by an array of Strings)
-        assertEquals(3, multilineStringArray.getLines());
-    }
+		// Checking a MultilineString with 3 lines (Created by an array of Strings)
+		assertEquals(3, multilineStringArray.getLines());
+	}
 
-    @Test
-    public void getAsArrayList() throws Exception
-    {
-        // Checking an empty MultilineString
-        ArrayList<String> empty = new ArrayList<>();
-        assertEquals(empty, multilineStringEmpty.getAsArrayList());
+	@Test
+	public void getAsArrayList() throws Exception {
+		// Checking an empty MultilineString
+		ArrayList<String> empty = new ArrayList<>();
+		assertEquals(empty, multilineStringEmpty.getAsArrayList());
 
-        // Checking a MultilineString with 3 lines
-        ArrayList<String> text = new ArrayList<>();
-        text.add("Much did had call new drew that kept.");
-        text.add("Limits expect wonder law she. Now has you views woman noisy match money rooms.");
-        text.add("To up remark it eldest length oh passed. Off because yet mistake feeling has men.");
-        for (int i=0; i<multilineStringNormal.getLines(); i++){
-            assertEquals(text.get(i), multilineStringNormal.getAsArrayList().get(i));
-        }
+		// Checking a MultilineString with 3 lines
+		ArrayList<String> text = new ArrayList<>();
+		text.add("Much did had call new drew that kept.");
+		text.add("Limits expect wonder law she. Now has you views woman noisy match money rooms.");
+		text.add(
+				"To up remark it eldest length oh passed."
+				+ " Off because yet mistake feeling has men.");
+		for (int i = 0; i < multilineStringNormal.getLines(); i++) {
+			assertEquals(text.get(i), multilineStringNormal.getAsArrayList().get(i));
+		}
 
-        // Checking a MultilineString with 3 lines (Created by an array of Strings)
-        for (int i=0; i<multilineStringArray.getLines(); i++){
-            assertEquals(text.get(i), multilineStringArray.getAsArrayList().get(i));
-        }
-    }
+		// Checking a MultilineString with 3 lines (Created by an array of Strings)
+		for (int i = 0; i < multilineStringArray.getLines(); i++) {
+			assertEquals(text.get(i), multilineStringArray.getAsArrayList().get(i));
+		}
+	}
 
-    @Test
-    public void getAsArray() throws Exception
-    {
-        // Checking an empty MultilineString
-        String[] emptyText = {};
-        assertArrayEquals(emptyText, multilineStringEmpty.getAsArray());
+	@Test
+	public void getAsArray() throws Exception {
+		// Checking an empty MultilineString
+		String[] emptyText = {};
+		assertArrayEquals(emptyText, multilineStringEmpty.getAsArray());
 
-        // Checking a MultilineString with 3 lines
-        String[] textWithThreeLines = {"Much did had call new drew that kept.",
-                "Limits expect wonder law she. Now has you views woman noisy match money rooms.",
-                "To up remark it eldest length oh passed. Off because yet mistake feeling has men."};
-        assertArrayEquals(textWithThreeLines, multilineStringNormal.getAsArray());
+		// Checking a MultilineString with 3 lines
+		String[] textWithThreeLines = { "Much did had call new drew that kept.",
+				"Limits expect wonder law she. Now has you views woman noisy match money rooms.",
+				"To up remark it eldest length oh passed."
+				+ " Off because yet mistake feeling has men." };
+		assertArrayEquals(textWithThreeLines, multilineStringNormal.getAsArray());
 
+		// Checking a MultilineString with 3 lines (Created by an array of Strings)
+		String[] textWithThreeLinesArray = { "Much did had call new drew that kept.",
+				"Limits expect wonder law she. Now has you views woman noisy match money rooms.",
+				"To up remark it eldest length oh passed."
+				+ " Off because yet mistake feeling has men." };
+		assertArrayEquals(textWithThreeLinesArray, multilineStringArray.getAsArray());
 
-        // Checking a MultilineString with 3 lines (Created by an array of Strings)
-        String[] textWithThreeLinesArray = {"Much did had call new drew that kept.",
-                "Limits expect wonder law she. Now has you views woman noisy match money rooms.",
-                "To up remark it eldest length oh passed. Off because yet mistake feeling has men."};
-        assertArrayEquals(textWithThreeLinesArray, multilineStringArray.getAsArray());
+	}
 
-    }
+	@Test
+	public void getAsString() throws Exception {
+		// Checking an empty MultilineString
+		String empty = "";
+		assertEquals(empty, multilineStringEmpty.getAsString());
 
-    @Test
-    public void getAsString() throws Exception
-    {
-        // Checking an empty MultilineString
-        String empty = "";
-        assertEquals(empty, multilineStringEmpty.getAsString());
+		// Checking a MultilineString with 3 lines
+		String text = "Much did had call new drew that kept.\n"
+				+ "Limits expect wonder law she. Now has you views woman noisy match money rooms.\n"
+				+ "To up remark it eldest length oh passed."
+				+ " Off because yet mistake feeling has men.";
+		assertEquals(text, multilineStringNormal.getAsString());
 
-        // Checking a MultilineString with 3 lines
-        String text = "Much did had call new drew that kept.\n" +
-                "Limits expect wonder law she. Now has you views woman noisy match money rooms.\n" +
-                "To up remark it eldest length oh passed. Off because yet mistake feeling has men.";
-        assertEquals(text, multilineStringNormal.getAsString());
+		// Checking a MultilineString with 3 lines (Created by an array of Strings)
+		assertEquals(text, multilineStringArray.getAsString());
+	}
 
-        // Checking a MultilineString with 3 lines (Created by an array of Strings)
-        assertEquals(text, multilineStringArray.getAsString());
-    }
-
-    @After
-    public void tearDown() throws Exception
-    {
-        multilineStringEmpty = null;
-        multilineStringNormal =  null;
-        multilineStringArray = null;
-    }
+	/**set all the fields to null.
+	 * @throws Exception catch any exception that occur
+	 */
+	@After
+	public void tearDown() throws Exception {
+		multilineStringEmpty = null;
+		multilineStringNormal = null;
+		multilineStringArray = null;
+	}
 }

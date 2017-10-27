@@ -31,19 +31,25 @@ import static org.junit.Assert.*;
  */
 public class MainControllerTest {
 
-    @Before
-    public void setUp() throws Exception
-    {
-    }
+	/**set up method.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Before
+	public void setUp() throws Exception {
+	}
 
-    @Test
-    public void initialise() throws Exception
-    {
-    }
+	/**initialise.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void initialise() throws Exception {
+	}
 
-    @Test
-    public void reportError() throws Exception
-    {
-    }
+	/**report error.
+	 * @throws Exception catch any exception that occur
+	 */
+	@Test
+	public void reportError() throws Exception {
+	}
 
 }

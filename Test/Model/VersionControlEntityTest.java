@@ -39,6 +39,9 @@ public class VersionControlEntityTest extends ApplicationTest {
 
 	VersionControlEntity versionControlEntity = new VersionControlEntity();
 
+	/**set up.
+	 * @throws Exception catch any exception that occur
+	 */
 	@Before
 	public void setUp() throws Exception {
 		versionControlEntity = new VersionControlEntity();
@@ -55,17 +58,17 @@ public class VersionControlEntityTest extends ApplicationTest {
 	public void findAndUpdate() throws Exception {
 		assertFalse(VersionControlEntity.findAndUpdate(versionControlEntity));
 
-		versionControlEntity.setUID("99856-ID");
+		versionControlEntity.setUId("99856-ID");
 		assertTrue(VersionControlEntity.findAndUpdate(versionControlEntity));
 	}
 
 	@Test
 	public void inLibrary() throws Exception {
-		versionControlEntity.setUID("1234-ID");
+		versionControlEntity.setUId("1234-ID");
 		assertTrue(VersionControlEntity.inLibrary("1234-ID"));
 
 		assertFalse(VersionControlEntity.inLibrary("10132-ID"));
-		versionControlEntity.setUID("10132-ID");
+		versionControlEntity.setUId("10132-ID");
 		assertTrue(VersionControlEntity.inLibrary("10132-ID"));
 	}
 
@@ -75,28 +78,31 @@ public class VersionControlEntityTest extends ApplicationTest {
 	}
 
 	@Test
-	public void getUID() throws Exception {
-		assertEquals(null, versionControlEntity.getUID());
+	public void getUId() throws Exception {
+		assertEquals(null, versionControlEntity.getUId());
 	}
 
 	@Test
-	public void setUID() throws Exception {
+	public void setUId() throws Exception {
 		// Testing setUID with one argument
-		versionControlEntity.setUID("1234-ID");
-		assertEquals("1234-ID", versionControlEntity.getUID());
+		versionControlEntity.setUId("1234-ID");
+		assertEquals("1234-ID", versionControlEntity.getUId());
 
 		// Testing the duplication
-		versionControlEntity.setUID("1234-ID");
+		versionControlEntity.setUId("1234-ID");
 
 		// Testing setUID with two argument
-		assertEquals(true, versionControlEntity.setUID("95657-ID",1));
-		assertEquals("95657-ID", versionControlEntity.getUID());
+		assertEquals(true, versionControlEntity.setUId("95657-ID",1));
+		assertEquals("95657-ID", versionControlEntity.getUId());
 		assertEquals(1, versionControlEntity.getVersion());
 
 		// Testing the duplication
 //		assertFalse(versionControlEntity.setUID("5678-ID", 2));
 	}
 
+	/**set all the fields to null.
+	 * @throws Exception catch any exception that occur
+	 */
 	@After
 	public void tearDown() throws Exception {
 		versionControlEntity = null;

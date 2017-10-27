@@ -21,8 +21,6 @@
 
 package View;
 
-
-
 import Controller.AccountController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -39,44 +37,45 @@ import org.testfx.framework.junit.ApplicationTest;
 import java.util.concurrent.TimeoutException;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 08/05/2017
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 08/05/2017.
  */
 public abstract class FXBase extends ApplicationTest {
 
+	@Override
+	public void start(Stage stage) throws Exception {
 
+		AccountController accountControl = new AccountController();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateAccount.fxml"));
+		loader.setController(accountControl);
+		Parent root = loader.load();
 
-    @Override
-    public void start(Stage stage) throws Exception
-    {
+		stage.setOnCloseRequest(e -> {
+			Platform.exit();
+			System.exit(0);
+		});
 
-        AccountController accountControl = new AccountController();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateAccount.fxml"));
-        loader.setController(accountControl);
-        Parent root = loader.load();
+		Scene scene = new Scene(root, 550, 232);
 
-        stage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
+		stage.setScene(scene);
 
-        Scene scene = new Scene(root, 550, 232);
+		stage.show();
+	}
 
-        stage.setScene(scene);
+	/** after test, hide stage, and release mouse button and key code.
+	 * @throws TimeoutException https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/TimeoutException.html
+	 */
+	@After
+	public void afterEachTest() throws TimeoutException {
+		FxToolkit.hideStage();
+		release(new KeyCode[] {});
+		release(new MouseButton[] {});
+	}
 
-        stage.show();
-    }
-
-    @After
-    public void afterEachTest() throws TimeoutException
-    {
-       FxToolkit.hideStage();
-       release(new KeyCode[]{});
-       release(new MouseButton[]{});
-    }
-
-
-    public <T extends Node> T find (final String query) {
-        return (T) lookup(query).queryAll().iterator().next();
-    }
+	/**Find String.
+	 * @param query String
+	 * @return T T extends Node
+	 */
+	public <T extends Node> T find(final String query) {
+		return (T) lookup(query).queryAll().iterator().next();
+	}
 }

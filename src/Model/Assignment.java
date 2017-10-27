@@ -23,18 +23,18 @@ package Model;
 
 import Controller.MainController;
 import Controller.MenuController;
-import View.UIManager;
+import View.UiManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class Assignment extends VersionControlEntity {
-	/**
-	 * 
+	/**serial version uid.
+	 *
 	 */
 	private static final long serialVersionUID = -8889413763401987226L;
 	protected ArrayList<Task> tasks = new ArrayList<>();
@@ -47,27 +47,29 @@ public class Assignment extends VersionControlEntity {
 	protected StateType state;  // this may not be needed as we can work it out
 
 	@Override
-	protected void replace(VersionControlEntity receivedVCE) {
-		if (receivedVCE instanceof Assignment) {
-			Assignment castedVCE = (Assignment) receivedVCE;
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Assignment) {
+			Assignment castedVce = (Assignment) receivedVce;
 			// this.tasks = castedVCE.getTasks();
 			// this.requirements = castedVCE.getRequirements();
-			this.weighting = castedVCE.getWeighting();
-			if (castedVCE.getSetBy() != null) {
-				this.setBy = castedVCE.getSetBy();
+			this.weighting = castedVce.getWeighting();
+			if (castedVce.getSetBy() != null) {
+				this.setBy = castedVce.getSetBy();
 			}
-			if (castedVCE.getMarkedBy() != null) {
-				this.markedBy = castedVCE.getMarkedBy();
+			if (castedVce.getMarkedBy() != null) {
+				this.markedBy = castedVce.getMarkedBy();
 			}
-			if (castedVCE.getReviewedBy() != null) {
-				this.reviewedBy = castedVCE.getReviewedBy();
+			if (castedVce.getReviewedBy() != null) {
+				this.reviewedBy = castedVce.getReviewedBy();
 			}
-			this.marks = castedVCE.getMarks();
+			this.marks = castedVce.getMarks();
 			// this.state = castedVCE.getState();
 		}
-		super.replace(receivedVCE);
+		super.replace(receivedVce);
 	}
 
+	/**set State type.
+	 */
 	public enum StateType {
 		IN_PROGRESS, DEADLINE_PASSED, NOT_STARTED
 	}
@@ -79,6 +81,10 @@ public class Assignment extends VersionControlEntity {
 		return "Assignment '" + name + "'";
 	}
 
+	/**to string method.
+	 * @param verbose boolean
+	 * @return String
+	 */
 	public String toString(boolean verbose) {
 		if (verbose) {
 			StringBuilder r = new StringBuilder();
@@ -101,34 +107,58 @@ public class Assignment extends VersionControlEntity {
 		}
 	}
 
+	/**get an array list of task.
+	 * @return task
+	 */
 	public ArrayList<Task> getTasks() {
 		return tasks;
 	}
 
+	/**get an array list of requirements.
+	 * @return requirements.
+	 */
 	public ArrayList<Requirement> getRequirements() {
 		return requirements;
 	}
 
+	/**get weighting.
+	 * @return weighting
+	 */
 	public int getWeighting() {
 		return weighting;
 	}
 
+	/**get the person that set the assignment.
+	 * @return setBy
+	 */
 	public Person getSetBy() {
 		return setBy;
 	}
 
+	/**get the person that marked the assignment.
+	 * @return markedBy
+	 */
 	public Person getMarkedBy() {
 		return markedBy;
 	}
 
+	/**get the person that reviewed the assignment.
+	 * @return reviewedBy
+	 */
 	public Person getReviewedBy() {
 		return reviewedBy;
 	}
 
+	/**get number of marks.
+	 * @return marks
+	 */
 	public int getMarks() {
 		return marks;
 	}
 
+	/**get state type.
+	 * @return state
+	 */
 	public StateType getState() {
 		return state;
 	}
@@ -185,7 +215,8 @@ public class Assignment extends VersionControlEntity {
 			return 0;
 		}
 
-		int sum = 0, n = 0;
+		int sum = 0;
+		int n = 0;
 		for (Requirement req : this.requirements) {
 			sum += req.requirementProgress() * 100;
 			n++;
@@ -206,12 +237,20 @@ public class Assignment extends VersionControlEntity {
 		try {
 			MainController.ui.assignmentDetails(this, current);
 		} catch (IOException e) {
-			UIManager.reportError("Unable to open View file");
+			UiManager.reportError("Unable to open View file");
 		}
 	}
 
 	// Constructor
-	public Assignment(int cWeighting, Person cSetBy, Person cMarkedBy, Person cReviewedBy, int cMarks) {
+	/**constructor.
+	 * @param cWeighting int
+	 * @param cSetBy	Person
+	 * @param cMarkedBy	Person
+	 * @param cReviewedBy	Person
+	 * @param cMarks	int
+	 */
+	public Assignment(int cWeighting, Person cSetBy,
+			Person cMarkedBy, Person cReviewedBy, int cMarks) {
 		weighting = cWeighting;
 		setBy = cSetBy;
 		markedBy = cMarkedBy;

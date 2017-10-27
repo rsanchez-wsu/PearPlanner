@@ -30,19 +30,16 @@ import static org.junit.Assert.*;
  */
 public class HubFileTest {
 
-    @Test
-    public void getModules() throws Exception
-    {
-    }
+	@Test
+	public void getModules() throws Exception {
+	}
 
-    @Test
-    public void getExtensions() throws Exception
-    {
-    }
+	@Test
+	public void getExtensions() throws Exception {
+	}
 
-    @Test
-    public void getUpdates() throws Exception
-    {
-    }
+	@Test
+	public void getUpdates() throws Exception {
+	}
 
 }

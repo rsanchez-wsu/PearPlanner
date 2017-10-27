@@ -27,102 +27,126 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class ModelEntity implements Serializable
-{
-    /**
-	 * 
+public class ModelEntity implements Serializable {
+	/**
+	 * serial version uid.
 	 */
 	private static final long serialVersionUID = -2536798493663466670L;
 	protected String name = "";
-    protected MultilineString details = null;
-    protected ArrayList<Note> notes;
+	protected MultilineString details = null;
+	protected ArrayList<Note> notes;
 
+	// getters
+	/**get name of this model entity.
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    // getters
-    public String getName()
-    {
-        return name;
-    }
+	/**get details of this model entity.
+	 * @return details
+	 */
+	public MultilineString getDetails() {
+		return details;
+	}
 
-    public MultilineString getDetails()
-    {
-        return details;
-    }
+	/**set name for this model entity.
+	 * @param newName name to be set
+	 */
+	public void setName(String newName) {
+		name = newName;
+	}
 
-    public void setName(String newName)
-    {
-        name = newName;
-    }
+	/**set details for this model entity.
+	 * @param newDetails details to be set
+	 */
+	public void setDetails(String newDetails) {
+		details = new MultilineString(newDetails);
+	}
 
-    public void setDetails(String newDetails)
-    {
-        details = new MultilineString(newDetails);
-    }
+	/**set details for this model entity.
+	 * @param newDetails array of details to be set
+	 */
+	public void setDetails(String[] newDetails) {
+		details = new MultilineString(newDetails);
+	}
 
-    public void setDetails(String[] newDetails)
-    {
-        details = new MultilineString(newDetails);
-    }
+	/**set details for this model entity.
+	 * @param newDetails array list of details to be set
+	 */
+	public void setDetails(ArrayList<String> newDetails) {
+		details = new MultilineString(newDetails.toArray(new String[newDetails.size()]));
+	}
 
-    public void setDetails(ArrayList<String> newDetails)
-    {
-        details = new MultilineString(newDetails.toArray(new String[newDetails.size()]));
-    }
+	/**set details for this model entity.
+	 * @param newDetails multilineString details to be set
+	 */
+	public void setDetails(MultilineString newDetails) {
+		details = newDetails;
+	}
 
-    public void setDetails(MultilineString newDetails)
-    {
-        details = newDetails;
-    }
+	/**add properties.
+	 * @param aName	name of the properties to be added
+	 * @param aDetails details of the properties to be added
+	 */
+	public void addProperties(String aName, MultilineString aDetails) {
+		setName(aName);
+		setDetails(aDetails.clone());
+	}
 
+	/**add properties.
+	 * @param aName	name of the properties to be added
+	 * @param aDetails details of the properties to be added
+	 */
+	public void addProperties(String aName, String aDetails) {
+		setName(aName);
+		setDetails(aDetails);
+	}
 
-    public void addProperties(String aName, MultilineString aDetails)
-    {
-        setName(aName);
-        setDetails(aDetails.clone());
-    }
+	/**
+	 * Open the appropriate UI window for this class To be overridden by children.
+	 */
+	public void open(MenuController.Window current) {
+	}
 
-    public void addProperties(String aName, String aDetails)
-    {
-        setName(aName);
-        setDetails(aDetails);
-    }
+	/**
+	 * contrustor.
+	 */
+	public ModelEntity() {
+		this("");
+	}
 
-    /**
-     * Open the appropriate UI window for this class
-     * To be overridden by children.
-     */
-    public void open(MenuController.Window current)
-    {
-    }
+	/**
+	 * contrustor.
+	 */
+	public ModelEntity(String cName) {
+		this(cName, "");
+	}
 
-    public ModelEntity()
-    {
-        this("");
-    }
+	/**
+	 * contrustor.
+	 */
+	public ModelEntity(String cName, String cDetails) {
+		this(cName, cDetails.split("\n"));
+	}
 
-    public ModelEntity(String cName)
-    {
-        this(cName, "");
-    }
+	/**
+	 * contrustor.
+	 */
+	public ModelEntity(String cName, String[] cDetails) {
+		setName(cName);
+		setDetails(cDetails);
+		notes = new ArrayList<>();
+	}
 
-    public ModelEntity(String cName, String cDetails)
-    {
-        this(cName, cDetails.split("\n"));
-    }
-
-    public ModelEntity(String cName, String[] cDetails)
-    {
-        setName(cName);
-        setDetails(cDetails);
-        notes = new ArrayList<>();
-    }
-
-    public ModelEntity(String cName, String[] cDetails, ArrayList<Note> cNotes)
-    {
-        this(cName, cDetails);
-        notes = new ArrayList<>(cNotes);
-    }
+	/**
+	 * contrustor.
+	 */
+	public ModelEntity(String cName, String[] cDetails, ArrayList<Note> cNotes) {
+		this(cName, cDetails);
+		notes = new ArrayList<>(cNotes);
+	}
 }

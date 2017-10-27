@@ -24,33 +24,37 @@ package Model;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class Book /*extends Requirement*/
-{
-    // private data
-    private ArrayList<String> chapters;
+public class Book { /*extends Requirement*/
+	// private data
+	private ArrayList<String> chapters;
 
-    // public methods
+	// public methods
 
-    // getters
-    public ArrayList<String> getChapters()
-    {
-        // initial set up code below - check if this needs updating
-        return chapters;
-    }
+	// getters
+	/**get an array list of chapters.
+	 * @return chapters
+	 */
+	public ArrayList<String> getChapters() {
+		// initial set up code below - check if this needs updating
+		return chapters;
+	}
 
-    // setters
-    public void setChapters(ArrayList<String> newChapters)
-    {
-        // initial set up code below - check if this needs updating
-        chapters = newChapters;
-    }
+	// setters
+	/**set new list of chapters.
+	 * @param newChapters ArrayList newChapters to be added
+	 */
+	public void setChapters(ArrayList<String> newChapters) {
+		// initial set up code below - check if this needs updating
+		chapters = newChapters;
+	}
 
-    // constructor
-    public Book(ArrayList<String> chapters)
-    {
-        this.chapters = chapters;
-    }
+	// constructor
+	/**constructor.
+	 * @param chapters ArrayList of chapter from the book
+	 */
+	public Book(ArrayList<String> chapters) {
+		this.chapters = chapters;
+	}
 }

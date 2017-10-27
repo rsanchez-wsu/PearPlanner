@@ -36,16 +36,16 @@ import java.util.Scanner;
 /**
  * Created by bendickson on 5/4/17.
  */
-public class ConsoleIO {
+public class ConsoleIo {
 	static ArrayList<String> logged = new ArrayList<>();
 
 	/**
-	 * Retrieve user input/
+	 * Retrieve user input.
 	 *
 	 * @param message Message to be shown
 	 * @return retrieved String
 	 */
-	static public String getDataString(String message) {
+	public static String getDataString(String message) {
 		Scanner scan = new Scanner(System.in);
 		String r = "";
 		while (r.equals("")) {
@@ -62,7 +62,7 @@ public class ConsoleIO {
 	 * @param message Message to be shown.
 	 * @return true for yes, false for no.
 	 */
-	static public boolean getDataBool(String message) {
+	public static boolean getDataBool(String message) {
 		Scanner scan = new Scanner(System.in);
 		String r = "";
 		while (!(r.equals("y") || r.equals("n"))) {
@@ -78,7 +78,7 @@ public class ConsoleIO {
 	 *
 	 * @return number of lines.
 	 */
-	static public int getLogSize() {
+	public static int getLogSize() {
 		return logged.size();
 	}
 
@@ -87,7 +87,7 @@ public class ConsoleIO {
 	 *
 	 * @param filePath file path
 	 */
-	static public void saveLog(String filePath) {
+	public static void saveLog(String filePath) {
 		saveLog(filePath, 0, logged.size());
 	}
 
@@ -98,7 +98,7 @@ public class ConsoleIO {
 	 * @param startLine starting line
 	 * @param endLine   end line
 	 */
-	static public void saveLog(String filePath, int startLine, int endLine) {
+	public static void saveLog(String filePath, int startLine, int endLine) {
 		if (startLine < 0) {
 			startLine = 0;
 		}
@@ -127,7 +127,7 @@ public class ConsoleIO {
 	 *
 	 * @param message message to be displayed.
 	 */
-	static public void setConsoleMessage(String message) {
+	public static void setConsoleMessage(String message) {
 		System.out.println(message);
 	}
 
@@ -137,7 +137,7 @@ public class ConsoleIO {
 	 * @param message	message to be displayed (or logged)
 	 * @param logMessage whether to log it
 	 */
-	static public void setConsoleMessage(String message, boolean logMessage) {
+	public static void setConsoleMessage(String message, boolean logMessage) {
 		System.out.println(message);
 		if (logMessage) {
 			logged.add(message);
@@ -150,7 +150,7 @@ public class ConsoleIO {
 	 * @param menuOptions available options
 	 * @return user selection
 	 */
-	static public int getMenuOption(String[] menuOptions) {
+	public static int getMenuOption(String[] menuOptions) {
 		Scanner scan = new Scanner(System.in);
 		int option = -1;
 		while (option < 0 || option >= menuOptions.length) {
@@ -167,33 +167,44 @@ public class ConsoleIO {
 
 
 	// Console view below
-	static public String view_main() {
-		View.ConsoleIO.setConsoleMessage("MAIN MENU");
+	/**get menu options in main menu.
+	 * @return String
+	 */
+	public static String view_main() {
+		View.ConsoleIo.setConsoleMessage("MAIN MENU");
 		// list of options
-		String[] menuOptions = {"Create Study Profile", "View Study Profile", "View Notifications", "Quit Program"};
-		int choice = View.ConsoleIO.getMenuOption(menuOptions);
+		String[] menuOptions = {"Create Study Profile",
+				"View Study Profile", "View Notifications", "Quit Program"};
+		int choice = View.ConsoleIo.getMenuOption(menuOptions);
 
 		return menuOptions[choice];
 
 	}
 
-	static public String view_createSP() {
-		View.ConsoleIO.setConsoleMessage("CREATE A STUDY PROFILE");
+	/**get menu options in create a study profile menu.
+	 * @return String
+	 */
+	public static String view_createSp() {
+		View.ConsoleIo.setConsoleMessage("CREATE A STUDY PROFILE");
 		// list of options
 		String[] menuOptions = {"Load Study Profile File", "Return to Main Menu"};
-		int choice = View.ConsoleIO.getMenuOption(menuOptions);
+		int choice = View.ConsoleIo.getMenuOption(menuOptions);
 
 		return menuOptions[choice];
 
 	}
 
-	static public String view_viewSP(StudyPlannerController SPC) {
-		View.ConsoleIO.setConsoleMessage("VIEW A STUDY PROFILE");
-		String[] studyProfiles = SPC.getPlanner().getListOfStudyProfileNames();
+	/** view of view study planner.
+	 * @param Spc	study planner controller
+	 * @return String
+	 */
+	public static String view_viewSp(StudyPlannerController Spc) {
+		View.ConsoleIo.setConsoleMessage("VIEW A STUDY PROFILE");
+		String[] studyProfiles = Spc.getPlanner().getListOfStudyProfileNames();
 		int i = -1, ii = studyProfiles.length;
 
 		if (ii < 1) {
-			View.ConsoleIO.setConsoleMessage("No existing study profiles");
+			View.ConsoleIo.setConsoleMessage("No existing study profiles");
 		}
 
 		String[] menuOptions = new String[ii + 1];
@@ -204,17 +215,21 @@ public class ConsoleIO {
 
 		int m = -1;
 		while (m < ii) {
-			m = View.ConsoleIO.getMenuOption(menuOptions);
-			if (m < ii) {
+			m = View.ConsoleIo.getMenuOption(menuOptions);
+/*			if (m < ii) {
 
-			}
+			}*/
 		}
 
 		return menuOptions[ii];
 	}
 
-	static public String view_loadSP(StudyPlannerController SPC) {
-		View.ConsoleIO.setConsoleMessage("LOAD A STUDY PROFILE");
+	/** view of load study planner.
+	 * @param Spc	study planner controller
+	 * @return String
+	 */
+	public static String view_loadSp(StudyPlannerController Spc) {
+		View.ConsoleIo.setConsoleMessage("LOAD A STUDY PROFILE");
 
 		String filename = getDataString("Enter filepath:");
 		File tempFile = new File(filename);
