@@ -643,7 +643,7 @@ public class MenuController implements Initializable {
 		this.title.setText("");
 
 		// Display profiles:
-		Label profiles = new Label("Study PROFILES");
+		Label profiles = new Label("Study Profiles");
 		profiles.getStyleClass().add("title");
 		this.mainContent.addRow(1, profiles);
 		GridPane.setColumnSpan(profiles, GridPane.REMAINING);
@@ -717,7 +717,7 @@ public class MenuController implements Initializable {
 		this.title.setText("");
 
 		// Display modules:
-		Label modules = new Label("MODULES");
+		Label modules = new Label("Modules");
 		modules.getStyleClass().add("title");
 		this.mainContent.addRow(1, modules);
 		GridPane.setColumnSpan(modules, GridPane.REMAINING);
