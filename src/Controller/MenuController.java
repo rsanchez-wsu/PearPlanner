@@ -259,20 +259,20 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Study DASHBOARD pane.
+	 * Display the Study Dashboard pane.
 	 */
 	public void loadDashboard() {
 		//set ToolTips
 		openMenu.setTooltip(new Tooltip("Menu"));
 		showNotification.setTooltip(new Tooltip("Notifications"));
 		addActivity.setTooltip(new Tooltip("Add activity"));
-		calendar.setTooltip(new Tooltip("Open CALENDAR"));
+		calendar.setTooltip(new Tooltip("Open Calendar"));
 
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.topBox.getChildren().add(this.welcome);
-		this.title.setText("Study DASHBOARD");
+		this.title.setText("Study Dashboard");
 
 		StudyProfile profile = MainController.getSpc().getPlanner().getCurrentStudyProfile();
 
@@ -414,7 +414,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the MILESTONES pane.
+	 * Display the Milestones pane.
 	 */
 	public void loadMilestones() {
 		// Update main pane:
@@ -423,7 +423,7 @@ public class MenuController implements Initializable {
 		this.title.setText("");
 
 		// Display milestones:
-		Label milestones = new Label("MILESTONES");
+		Label milestones = new Label("Milestones");
 		milestones.getStyleClass().add("title");
 		this.mainContent.addRow(1, milestones);
 
@@ -539,7 +539,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the CALENDAR pane.
+	 * Display the Calendar pane.
 	 */
 	public void loadCalendar() {
 		// Update main pane:
@@ -557,7 +557,7 @@ public class MenuController implements Initializable {
 		HBox nav = new HBox();
 		nav.setSpacing(15.0);
 		// Title:
-		Label title = new Label("CALENDAR");
+		Label title = new Label("Calendar");
 		title.getStyleClass().add("title");
 		HBox xx = new HBox();
 		HBox.setHgrow(xx, Priority.ALWAYS);
@@ -634,7 +634,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Study PROFILES pane.
+	 * Display the Study Profiles pane.
 	 */
 	public void loadStudyProfiles() {
 		// Update main pane:
@@ -708,7 +708,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the MODULES pane.
+	 * Display the Modules pane.
 	 */
 	public void loadModules() {
 		// Update main pane:
