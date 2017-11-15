@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Paint?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <GridPane  style="-fx-color: #096424;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	<columnConstraints>
@@ -29,7 +32,7 @@
 			<children>
 				<StackPane style="-fx-color: #096424" fx:id="pane" minHeight="10.0" prefHeight="30.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
 					<children>
-						<Rectangle fx:id="labelRectangle" fill="#096424" height="100.0" layoutX="0.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="10.0" width="410.0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP"/>
+						<Rectangle fx:id="labelRectangle" fill="#096424" height="100.0" layoutX="0.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="10.0" width="380.0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="TOP"/>
  						<Label text="Welcome to Raider Planner!" textFill="WHITE" >
 							<font>
 								<Font size="28.0" />
