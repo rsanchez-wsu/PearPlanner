@@ -165,13 +165,13 @@
 	                         />
 	                     </HBox>
                       
-                          <HBox GridPane.rowIndex="6">
+                          <HBox GridPane.rowIndex="4">
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                   <HBox.margin>
                                       <Insets left="5"/>
                                   </HBox.margin>
                                   <image>
-                                      <Image url="/Content/milestones.png"/>
+                                      <Image url="/Content/chat.png"/>
                                   </image>
                               </ImageView>
                             <Button fx:id="chat" style="-fx-background-color: transparent; -fx-text-fill:white; -fx-cursor: hand;"
