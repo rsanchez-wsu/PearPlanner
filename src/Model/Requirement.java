@@ -29,7 +29,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner 
+ * Created by Team BRONZE on 4/27/17
  */
 public class Requirement extends ModelEntity {
 	protected boolean checkedCompleted;
@@ -126,8 +127,7 @@ public class Requirement extends ModelEntity {
 	 * Add an Activity to the current Requirement and update the progress of this Requirement
 	 * accordingly.
 	 *
-	 * @param activity
-	 *            Activity to be added.
+	 * @param activity Activity to be added.
 	 */
 	public void addActivity(Activity activity) {
 		this.activityLog.add(activity);
