@@ -29,7 +29,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17 at 20:59
+ * PearPlanner/RaiderPlanner 
+ * Created by Team BRONZE on 4/27/17 at 20:59
  */
 public class Module extends VersionControlEntity {
 	// private data
