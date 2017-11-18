@@ -234,6 +234,8 @@ public class MainController {
 			Double.parseDouble(str);
 		} catch (NumberFormatException nfe) {
 			return false;
+		} catch (NullPointerException nfe) {
+			return false;
 		}
 		return true;
 	}
