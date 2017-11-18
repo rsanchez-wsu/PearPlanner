@@ -24,6 +24,8 @@ package Controller;
 import Model.Account;
 import Model.Person;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,6 +49,13 @@ public class StudyPlannerControllerTest {
 	 */
 	@Test
 	public void getStudyProfiles() throws Exception {
+		setUp();
+		try {
+			//studyPlannerController.getStudyProfiles();
+		} catch(Exception e){
+			System.out.println("Unable to find/load study profiles.");
+		}
+		
 	}
 
 	/**
@@ -55,6 +64,7 @@ public class StudyPlannerControllerTest {
 	 */
 	@Test
 	public void fileValidation() throws Exception {
+		
 	}
 
 	/**
@@ -63,6 +73,11 @@ public class StudyPlannerControllerTest {
 	 */
 	@Test
 	public void containsStudyProfile() throws Exception {
+		try {
+			//studyPlannerController.containsStudyProfile();
+		} catch(Exception e){
+			System.out.println("Study profile does not contain a profile.");
+		}
 	}
 
 	/**
@@ -71,6 +86,7 @@ public class StudyPlannerControllerTest {
 	 */
 	@Test
 	public void getCurrentVersion() throws Exception {
+		
 	}
 
 	/**
@@ -95,6 +111,11 @@ public class StudyPlannerControllerTest {
 	 */
 	@Test
 	public void getListOfTasks() throws Exception {
+		try {
+			//studyPlannerController.getCurrentTasks();
+		} catch(Exception e){
+			System.out.println("Unable to retrieve current list of tasks..");
+		}
 	}
 
 	/**
@@ -103,6 +124,13 @@ public class StudyPlannerControllerTest {
 	 */
 	@Test
 	public void newActivity() throws Exception {
+		try {
+			//LocalDate date = new LocalDate(3,4,2017);
+			//Activity Activity = new Activity("My new activity", "Activity Details", date, 3,5, "Type of activity");
+			//studyPlannerController.addActivity(Activity);
+		} catch(Exception e){
+			System.out.println("Unable to add new activity.");
+		}
 	}
 
 }
