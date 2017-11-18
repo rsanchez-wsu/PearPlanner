@@ -26,7 +26,8 @@ import Controller.MainController;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner 
+ * Created by Team BRONZE on 4/27/17
  */
 public class QuantityType extends ModelEntity {
 	private static ArrayList<QuantityType> quantityDatabase = new ArrayList<>();
@@ -87,10 +88,8 @@ public class QuantityType extends ModelEntity {
 	/**
 	 * Create a new QuantityType.
 	 *
-	 * @param cName
-	 *            Name of the quantity.
-	 * @param cDetails
-	 *            Details of the quantity.
+	 * @param cName Name of the quantity.
+	 * @param cDetails Details of the quantity.
 	 * @return
 	 */
 	public static QuantityType create(String cName, String cDetails) {
@@ -103,8 +102,7 @@ public class QuantityType extends ModelEntity {
 	/**
 	 * Create a new QuantityType.
 	 *
-	 * @param cName
-	 *            Name of the quantity.
+	 * @param cName Name of the quantity.
 	 * @return
 	 */
 	public static QuantityType create(String cName) {
@@ -117,8 +115,7 @@ public class QuantityType extends ModelEntity {
 	/**
 	 * Create a new QuantityType from an existing one.
 	 *
-	 * @param type
-	 *            QuantityType object
+	 * @param type QuantityType object
 	 */
 	public static void create(QuantityType type) {
 		if (!QuantityType.quantityDatabase.contains(type)) {
