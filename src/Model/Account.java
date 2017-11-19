@@ -25,7 +25,7 @@ import java.io.Serializable;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class Account implements Serializable {
 	// private data
