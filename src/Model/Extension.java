@@ -23,7 +23,7 @@ package Model;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class Extension extends VersionControlEntity {
 	// private data
