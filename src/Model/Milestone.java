@@ -29,7 +29,8 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner 
+ * Created by Team BRONZE on 4/27/17
  */
 public class Milestone extends ModelEntity {
 	// private data
@@ -143,8 +144,7 @@ public class Milestone extends ModelEntity {
 	/**
 	 * Add the given Task to this Milestone.
 	 *
-	 * @param task
-	 *            Task to be added.
+	 * @param task Task to be added.
 	 * @return Whether the Task was successfully added.
 	 */
 	public boolean addTask(Task task) {
@@ -158,8 +158,7 @@ public class Milestone extends ModelEntity {
 	/**
 	 * Checks if the Milestone contains the requested task
 	 *
-	 * @param task
-	 *            Task to be checked for
+	 * @param task Task to be checked for
 	 * @return Whether the teask is contained.
 	 */
 	public boolean containsTask(Task task) {
@@ -169,8 +168,7 @@ public class Milestone extends ModelEntity {
 	/**
 	 * Add all given Tasks to this Milestone.
 	 *
-	 * @param tasks
-	 *            a Collection of Tasks to be added.
+	 * @param tasks a Collection of Tasks to be added.
 	 * @return whether the provided Tasks were added successfully.
 	 */
 	public boolean addTasks(Collection<Task> tasks) {
@@ -184,8 +182,7 @@ public class Milestone extends ModelEntity {
 	/**
 	 * Replace the current list of Tasks with the provided Tasks.
 	 *
-	 * @param tasks
-	 *            Collection of Tasks.
+	 * @param tasks Collection of Tasks.
 	 */
 	public void replaceTasks(Collection<Task> tasks) {
 		this.tasks.clear();
@@ -195,8 +192,7 @@ public class Milestone extends ModelEntity {
 	/**
 	 * Remove a given Task from this Milestone.
 	 *
-	 * @param task
-	 *            Task to be removed.
+	 * @param task Task to be removed.
 	 */
 	public void removeTask(Task task) {
 		this.tasks.remove(task);
@@ -205,8 +201,7 @@ public class Milestone extends ModelEntity {
 	/**
 	 * Set a new deadline
 	 *
-	 * @param date
-	 *            date to be set as a new deadline
+	 * @param date date to be set as a new deadline
 	 */
 	public void setDeadline(LocalDate date) {
 		this.deadline
