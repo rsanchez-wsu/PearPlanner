@@ -25,13 +25,20 @@ import Model.Assignment;
 import Model.StudyPlanner;
 import Model.Task;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import javax.imageio.ImageIO;
 
 /**
  * Created by bendickson on 5/15/17.
@@ -45,17 +52,16 @@ public class GanttishDiagram {
 
 	static int badgeSize = 128;
 	static int badgeRingSize = 112;
-	static int getBadgeRingThickness = 8;
-	static int fontSize = 24;
-
-
-	static int GANTT_TITLE_SPACE = 80;
-	static int GANTT_TITLE_FONT_SIZE = 64;
+	static int getBadgeRingThickness = 12;
+	static int fontSize = 36;
+	static int GANTT_TITLE_SPACE = 120;
+	static int GANTT_TITLE_FONT_SIZE = 72;
+	static int GANTT_TASK_FONT_SIZE = 36;
 	static int GANTT_COLUMN_WIDTH = 400;
-	static int GANTT_COLUMN_PADDING = 80;
+	static int GANTT_COLUMN_PADDING = 120;
 	static int GANTT_COLUMN_SPACING = 16;
-	static int GANTT_ENTRY_FONT_SIZE = 18;
-	static Paint GANTT_ENTRY_FONT_COLOR = Color.black;
+	static int GANTT_ENTRY_FONT_SIZE = 24;
+	static Paint GANTT_ENTRY_FONT_COLOR = Color.BLACK;
 	static int GANTT_ENTRY_HEIGHT = 64;
 	static Paint GANTT_ENTRY_DEFAULT_COLOR = badgeColors.GREY.getPaint();
 	static HashMap<String, Paint> GANTT_ENTRY_COLOR = new HashMap<>();
@@ -111,14 +117,14 @@ public class GanttishDiagram {
 	}
 
 	enum badgeColors {
-		FINISHED(0, 128, 255),
-		STARTED(64, 255, 0),
-		CANSTART(255, 128, 0),
+		FINISHED(0, 255, 0),
+		STARTED(255, 255, 0),
+		CANSTART(140, 26, 26),
 		CANNOTSTART(64, 64, 64),
 
 		FINISHED_FILL(255, 255, 255),
 		STARTED_FILL(255, 255, 255),
-		CANSTART_FILL(192, 192, 192),
+		CANSTART_FILL(255, 255, 255),
 		CANNOTSTART_FILL(128, 128, 128),
 		GREY(192, 192, 192),
 		PINK(255, 192, 192),
@@ -140,17 +146,30 @@ public class GanttishDiagram {
 		private int b;
 		private int a = 255;
 
-		private int[] getColor() {
-			int[] cols = new int[4];
-			cols[0] = r;
-			cols[1] = g;
-			cols[2] = b;
-			cols[3] = a;
-			return cols;
-		}
-
 		private Paint getPaint() {
 			return new Color(r, g, b, a);
+		}
+
+		/**
+		 * Returns a color based on a progress out of 100.
+		 *
+		 * @param progress The progress of the module
+		 *
+		 * @return a color based on progress
+		 */
+		private Color getPaint(int progress) {
+			if (progress > 100) {
+				return new Color(0, 255, 0);
+			}
+			if (progress < 0) {
+				return new Color(255, 0, 137);
+			}
+
+			r = 255 - (int)(2.5 * progress);
+			g = (int)(Math.log(progress + 1) * 29);
+			b = 0;
+
+			return new Color(r, g, b, 255);
 		}
 
 		badgeColors(int cr, int cg, int cb) {
@@ -270,7 +289,7 @@ public class GanttishDiagram {
 
 
 			g2d.setPaint(GANTT_ENTRY_FONT_COLOR);
-			drawMessage(g2d, GANTT_ENTRY_FONT_SIZE, name, ox, oy, GANTT_COLUMN_WIDTH, GANTT_ENTRY_HEIGHT);
+			drawMessage(g2d, GANTT_TASK_FONT_SIZE, name, ox, oy, GANTT_COLUMN_WIDTH, GANTT_ENTRY_HEIGHT);
 
 			while (++k < kk) {
 				Task dt = catTasks.get(name).get(k - 1);
@@ -293,7 +312,12 @@ public class GanttishDiagram {
 				g2d.drawRoundRect(ox, oyk, GANTT_COLUMN_WIDTH, GANTT_ENTRY_HEIGHT, 15, 15);
 
 				g2d.setPaint(GANTT_ENTRY_FONT_COLOR);
-				drawMessage(g2d, GANTT_ENTRY_FONT_SIZE, dt.getName(), ox, oyk, GANTT_COLUMN_WIDTH -
+				String msgControl="";
+				if (dt.getName().length()>25)
+					msgControl = dt.getName().substring(0, Math.min(dt.getName().length(), 24))+"...";
+				else
+					msgControl =dt.getName();
+				drawMessage(g2d, GANTT_ENTRY_FONT_SIZE, msgControl, ox, oyk, GANTT_COLUMN_WIDTH -
 						GANTT_ENTRY_HEIGHT, GANTT_ENTRY_HEIGHT);
 				int percentage;
 				if (dt.requirementCount() <= 0) {
@@ -358,20 +382,11 @@ public class GanttishDiagram {
 
 		if (!canStart) {
 			g2d.setStroke(stroke.DASHED.getStroke(badgeRingThickness));
-			ringColor = badgeColors.CANNOTSTART.getPaint();
-			fillColor = badgeColors.CANNOTSTART_FILL.getPaint();
-		} else if (progress <= 0) {
-			g2d.setStroke(stroke.DASHED.getStroke(badgeRingThickness));
-			ringColor = badgeColors.CANSTART.getPaint();
-			fillColor = badgeColors.CANSTART_FILL.getPaint();
-		} else if (progress < 100) {
-			g2d.setStroke(stroke.SOLID.getStroke(badgeRingThickness));
-			ringColor = badgeColors.STARTED.getPaint();
-			fillColor = badgeColors.STARTED_FILL.getPaint();
-			arc = progress;
+			ringColor = new Color(140 ,26, 26);
+			fillColor = Color.white;
 		} else {
 			g2d.setStroke(stroke.SOLID.getStroke(badgeRingThickness));
-			ringColor = badgeColors.FINISHED.getPaint();
+			ringColor = badgeColors.FINISHED.getPaint(progress);
 			fillColor = badgeColors.FINISHED_FILL.getPaint();
 		}
 
@@ -433,8 +448,7 @@ public class GanttishDiagram {
 
 		int msgX = c_x + (c_width - metrics.stringWidth(msg)) / 2;
 		int msgY = c_y + (c_height - metrics.getHeight()) / 2 + metrics.getAscent();
-
-
+		
 		g2d.setFont(font);
 		g2d.drawString(msg, msgX, msgY);
 	}
