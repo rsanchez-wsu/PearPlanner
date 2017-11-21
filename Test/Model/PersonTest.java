@@ -21,35 +21,32 @@
 
 package Model;
 
-import Controller.AccountController;
-import Controller.MainController;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by bijan on 04/05/2017.
  */
+
 public class PersonTest {
 
 	private ArrayList<String> personName = new ArrayList<>();
 	private Person person1;
 	private Person person2;
 
-	/**set up.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * set up for the test.
+	 * Ran before the actual test.
+	 * @throws Exception if person cannot be loaded properly
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		personName.add("Andrew");
 		person1 = new Person("Mr", personName, "Odintsov", true, "Andrew.odi@apple.com");
@@ -58,7 +55,7 @@ public class PersonTest {
 
 	@Test
 	public void getFullName() throws Exception {
-		// Testing with seperate given names and family name passed to the constructor
+		// Testing with separate given names and family name passed to the constructor
 		String expectedFullName = "Mr Andrew Odintsov";
 		assertEquals(expectedFullName, person1.getFullName());
 
@@ -86,7 +83,7 @@ public class PersonTest {
 
 	@Test
 	public void getFamilyName() throws Exception {
-		// Testing with seperate given names and family name passed to the constructor
+		// Testing with separate given names and family name passed to the constructor
 		String expectedFamilyName = "Odintsov";
 		assertEquals(expectedFamilyName, person1.getFamilyName());
 
@@ -98,7 +95,7 @@ public class PersonTest {
 
 	@Test
 	public void getEmail() throws Exception {
-		// Testing with seperate given names and family name passed to the constructor
+		// Testing with separate given names and family name passed to the constructor
 		String expectedFullName = "Andrew.odi@apple.com";
 		assertEquals(expectedFullName, person1.getEmail());
 
@@ -109,7 +106,7 @@ public class PersonTest {
 
 	@Test
 	public void getGivenNames() throws Exception {
-		// Testing with seperate given names and family name passed to the constructor
+		// Testing with separate given names and family name passed to the constructor
 		assertEquals(personName, person1.getGivenNames());
 
 		personName.add("Ben");
@@ -261,36 +258,33 @@ public class PersonTest {
 	@Test
 	public void validEmail() throws Exception {
 		// Testing valid emails
-		// Valid emails from:
-		// https://blogs.msdn.microsoft.com/testing123/2009/02/06/email-address-test-cases/
-		String[] validEmails = { "email@domain.com", "firstname.lastname@domain.com",
+		// Valid emails from: https://blogs.msdn.microsoft.com/testing123/2009/02/06/email-address-test-cases/
+		String[] validEmails = {"email@domain.com", "firstname.lastname@domain.com",
 				"email@subdomain.domain.com", "firstname+lastname@domain.com",
-				"email@123.123.123.123", "email@[123.123.123.123]", "“email”@domain.com",
-				"1234567890@domain.com", "email@domain-one.com", "_______@domain.com",
-				"email@domain.name", "email@domain.co.jp", "firstname-lastname@domain.com" };
-
+				"email@[123.123.123.123]", "“email”@domain.com", "1234567890@domain.com",
+				"email@domain-one.com", "_______@domain.com", "email@domain.name",
+				"email@domain.co.jp", "firstname-lastname@domain.com"};
 		for (String validEmail : validEmails) {
 			assertTrue(Person.validEmail(validEmail));
 		}
 
 		// Testing invalid emails
-		// Invalid emails from:
-		// https://blogs.msdn.microsoft.com/testing123/2009/02/06/email-address-test-cases/
-		String[] invalidEmails = { "plainaddress", "#@%^%#$@#$@#.com", "@domain.com",
+		// Invalid emails from: https://blogs.msdn.microsoft.com/testing123/2009/02/06/email-address-test-cases/
+		String[] invalidEmails = {"plainaddress", "#@%^%#$@#$@#.com", "@domain.com",
 				"Joe Smith </email@domain.com>/", "email.domain.com", "email@domain@domain.com",
 				".email@domain.com", "email.@domain.com", "email..email@domain.com",
-				"email@domain.com (Joe Smith)", "email@domain..com" };
-
+				"email@domain.com (Joe Smith)", "email@domain..com"};
 		for (String invalidEmail : invalidEmails) {
 			assertFalse(Person.validEmail(invalidEmail));
 		}
 
 	}
 
-	/**set all the fields to null.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * Completed after the test.
+	 * @throws Exception exception if person cannot be nullified
 	 */
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		personName = null;
 		person1 = null;

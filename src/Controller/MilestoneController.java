@@ -23,7 +23,7 @@ package Controller;
 
 import Model.Milestone;
 import Model.Task;
-import View.UiManager;
+import View.UI_Manager;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -52,16 +52,17 @@ import java.util.ResourceBundle;
 public class MilestoneController implements Initializable {
 	private Milestone milestone;
 	private boolean success = false;
-
-	/** get Milestone.
+	/**
+	 * Standard getter method for milestone.
 	 * @return milestone
 	 */
 	public Milestone getMilestone() {
 		return this.milestone;
 	}
 
-	/**check whether it is success.
-	 * @return boolean
+	/**
+	 * Getter for checking if milestone controller initialized successful.
+	 * @return boolean bases on initialized success
 	 */
 	public boolean isSuccess() {
 		return success;
@@ -103,8 +104,10 @@ public class MilestoneController implements Initializable {
 	public void handleChange() {
 		// Check the input fields:
 		if (!this.name.getText().trim().isEmpty()
-				&& !this.deadline.getEditor().getText().trim().isEmpty()
-				&& this.tasks.getItems().size() > 0) {
+				&&
+				!this.deadline.getEditor().getText().trim().isEmpty()
+				&&
+				this.tasks.getItems().size() > 0) {
 			this.submit.setDisable(false);
 		}
 		// =================
@@ -140,8 +143,8 @@ public class MilestoneController implements Initializable {
 	 */
 	public void addTask() {
 		// Table items:
-		ObservableList<Task> list = FXCollections
-				.observableArrayList(MainController.getSpc().getCurrentTasks());
+		ObservableList<Task> list =
+				FXCollections.observableArrayList(MainController.getSpc().getCurrentTasks());
 		list.removeAll(this.tasks.getItems());
 		if (this.milestone != null) {
 			list.removeAll(this.milestone.getTasks());
@@ -159,8 +162,9 @@ public class MilestoneController implements Initializable {
 	public void handleSubmit() {
 		if (this.milestone == null) {
 			// Create a new Milestone:
-			this.milestone = new Milestone(this.name.getText(), this.details.getText(),
-					this.deadline.getValue());
+			this.milestone =
+					new Milestone(
+							this.name.getText(), this.details.getText(), this.deadline.getValue());
 			this.milestone.addTasks(this.tasks.getItems());
 			// =================
 		} else {
@@ -195,14 +199,13 @@ public class MilestoneController implements Initializable {
 	/**
 	 * Constructor for an MilestoneController with an existing Milestone.
 	 *
-	 * @param milestone Milestone
+	 * @param milestone constructs milestone from milestone
 	 */
 	public MilestoneController(Milestone milestone) {
 		this.milestone = milestone;
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	@Override public void initialize(URL location, ResourceBundle resources) {
 		// Bind properties on buttons:
 		this.remove.disableProperty().bind(new BooleanBinding() {
 			{
@@ -219,11 +222,11 @@ public class MilestoneController implements Initializable {
 
 		// Button actions:
 		this.remove.setOnAction(e -> {
-			if (UiManager.confirm("Are you sure you want to remove this dependency?")) {
-				Task t = this.tasks.getSelectionModel().getSelectedItem();
-				this.tasks.getItems().remove(t);
+			if (UIManager.confirm("Are you sure you want to remove this dependency?")) {
+				Task tempTask = this.tasks.getSelectionModel().getSelectedItem();
+				this.tasks.getItems().remove(tempTask);
 				if (this.milestone != null) {
-					this.milestone.removeTask(t);
+					this.milestone.removeTask(tempTask);
 				}
 			}
 		});
@@ -262,8 +265,9 @@ public class MilestoneController implements Initializable {
 			// Fill in data:
 			this.name.setText(this.milestone.getName());
 			this.details.setText(this.milestone.getDetails().getAsString());
-			this.deadline.setValue(this.milestone.getDeadlineDate().toInstant()
-					.atZone(ZoneId.systemDefault()).toLocalDate());
+			this.deadline.setValue(
+					this.milestone.getDeadlineDate().toInstant().atZone(ZoneId.systemDefault()
+							).toLocalDate());
 			this.tasks.getItems().addAll(this.milestone.getTasks());
 			// =================
 		}

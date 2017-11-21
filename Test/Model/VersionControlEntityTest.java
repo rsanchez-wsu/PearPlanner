@@ -21,28 +21,33 @@
 
 package Model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import Controller.MainController;
 import javafx.stage.Stage;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import org.testfx.framework.junit.ApplicationTest;
 
 /**
  * Created by bijan on 06/05/2017.
  */
-@Ignore
+@Disabled
 public class VersionControlEntityTest extends ApplicationTest {
 
 	VersionControlEntity versionControlEntity = new VersionControlEntity();
 
-	/**set up.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * This test case create a new instance of the VersionControlEntity.
+	 * @throws Exception if the VersionControlEntity cannot be created.
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		versionControlEntity = new VersionControlEntity();
 	}
@@ -78,12 +83,12 @@ public class VersionControlEntityTest extends ApplicationTest {
 	}
 
 	@Test
-	public void getUId() throws Exception {
-		assertEquals(null, versionControlEntity.getUId());
+	public void getUid() throws Exception {
+		assertEquals(null, versionControlEntity.getUID());
 	}
 
 	@Test
-	public void setUId() throws Exception {
+	public void setUid() throws Exception {
 		// Testing setUID with one argument
 		versionControlEntity.setUId("1234-ID");
 		assertEquals("1234-ID", versionControlEntity.getUId());
@@ -100,10 +105,12 @@ public class VersionControlEntityTest extends ApplicationTest {
 //		assertFalse(versionControlEntity.setUID("5678-ID", 2));
 	}
 
-	/**set all the fields to null.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * This test case removes the data from the VersionControlEntity object to avoid
+	 * 			interference with future test runs.
+	 * @throws Exception if the VersionControlEntity cannot be accessed.
 	 */
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		versionControlEntity = null;
 	}

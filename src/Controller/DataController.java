@@ -34,13 +34,14 @@ import Model.TimeTableEventType;
 import Model.TimetableEvent;
 import Model.VersionControlEntity;
 import View.ConsoleIo;
-import View.UiManager;
+import View.UI_Manager;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,9 +83,10 @@ public class DataController {
 	 * @param nodes the list of nodes to process for the update.
 	 *
 	 * @return The updated HUB file.
-	 * @throws Exception TODO - fix this (#108).
+	 * @throws IOException if there is a problem creating an entity from the
+	 * 				serialized representation
 	 */
-	private static HubFile processUpdateHubFile(NodeList nodes) throws Exception {
+	private static HubFile processUpdateHubFile(NodeList nodes) throws IOException {
 
 		HubFile hub = null;
 		XmlController xmlTools = new XmlController();
@@ -166,12 +168,11 @@ public class DataController {
 	 * @param uid the identifier to look up.
 	 *
 	 * @return the entity from the list or the library.
-	 * @throws Exception TODO - fix this  (#108).
+	 * @throws IOException if the requested entity is not in the list or cannot
+	 * 				be cast to the specified type
 	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends VersionControlEntity> T
-			inList(Map<String, VersionControlEntity> list, String uid)
-					throws Exception {
+	public static <T extends VersionControlEntity> T inList(
+			Map<String, VersionControlEntity> list, String uid) throws IOException {
 
 		VersionControlEntity vce = null;
 		if (list.containsKey(uid)) {
@@ -185,10 +186,12 @@ public class DataController {
 			try {
 				return (T) vce;
 			} catch (Exception e) {
-				throw new Exception("Incorrect type referenced for '" + uid + "'");
+				// TODO this should be IllegalStateException, RuntimeException, or other
+				throw new IOException("Incorrect type referenced for '" + uid + "'");
 			}
 		}
-		throw new Exception("UID referenced is not in database for '" + uid + "'");
+		// TODO this should not be here, rather callers should receive the null return
+		throw new IOException("UID referenced is not in database for '" + uid + "'");
 
 	}
 
@@ -215,9 +218,11 @@ public class DataController {
 	 * @param nodes the list of nodes to use for constituting the HUB file.
 	 *
 	 * @return the HUB file.
-	 * @throws Exception TODO - fix this (#108).
+	 * @throws IOException when attempting to import an already existing study
+	 * 				profile, or for errors connected with creating objects from
+	 * 				their serialized representations
 	 */
-	private static HubFile processNewHubFile(NodeList nodes) throws Exception {
+	private static HubFile processNewHubFile(NodeList nodes) throws IOException {
 
 		int beginLog = ConsoleIo.getLogSize();
 		ConsoleIo.setConsoleMessage("Importing New Hub File", true);
@@ -243,7 +248,8 @@ public class DataController {
 			int semester = studyProfileValues.get("semester").getInt();
 
 			if (MainController.getSpc().containsStudyProfile(year, semester)) {
-				throw new Exception("Study profile for " + year + " semester "
+				// TODO this should be IllegalStateException, RuntimeException, or other
+				throw new IOException("Study profile for " + year + " semester "
 						+ semester + " already imported");
 			}
 
@@ -523,14 +529,14 @@ public class DataController {
 					} else if (XmlController.matchesSchema(nodes, HubFile.SCHEMA_UPDATE_FILE)) {
 						hub = processUpdateHubFile(nodes);
 					} else {
-						UiManager.reportError("Invalid Parent Nodes");
+						UI_Manager.reportError("Invalid Parent Nodes");
 					}
 				} else {
-					UiManager.reportError("Invalid XML file");
+					UI_Manager.reportError("Invalid XML file");
 				}
 
 			} catch (Exception e) {
-				UiManager.reportError("Invalid File: \n" + e.getMessage());
+				UI_Manager.reportError("Invalid File: \n" + e.getMessage());
 			}
 		}
 		return hub;

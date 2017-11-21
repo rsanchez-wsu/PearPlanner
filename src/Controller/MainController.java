@@ -23,14 +23,17 @@ package Controller;
 
 import Model.HubFile;
 import Model.StudyPlanner;
-import View.UiManager;
+import View.UI_Manager;
 
+import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -58,7 +61,7 @@ public class MainController {
 	}
 
 	// TODO - Determine if this really should be public
-	public static UiManager ui = new UiManager();
+	public static UI_Manager ui = new UI_Manager();
 
 	// TODO - StudyPlannerController is a public class; determine if managing an
 	// instance in this way is best
@@ -93,63 +96,64 @@ public class MainController {
 	public static void initialise() {
 		try {
 			ui.showStartup();
-			// If a file is present:
-			if (plannerFile.exists()) {
+		} catch (IOException e) {
+			UIManager.reportError("Invalid file.");
+			System.exit(1);
+		}
+		// If a file is present:
+		if (plannerFile.exists()) {
+			try {
 				Cipher cipher = Cipher.getInstance("Blowfish");
 				cipher.init(Cipher.DECRYPT_MODE, key64);
 				try (CipherInputStream cis = new CipherInputStream(
 						new BufferedInputStream(new FileInputStream(plannerFile)), cipher);
 						ObjectInputStream ois = new ObjectInputStream(cis)) {
-
 					SealedObject sealedObject = (SealedObject) ois.readObject();
 					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
-
 					// Sample note
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
-						UiManager.reportSuccess(
+						UI_Manager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
 								+ "Potter. To make your own StudyPlanner, "
 								+ "restart the application "
 								+ "and choose \"New File\".");
 					}
 				}
-
-			} else {
-				// TODO - fix this, as it is clearly a race condition
-				// This should never happen unless a file changes permissions
-				// or existence in the milliseconds that it runs the above code
-				// after checks in StartupController
-				UiManager.reportError("Failed to load file.");
+			} catch (FileNotFoundException e) {
+				UIManager.reportError("Error, File does not exist.");
+				System.exit(1);
+			} catch (ClassNotFoundException e) {
+				UIManager.reportError("Error, Class NotFoundException.");
+				System.exit(1);
+			} catch (BadPaddingException e) {
+				UIManager.reportError("Error, Invalid file, Bad Padding Exception.");
+				System.exit(1);
+			} catch (IOException e) {
+				UIManager.reportError("Error, Invalid file.");
+				System.exit(1);
+			} catch (IllegalBlockSizeException e) {
+				UIManager.reportError("Error, Invalid file, Illegal Block Size Exception.");
+				System.exit(1);
+			}  catch (InvalidKeyException e) {
+				UIManager.reportError("Error, Invalid Key, Cannot decode the given file.");
+				System.exit(1);
+			} catch (NoSuchAlgorithmException e) {
+				UIManager.reportError("Error, Cannot decode the given file.");
+				System.exit(1);
+			} catch (NoSuchPaddingException e) {
+				UIManager.reportError("Error, Invalid file, No Such Padding.");
+				System.exit(1);
+			}  catch (Exception e) {
+				UIManager.reportError(e.getMessage() + "Unknown error.");
 				System.exit(1);
 			}
-
-		} catch (FileNotFoundException e) {
-			UiManager.reportError("File does not exist");
-			System.exit(1);
-		} catch (ClassNotFoundException e) {
-			UiManager.reportError("Invalid file");
-			System.exit(1);
-		} catch (NoSuchAlgorithmException e) {
-			UiManager.reportError("Cannot decode the given file");
-			System.exit(1);
-		} catch (BadPaddingException e) {
-			UiManager.reportError("Invalid file");
-			System.exit(1);
-		} catch (InvalidKeyException e) {
-			UiManager.reportError("Cannot decode the given file");
-			System.exit(1);
-		} catch (NoSuchPaddingException e) {
-			UiManager.reportError("Invalid file");
-			System.exit(1);
-		} catch (IOException e) {
-			UiManager.reportError("Invalid file");
-			System.exit(1);
-		} catch (IllegalBlockSizeException e) {
-			UiManager.reportError("Invalid file");
-			System.exit(1);
-		} catch (Exception e) {
-			UiManager.reportError(e.getMessage());
+		} else {
+			// TODO - fix this, as it is clearly a race condition
+			// This should never happen unless a file changes permissions
+			// or existence in the milliseconds that it runs the above code
+			// after checks in StartupController
+			UIManager.reportError("Failed to load file.");
 			System.exit(1);
 		}
 	}
@@ -161,7 +165,7 @@ public class MainController {
 		try {
 			ui.mainMenu();
 		} catch (Exception e) {
-			UiManager.reportError(e.getMessage());
+			UI_Manager.reportError(e.getMessage());
 		}
 	}
 
@@ -179,7 +183,7 @@ public class MainController {
 			if (fileData != null) {
 				if (!fileData.isUpdate()
 						&& !MainController.spc.createStudyProfile(fileData)) {
-					UiManager.reportError("This Study Profile is already created!");
+					UI_Manager.reportError("This Study Profile is already created!");
 				} else {
 					return true;
 				}
@@ -198,7 +202,7 @@ public class MainController {
 			spc.save(MainController.key64, MainController.plannerFile.getAbsolutePath());
 			return true;
 		} catch (Exception e) {
-			UiManager.reportError("FAILED TO SAVE YOUR DATA!");
+			UI_Manager.reportError("FAILED TO SAVE YOUR DATA!");
 			return false;
 		}
 	}
@@ -235,4 +239,18 @@ public class MainController {
 		return true;
 	}
 
+	/**
+	 * Launches the default browser to display a URI.
+	 */
+	public static void openBrowser() {
+		if (Desktop.isDesktopSupported()) {
+			try {
+				Desktop.getDesktop().browse(new URI("https://rsanchez-wsu.github.io/RaiderPlanner/"));
+			} catch (IOException e) {
+				UIManager.reportError("Default browser not found or failed to launch");
+			} catch (URISyntaxException e) {
+				UIManager.reportError("Invaild URI syntax");
+			}
+		}
+	}
 }

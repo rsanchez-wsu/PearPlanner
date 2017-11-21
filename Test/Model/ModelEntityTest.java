@@ -21,46 +21,51 @@
 
 package Model;
 
-import Controller.MainController;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by bijan on 08/05/2017.
  */
-@Ignore
+@Disabled
 public class ModelEntityTest {
 
 	private ModelEntity modelEntity;
 	private GregorianCalendar gregorianCalendar;
-	private String[] detailsArray = { "detail" };
+	private String[] detailsArray = {"detail"};
 	private MultilineString multilineString;
 	private Note note;
 	private ArrayList<Note> notes;
 
-	/**set up.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * This test case should set up all of the objects necessary for the following tests in
+	 * 			this suite.
+	 * @throws Exception to handle when any of the required objects cannot be instantiated.
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
-		gregorianCalendar = new GregorianCalendar(2017, 06, 02, 3, 31, 30);
+		gregorianCalendar = new GregorianCalendar(2017, 06, 02, 3,
+				31, 30);
 		multilineString = new MultilineString("This is some note for testing purposes");
 		note = new Note("Note1", gregorianCalendar, multilineString);
 		notes = new ArrayList<>();
 		modelEntity = new ModelEntity("name1", detailsArray, notes);
 	}
 
-	/**set modelEntity to null.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * After each run, this case removes all data from the ModelEntity object to avoid
+	 * 			interference with other test runs.
+	 * @throws Exception to handle when the ModelEntity cannot be accessed.
 	 */
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		modelEntity = null;
 	}
@@ -86,7 +91,7 @@ public class ModelEntityTest {
 	@Test
 	public void setDetails1() throws Exception {
 		// Testing setDetails with String array argument
-		String[] detailArray = { "Some details to be added", "more details to be added" };
+		String[] detailArray = {"Some details to be added", "more details to be added"};
 		modelEntity.setDetails(detailArray);
 		assertArrayEquals(detailArray, modelEntity.getDetails().getAsArray());
 	}
@@ -122,4 +127,5 @@ public class ModelEntityTest {
 		assertEquals("name3", modelEntity.getName());
 		assertEquals("Added more details", modelEntity.getDetails().getAsString());
 	}
+
 }

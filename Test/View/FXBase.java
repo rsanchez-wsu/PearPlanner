@@ -22,6 +22,7 @@
 package View;
 
 import Controller.AccountController;
+
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -30,20 +31,21 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import org.junit.After;
+
+import org.junit.jupiter.api.AfterEach;
+
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.concurrent.TimeoutException;
 
 /**
- * PearPlanner/RaiderPlanner Created by Team BRONZE on 08/05/2017.
+ * PearPlanner/RaiderPlanner.
+ * Created by Team BRONZE on 08/05/2017
  */
 public abstract class FXBase extends ApplicationTest {
-
 	@Override
 	public void start(Stage stage) throws Exception {
-
 		AccountController accountControl = new AccountController();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateAccount.fxml"));
 		loader.setController(accountControl);
@@ -61,21 +63,24 @@ public abstract class FXBase extends ApplicationTest {
 		stage.show();
 	}
 
-	/** after test, hide stage, and release mouse button and key code.
-	 * @throws TimeoutException https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/TimeoutException.html
+	/**
+	 * This test should handle the cleanup of the CreateAccountUi dialog after each run.
+	 * @throws TimeoutException if the operation takes too long or hangs.
 	 */
-	@After
+	@AfterEach
 	public void afterEachTest() throws TimeoutException {
 		FxToolkit.hideStage();
-		release(new KeyCode[] {});
-		release(new MouseButton[] {});
+		release(new KeyCode[]{});
+		release(new MouseButton[]{});
 	}
 
-	/**Find String.
-	 * @param query String
-	 * @return T T extends Node
+	/**
+	 * This method attempts to retrieve UI Node objects from the CreateAccountUi dialog.
+	 * @param query the Node we want to retrieve.
+	 * @return the requested Node.
 	 */
 	public <T extends Node> T find(final String query) {
 		return (T) lookup(query).queryAll().iterator().next();
 	}
+
 }

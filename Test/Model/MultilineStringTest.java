@@ -21,13 +21,14 @@
 
 package Model;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by bijan on 06/05/2017.
@@ -38,23 +39,25 @@ public class MultilineStringTest {
 	private MultilineString multilineStringNormal;
 	private MultilineString multilineStringArray;
 
-	/**set up.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * This test case creates the various MultilineString objects that are necessary for
+	 * 			the other tests in this suite.
+	 * @throws Exception if any of the MultilineString objects cannot be created.
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		multilineStringEmpty = new MultilineString();
 
 		String text = "Much did had call new drew that kept.\n"
 				+ "Limits expect wonder law she. Now has you views woman noisy match money rooms.\n"
-				+ "To up remark it eldest length oh passed."
-				+ " Off because yet mistake feeling has men.";
+				+ "To up remark it eldest length oh passed. Off because yet mistake "
+				+ "feeling has men.";
 		multilineStringNormal = new MultilineString(text);
 
-		String[] textArray = { "Much did had call new drew that kept.",
+		String[] textArray = {"Much did had call new drew that kept.",
 				"Limits expect wonder law she. Now has you views woman noisy match money rooms.",
-				"To up remark it eldest length oh passed."
-				+ " Off because yet mistake feeling has men." };
+				"To up remark it eldest length oh passed. Off because yet mistake "
+				+ "feeling has men."};
 		multilineStringArray = new MultilineString(textArray);
 	}
 
@@ -80,9 +83,8 @@ public class MultilineStringTest {
 		ArrayList<String> text = new ArrayList<>();
 		text.add("Much did had call new drew that kept.");
 		text.add("Limits expect wonder law she. Now has you views woman noisy match money rooms.");
-		text.add(
-				"To up remark it eldest length oh passed."
-				+ " Off because yet mistake feeling has men.");
+		text.add("To up remark it eldest length oh passed. "
+				+ "Off because yet mistake feeling has men.");
 		for (int i = 0; i < multilineStringNormal.getLines(); i++) {
 			assertEquals(text.get(i), multilineStringNormal.getAsArrayList().get(i));
 		}
@@ -100,17 +102,18 @@ public class MultilineStringTest {
 		assertArrayEquals(emptyText, multilineStringEmpty.getAsArray());
 
 		// Checking a MultilineString with 3 lines
-		String[] textWithThreeLines = { "Much did had call new drew that kept.",
+		String[] textWithThreeLines = {"Much did had call new drew that kept.",
 				"Limits expect wonder law she. Now has you views woman noisy match money rooms.",
-				"To up remark it eldest length oh passed."
-				+ " Off because yet mistake feeling has men." };
+				"To up remark it eldest length oh passed. Off because yet mistake "
+				+ "feeling has men."};
 		assertArrayEquals(textWithThreeLines, multilineStringNormal.getAsArray());
 
+
 		// Checking a MultilineString with 3 lines (Created by an array of Strings)
-		String[] textWithThreeLinesArray = { "Much did had call new drew that kept.",
+		String[] textWithThreeLinesArray = {"Much did had call new drew that kept.",
 				"Limits expect wonder law she. Now has you views woman noisy match money rooms.",
-				"To up remark it eldest length oh passed."
-				+ " Off because yet mistake feeling has men." };
+				"To up remark it eldest length oh passed. Off because yet mistake "
+				+ "feeling has men."};
 		assertArrayEquals(textWithThreeLinesArray, multilineStringArray.getAsArray());
 
 	}
@@ -123,22 +126,26 @@ public class MultilineStringTest {
 
 		// Checking a MultilineString with 3 lines
 		String text = "Much did had call new drew that kept.\n"
-				+ "Limits expect wonder law she. Now has you views woman noisy match money rooms.\n"
-				+ "To up remark it eldest length oh passed."
-				+ " Off because yet mistake feeling has men.";
+				+ "Limits expect wonder law she. Now has you views "
+				+ "woman noisy match money rooms.\n"
+				+ "To up remark it eldest length oh passed. Off because yet mistake "
+				+ "feeling has men.";
 		assertEquals(text, multilineStringNormal.getAsString());
 
 		// Checking a MultilineString with 3 lines (Created by an array of Strings)
 		assertEquals(text, multilineStringArray.getAsString());
 	}
 
-	/**set all the fields to null.
-	 * @throws Exception catch any exception that occur
+	/**
+	 * This test case should set all MultilineString objects to null after each run so
+	 * 			as to avoid interference with future test runs.
+	 * @throws Exception if any of the MultilineString objects cannot be accessed.
 	 */
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		multilineStringEmpty = null;
-		multilineStringNormal = null;
+		multilineStringNormal =  null;
 		multilineStringArray = null;
 	}
+
 }

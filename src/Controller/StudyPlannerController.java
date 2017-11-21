@@ -52,8 +52,8 @@ import javax.crypto.SecretKey;
 public class StudyPlannerController {
 	private StudyPlanner planner;
 
-	/**get study planner.
-	 * @return planner
+	/**
+	 * @return SPC's StudyPlanner file, planner.
 	 */
 	public StudyPlanner getPlanner() {
 		return planner;
@@ -73,12 +73,13 @@ public class StudyPlannerController {
 			Cipher cipher = Cipher.getInstance("Blowfish");
 			cipher.init(Cipher.ENCRYPT_MODE, key64);
 			SealedObject sealedObject = new SealedObject(this.planner, cipher);
-			CipherOutputStream cipherOutputStream = new CipherOutputStream(
+
+			try (CipherOutputStream cipherOutputStream = new CipherOutputStream(
 					new BufferedOutputStream(new FileOutputStream(fileName)), cipher);
-			ObjectOutputStream outputStream = new ObjectOutputStream(cipherOutputStream);
-			outputStream.writeObject(sealedObject);
-			outputStream.close();
-			return true;
+					ObjectOutputStream outputStream = new ObjectOutputStream(cipherOutputStream);) {
+				outputStream.writeObject(sealedObject);
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -100,7 +101,7 @@ public class StudyPlannerController {
 
 	/**
 	 * if valid, this method creates a new StudyProfile and returns true if invalid, it returns
-	 * false.
+	 * false
 	 *
 	 * @param hubFile
 	 *            HubFile containing the newly loaded in profile
@@ -119,13 +120,13 @@ public class StudyPlannerController {
 
 			// Fill the global calendar with newly imported events:
 			ArrayList<Event> cal = hubFile.getCalendarList();
-			int i = -1;
-			int ii = cal.size();
-			while (++i < ii) {
+			int i1 = -1;
+			int i2 = cal.size();
+			while (++i1 < i2) {
 				// ConsoleIO.setConsoleMessage("Adding " + cal.get(i).toString() + " to calendar",
 				// true);
-				this.planner.addEventToCalendar(cal.get(i));
-				profile.addEventToCalendar(cal.get(i));
+				this.planner.addEventToCalendar(cal.get(i1));
+				profile.addEventToCalendar(cal.get(i1));
 			}
 			// =================
 
@@ -141,8 +142,8 @@ public class StudyPlannerController {
 	}
 
 	/**
-	 * returns a list of tasks in the current StudyProfile if it exists or an empty list if it
-	 * doesn't.
+	 * Returns a list of tasks in the current StudyProfile if it exists or an empty list if it.
+	 * doesn't
 	 */
 	public ArrayList<Task> getCurrentTasks() {
 		if (this.getPlanner().getCurrentStudyProfile() != null) {
@@ -153,18 +154,16 @@ public class StudyPlannerController {
 	}
 
 	/**
-	 * Checker whether the user needs to be notified about something. (Deadlines etc.).
+	 * Checker whether the user needs to be notified about something. (Deadlines etc.)
 	 */
 	public void checkForNotifications() {
 		// TODO notifications
 		/*
 		 * int hours1 = 168, hours2 = 48; // temporary values until a Settings page is present
-		 *
 		 * for (Map.Entry<ModelEntity, boolean[]> entry :
 		 * this.planner.getDeadlineNotifications().entrySet()) { if (entry.getKey() instanceof
 		 * Assignment) { if (!entry.getValue()[0]) { GregorianCalendar temp = new
 		 * GregorianCalendar(); temp.add(CALENDAR.HOUR, -hours1); Date date = temp.getTime();
-		 *
 		 * if (entry.getKey() instanceof Coursework) { if (date.after((((Coursework)
 		 * entry.getKey()).getDeadline().getDate()))) { Notification not = new
 		 * Notification("Assignment due in a week!", new GregorianCalendar(),
@@ -177,7 +176,6 @@ public class StudyPlannerController {
 		 * MainController.getSPC().getPlanner().addNotification(not); entry.getValue()[0] = true; }
 		 * } } else if (!entry.getValue()[1]) { GregorianCalendar temp = new GregorianCalendar();
 		 * temp.add(CALENDAR.HOUR, -hours2); Date date = temp.getTime();
-		 *
 		 * if (entry.getKey() instanceof Coursework) { if (date.after((((Coursework)
 		 * entry.getKey()).getDeadline().getDate()))) { Notification not = new
 		 * Notification("Assignment due in a two days!", new GregorianCalendar(),
@@ -213,7 +211,7 @@ public class StudyPlannerController {
 	}
 
 	/**
-	 * Removes the given Milestone from this StudyPlanner.
+	 * Removes the given Milestone from this StudyPlanner
 	 *
 	 * @param milestone
 	 *            Milestone to be removed.
@@ -255,7 +253,7 @@ public class StudyPlannerController {
 
 	// Constructors:
 	/**
-	 * Default constructor.
+	 * Empty Constructor.
 	 */
 	public StudyPlannerController() {
 	}
@@ -263,7 +261,7 @@ public class StudyPlannerController {
 	/**
 	 * Constructor for testing UI.
 	 *
-	 * @param newAccount new created account to be loaded.
+	 * @param newAccount New account for planner
 	 */
 	public StudyPlannerController(Account newAccount)
 			throws NoSuchAlgorithmException, NoSuchPaddingException {
@@ -271,7 +269,7 @@ public class StudyPlannerController {
 	}
 
 	/**
-	 * Used when loading from a file.
+	 * Used when loading from a file
 	 *
 	 * @param planner
 	 *            StudyPlanner to be loaded.
@@ -283,9 +281,11 @@ public class StudyPlannerController {
 		if (!this.planner.getQuantityTypes().isEmpty()) {
 			this.planner.getQuantityTypes().forEach(e -> QuantityType.create(e));
 		}
+
 		if (!this.planner.getTaskTypes().isEmpty()) {
 			this.planner.getTaskTypes().forEach(e -> TaskType.create(e));
 		}
+
 		if (!this.planner.emptyVersionControlLibrary()) {
 			this.planner.rebuildVersionControlLibrary();
 		}

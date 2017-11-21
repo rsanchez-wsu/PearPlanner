@@ -25,6 +25,7 @@ import Controller.DataController;
 import Controller.XmlController;
 import org.w3c.dom.NodeList;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -526,14 +527,11 @@ public class HubFile implements Serializable {
 		return r;
 	}
 
-	/**create new coursework.
-	 * @param nc	node list to be set
-	 * @param assetList	list of asset
-	 * @return Coursework
-	 * @throws Exception throw any exception that occur
+	/**
+	 * @throws IOException if requested item is not found in the list
 	 */
 	public static Coursework createCoursework(NodeList nc,
-			HashMap<String, VersionControlEntity> assetList) throws Exception {
+			HashMap<String, VersionControlEntity> assetList) throws IOException {
 		Coursework r;
 		HashMap<String, XmlController.NodeReturn> courseworkValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_COURSEWORK);
@@ -599,14 +597,11 @@ public class HubFile implements Serializable {
 		return r;
 	}
 
-	/**create new exam.
-	 * @param nc node list to be set
-	 * @param assetList list of asset
-	 * @return Exam
-	 * @throws Exception throws any exception that occur
+	/**
+	 * @throws IOException if requested item is not found in the list
 	 */
-	public static Exam createExam(NodeList nc,
-			HashMap<String, VersionControlEntity> assetList) throws Exception {
+	public static Exam createExam(NodeList nc, HashMap<String, VersionControlEntity> assetList)
+			throws IOException {
 
 		HashMap<String, XmlController.NodeReturn> examValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_EXAM);
@@ -675,16 +670,12 @@ public class HubFile implements Serializable {
 		return newExam;
 	}
 
-	/**create new time table event.
-	 * @param nc node list to be set
-	 * @param assetList list of assest
-	 * @return TimeTableEvent
-	 * @throws Exception throw any exception that occur
+	/**
+	 * @throws IOException if requested item is not found in the list
 	 */
-	public static TimetableEvent createTimetableEvent(NodeList nc, HashMap<String,
-			VersionControlEntity> assetList) throws Exception {
-		TimetableEvent newTte;
-
+	public static TimetableEvent createTimetableEvent(NodeList nc,
+			HashMap<String, VersionControlEntity> assetList) throws IOException {
+		TimetableEvent newTTE;
 
 		HashMap<String, XmlController.NodeReturn> tteValues = xmlTools.getSchemaValues(nc,
 				HubFile.SCHEMA_TIMETABLE_EVENT);
@@ -699,12 +690,12 @@ public class HubFile implements Serializable {
 		TimeTableEventType tTTet = DataController.inList(assetList, linkedTTet);
 
 
-		newTte = new TimetableEvent(tteValues.get("date").getString(), tRoom, tLecturer,
+		newTTE = new TimetableEvent(tteValues.get("date").getString(), tRoom, tLecturer,
 				tTTet, tteValues.get("duration").getInt());
-		DataController.addVceProperties(newTte, tteValues);
+		DataController.addVceProperties(newTTE, tteValues);
 
 
-		return newTte;
+		return newTTE;
 	}
 
 

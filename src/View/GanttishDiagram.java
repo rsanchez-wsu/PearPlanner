@@ -56,7 +56,6 @@ public class GanttishDiagram {
 	static int getBadgeRingThickness = 8;
 	static int fontSize = 24;
 
-
 	static int GANTT_TITLE_SPACE = 80;
 	static int GANTT_TITLE_FONT_SIZE = 64;
 	static int GANTT_COLUMN_WIDTH = 400;
@@ -133,14 +132,14 @@ public class GanttishDiagram {
 	 *set type of badge colors.
 	 */
 	enum badgeColors {
-		FINISHED(0, 128, 255),
-		STARTED(64, 255, 0),
-		CANSTART(255, 128, 0),
+		FINISHED(0, 255, 0),
+		STARTED(255, 255, 0),
+		CANSTART(140, 26, 26),
 		CANNOTSTART(64, 64, 64),
 
 		FINISHED_FILL(255, 255, 255),
 		STARTED_FILL(255, 255, 255),
-		CANSTART_FILL(192, 192, 192),
+		CANSTART_FILL(255, 255, 255),
 		CANNOTSTART_FILL(128, 128, 128),
 		GREY(192, 192, 192),
 		PINK(255, 192, 192),
@@ -162,31 +161,32 @@ public class GanttishDiagram {
 		private int b;
 		private int a = 255;
 
-		/**get color.
-		 * @return array of int
-		 */
-		@SuppressWarnings("unused")
-		private int[] getColor() {
-			int[] cols = new int[4];
-			cols[0] = r;
-			cols[1] = g;
-			cols[2] = b;
-			cols[3] = a;
-			return cols;
-		}
-
-		/**return Paint.
-		 * @return Paint
-		 */
 		private Paint getPaint() {
 			return new Color(r, g, b, a);
 		}
 
-		/**set badge colors.
-		 * @param cr red
-		 * @param cg green
-		 * @param cb blue
+		/**
+		 * Returns a color based on a progress out of 100.
+		 *
+		 * @param progress The progress of the module
+		 *
+		 * @return a color based on progress
 		 */
+		private Color getPaint(int progress) {
+			if (progress > 100) {
+				return new Color(0, 255, 0);
+			}
+			if (progress < 0) {
+				return new Color(255, 0, 137);
+			}
+
+			r = 255 - (int)(2.5 * progress);
+			g = (int)(Math.log(progress + 1) * 29);
+			b = 0;
+
+			return new Color(r, g, b, 255);
+		}
+
 		badgeColors(int cr, int cg, int cb) {
 			r = cr > 255 ? 255 : (cr < 0 ? 0 : cr);
 			g = cg > 255 ? 255 : (cg < 0 ? 0 : cg);
@@ -406,20 +406,11 @@ public class GanttishDiagram {
 
 		if (!canStart) {
 			g2d.setStroke(stroke.DASHED.getStroke(badgeRingThickness));
-			ringColor = badgeColors.CANNOTSTART.getPaint();
-			fillColor = badgeColors.CANNOTSTART_FILL.getPaint();
-		} else if (progress <= 0) {
-			g2d.setStroke(stroke.DASHED.getStroke(badgeRingThickness));
-			ringColor = badgeColors.CANSTART.getPaint();
-			fillColor = badgeColors.CANSTART_FILL.getPaint();
-		} else if (progress < 100) {
-			g2d.setStroke(stroke.SOLID.getStroke(badgeRingThickness));
-			ringColor = badgeColors.STARTED.getPaint();
-			fillColor = badgeColors.STARTED_FILL.getPaint();
-			arc = progress;
+			ringColor = new Color(140 ,26, 26);
+			fillColor = Color.white;
 		} else {
 			g2d.setStroke(stroke.SOLID.getStroke(badgeRingThickness));
-			ringColor = badgeColors.FINISHED.getPaint();
+			ringColor = badgeColors.FINISHED.getPaint(progress);
 			fillColor = badgeColors.FINISHED_FILL.getPaint();
 		}
 

@@ -26,6 +26,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import View.UIManager;
 
 import javax.crypto.NoSuchPaddingException;
 
@@ -379,18 +380,23 @@ public class StudyPlanner implements Serializable {
 
 	// constructors
 
-	/**constructor.
-	 * @param newAccount					new account to be set
-	 * @throws NoSuchPaddingException		https://docs.oracle.com/javase/7/docs/api/javax/crypto/NoSuchPaddingException.html
-	 * @throws NoSuchAlgorithmException		https://docs.oracle.com/javase/8/docs/api/java/security/NoSuchAlgorithmException.html
-	 */
-	public StudyPlanner(Account newAccount)
-			throws NoSuchPaddingException, NoSuchAlgorithmException {
+	public StudyPlanner(Account newAccount) {
 		this.account = newAccount;
-		// Add Default Quantity types:
-		Collections.addAll(this.quantityTypes, QuantityType.listOfQuantityTypes());
-		// Add Default Task types:
-		Collections.addAll(this.taskTypes, TaskType.listOfTaskTypes());
+		try {
+			// Add Default Quantity types:
+			Collections.addAll(this.quantityTypes, QuantityType.listOfQuantityTypes());
+			// Add Default Task types:
+			Collections.addAll(this.taskTypes, TaskType.listOfTaskTypes());
+		} catch (UnsupportedOperationException e) {
+			UIManager.reportError("Error, Unsupported Operation Exception.");
+			System.exit(1);
+		} catch (NullPointerException e) {
+			UIManager.reportError("Error, Null Pointer Exception.");
+			System.exit(1);
+		} catch (IllegalArgumentException e) {
+			UIManager.reportError("Error, Illegal Argument Exception.");
+			System.exit(1);
+		}
 	}
 
 	/** get time table event types.
