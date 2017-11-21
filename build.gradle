@@ -166,10 +166,6 @@ checkstyle {
 	maxWarnings = 2687
 }
 
-//http://mark.koli.ch/fail-build-on-java-compiler-warnings
-//tasks.withType(JavaCompile) {
-//  options.compilerArgs << "-Xlint:all" << "-Werror"
-//}
 tasks.withType(FindBugs) {
 	reports {
 		xml.enabled false
@@ -177,4 +173,8 @@ tasks.withType(FindBugs) {
 		// html.stylesheet resources.text.fromFile( 'config/xsl/findbugs-custom.xsl' )
 	}
 	ignoreFailures = true
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-Xlint:all" << "-Werror"
 }
