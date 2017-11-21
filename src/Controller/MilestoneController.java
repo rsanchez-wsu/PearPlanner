@@ -23,7 +23,7 @@ package Controller;
 
 import Model.Milestone;
 import Model.Task;
-import View.UI_Manager;
+import View.UIManager;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;

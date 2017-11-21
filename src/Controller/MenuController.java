@@ -39,7 +39,7 @@ import Model.StudyProfile;
 import Model.Task;
 import Model.TimetableEvent;
 import View.GanttishDiagram;
-import View.UiManager;
+import View.UIManager;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -434,7 +434,7 @@ public class MenuController implements Initializable {
 			}
 
 		} catch (Exception e) {
-			UiManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file");
 		}
 	}
 
@@ -508,7 +508,7 @@ public class MenuController implements Initializable {
 						MainController.ui.milestoneDetails(row.getItem());
 						this.main();
 					} catch (IOException e1) {
-						UiManager.reportError("Unable to open View file");
+						UIManager.reportError("Unable to open View file");
 					}
 				}
 			});
@@ -551,12 +551,12 @@ public class MenuController implements Initializable {
 					MainController.getSpc().addMilestone(milestone);
 				}
 			} catch (Exception e1) {
-				UiManager.reportError("Unable to open View file");
+				UIManager.reportError("Unable to open View file");
 			}
 		});
 
 		remove.setOnAction(e -> {
-			if (UiManager.confirm("Are you sure you want to remove this milestone?")) {
+			if (UIManager.confirm("Are you sure you want to remove this milestone?")) {
 				Milestone mm = table.getSelectionModel().getSelectedItem();
 				list.remove(mm);
 				MainController.getSpc().removeMilestone(mm);
@@ -728,7 +728,7 @@ public class MenuController implements Initializable {
 						MainController.ui.studyProfileDetails(row.getItem());
 						this.main();
 					} catch (IOException e1) {
-						UiManager.reportError("Unable to open View file");
+						UIManager.reportError("Unable to open View file");
 					}
 				}
 			});
@@ -1129,12 +1129,12 @@ public class MenuController implements Initializable {
 					requirements.refresh();
 				}
 			} catch (Exception e1) {
-				UiManager.reportError("Unable to open View file");
+				UIManager.reportError("Unable to open View file");
 			}
 		});
 
 		deleteReq.setOnAction(e -> {
-			if (UiManager.confirm("Are you sure you want to remove this requirement?")) {
+			if (UIManager.confirm("Are you sure you want to remove this requirement?")) {
 				Requirement rr = requirements.getSelectionModel().getSelectedItem();
 				requirementList.remove(rr);
 				assignment.removeRequirement(rr);
@@ -1192,7 +1192,7 @@ public class MenuController implements Initializable {
 						MainController.ui.taskDetails(row.getItem());
 						tasks.refresh();
 					} catch (IOException e1) {
-						UiManager.reportError("Unable to open View file");
+						UIManager.reportError("Unable to open View file");
 					}
 				}
 			});
@@ -1251,7 +1251,7 @@ public class MenuController implements Initializable {
 				}
 				this.updateMenu();
 			} catch (Exception e1) {
-				UiManager.reportError("Unable to open View file");
+				UIManager.reportError("Unable to open View file");
 			}
 		});
 
@@ -1261,7 +1261,7 @@ public class MenuController implements Initializable {
 		});
 
 		delete.setOnAction(e -> {
-			if (UiManager.confirm("Are you sure you want to remove this task?")) {
+			if (UIManager.confirm("Are you sure you want to remove this task?")) {
 				Task tt = tasks.getSelectionModel().getSelectedItem();
 				list.remove(tt);
 				assignment.removeTask(tt);
@@ -1346,7 +1346,7 @@ public class MenuController implements Initializable {
 	 */
 	public void importFile() {
 		if (MainController.importFile()) {
-			UiManager.reportSuccess("File imported successfully!");
+			UIManager.reportSuccess("File imported successfully!");
 		}
 		this.main();
 	}
@@ -1586,7 +1586,7 @@ public class MenuController implements Initializable {
 					MainController.ui.requirementDetails(row.getItem());
 					e1.refresh();
 				} catch (IOException e) {
-					UiManager.reportError("Unable to open View file");
+					UIManager.reportError("Unable to open View file");
 				}
 			}
 		});

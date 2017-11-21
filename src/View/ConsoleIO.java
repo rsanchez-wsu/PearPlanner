@@ -35,7 +35,7 @@ import java.util.Scanner;
 /**
  * Created by bendickson on 5/4/17.
  */
-public class ConsoleIo {
+public class ConsoleIO {
 	static ArrayList<String> logged = new ArrayList<>();
 
 	/**
@@ -240,7 +240,7 @@ public class ConsoleIo {
 	 * @return a static string
 	 */
 	public static String view_loadStudyP(StudyPlannerController spController) {
-		View.ConsoleIO.setConsoleMessage("LOAD A STUDY PROFILE");\
+		View.ConsoleIO.setConsoleMessage("LOAD A STUDY PROFILE");
 		String filename = getDataString("Enter filepath:");
 		File tempFile = new File(filename);
 		HubFile fileData = DataController.loadHubFile(tempFile);

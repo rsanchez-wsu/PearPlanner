@@ -23,7 +23,7 @@ package Model;
 
 import Controller.MainController;
 import Controller.MenuController;
-import View.UiManager;
+import View.UIManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -256,7 +256,7 @@ public class Requirement extends ModelEntity {
 		try {
 			MainController.ui.requirementDetails(this);
 		} catch (IOException e) {
-			UiManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file");
 		}
 	}
 

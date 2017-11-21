@@ -23,7 +23,7 @@ package Controller;
 
 import Model.HubFile;
 import Model.StudyPlanner;
-import View.UI_Manager;
+import View.UIManager;
 
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
@@ -61,7 +61,7 @@ public class MainController {
 	}
 
 	// TODO - Determine if this really should be public
-	public static UI_Manager ui = new UI_Manager();
+	public static UIManager ui = new UIManager();
 
 	// TODO - StudyPlannerController is a public class; determine if managing an
 	// instance in this way is best
@@ -113,7 +113,7 @@ public class MainController {
 					// Sample note
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
-						UI_Manager.reportSuccess(
+						UIManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
 								+ "Potter. To make your own StudyPlanner, "
 								+ "restart the application "
@@ -165,7 +165,7 @@ public class MainController {
 		try {
 			ui.mainMenu();
 		} catch (Exception e) {
-			UI_Manager.reportError(e.getMessage());
+			UIManager.reportError(e.getMessage());
 		}
 	}
 
@@ -183,7 +183,7 @@ public class MainController {
 			if (fileData != null) {
 				if (!fileData.isUpdate()
 						&& !MainController.spc.createStudyProfile(fileData)) {
-					UI_Manager.reportError("This Study Profile is already created!");
+					UIManager.reportError("This Study Profile is already created!");
 				} else {
 					return true;
 				}
@@ -202,7 +202,7 @@ public class MainController {
 			spc.save(MainController.key64, MainController.plannerFile.getAbsolutePath());
 			return true;
 		} catch (Exception e) {
-			UI_Manager.reportError("FAILED TO SAVE YOUR DATA!");
+			UIManager.reportError("FAILED TO SAVE YOUR DATA!");
 			return false;
 		}
 	}

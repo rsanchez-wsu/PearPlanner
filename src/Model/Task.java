@@ -23,7 +23,7 @@ package Model;
 
 import Controller.MainController;
 import Controller.MenuController;
-import View.UiManager;
+import View.UIManager;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -377,7 +377,7 @@ public class Task extends ModelEntity {
 		try {
 			MainController.ui.taskDetails(this);
 		} catch (IOException e) {
-			UiManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file");
 		}
 	}
 

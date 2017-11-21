@@ -23,7 +23,7 @@ package Model;
 
 import Controller.MainController;
 import Controller.MenuController;
-import View.UI_Manager;
+import View.UIManager;
 
 import java.io.IOException;
 import java.util.ArrayList;

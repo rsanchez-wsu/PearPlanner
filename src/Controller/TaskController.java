@@ -25,7 +25,7 @@ import Model.Assignment;
 import Model.Requirement;
 import Model.Task;
 import Model.TaskType;
-import View.UiManager;
+import View.UIManager;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleStringProperty;
@@ -220,9 +220,9 @@ public class TaskController implements Initializable {
 				this.requirements.getItems().add(req);
 			}
 		} catch (IOException e1) {
-			UiManager.reportError("Unable to open View file");
+			UIManager.reportError("Unable to open View file");
 		} catch (Exception e1) {
-			UiManager.reportError("Something went wrong");
+			UIManager.reportError("Something went wrong");
 		}
 	}
 
@@ -275,7 +275,7 @@ public class TaskController implements Initializable {
 	 * Add a new TaskType.
 	 */
 	public void newTaskType() {
-		if (UiManager.confirm("Create a new Task type '" + this.taskTypeName.getText() + '?')) {
+		if (UIManager.confirm("Create a new Task type '" + this.taskTypeName.getText() + '?')) {
 			// Create a new type:
 			TaskType t = TaskType.create(this.taskTypeName.getText());
 			// =================
@@ -377,7 +377,7 @@ public class TaskController implements Initializable {
 
 		// Button actions:
 		this.removeDep.setOnAction(e -> {
-			if (UiManager.confirm("Are you sure you want to remove this dependency?")) {
+			if (UIManager.confirm("Are you sure you want to remove this dependency?")) {
 				Task t = this.dependencies.getSelectionModel().getSelectedItem();
 				this.dependencies.getItems().remove(t);
 				if (this.task != null) {
@@ -387,7 +387,7 @@ public class TaskController implements Initializable {
 		});
 
 		this.removeReq.setOnAction(e -> {
-			if (UiManager.confirm("Are you sure you want to remove this requirement?")) {
+			if (UIManager.confirm("Are you sure you want to remove this requirement?")) {
 				Requirement r = this.requirements.getSelectionModel().getSelectedItem();
 				this.requirements.getItems().remove(r);
 				if (this.task != null) {
@@ -587,7 +587,7 @@ public class TaskController implements Initializable {
 					MainController.ui.requirementDetails(cell.getItem());
 					e.refresh();
 				} catch (IOException e1) {
-					UiManager.reportError("Unable to open View file");
+					UIManager.reportError("Unable to open View file");
 				}
 			}
 		});
