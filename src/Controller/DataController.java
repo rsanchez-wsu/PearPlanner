@@ -171,6 +171,7 @@ public class DataController {
 	 * @throws IOException if the requested entity is not in the list or cannot
 	 * 				be cast to the specified type
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T extends VersionControlEntity> T inList(
 			Map<String, VersionControlEntity> list, String uid) throws IOException {
 
@@ -185,9 +186,17 @@ public class DataController {
 		if (vce != null) {
 			try {
 				return (T) vce;
-			} catch (Exception e) {
+			} catch (IllegalStateException e) {
 				// TODO this should be IllegalStateException, RuntimeException, or other
 				throw new IOException("Incorrect type referenced for '" + uid + "'");
+			} catch (ClassCastException e1) {
+				return null;
+				//Since we can't use the instanceof T because erasure issue.
+				//After doing some research, I found that add Class<T> class as a paramater
+				// and then in the return statement change it to return class.cast(vce)
+				//That approach will resolve the warning. However, I think it would cause
+				// other problems. Therefore I suppress it as uncheck and handle the exception
+				// if it occur.
 			}
 		}
 		// TODO this should not be here, rather callers should receive the null return
