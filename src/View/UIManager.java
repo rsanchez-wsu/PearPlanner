@@ -508,7 +508,6 @@ public class UIManager {
 					"yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			bw.write(timeStamp + " " +  displayMessage + " " + errorMessage);
 			bw.newLine();
-			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -559,7 +558,7 @@ public class UIManager {
 	 * Please don't use.
 	 */
 	public static void areYouFeelingLucky() {
-		while (UI_Manager.confirm("Are you feeling lucky?") == (Math.random() < 0.5)) {
+		while (UIManager.confirm("Are you feeling lucky?") == (Math.random() < 0.5)) {
 		}
 	}
 
