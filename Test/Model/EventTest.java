@@ -27,15 +27,11 @@ import Controller.MainController;
 
 import javafx.stage.Stage;
 
-<<<<<<< HEAD
-import java.util.GregorianCalendar;
-=======
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 // import org.junit.jupiter.api.Test;
 
 import org.testfx.framework.junit.ApplicationTest;
->>>>>>> upstream/master
 
 import java.util.GregorianCalendar;
 

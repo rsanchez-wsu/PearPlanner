@@ -241,12 +241,12 @@ public class StudyPlanner implements Serializable {
 	 */
 	public boolean setCurrentStudyProfile(String profileId) {
 		this.studyProfiles.forEach(e -> {
-			if (e.getUId().equals(profileId)) {
+			if (e.getUID().equals(profileId)) {
 				this.setCurrentStudyProfile(e);
 			}
 		});
 
-		return this.currentStudyProfile.getUId().equals(profileId);
+		return this.currentStudyProfile.getUID().equals(profileId);
 	}
 
 	/**

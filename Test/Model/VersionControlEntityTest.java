@@ -91,14 +91,14 @@ public class VersionControlEntityTest extends ApplicationTest {
 	public void setUid() throws Exception {
 		// Testing setUID with one argument
 		versionControlEntity.setUId("1234-ID");
-		assertEquals("1234-ID", versionControlEntity.getUId());
+		assertEquals("1234-ID", versionControlEntity.getUID());
 
 		// Testing the duplication
 		versionControlEntity.setUId("1234-ID");
 
 		// Testing setUID with two argument
 		assertEquals(true, versionControlEntity.setUId("95657-ID",1));
-		assertEquals("95657-ID", versionControlEntity.getUId());
+		assertEquals("95657-ID", versionControlEntity.getUID());
 		assertEquals(1, versionControlEntity.getVersion());
 
 		// Testing the duplication
