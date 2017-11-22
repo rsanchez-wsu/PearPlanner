@@ -21,82 +21,92 @@
 
 package Model;
 
-
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class Room extends VersionControlEntity
-{
-    // private data
-    private Building building = null;
-    private String roomNumber;
+public class Room extends VersionControlEntity {
+	/**
+	 *serial version uid.
+	 */
+	private static final long serialVersionUID = -4397560912648311748L;
+	// private data
+	private Building building = null;
+	private String roomNumber;
 
-    @Override
-    protected void replace(VersionControlEntity receivedVCE)
-    {
-        if (receivedVCE instanceof Room)
-        {
-            Room castedVCE = (Room) receivedVCE;
-            if (castedVCE.getBuilding() != null)
-            {
-                this.building = castedVCE.getBuilding();
-            }
-            this.roomNumber = castedVCE.getRoomNumber();
-        }
-        super.replace(receivedVCE);
-    }
+	@Override
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Room) {
+			Room castedVce = (Room) receivedVce;
+			if (castedVce.getBuilding() != null) {
+				this.building = castedVce.getBuilding();
+			}
+			this.roomNumber = castedVce.getRoomNumber();
+		}
+		super.replace(receivedVce);
+	}
 
-    // public methods
+	// public methods
 
-    // getters
-    public Building getBuilding()
-    {
-        return building;
-    }
+	// getters
+	/**get building.
+	 * @return Building
+	 */
+	public Building getBuilding() {
+		return building;
+	}
 
-    public String getRoomNumber()
-    {
-        return roomNumber;
-    }
+	/**get room number.
+	 * @return String
+	 */
+	public String getRoomNumber() {
+		return roomNumber;
+	}
 
-    public String getLocation()
-    {
-        return name + "( " + roomNumber + " )";
-    }
+	/**get location.
+	 * @return String
+	 */
+	public String getLocation() {
+		return name + "( " + roomNumber + " )";
+	}
 
-    @Override
-    public String toString()
-    {
-        if (building == null)
-        {
-            return name + "( " + roomNumber + " )";
-        } else
-        {
-            return name + "( " + roomNumber + " ) located in " + building.toString();
-        }
-    }
+	@Override
+	public String toString() {
+		if (building == null) {
+			return name + "( " + roomNumber + " )";
+		} else {
+			return name + "( " + roomNumber + " ) located in " + building.toString();
+		}
+	}
 
-    // setters
-    public void setBuilding(Building newBuilding)
-    {
-        building = newBuilding;
-    }
+	// setters
+	/**set building.
+	 * @param newBuilding building to be set
+	 */
+	public void setBuilding(Building newBuilding) {
+		building = newBuilding;
+	}
 
-    public void setRoomNumber(String newRoomNumber)
-    {
-        roomNumber = newRoomNumber;
-    }
+	/**set room number.
+	 * @param newRoomNumber room number to be set
+	 */
+	public void setRoomNumber(String newRoomNumber) {
+		roomNumber = newRoomNumber;
+	}
 
-    // Constructors:
-    public Room(String cRoomNumber, Building cBuilding)
-    {
-        setRoomNumber(cRoomNumber);
-        setBuilding(cBuilding);
-    }
+	// Constructors:
+	/**constructor.
+	 * @param cRoomNumber	room number to be set
+	 * @param cBuilding		building to be set
+	 */
+	public Room(String cRoomNumber, Building cBuilding) {
+		setRoomNumber(cRoomNumber);
+		setBuilding(cBuilding);
+	}
 
-    public Room(String cRoomNumber)
-    {
-        setRoomNumber(cRoomNumber);
-    }
+	/**constructor.
+	 * @param cRoomNumber room number to be set
+	 */
+	public Room(String cRoomNumber) {
+		setRoomNumber(cRoomNumber);
+	}
 }

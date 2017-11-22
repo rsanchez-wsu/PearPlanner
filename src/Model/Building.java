@@ -23,63 +23,96 @@ package Model;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class Building extends VersionControlEntity {
+	/**
+	 *serial version UID.
+	 */
+	private static final long serialVersionUID = -754576463045731146L;
 	// private Data
 	private String code = null;
 	private double latitude;
 	private double longitude;
 
 	@Override
-	protected void replace(VersionControlEntity receivedVCE) {
-		if (receivedVCE instanceof Building) {
-			Building castedVCE = (Building) receivedVCE;
-			if (castedVCE.getCode() != null) {
-				this.code = castedVCE.getCode();
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Building) {
+			Building castedVce = (Building) receivedVce;
+			if (castedVce.getCode() != null) {
+				this.code = castedVce.getCode();
 			}
-			this.latitude = castedVCE.getLatitude();
-			this.longitude = castedVCE.getLongitude();
+			this.latitude = castedVce.getLatitude();
+			this.longitude = castedVce.getLongitude();
 		}
 
-		super.replace(receivedVCE);
+		super.replace(receivedVce);
 	}
 
 	// getters
+	/**get name of the building.
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**get code of the building.
+	 * @return code
+	 */
 	public String getCode() {
 		return code;
 	}
 
+	/**get latitude of the building.
+	 * @return latitude
+	 */
 	public double getLatitude() {
 		return latitude;
 	}
 
+	/**get longtitude of the building.
+	 * @return longtitude
+	 */
 	public double getLongitude() {
 		return longitude;
 	}
 
 	// setters
+	/**set name.
+	 * @param newName String
+	 */
 	public void setName(String newName) {
 		name = newName;
 	}
 
+	/**set code.
+	 * @param newCode String
+	 */
 	public void setCode(String newCode) {
 		code = newCode;
 	}
 
+	/**set Latitude.
+	 * @param newLatitude double
+	 */
 	public void setLatitude(double newLatitude) {
 		latitude = newLatitude;
 	}
 
+	/**set longtitude.
+	 * @param newLongitude double
+	 */
 	public void setLongitude(double newLongitude) {
 		longitude = newLongitude;
 	}
 
 	// constructor
+	/**constructor.
+	 * @param cCode	String
+	 * @param cLatitude	double
+	 * @param cLongitude	double
+	 */
 	public Building(String cCode, double cLatitude, double cLongitude) {
 		code = cCode;
 		latitude = cLatitude;

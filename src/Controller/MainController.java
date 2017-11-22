@@ -115,7 +115,8 @@ public class MainController {
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
 						UIManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
-								+ "Potter. To make your own StudyPlanner, restart the application "
+								+ "Potter. To make your own StudyPlanner, "
+								+ "restart the application "
 								+ "and choose \"New File\".");
 					}
 				}

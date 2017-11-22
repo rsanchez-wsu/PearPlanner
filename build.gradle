@@ -121,6 +121,8 @@ dependencies {
 	compile 'org.junit.platform:junit-platform-runner:1.0.1'
 	compile 'org.junit.vintage:junit-vintage-engine:4.12.1'
 	compile fileTree(dir: 'src', include: ['*.jar'])
+	compile 'org.apache.derby:derby:+'
+	
 }
 
 /**
@@ -171,4 +173,8 @@ tasks.withType(FindBugs) {
 		// html.stylesheet resources.text.fromFile( 'config/xsl/findbugs-custom.xsl' )
 	}
 	ignoreFailures = true
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-Xlint:all" << "-Werror"
 }

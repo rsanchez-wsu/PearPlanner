@@ -29,171 +29,182 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class StudyProfile extends VersionControlEntity
-{
-    // private data
-    private ArrayList<Module> modules;
-    private ArrayList<Milestone> milestones;
-    private ArrayList<ExtensionApplication> extensions;
-    private ArrayList<Event> calendar = new ArrayList<>();
-    private int year;
-    private int semesterNo;
-    private boolean current;
+public class StudyProfile extends VersionControlEntity {
+	/**
+	 *serial version uid.
+	 */
+	private static final long serialVersionUID = -3183933025991973879L;
+	// private data
+	private ArrayList<Module> modules;
+	private ArrayList<Milestone> milestones;
+	private ArrayList<ExtensionApplication> extensions;
+	private ArrayList<Event> calendar = new ArrayList<>();
+	private int year;
+	private int semesterNo;
+	private boolean current;
 
-    // public methods
+	// public methods
 
-    // getters:
-    public Module[] getModules()
-    {
-        Module[] m = new Module[this.modules.size()];
-        m = this.modules.toArray(m);
-        return m;
-    }
+	// getters:
+	/**get modules.
+	 * @return array of module
+	 */
+	public Module[] getModules() {
+		Module[] m = new Module[this.modules.size()];
+		m = this.modules.toArray(m);
+		return m;
+	}
 
-    public Milestone[] getMilestones()
-    {
-        Milestone[] m = new Milestone[this.milestones.size()];
-        m = this.milestones.toArray(m);
-        return m;
-    }
+	/**get milestone.
+	 * @return array of Milestone
+	 */
+	public Milestone[] getMilestones() {
+		Milestone[] m = new Milestone[this.milestones.size()];
+		m = this.milestones.toArray(m);
+		return m;
+	}
 
-    public ExtensionApplication[] getExtensions()
-    {
-        ExtensionApplication[] e = new ExtensionApplication[this.extensions.size()];
-        e = this.extensions.toArray(e);
-        return e;
-    }
+	/**get extensions.
+	 * @return	array of extensionApplication
+	 */
+	public ExtensionApplication[] getExtensions() {
+		ExtensionApplication[] e = new ExtensionApplication[this.extensions.size()];
+		e = this.extensions.toArray(e);
+		return e;
+	}
 
-    /**
-     * Returns a calendar containing all the Events of this Study Profile.
-     *
-     * @return ArrayList of Events
-     */
-    public ArrayList<Event> getCalendar()
-    {
-        return calendar;
-    }
+	/**
+	 * Returns a calendar containing all the Events of this Study Profile.
+	 *
+	 * @return ArrayList of Events
+	 */
+	public ArrayList<Event> getCalendar() {
+		return calendar;
+	}
 
+	/**get tasks.
+	 * @return ArrayList of Task
+	 */
+	public ArrayList<Task> getTasks() {
+		ArrayList<Task> tasks = new ArrayList<>();
+		this.modules.forEach(e -> e.getAssignments().forEach(ee -> tasks.addAll(ee.getTasks())));
+		return tasks;
+	}
 
-    public ArrayList<Task> getTasks()
-    {
-        ArrayList<Task> tasks = new ArrayList<>();
-        this.modules.forEach(e -> e.getAssignments().forEach(ee -> tasks.addAll(ee.getTasks())));
-        return tasks;
-    }
+	/**
+	 * Whether this StudyProfile is set as current.
+	 *
+	 * @return true if current, else otherwise.
+	 */
+	public boolean isCurrent() {
+		return current;
+	}
 
-    /**
-     * Whether this StudyProfile is set as current.
-     *
-     * @return true if current, else otherwise.
-     */
-    public boolean isCurrent()
-    {
-        return current;
-    }
+	/**
+	 * Set/unset this StudyProfile as the current profile of the StudyPlanner.
+	 *
+	 * @param current	boolean
+	 */
+	public void setCurrent(boolean current) {
+		this.current = current;
+	}
 
-    /**
-     * Set/unset this StudyProfile as the current profile of the StudyPlanner.
-     *
-     * @param current
-     */
-    public void setCurrent(boolean current)
-    {
-        this.current = current;
-    }
+	/**
+	 * Add an Event to the calendar of this Study Profile.
+	 *
+	 * @param event
+	 *            Event to be added.
+	 */
+	public void addEventToCalendar(Event event) {
+		if (!calendar.contains(event)) {
+			calendar.add(event);
+		}
+	}
 
-    /**
-     * Add an Event to the calendar of this Study Profile.
-     *
-     * @param event Event to be added.
-     */
-    public void addEventToCalendar(Event event)
-    {
-        if (!calendar.contains(event))
-        {
-            calendar.add(event);
-        }
-    }
+	/**get name.
+	 * @return String
+	 */
+	public String getName() {
+		return name;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	/**get year.
+	 * @return int
+	 */
+	public int getYear() {
+		return year;
+	}
 
-    public int getYear()
-    {
-        return year;
-    }
+	/**get semester number.
+	 * @return int
+	 */
+	public int getSemesterNo() {
+		return semesterNo;
+	}
 
-    public int getSemesterNo()
-    {
-        return semesterNo;
-    }
+	/**
+	 * Whether this StudyProfile matches the given details.
+	 *
+	 * @param mYear
+	 *            year
+	 * @param mSemesterNo
+	 *            semester number
+	 * @return true if matches, false otherwise.
+	 */
+	public boolean matches(int mYear, int mSemesterNo) {
+		return mYear == year && mSemesterNo == semesterNo;
+	}
 
-    /**
-     * Whether this StudyProfile matches the given details.
-     *
-     * @param mYear       year
-     * @param mSemesterNo semester number
-     * @return true if matches, false otherwise.
-     */
-    public boolean matches(int mYear, int mSemesterNo)
-    {
-        return mYear == year && mSemesterNo == semesterNo;
-    }
+	// Setters:
 
-    // Setters:
+	/**
+	 * Adds a Milestone to this StudyProfile.
+	 *
+	 * @param milestone
+	 *            Milestone to be added.
+	 */
+	public void addMilestone(Milestone milestone) {
+		this.milestones.add(milestone);
+	}
 
-    /**
-     * Adds a Milestone to this StudyProfile.
-     *
-     * @param milestone Milestone to be added.
-     */
-    public void addMilestone(Milestone milestone)
-    {
-        this.milestones.add(milestone);
-    }
+	/**
+	 * Removes a Milestone from this StudyProfile.
+	 *
+	 * @param milestone
+	 *            Milestone to be removed.
+	 * @return whether the Milestone was removed successfully.
+	 */
+	public boolean removeMilestone(Milestone milestone) {
+		return this.milestones.remove(milestone);
+	}
 
-    /**
-     * Removes a Milestone from this StudyProfile.
-     *
-     * @param milestone Milestone to be removed.
-     * @return whether the Milestone was removed successfully.
-     */
-    public boolean removeMilestone(Milestone milestone)
-    {
-        return this.milestones.remove(milestone);
-    }
+	@Override
+	public void open(MenuController.Window current) {
+		try {
+			MainController.ui.studyProfileDetails(this);
+		} catch (IOException e) {
+			UIManager.reportError("Unable to open View file");
+		}
+	}
 
-    @Override
-    public void open(MenuController.Window current)
-    {
-        try
-        {
-            MainController.ui.studyProfileDetails(this);
-        } catch (IOException e)
-        {
-            UIManager.reportError("Unable to open View file");
-        }
-    }
+	// constructors
+	/**costructor.
+	 * @param initialHubFile hub file for this study profile
+	 */
+	public StudyProfile(HubFile initialHubFile) {
+		this.milestones = new ArrayList<>();
 
-    // constructors
-    public StudyProfile(HubFile initialHubFile)
-    {
-        this.milestones = new ArrayList<>();
+		this.modules = initialHubFile.getModules();
+		this.extensions = initialHubFile.getExtensions();
 
-        this.modules = initialHubFile.getModules();
-        this.extensions = initialHubFile.getExtensions();
+		this.year = initialHubFile.getYear();
+		this.semesterNo = initialHubFile.getSemester();
+		this.version = initialHubFile.getVersion();
+		this.name = initialHubFile.getSemesterName();
+		this.details = initialHubFile.getSemesterDetails();
 
-        this.year = initialHubFile.getYear();
-        this.semesterNo = initialHubFile.getSemester();
-        this.version = initialHubFile.getVersion();
-        this.name = initialHubFile.getSemesterName();
-        this.details = initialHubFile.getSemesterDetails();
-
-        this.current = false;
-    }
+		this.current = false;
+	}
 }

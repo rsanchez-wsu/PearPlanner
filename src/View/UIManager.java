@@ -508,7 +508,6 @@ public class UIManager {
 					"yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			bw.write(timeStamp + " " +  displayMessage + " " + errorMessage);
 			bw.newLine();
-			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

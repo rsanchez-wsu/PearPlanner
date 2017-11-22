@@ -198,7 +198,6 @@ public class ConsoleIO {
 		// list of options
 		String[] menuOptions = { "Load Study Profile File", "Return to Main Menu" };
 		int choice = View.ConsoleIO.getMenuOption(menuOptions);
-
 		return menuOptions[choice];
 
 	}
@@ -242,7 +241,6 @@ public class ConsoleIO {
 	 */
 	public static String view_loadStudyP(StudyPlannerController spController) {
 		View.ConsoleIO.setConsoleMessage("LOAD A STUDY PROFILE");
-
 		String filename = getDataString("Enter filepath:");
 		File tempFile = new File(filename);
 		HubFile fileData = DataController.loadHubFile(tempFile);

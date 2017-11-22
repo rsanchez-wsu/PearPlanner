@@ -29,12 +29,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17 at 20:59
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17 at 20:59.
  */
 public class Module extends VersionControlEntity
 {
-    // private data
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2128360383796838996L;
+	// private data
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private Person organiser;
     private String moduleCode;

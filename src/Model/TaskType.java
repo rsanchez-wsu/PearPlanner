@@ -26,190 +26,234 @@ import Controller.MainController;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class TaskType extends ModelEntity
-{
-    private static ArrayList<TaskType> taskDatabase = new ArrayList<>();
 
-    public static String[] listOfNames()
-    {
-        String[] r = new String[taskDatabase.size()];
-        int i = -1;
-        int ii = taskDatabase.size();
-        while (++i < ii)
-        {
-            r[i] = taskDatabase.get(i).getName();
-        }
-        return r;
-    }
+public class TaskType extends ModelEntity {
+	/**
+	 * serial version uid.
+	 */
+	private static final long serialVersionUID = 4304502782860761907L;
+	private static ArrayList<TaskType> taskDatabase = new ArrayList<>();
 
-    public static TaskType[] listOfTaskTypes()
-    {
-        TaskType[] r = new TaskType[taskDatabase.size()];
-        int i = -1;
-        int ii = taskDatabase.size();
-        while (++i < ii)
-        {
-            r[i] = taskDatabase.get(i);
-        }
-        return r;
-    }
+	/**
+	 * list of name.
+	 *
+	 * @return array of string
+	 */
+	public static String[] listOfNames() {
+		String[] r = new String[taskDatabase.size()];
+		int i = -1;
+		int ii = taskDatabase.size();
+		while (++i < ii) {
+			r[i] = taskDatabase.get(i).getName();
+		}
+		return r;
+	}
 
-    public static TaskType get(String tt)
-    {
-        int i = -1;
-        int ii = taskDatabase.size();
-        while (++i < ii)
-        {
-            if (taskDatabase.get(i).equals(tt))
-            {
-                return taskDatabase.get(i);
-            }
-        }
-        return DEFAULT;
-    }
+	/**
+	 * list of task type.
+	 *
+	 * @return array of task type
+	 */
+	public static TaskType[] listOfTaskTypes() {
+		TaskType[] r = new TaskType[taskDatabase.size()];
+		int i = -1;
+		int ii = taskDatabase.size();
+		while (++i < ii) {
+			r[i] = taskDatabase.get(i);
+		}
+		return r;
+	}
 
-    public static boolean exists(TaskType tt)
-    {
-        int i = -1;
-        int ii = taskDatabase.size();
-        while (++i < ii)
-        {
-            if (taskDatabase.get(i).equals(tt))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+	/**
+	 * get task type.
+	 *
+	 * @param tt
+	 *            tasktype
+	 * @return TaskType
+	 */
+	public static TaskType get(String tt) {
+		int i = -1;
+		int ii = taskDatabase.size();
+		while (++i < ii) {
+			if (taskDatabase.get(i).equals(tt)) {
+				return taskDatabase.get(i);
+			}
+		}
+		return DEFAULT;
+	}
 
-    public static boolean exists(String tt)
-    {
-        int i = -1;
-        int ii = taskDatabase.size();
-        while (++i < ii)
-        {
-            if (taskDatabase.get(i).equals(tt))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+	/**
+	 * check whether it exists.
+	 *
+	 * @param tt
+	 *            TaskType
+	 * @return boolean
+	 */
+	public static boolean exists(TaskType tt) {
+		int i = -1;
+		int ii = taskDatabase.size();
+		while (++i < ii) {
+			if (taskDatabase.get(i).equals(tt)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    /**
-     * Create a new TaskType.
-     *
-     * @param cName    Name of the TaskType.
-     * @param cDetails Details of the TaskType.
-     * @return
-     */
-    public static TaskType create(String cName, String cDetails)
-    {
-        TaskType t = new TaskType(cName, cDetails);
-        if (MainController.getSpc() != null)
-            MainController.getSpc().addTaskType(t);
-        return t;
-    }
+	/**
+	 * Check whether it exist.
+	 *
+	 * @param tt
+	 *            String
+	 * @return boolean
+	 */
+	public static boolean exists(String tt) {
+		int i = -1;
+		int ii = taskDatabase.size();
+		while (++i < ii) {
+			if (taskDatabase.get(i).equals(tt)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    /**
-     * Create a new TaskType.
-     *
-     * @param cName Name of the TaskType.
-     * @return
-     */
-    public static TaskType create(String cName)
-    {
-        TaskType t = new TaskType(cName);
-        if (MainController.getSpc() != null)
-            MainController.getSpc().addTaskType(t);
-        return t;
-    }
+	/**
+	 * Create a new TaskType.
+	 *
+	 * @param cName
+	 *            Name of the TaskType.
+	 * @param cDetails
+	 *            Details of the TaskType.
+	 * @return TaskType
+	 */
+	public static TaskType create(String cName, String cDetails) {
+		TaskType t = new TaskType(cName, cDetails);
+		if (MainController.getSpc() != null) {
+			MainController.getSpc().addTaskType(t);
+		}
+		return t;
+	}
 
-    /**
-     * Create a new TaskType from an existing one.
-     *
-     * @param type TaskType object
-     */
-    public static void create(TaskType type)
-    {
-        if (!TaskType.taskDatabase.contains(type))
-        {
-            TaskType.taskDatabase.add(type);
-            if (MainController.getSpc() != null)
-                MainController.getSpc().addTaskType(type);
-        }
-    }
+	/**
+	 * Create a new TaskType.
+	 *
+	 * @param cName
+	 *            Name of the TaskType.
+	 * @return TaskType
+	 */
+	public static TaskType create(String cName) {
+		TaskType t = new TaskType(cName);
+		if (MainController.getSpc() != null) {
+			MainController.getSpc().addTaskType(t);
+		}
+		return t;
+	}
 
-    // this is a temporary way to populate the array until we later replace from reading a set up file
-    static
-    {
-        class pair
-        {
-            public String a;
-            public String b;
+	/**
+	 * Create a new TaskType from an existing one.
+	 *
+	 * @param type
+	 *            TaskType object
+	 */
+	public static void create(TaskType type) {
+		if (!TaskType.taskDatabase.contains(type)) {
+			TaskType.taskDatabase.add(type);
+			if (MainController.getSpc() != null) {
+				MainController.getSpc().addTaskType(type);
+			}
+		}
+	}
 
-            pair(String name, String details)
-            {
-                a = name;
-                b = details;
-            }
-        }
-        pair[] staticTypes = {
-                new pair("Other", "Other type of task")
-                ,
-                new pair("Reading", "Read some required text")
-                ,
-                new pair("Exercises", "Did some assigned exercises")
-                ,
-                new pair("Listening", "Listened to a podcast")
-                ,
-                new pair("Coursework", "Worked towards coursework")
-                ,
-                new pair("Revision", "Revised towards exam")
-                ,
-                new pair("Meeting", "Meet with other course members")
+	// this is a temporary way to populate the array until we later replace from reading a set up
+	// file
+	static {
+		/**
+		 *inner class.
+		 */
+		class pair {
+			public String a;
+			public String b;
 
-        };
-        int i = -1;
-        int ii = staticTypes.length;
-        while (++i < ii)
-        {
-            TaskType t = new TaskType(staticTypes[i].a, staticTypes[i].b);
-        }
-    }
+			/**set name and details in pair.
+			 * @param name		name to be set
+			 * @param details	details to be set
+			 */
+			pair(String name, String details) {
+				a = name;
+				b = details;
+			}
+		}
 
-    private TaskType(String cName)
-    {
-        super(cName);
-        if (!exists(this))
-        {
-            taskDatabase.add(this);
-        }
-    }
+		pair[] staticTypes = { new pair("Other", "Other type of task"),
+				new pair("Reading", "Read some required text"),
+				new pair("Exercises", "Did some assigned exercises"),
+				new pair("Listening", "Listened to a podcast"),
+				new pair("Coursework", "Worked towards coursework"),
+				new pair("Revision", "Revised towards exam"),
+				new pair("Meeting", "Meet with other course members")
 
-    private TaskType(String cName, String cDetails)
-    {
-        super(cName, cDetails);
-        if (!exists(this))
-        {
-            taskDatabase.add(this);
-        }
-    }
+		};
+		int i = -1;
+		int ii = staticTypes.length;
+		while (++i < ii) {
+			@SuppressWarnings("unused")
+			TaskType t = new TaskType(staticTypes[i].a, staticTypes[i].b);
+		}
+	}
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        TaskType that = (TaskType) obj;
-        return getName().equals(that.getName());
-    }
+	/**
+	 * constructor.
+	 *
+	 * @param cName
+	 *            name to be set
+	 */
+	private TaskType(String cName) {
+		super(cName);
+		if (!exists(this)) {
+			taskDatabase.add(this);
+		}
+	}
 
-    public boolean equals(String c)
-    {
-        return getName().equals(c);
-    }
+	/**
+	 * constructor.
+	 *
+	 * @param cName
+	 *            name to be set
+	 * @param cDetails
+	 *            details to be set
+	 */
+	private TaskType(String cName, String cDetails) {
+		super(cName, cDetails);
+		if (!exists(this)) {
+			taskDatabase.add(this);
+		}
+	}
 
-    public static TaskType DEFAULT = taskDatabase.get(0);
+	/**
+	 * check whether this task is equal with obj.
+	 *
+	 * @param obj
+	 *            obj to be compared
+	 * @return boolean
+	 */
+	public boolean isEqual(Object obj) {
+		TaskType that = (TaskType) obj;
+		return getName().equals(that.getName());
+	}
+
+	/**
+	 * check whether this name is equal with name to be compared.
+	 *
+	 * @param c
+	 *            name to be compared
+	 * @return boolean
+	 */
+	public boolean equals(String c) {
+		return getName().equals(c);
+	}
+
+	public static TaskType DEFAULT = taskDatabase.get(0);
 }

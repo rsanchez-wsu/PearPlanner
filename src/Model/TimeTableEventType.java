@@ -22,13 +22,18 @@
 package Model;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class TimeTableEventType extends VersionControlEntity
-{
-    public String toString()
-    {
-        return name;
-    }
+public class TimeTableEventType extends VersionControlEntity {
+	/**
+	 *serial version uid.
+	 */
+	private static final long serialVersionUID = -3296947435752907002L;
+
+	/** return name of this time table event type.
+	 * @return String
+	 */
+	public String toString() {
+		return name;
+	}
 }

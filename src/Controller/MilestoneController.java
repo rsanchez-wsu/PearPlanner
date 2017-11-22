@@ -56,7 +56,6 @@ public class MilestoneController implements Initializable {
 	 * Standard getter method for milestone.
 	 * @return milestone
 	 */
-
 	public Milestone getMilestone() {
 		return this.milestone;
 	}
@@ -70,24 +69,34 @@ public class MilestoneController implements Initializable {
 	}
 
 	// Panes:
-	@FXML private GridPane pane;
+	@FXML
+	private GridPane pane;
 
 	// Buttons:
-	@FXML private Button submit;
-	@FXML private Button add;
-	@FXML private Button remove;
+	@FXML
+	private Button submit;
+	@FXML
+	private Button add;
+	@FXML
+	private Button remove;
 
 	// Text:
-	@FXML private TextArea details;
-	@FXML private DatePicker deadline;
-	@FXML private TextField name;
+	@FXML
+	private TextArea details;
+	@FXML
+	private DatePicker deadline;
+	@FXML
+	private TextField name;
 
 	// Labels:
-	@FXML private Label title;
-	@FXML private Label completed;
+	@FXML
+	private Label title;
+	@FXML
+	private Label completed;
 
 	// Lists:
-	@FXML private ListView<Task> tasks;
+	@FXML
+	private ListView<Task> tasks;
 
 	/**
 	 * Handle changes to the input fields.
