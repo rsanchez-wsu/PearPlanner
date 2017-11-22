@@ -69,7 +69,7 @@ public class DataController {
 	 * @param vce the entity to update.
 	 */
 	private static void processVceUpdate(VersionControlEntity vce) {
-		if (vce.addToLibrary() || VersionControlEntity.get(vce.getUId()).update(vce)) {
+		if (vce.addToLibrary() || VersionControlEntity.get(vce.getUID()).update(vce)) {
 			ConsoleIO.setConsoleMessage(vce + " added", true);
 		} else {
 			ConsoleIO.setConsoleMessage(vce + " not added", true);
@@ -281,7 +281,7 @@ public class DataController {
 
 							tp = HubFile.createPerson(nc);
 
-							assetList.put(tp.getUId(), tp);
+							assetList.put(tp.getUID(), tp);
 
 							ConsoleIO.setConsoleMessage("Adding person: " + tp.toString(), true);
 						}
@@ -307,7 +307,7 @@ public class DataController {
 
 							tb = HubFile.createBuilding(nc);
 
-							assetList.put(tb.getUId(), tb);
+							assetList.put(tb.getUID(), tb);
 							ConsoleIO.setConsoleMessage("Adding buiding: " + tb.toString(), true);
 						}
 					}
@@ -330,7 +330,7 @@ public class DataController {
 							ConsoleIO.setConsoleMessage("Valid Node found:", true);
 
 							tr = HubFile.createRoom(nc, assetList);
-							assetList.put(tr.getUId(), tr);
+							assetList.put(tr.getUID(), tr);
 							ConsoleIO.setConsoleMessage("Adding room: " + tr.toString(), true);
 						}
 					}
@@ -354,7 +354,7 @@ public class DataController {
 							TimeTableEventType ttet = HubFile.createTimetableEventType(nc);
 
 
-							assetList.put(ttet.getUId(), ttet);
+							assetList.put(ttet.getUID(), ttet);
 							ConsoleIO.setConsoleMessage("Adding timetable event: "
 									+ ttet.toString(), true);
 						}
@@ -404,7 +404,7 @@ public class DataController {
 									ConsoleIO.setConsoleMessage("Valid Node found:", true);
 									Coursework newCoursework =
 											HubFile.createCoursework(nc, assetList);
-									assetList.put(newCoursework.getUId(), newCoursework);
+									assetList.put(newCoursework.getUID(), newCoursework);
 									thisModule.addAssignment(newCoursework);
 									ConsoleIO.setConsoleMessage("Adding coursework: "
 											+ newCoursework.toString(), true);
@@ -419,7 +419,7 @@ public class DataController {
 
 
 									Exam newExam = HubFile.createExam(nc, assetList);
-									assetList.put(newExam.getUId(), newExam);
+									assetList.put(newExam.getUID(), newExam);
 									thisModule.addAssignment(newExam);
 									ConsoleIO.setConsoleMessage("Adding exam: "
 											+ newExam.toString(), true);
@@ -446,7 +446,7 @@ public class DataController {
 
 							TimetableEvent newTte =
 									HubFile.createTimetableEvent(nc, assetList);
-							assetList.put(newTte.getUId(), newTte);
+							assetList.put(newTte.getUID(), newTte);
 							thisModule.addTimetableEvent(newTte);
 
 							ConsoleIO.setConsoleMessage("Adding TimetableEvent: "
