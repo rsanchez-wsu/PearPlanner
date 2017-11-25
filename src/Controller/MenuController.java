@@ -229,13 +229,6 @@ public class MenuController implements Initializable {
 		if (isNavOpen) {
 			openMenu.fire();
 		}
-		if (this.showNotification.getTranslateY() == 0 && !initialLoad) {
-			TranslateTransition closeNot =
-					new TranslateTransition(new Duration(173), notifications);
-			closeNot.setToY(-(notifications.getHeight() + this.navShadowRadius + 56 + 17));
-			closeNot.play();
-		}
-		initialLoad = false;
 
 		this.updateNotifications();
 		this.updateMenu();
@@ -846,7 +839,6 @@ public class MenuController implements Initializable {
 		// Create a back button:
 		this.backButton(previousWindow, previous);
 		// =================
-
 		// Create a details pane:
 		VBox detailsBox = new VBox(5);
 		Label details = new Label(module.getDetails().getAsString());
