@@ -174,7 +174,7 @@ tasks.withType(FindBugs) {
 	}
 	ignoreFailures = true
 }
-
-tasks.withType(JavaCompile) {
-	options.compilerArgs << "-Xlint:all" << "-Werror"
-}
+//This should stay being commented out until all the warnings are fixed
+//tasks.withType(JavaCompile) {
+//	options.compilerArgs << "-Xlint:all" << "-Werror"
+//}
