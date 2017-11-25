@@ -21,17 +21,35 @@
 
 package Controller;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import Model.HubFile;
+
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Created by bijan on 08/05/2017.
  */
 public class DataControllerTest {
+
+	File tempFile = new File(".\\StudyProfiles\\HP_First_Year.xml");
 	/**
 	 * WIP: This test class should set up required data and fields.
 	 * @throws Exception to handle when the test setup fails for any given reason.
 	 */
+
 	@BeforeEach
 	public void setUp() throws Exception {
 	}
@@ -42,6 +60,7 @@ public class DataControllerTest {
 	 */
 	@Test
 	public void existingSettingsFile() throws Exception {
+		assertTrue(tempFile.exists());
 	}
 
 	/**
@@ -50,6 +69,15 @@ public class DataControllerTest {
 	 */
 	@Test
 	public void getNodes() throws Exception {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+		Document doc = docBuilder.parse(tempFile);
+		doc.getDocumentElement().normalize();
+
+		Node rootElement = doc.getDocumentElement();
+		NodeList nodes = XmlController.getNodes(rootElement);
+		assertTrue(nodes != null);
+
 	}
 
 	/**
@@ -65,7 +93,13 @@ public class DataControllerTest {
 	 * @throws Exception to handle when the hub file cannot be properly instantiated.
 	 */
 	@Test
-	public void loadHubFile() throws Exception {
+	public void loadHubFileTest() throws Exception {
+		Constructor constructor = DataController.class.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+
+		HubFile hub = DataController.loadHubFile(tempFile);
+		assertNotNull(hub);
 	}
 
 }

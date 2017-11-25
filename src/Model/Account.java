@@ -25,9 +25,13 @@ import java.io.Serializable;
 
 /**
  * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * Created by Team BRONZE on 4/27/17.
  */
 public class Account implements Serializable {
+	/**serial Version UID.
+	 *
+	 */
+	private static final long serialVersionUID = 7030935356356331525L;
 	// private data
 	private Person studentDetails;
 	private String studentNumber;
@@ -35,24 +39,40 @@ public class Account implements Serializable {
 	// public methods
 
 	// getters
+	/**get student details.
+	 * @return studentDetails
+	 */
 	public Person getStudentDetails() {
 		return studentDetails;
 	}
 
+	/**get student Number.
+	 * @return studentNumber
+	 */
 	public String getStudentNumber() {
 		return studentNumber;
 	}
 
 	// setters
+	/**set student details.
+	 * @param newStudentDetails student Details to be loaded
+	 */
 	public void setStudentDetails(Person newStudentDetails) {
 		studentDetails = newStudentDetails;
 	}
 
+	/**set new student number.
+	 * @param newStudentNumber student number to be loaded
+	 */
 	public void setStudentNumber(String newStudentNumber) {
 		studentNumber = newStudentNumber;
 	}
 
 	// constructors
+	/**constructors.
+	 * @param studentDetails Person
+	 * @param studentNumber	String
+	 */
 	public Account(Person studentDetails, String studentNumber) {
 		this.studentDetails = studentDetails;
 		this.studentNumber = studentNumber;

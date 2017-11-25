@@ -41,7 +41,7 @@ public class AccountTest {
 	 */
 	@BeforeEach
 	public void setUp() throws Exception {
-		person = new Person("Mr","Andrew Odintsov", true);
+		person = new Person("Mr", "Andrew Odintsov", true);
 		account = new Account(person, "10012721-UG");
 	}
 
@@ -70,7 +70,7 @@ public class AccountTest {
 	 */
 	@Test
 	public void setStudentDetails() throws Exception {
-		Person person2 = new Person("Dr","Zilvinas Ceikauskas", true, "zil.Cei@gmail.com");
+		Person person2 = new Person("Dr", "Zilvinas Ceikauskas", true, "zil.Cei@gmail.com");
 		account.setStudentDetails(person2);
 		assertEquals(person2, account.getStudentDetails());
 	}

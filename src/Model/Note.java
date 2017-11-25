@@ -25,65 +25,90 @@ import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 /**
- * PearPlanner/RaiderPlanner
- * Created by Team BRONZE on 4/27/17
+ * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
-public class Note implements Serializable
-{
-    // private data
-    private String title;
-    private GregorianCalendar timeStamp;
-    private MultilineString text;
+public class Note implements Serializable {
+	/**
+	 *serial version uid.
+	 */
+	private static final long serialVersionUID = 5727477113455798093L;
+	// private data
+	private String title;
+	private GregorianCalendar timeStamp;
+	private MultilineString text;
 
-    // public methods
+	// public methods
 
-    // getters
-    public String getTitle()
-    {
-        // initial set up code below - check if this needs updating
-        return title;
-    }
+	// getters
+	/**get title of this note.
+	 * @return String
+	 */
+	public String getTitle() {
+		// initial set up code below - check if this needs updating
+		return title;
+	}
 
-    public GregorianCalendar getTimeStamp()
-    {
-        // initial set up code below - check if this needs updating
-        return timeStamp;
-    }
+	/**get time stamp.
+	 * @return GregorianCalendar
+	 */
+	public GregorianCalendar getTimeStamp() {
+		// initial set up code below - check if this needs updating
+		return timeStamp;
+	}
 
-    public MultilineString getText()
-    {
-        return text;
-    }
+	/**get text.
+	 * @return MultilineString
+	 */
+	public MultilineString getText() {
+		return text;
+	}
 
-    // setters
-    public void setTitle(String newTitle)
-    {
-        // initial set up code below - check if this needs updating
-        title = newTitle;
-    }
+	// setters
+	/**set title.
+	 * @param newTitle title to be set
+	 */
+	public void setTitle(String newTitle) {
+		// initial set up code below - check if this needs updating
+		title = newTitle;
+	}
 
-    public void setTimeStamp(GregorianCalendar newTimeStamp)
-    {
-        // initial set up code below - check if this needs updating
-        timeStamp = newTimeStamp;
-    }
+	/**set time stamp.
+	 * @param newTimeStamp (GregorianCalendar) new time stamp to be set
+	 */
+	public void setTimeStamp(GregorianCalendar newTimeStamp) {
+		// initial set up code below - check if this needs updating
+		timeStamp = newTimeStamp;
+	}
 
-    public void setTimeStamp(int Y, int M, int D, int h, int m, int s)
-    {
-        // initial set up code below - check if this needs updating
-        timeStamp = new GregorianCalendar(Y, M, D, h, m, s);
-    }
+	/**set time stamp.
+	 * @param Y	year
+	 * @param M	month
+	 * @param D	date
+	 * @param h hours
+	 * @param m	minutes
+	 * @param s	seconds
+	 */
+	public void setTimeStamp(int Y, int M, int D, int h, int m, int s) {
+		// initial set up code below - check if this needs updating
+		timeStamp = new GregorianCalendar(Y, M, D, h, m, s);
+	}
 
-    public void setText(MultilineString newText)
-    {
-        // initial set up code below - check if this needs updating
-        text = newText;
-    }
+	/**set text.
+	 * @param newText text to be set
+	 */
+	public void setText(MultilineString newText) {
+		// initial set up code below - check if this needs updating
+		text = newText;
+	}
 
-    public Note(String title, GregorianCalendar timeStamp, MultilineString text)
-    {
-        this.title = title;
-        this.timeStamp = timeStamp;
-        this.text = text;
-    }
+	/**constructor.
+	 * @param title		title to be set
+	 * @param timeStamp	time stamp to be set
+	 * @param text		text to be set
+	 */
+	public Note(String title, GregorianCalendar timeStamp, MultilineString text) {
+		this.title = title;
+		this.timeStamp = timeStamp;
+		this.text = text;
+	}
 }

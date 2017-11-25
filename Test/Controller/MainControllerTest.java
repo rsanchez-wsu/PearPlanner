@@ -21,8 +21,15 @@
 
 package Controller;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import Model.HubFile;
+import View.UIManager;
 
 /**
  * Created by bijan on 08/05/2017.
@@ -43,6 +50,8 @@ public class MainControllerTest {
 	 */
 	@Test
 	public void initialise() throws Exception {
+		boolean test = MainController.initialise();
+		assertTrue(test == true);
 	}
 
 	/**
@@ -53,6 +62,19 @@ public class MainControllerTest {
 	 */
 	@Test
 	public void reportError() throws Exception {
+		//This test will recreate the condition of importFile() in MainController
+		//which will cause an error
+		//That error will be reported via UI.reportError
+		//It should display the error message.
+		File file = new File("HP_First_Year");
+		boolean asst = false;
+		if (!file.exists()) {
+			asst = true;
+			UIManager.reportError("File doesn't exist");
+		} else {
+			asst = false;
+		}
+		assertTrue(asst == true);
 	}
 
 }

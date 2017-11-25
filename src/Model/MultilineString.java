@@ -28,58 +28,74 @@ import java.util.Arrays;
 /**
  * Created by bendickson on 4/27/17.
  */
-public class MultilineString implements Serializable
-{
-    // private Data;
-    private ArrayList<String> lines;
+public class MultilineString implements Serializable {
+	/**
+	 * serial version Uid.
+	 */
+	private static final long serialVersionUID = 7137189102583225853L;
+	// private Data;
+	private ArrayList<String> lines;
 
-    // public methods
-    public MultilineString clone()
-    {
-        return new MultilineString(this.getAsArray());
-    }
+	// public methods
+	/**get a copy of multiline String that does not affect reference.
+	 * @return MultilineString
+	 */
+	public MultilineString clone() {
+		return new MultilineString(this.getAsArray());
+	}
 
-    // getters
+	// getters
 
-    /**
-     * Returns the number of lines in this MultilineString
-     *
-     * @return number of lines
-     */
-    public int getLines()
-    {
-        return lines.size();
-    }
+	/**
+	 * Returns the number of lines in this MultilineString.
+	 *
+	 * @return number of lines
+	 */
+	public int getLines() {
+		return lines.size();
+	}
 
-    public ArrayList<String> getAsArrayList()
-    {
-        return lines;
-    }
+	/**get line as array list.
+	 * @return ArrayList of String
+	 */
+	public ArrayList<String> getAsArrayList() {
+		return lines;
+	}
 
-    public String[] getAsArray()
-    {
-        String r[] = new String[lines.size()];
-        r = lines.toArray(r);
-        return r;
-    }
+	/**get lines as array.
+	 * @return Array of String
+	 */
+	public String[] getAsArray() {
+		String r[] = new String[lines.size()];
+		r = lines.toArray(r);
+		return r;
+	}
 
-    public String getAsString()
-    {
-        return String.join("\n", getAsArray());
-    }
+	/**lines as String.
+	 * @return String
+	 */
+	public String getAsString() {
+		return String.join("\n", getAsArray());
+	}
 
-    public MultilineString()
-    {
-        lines = new ArrayList<>();
-    }
+	/**
+	 * default constructor.
+	 */
+	public MultilineString() {
+		lines = new ArrayList<>();
+	}
 
-    public MultilineString(String mString)
-    {
-        lines = new ArrayList<>(Arrays.asList(mString.split("\n")));
-    }
+	/**constructor.
+	 * @param mString string to be set.
+	 */
+	public MultilineString(String mString) {
+		lines = new ArrayList<>(Arrays.asList(mString.split("\n")));
+	}
 
-    public MultilineString(String[] mString)
-    {
-        lines = new ArrayList<>(Arrays.asList(mString));
-    }
+	/**constructor.
+	 * @param mString array of string to be set
+	 */
+	public MultilineString(String[] mString) {
+		lines = new ArrayList<>(Arrays.asList(mString));
+	}
 }

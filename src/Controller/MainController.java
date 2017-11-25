@@ -93,11 +93,14 @@ public class MainController {
 	 * Initializes the Study Planner by either registering a new account or
 	 * importing an existing Study Planner file.
 	 */
-	public static void initialise() {
+	//changed return type for testing purposes
+	public static boolean initialise() {
+		boolean rtn = false;
 		try {
 			ui.showStartup();
 		} catch (IOException e) {
 			UIManager.reportError("Invalid file.");
+			rtn = false;
 			System.exit(1);
 		}
 		// If a file is present:
@@ -115,9 +118,11 @@ public class MainController {
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
 						UIManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
-								+ "Potter. To make your own StudyPlanner, restart the application "
+								+ "Potter. To make your own StudyPlanner, "
+								+ "restart the application "
 								+ "and choose \"New File\".");
 					}
+					rtn = true;
 				}
 			} catch (FileNotFoundException e) {
 				UIManager.reportError("Error, File does not exist.");
@@ -153,8 +158,10 @@ public class MainController {
 			// or existence in the milliseconds that it runs the above code
 			// after checks in StartupController
 			UIManager.reportError("Failed to load file.");
+			rtn = false;
 			System.exit(1);
 		}
+		return rtn;
 	}
 
 	/**

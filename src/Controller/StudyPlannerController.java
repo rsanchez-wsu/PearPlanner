@@ -46,7 +46,6 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
 
-
 /**
  * Created by bendickson on 5/4/17.
  */

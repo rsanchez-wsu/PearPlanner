@@ -40,6 +40,7 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
+
 /**
  * Created by bendickson on 5/15/17.
  */
@@ -88,6 +89,9 @@ public class GanttishDiagram {
 	}
 
 
+	/**
+	 * set stroke types.
+	 */
 	enum stroke {
 		DASHED(true, 1),
 		NONE(false, 0),
@@ -96,6 +100,10 @@ public class GanttishDiagram {
 		double widthMult = 1.0;
 		boolean dashed = false;
 
+		/**get stroke.
+		 * @param thickness		int
+		 * @return BasicStroke
+		 */
 		BasicStroke getStroke(int thickness) {
 			if (widthMult == 0) {
 				return new BasicStroke(0);
@@ -110,12 +118,19 @@ public class GanttishDiagram {
 			}
 		}
 
+		/**set stroke.
+		 * @param cDashed dashed to be set
+		 * @param cWidthMult	width mult to be set
+		 */
 		stroke(boolean cDashed, double cWidthMult) {
 			dashed = cDashed;
 			widthMult = cWidthMult;
 		}
 	}
 
+	/**
+	 *set type of badge colors.
+	 */
 	enum badgeColors {
 		FINISHED(0, 255, 0),
 		STARTED(255, 255, 0),
@@ -178,6 +193,12 @@ public class GanttishDiagram {
 			b = cb > 255 ? 255 : (cb < 0 ? 0 : cb);
 		}
 
+		/** set badge colors.
+		 * @param cr	red
+		 * @param cg	green
+		 * @param cb	blue
+		 * @param ca	a
+		 */
 		badgeColors(int cr, int cg, int cb, int ca) {
 			this(cr, cg, cb);
 			a = ca > 255 ? 255 : (ca < 0 ? 0 : ca);
@@ -191,7 +212,8 @@ public class GanttishDiagram {
 	 * @param fromAssignment   Assignment for which to generate the GanttishDiagram.
 	 * @return Generated diagram
 	 */
-	public static BufferedImage createGanttishDiagram(StudyPlanner fromStudyProfile, Assignment fromAssignment) {
+	public static BufferedImage createGanttishDiagram(StudyPlanner fromStudyProfile,
+			Assignment fromAssignment) {
 		return createGanttishDiagram(fromStudyProfile, fromAssignment, "");
 	}
 
@@ -203,12 +225,14 @@ public class GanttishDiagram {
 	 * @param filePath		 file path
 	 * @return Generated diagram
 	 */
-	public static BufferedImage createGanttishDiagram(StudyPlanner fromStudyProfile, Assignment fromAssignment, String filePath) {
+	public static BufferedImage createGanttishDiagram(StudyPlanner fromStudyProfile,
+			Assignment fromAssignment, String filePath) {
 		return createGanttishDiagram(fromStudyProfile, fromAssignment, filePath, false);
 	}
 
 	/**
-	 * Creates a GanttishDiagram from a given Assignment with the option to set the background transparent.
+	 * Creates a GanttishDiagram from a given Assignment
+	 *  with the option to set the background transparent.
 	 *
 	 * @param fromStudyProfile	  StudyProfile
 	 * @param fromAssignment		Assignment for which to generate the GanttishDiagram.
@@ -216,8 +240,8 @@ public class GanttishDiagram {
 	 * @param transparentBackground whether the background should be white or transparent
 	 * @return Generated diagram
 	 */
-	public static BufferedImage createGanttishDiagram(StudyPlanner fromStudyProfile, Assignment fromAssignment,
-													  String filePath, boolean transparentBackground) {
+	public static BufferedImage createGanttishDiagram(StudyPlanner fromStudyProfile,
+			Assignment fromAssignment, String filePath, boolean transparentBackground) {
 
 		HashMap<String, ArrayList<Task>> catTasks = new HashMap<>();
 
@@ -226,7 +250,8 @@ public class GanttishDiagram {
 		String POSSIBLE = "Possible to start";
 		String IMPOSSIBLE = "Not possible to start";
 
-		String[] categoryList = {COMPLETED, STARTED, POSSIBLE, IMPOSSIBLE};
+
+		@SuppressWarnings("unused")
 		badgeColors[][] badges = {{badgeColors.FINISHED, badgeColors.FINISHED_FILL},
 				{badgeColors.STARTED, badgeColors.STARTED_FILL},
 				{badgeColors.CANSTART, badgeColors.CANSTART_FILL},
@@ -259,11 +284,13 @@ public class GanttishDiagram {
 			}
 		}
 
-		int j = -1;
+		String[] categoryList = {COMPLETED, STARTED, POSSIBLE, IMPOSSIBLE};
+
 		int jj = categoryList.length;
 
 		int cWidth = GANTT_COLUMN_PADDING + jj * (GANTT_COLUMN_PADDING + GANTT_COLUMN_WIDTH);
-		int cHeight = 2 * GANTT_COLUMN_PADDING + GANTT_TITLE_SPACE + (1 + longest) * (GANTT_COLUMN_SPACING + GANTT_ENTRY_HEIGHT);
+		int cHeight = 2 * GANTT_COLUMN_PADDING + GANTT_TITLE_SPACE
+				+ (1 + longest) * (GANTT_COLUMN_SPACING + GANTT_ENTRY_HEIGHT);
 
 		BufferedImage r = new BufferedImage(cWidth, cHeight, imageType);
 		Graphics2D g2d = r.createGraphics();
@@ -277,8 +304,12 @@ public class GanttishDiagram {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g2d.setPaint(GANTT_ENTRY_FONT_COLOR);
-		drawMessage(g2d, GANTT_TITLE_FONT_SIZE, fromAssignment.getName(), GANTT_COLUMN_PADDING, GANTT_COLUMN_PADDING,
+		drawMessage(g2d, GANTT_TITLE_FONT_SIZE, fromAssignment.getName(),
+				GANTT_COLUMN_PADDING, GANTT_COLUMN_PADDING,
 				cWidth - (2 * GANTT_COLUMN_PADDING), GANTT_TITLE_SPACE);
+
+		int j = -1;
+
 		while (++j < jj) {
 			int ox = GANTT_COLUMN_PADDING + j * (GANTT_COLUMN_PADDING + GANTT_COLUMN_WIDTH);
 			int oy = GANTT_COLUMN_PADDING + GANTT_TITLE_SPACE;
@@ -289,12 +320,14 @@ public class GanttishDiagram {
 
 
 			g2d.setPaint(GANTT_ENTRY_FONT_COLOR);
-			drawMessage(g2d, GANTT_ENTRY_FONT_SIZE, name, ox, oy, GANTT_COLUMN_WIDTH, GANTT_ENTRY_HEIGHT);
+			drawMessage(g2d, GANTT_ENTRY_FONT_SIZE, name, ox, oy,
+					GANTT_COLUMN_WIDTH, GANTT_ENTRY_HEIGHT);
 
 			while (++k < kk) {
 				Task dt = catTasks.get(name).get(k - 1);
 				String dtt = dt.getType().getName();
-				Paint col, fcol;
+				Paint col;
+				Paint fcol;
 				if (GANTT_ENTRY_COLOR.containsKey(dtt)) {
 					fcol = (GANTT_ENTRY_FCOLOR.get(dtt));
 					col = (GANTT_ENTRY_COLOR.get(dtt));
@@ -362,10 +395,6 @@ public class GanttishDiagram {
 		int canvasSize = (int) ((double) badgeSize * multiplier + .5);
 		int ringSize = (int) ((double) badgeRingSize * multiplier + .5);
 		int badgeRingThickness = (int) ((double) getBadgeRingThickness * multiplier + .5);
-		int badgeFontSize = (int) ((double) fontSize * multiplier + .5);
-
-		int ovalOffset = (canvasSize - ringSize) / 2;
-
 
 		BufferedImage r = new BufferedImage(canvasSize, canvasSize, imageType);
 		Graphics2D g2d = r.createGraphics();
@@ -385,9 +414,11 @@ public class GanttishDiagram {
 			fillColor = badgeColors.FINISHED_FILL.getPaint();
 		}
 
+		int ovalOffset = (canvasSize - ringSize) / 2;
 		g2d.setPaint(fillColor);
 		g2d.fillOval(ovalOffset, ovalOffset, ringSize, ringSize);
 
+		int badgeFontSize = (int) ((double) fontSize * multiplier + .5);
 		Font font = new Font("Helvetica", Font.PLAIN, badgeFontSize);
 		FontMetrics metrics = g2d.getFontMetrics(font);
 
@@ -427,15 +458,16 @@ public class GanttishDiagram {
 	/**
 	 * Generates a rectangle with the given message in the middle.
 	 *
-	 * @param g2d
-	 * @param fontSize
-	 * @param msg
-	 * @param c_x
-	 * @param c_y
-	 * @param c_width
-	 * @param c_height
+	 * @param g2d		Graphics2D
+	 * @param fontSize	int
+	 * @param msg		String
+	 * @param c_x		int
+	 * @param c_y		int
+	 * @param c_width	int
+	 * @param c_height	int
 	 */
-	static void drawMessage(Graphics2D g2d, int fontSize, String msg, int c_x, int c_y, int c_width, int c_height) {
+	static void drawMessage(Graphics2D g2d, int fontSize,
+			String msg, int c_x, int c_y, int c_width, int c_height) {
 
 		Font font = new Font("Helvetica", Font.PLAIN, fontSize);
 		FontMetrics metrics = g2d.getFontMetrics(font);

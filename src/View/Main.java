@@ -25,6 +25,9 @@ import Controller.MainController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**Main.
+ *
+ */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
@@ -35,6 +38,9 @@ public class Main extends Application {
 		//UIManager.areYouFeelingLucky();
 	}
 
+	/** main method.
+	 * @param args Array String
+	 */
 	public static void main(String[] args) {
 		launch(args);
 		// Upon exit, save the StudyPlanner:

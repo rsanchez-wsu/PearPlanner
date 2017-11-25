@@ -40,6 +40,7 @@ import java.util.Locale;
 public class ICalExport {
 	private Date eventStart;
 	private String title;
+	@SuppressWarnings("unused")
 	private MultilineString description;
 	private int hours;
 	private int minutes;

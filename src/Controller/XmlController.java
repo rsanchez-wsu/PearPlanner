@@ -21,6 +21,8 @@
 
 package Controller;
 
+import static Controller.MainController.isNumeric;
+
 import Model.MultilineString;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -28,16 +30,21 @@ import org.w3c.dom.NodeList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static Controller.MainController.isNumeric;
-
 /**
  * Created by bendickson on 5/6/17.
  */
-public class XMLcontroller {
+public class XmlController {
+
+	/**
+	 *set import style.
+	 */
 	public enum ImportAs {
 		BOOLEAN, STRING, INTEGER, DOUBLE, MULTILINESTRING, NODELIST
 	}
 
+	/**
+	 *inner class.
+	 */
 	public class NodeReturn {
 		private ImportAs importedAs;
 		private String stringValue;
@@ -47,6 +54,9 @@ public class XMLcontroller {
 		private NodeList nodeList;
 		private boolean booleanValue = false;
 
+		/**get boolean value.
+		 * @return boolean
+		 */
 		public boolean getBoolean() {
 			if (importedAs == ImportAs.BOOLEAN) {
 				return booleanValue;
@@ -55,6 +65,9 @@ public class XMLcontroller {
 			}
 		}
 
+		/**get string value.
+		 * @return string
+		 */
 		public String getString() {
 			if (importedAs == ImportAs.STRING) {
 				return stringValue;
@@ -63,6 +76,9 @@ public class XMLcontroller {
 			}
 		}
 
+		/**get multiline string value.
+		 * @return multilineString
+		 */
 		public MultilineString getMultilineString() {
 			if (importedAs == ImportAs.MULTILINESTRING) {
 				return multilineStringValue;
@@ -71,6 +87,9 @@ public class XMLcontroller {
 			}
 		}
 
+		/**get integer value.
+		 * @return int
+		 */
 		public int getInt() {
 			if (importedAs == ImportAs.INTEGER) {
 				return integerValue;
@@ -79,6 +98,9 @@ public class XMLcontroller {
 			}
 		}
 
+		/**get double value.
+		 * @return double
+		 */
 		public double getDouble() {
 			if (importedAs == ImportAs.DOUBLE) {
 				return doubleValue;
@@ -87,6 +109,9 @@ public class XMLcontroller {
 			}
 		}
 
+		/**get node list.
+		 * @return NodeList
+		 */
 		public NodeList getNodeList() {
 			if (importedAs == ImportAs.NODELIST) {
 				return nodeList;
@@ -95,38 +120,62 @@ public class XMLcontroller {
 			}
 		}
 
+		/**set value.
+		 * @param nv boolean
+		 */
 		NodeReturn(boolean nv) {
 			importedAs = ImportAs.BOOLEAN;
 			booleanValue = nv;
 		}
 
+		/**set value.
+		 * @param nv int
+		 */
 		NodeReturn(int nv) {
 			importedAs = ImportAs.INTEGER;
 			integerValue = nv;
 		}
 
+		/**set value.
+		 * @param nv double
+		 */
 		NodeReturn(double nv) {
 			importedAs = ImportAs.DOUBLE;
 			doubleValue = nv;
 		}
 
+		/**set String.
+		 * @param nv String
+		 */
 		NodeReturn(String nv) {
 			importedAs = ImportAs.STRING;
 			stringValue = nv;
 		}
 
+		/**set Multiline String.
+		 * @param nv MultilineString
+		 */
 		NodeReturn(MultilineString nv) {
 			importedAs = ImportAs.MULTILINESTRING;
 			multilineStringValue = nv;
 		}
 
+		/**set Node List.
+		 * @param nv NodeList
+		 */
 		NodeReturn(NodeList nv) {
 			importedAs = ImportAs.NODELIST;
 			nodeList = nv;
 		}
 	}
 
-	public HashMap<String, NodeReturn> getSchemaValues(NodeList nodes, HashMap<String, ImportAs> schema) {
+	/**get schema values.
+	 * @param nodes NodeList
+	 * @param schema HashMap
+	 * @return HashMap
+	 */
+	public HashMap<String, NodeReturn> getSchemaValues(NodeList nodes,
+			HashMap<String, ImportAs> schema) {
 		HashMap<String, NodeReturn> r = new HashMap<>();
 		int i = -1;
 		int ii = nodes.getLength();
@@ -136,15 +185,17 @@ public class XMLcontroller {
 			if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 				nodeName = nodes.item(i).getNodeName();
 				if (schema.containsKey(nodeName) && !r.containsKey(nodeName)) {
-				switch (schema.get(nodeName)) {
+					switch (schema.get(nodeName)) {
 					case BOOLEAN:
-						r.put(nodeName, new NodeReturn(nodes.item(i).getTextContent().equals("true")));
+						r.put(nodeName,
+								new NodeReturn(nodes.item(i).getTextContent().equals("true")));
 						break;
 					case STRING:
 						r.put(nodeName, new NodeReturn(nodes.item(i).getTextContent()));
 						break;
 					case MULTILINESTRING:
-						r.put(nodeName, new NodeReturn(new MultilineString(nodes.item(i).getTextContent())));
+						r.put(nodeName,new NodeReturn(
+								new MultilineString(nodes.item(i).getTextContent())));
 						break;
 					case INTEGER:
 						temp = nodes.item(i).getTextContent();
@@ -162,6 +213,10 @@ public class XMLcontroller {
 						if (nodes.item(i).hasChildNodes()) {
 							r.put(nodeName, new NodeReturn(nodes.item(i).getChildNodes()));
 						}
+						break;
+					default:
+						r.put("default", new NodeReturn(0));
+						break;
 					}
 				}
 			}
@@ -169,7 +224,12 @@ public class XMLcontroller {
 		return r;
 	}
 
-	static public NodeList getNodes(Node parentNode) {
+	/**get child node
+	 * if child node's type is not equal to ELEMENT NODE then remove it.
+	 * @param parentNode Node
+	 * @return NodeList
+	 */
+	public static NodeList getNodes(Node parentNode) {
 		NodeList tList = parentNode.getChildNodes();
 		int i = tList.getLength();
 		while (0 < i--) {
@@ -180,8 +240,13 @@ public class XMLcontroller {
 		return parentNode.getChildNodes();
 	}
 
+	/** validate node list.
+	 * @param nodes NodeList
+	 * @param nodeNames String[]
+	 * @return boolean
+	 */
 	@Deprecated
-	static public boolean validNodeList(NodeList nodes, String[] nodeNames) {
+	public static boolean validNodeList(NodeList nodes, String[] nodeNames) {
 		int i = -1;
 		int ii = nodeNames.length;
 		if (nodes.getLength() != ii) {
@@ -195,12 +260,22 @@ public class XMLcontroller {
 		return true;
 	}
 
-	static public boolean matchesSchema(NodeList nodes, HashMap<String, XMLcontroller.ImportAs> schema) {
+	/**compare each element of nodes with Node if
+	 * that element has the same ELEMENT_NODE and the same key
+	 * then add it to a Set
+	 * return the boolean value of the comparation between the size of the Set and the schema Map.
+	 * @param nodes NodeList
+	 * @param schema HashMap
+	 * @return boolean
+	 */
+	public static boolean matchesSchema(NodeList nodes,
+			HashMap<String, XmlController.ImportAs> schema) {
 		HashSet<String> match = new HashSet<>();
 		int i = -1;
 		int ii = nodes.getLength();
 		while (++i < ii) {
-			if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE && schema.containsKey(nodes.item(i).getNodeName())) {
+			if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE
+					&& schema.containsKey(nodes.item(i).getNodeName())) {
 				match.add(nodes.item(i).getNodeName());
 			}
 		}
