@@ -929,7 +929,7 @@ public class MenuController implements Initializable {
 
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
-		this.title.setText("");
+		this.title.setText("Chat");
 		this.mainContent.getChildren().addAll(firstPane);
 		createFirstWindow();
 		submitButtonAction();
@@ -944,10 +944,11 @@ public class MenuController implements Initializable {
 
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
-		this.title.setText("");
+		this.title.setText("Chat");
 		this.mainContent.getChildren().addAll(mainPane);
 		createUserMessagePane();
 		createMainPane();
+		sendButtonAction();
 	}
 
 	/**
@@ -967,7 +968,7 @@ public class MenuController implements Initializable {
 	 */
 	public void createUserMessagePane() {
 		msgArea.setEditable(false);
-		tfMessageToSend.setPrefWidth(500);
+		tfMessageToSend.setPrefWidth(800);
 		userMessagePane.setPadding(new Insets(10, 10, 10, 10));
 		sendButton.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
 		spacingBox.setPadding(new Insets(0, 5, 0, 5));
@@ -1003,6 +1004,23 @@ public class MenuController implements Initializable {
 			}
 			hostName = tfHost.getText();
 			loadChatWindow();
+		});
+	}
+
+	/**
+	 * This will take in the action of when the send button is pressed.
+	 * If a user sends a message, the line of text will append to the chat log
+	 * so the user can see what they sent. It follows the format of
+	 * USER: sentence.
+	 * The text box with the user input will be set back to blank after a message
+	 * is sent.
+	 */
+	public void sendButtonAction() {
+		sendButton.setOnAction((ActionEvent exception1) -> {
+			if (!(tfMessageToSend.getText().equals(""))) {
+				msgArea.appendText(userName + ": " + tfMessageToSend.getText() + "\n");
+				tfMessageToSend.setText("");
+			}
 		});
 	}
 
