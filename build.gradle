@@ -42,7 +42,7 @@ apply plugin: 'org.junit.platform.gradle.plugin'
  * This line specifies where the main.java file is found.
  */
 
-mainClassName='View.Main'
+mainClassName='edu.wright.cs.raiderplanner.view.Main'
 
 /**
  * This statement declares where Gradle is to find directories
@@ -61,7 +61,7 @@ sourceSets {
 
 	test {
 		java {
-			srcDirs = ["Test"]
+			srcDirs = ["test"]
 		}
 	}
 }
@@ -101,6 +101,7 @@ dependencies {
 	compile 'net.sf.biweekly:biweekly:0.6.1'
 	compile 'commons-validator:commons-validator:1.6'
 	compile 'com.google.guava:guava:21.0'
+	compile 'org.apache.commons:commons-lang3:3.7'
 	compile 'org.hamcrest:hamcrest-all:1.3'
 	compile 'org.hamcrest:hamcrest-core:1.3'
 	compile 'org.hamcrest:hamcrest-generator:1.3'
@@ -161,7 +162,7 @@ junitPlatform {
 
 checkstyle {
 	configFile = '.checkstyle.xml' as File
-	maxWarnings = 2698
+	maxWarnings = 1791
 }
 
 tasks.withType(FindBugs) {
