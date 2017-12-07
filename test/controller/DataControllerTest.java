@@ -21,7 +21,6 @@
 
 package controller;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -93,7 +92,8 @@ public class DataControllerTest {
 	@Test
 	public void loadHubFile() throws Exception {
 	/*	HubFile hub = DataController.loadHubFile(tempFile);
-	 * the line above causes ExceptionInInitialzerError
+	 * the line above causes ExceptionInInitializerError.
+	 * I think the main reason that causing this is the static initializer block in HubFile.
 	 * I will fire an issue on this one and it should be commented out
 	 * until it is resolved
 	 * NguyenVo 
