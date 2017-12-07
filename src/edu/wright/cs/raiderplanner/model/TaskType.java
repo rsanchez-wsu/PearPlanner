@@ -21,15 +21,15 @@
 
 package edu.wright.cs.raiderplanner.model;
 
-import java.util.ArrayList;
-
 import edu.wright.cs.raiderplanner.controller.MainController;
+
+import java.util.ArrayList;
 
 /**
  * PearPlanner/RaiderPlanner Created by Team BRONZE on 4/27/17.
  */
 public class TaskType extends ModelEntity {
-	private static final long serialVersionUID = -5959758130599922239L;
+  private static final long serialVersionUID = -5959758130599922239L;
 	private static ArrayList<TaskType> taskDatabase = new ArrayList<>();
 
 	/**

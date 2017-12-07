@@ -24,11 +24,11 @@ package edu.wright.cs.raiderplanner.model;
 import java.io.Serializable;
 
 /**
- * PearPlanner/RaiderPlanner
+ * PearPlanner/RaiderPlanner.
  * Created by Team BRONZE on 4/27/17
  */
 public class Account implements Serializable {
-	private static final long serialVersionUID = 311704228680820589L;
+  private static final long serialVersionUID = 311704228680820589L;
 	// private data
 	private Person studentDetails;
 	private String studentNumber;

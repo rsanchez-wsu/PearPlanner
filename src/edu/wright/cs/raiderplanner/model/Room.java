@@ -27,21 +27,20 @@ package edu.wright.cs.raiderplanner.model;
  * Created by Team BRONZE on 4/27/17
  */
 public class Room extends VersionControlEntity {
-	private static final long serialVersionUID = 555013283178076442L;
 	// private data
 	private Building building = null;
 	private String roomNumber;
 
 	@Override
-	protected void replace(VersionControlEntity receivedVCE) {
-		if (receivedVCE instanceof Room) {
-			Room castedVCE = (Room) receivedVCE;
-			if (castedVCE.getBuilding() != null) {
-				this.building = castedVCE.getBuilding();
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Room) {
+			Room castedVce = (Room) receivedVce;
+			if (castedVce.getBuilding() != null) {
+				this.building = castedVce.getBuilding();
 			}
-			this.roomNumber = castedVCE.getRoomNumber();
+			this.roomNumber = castedVce.getRoomNumber();
 		}
-		super.replace(receivedVCE);
+		super.replace(receivedVce);
 	}
 
 	// public methods

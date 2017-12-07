@@ -22,16 +22,13 @@
 package edu.wright.cs.raiderplanner.model;
 
 /**
- * PearPlanner/RaiderPlanner
+ * PearPlanner/RaiderPlanner.
  * Created by Team BRONZE on 4/27/17
  */
-public class Deadline extends Event
-{
-	private static final long serialVersionUID = 7885214255899749339L;
-
+public class Deadline extends Event {
+  private static final long serialVersionUID = 7885214255899749339L;
 	// maybe we can get rid of this
-    public Deadline(String cDate)
-    {
-        super(cDate);
-    }
+	public Deadline(String cdate) {
+		super(cdate);
+	}
 }

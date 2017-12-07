@@ -22,28 +22,28 @@
 package edu.wright.cs.raiderplanner.model;
 
 /**
- * PearPlanner/RaiderPlanner
+ * PearPlanner/RaiderPlanner.
  * Created by Team BRONZE on 4/27/17
  */
 public class Building extends VersionControlEntity {
-	private static final long serialVersionUID = -5033657906278674527L;
+  private static final long serialVersionUID = -5033657906278674527L;
 	// private Data
 	private String code = null;
 	private double latitude;
 	private double longitude;
 
 	@Override
-	protected void replace(VersionControlEntity receivedVCE) {
-		if (receivedVCE instanceof Building) {
-			Building castedVCE = (Building) receivedVCE;
-			if (castedVCE.getCode() != null) {
-				this.code = castedVCE.getCode();
+	protected void replace(VersionControlEntity receivedVce) {
+		if (receivedVce instanceof Building) {
+			Building castedVce = (Building) receivedVce;
+			if (castedVce.getCode() != null) {
+				this.code = castedVce.getCode();
 			}
-			this.latitude = castedVCE.getLatitude();
-			this.longitude = castedVCE.getLongitude();
+			this.latitude = castedVce.getLatitude();
+			this.longitude = castedVce.getLongitude();
 		}
 
-		super.replace(receivedVCE);
+		super.replace(receivedVce);
 	}
 
 	// getters
@@ -81,10 +81,10 @@ public class Building extends VersionControlEntity {
 	}
 
 	// constructor
-	public Building(String cCode, double cLatitude, double cLongitude) {
-		code = cCode;
-		latitude = cLatitude;
-		longitude = cLongitude;
+	public Building(String ccode, double clatitude, double clongitude) {
+		code = ccode;
+		latitude = clatitude;
+		longitude = clongitude;
 	}
 
 	@Override

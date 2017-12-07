@@ -29,163 +29,116 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * PearPlanner/RaiderPlanner
+ * PearPlanner/RaiderPlanner.
  * Created by Team BRONZE on 4/27/17
  */
-public class Requirement extends ModelEntity
-{
-	private static final long serialVersionUID = 8170392851920791428L;
+public class Requirement extends ModelEntity {
 	protected boolean checkedCompleted;
-    protected double estimatedTimeInHours;
-    protected ArrayList<Activity> activityLog = new ArrayList<>();
-    protected int initialQuantity;
-    protected int remainingQuantity;
-    protected QuantityType quantityType;
+	protected double estimatedTimeInHours;
+	protected ArrayList<Activity> activityLog = new ArrayList<>();
+	protected int initialQuantity;
+	protected int remainingQuantity;
+	protected QuantityType quantityType;
 
-    // public methods
+	// public methods
 
-    // Getters:
-    public boolean isComplete()
-    {
-        return this.checkedCompleted;
-    }
+	// Getters:
+	public boolean isComplete() {
+		return this.checkedCompleted;
+	}
 
-    /**
-     * Returns the QuantityType of this Requirement.
-     *
-     * @return
-     */
-    public QuantityType getQuantityType()
-    {
-        return this.quantityType;
-    }
+	/**
+	 * Returns the QuantityType of this Requirement.
+	 *
+	 * @return.
+	 */
+	public QuantityType getQuantityType() {
+		return this.quantityType;
+	}
 
-    /**
-     * Returns the estimated time of this Requirement (in hours)
-     *
-     * @return
-     */
-    public double getEstimatedTimeInHours()
-    {
-        return estimatedTimeInHours;
-    }
+	/**
+	 * Returns the estimated time of this Requirement (in hours).
+	 *
+	 * @return.
+	 */
+	public double getEstimatedTimeInHours() {
+		return estimatedTimeInHours;
+	}
 
-    /**
-     * Returns the initial quantity of this Requirement
-     *
-     * @return
-     */
-    public int getInitialQuantity()
-    {
-        return initialQuantity;
-    }
+	/**
+	 * Returns the initial quantity of this Requirement.
+	 *
+	 * @return.
+	 */
+	public int getInitialQuantity() {
+		return initialQuantity;
+	}
 
-    /**
-     * Returns the remaining quantity of this Requirement
-     */
-    public int getRemainingQuantity()
-    {
-        return remainingQuantity;
-    }
+	/**
+	 * Returns the remaining quantity of this Requirement.
+	 */
+	public int getRemainingQuantity() {
+		return remainingQuantity;
+	}
 
-    /**
-     * Returns an array of ActivityEvents that are associated with this Requirement
-     *
-     * @return
-     */
-    public Activity[] getActivityLog()
-    {
-        return this.activityLog.toArray(new Activity[this.activityLog.size()]);
-    }
+	/**
+	 * Returns an array of ActivityEvents that are associated with this Requirement.
+	 *
+	 * @return.
+	 */
+	public Activity[] getActivityLog() {
+		return this.activityLog.toArray(new Activity[this.activityLog.size()]);
+	}
 
-    /**
-     * Returns a double value representing the progress of this Requirement
-     *
-     * @return value between 0.0 and 0.1
-     */
-    public double requirementProgress()
-    {
-        return (double) (this.initialQuantity - this.remainingQuantity) / this.initialQuantity;
-    }
+	/**
+	 * Returns a double value representing the progress of this Requirement
+	 *
+	 * @return value between 0.0 and 0.1
+	 */
+	public double requirementProgress() {
+		return (double) (this.initialQuantity - this.remainingQuantity) / this.initialQuantity;
+	}
 
-    // Setters:
-    public void setEstimatedTimeInHours(double estimatedTimeInHours)
-    {
-        this.estimatedTimeInHours = estimatedTimeInHours;
-    }
+	// Setters:
+	public void setEstimatedTimeInHours(double estimatedTimeInHours) {
+		this.estimatedTimeInHours = estimatedTimeInHours;
+	}
 
-    /**
-     * Change the initial quantity. This will update the progress of this Requirement to reflect the change.
-     *
-     * @param initialQuantity
-     */
-    public void setInitialQuantity(int initialQuantity)
-    {
-        if (this.initialQuantity == this.remainingQuantity)
-            this.initialQuantity = this.remainingQuantity = initialQuantity;
-        else
-        {
-            this.initialQuantity = initialQuantity;
-            this.update();
-        }
-    }
+	/**
+	 * Change the initial quantity. This will update the progress of this
+	 * Requirement to reflect the change.
+	 *
+	 * @param initialQuantity.
+	 */
+	public void setInitialQuantity(int initialQuantity) {
+		if (this.initialQuantity == this.remainingQuantity) {
+			this.initialQuantity = this.remainingQuantity = initialQuantity;
+		} else {
+			this.initialQuantity = initialQuantity;
+			this.update();
+		}
+	}
 
-    public void setQuantityType(String quantityType)
-    {
-        this.quantityType = QuantityType.get(quantityType);
-    }
+	public void setQuantityType(String quantityType) {
+		this.quantityType = QuantityType.get(quantityType);
+	}
 
-    /**
-     * Add an Activity to the current Requirement and update the progress of this Requirement accordingly.
-     *
-     * @param activity Activity to be added.
-     */
-    public void addActivity(Activity activity)
-    {
-        this.activityLog.add(activity);
-        this.remainingQuantity -= activity.getActivityQuantity();
-        if (remainingQuantity <= 0)
-        {
-            this.remainingQuantity = 0;
-            this.checkedCompleted = true;
-        }
-    }
+	/**
+	 * Add an Activity to the current Requirement and update the progress
+	 * of this Requirement accordingly.
+	 *
+	 * @param activity Activity to be added.
+	 */
+	public void addActivity(Activity activity) {
+		this.activityLog.add(activity);
+		this.remainingQuantity -= activity.getActivityQuantity();
+		if (remainingQuantity <= 0) {
+			this.remainingQuantity = 0;
+			this.checkedCompleted = true;
+		}
+	}
 
-    /**
-     * Update the current Requirement to reflect changes.
-     *
-     * @return whether any changes were made
-     */
-    public boolean update()
-    {
-        int tempQuantity = this.remainingQuantity;
-
-        this.remainingQuantity = this.initialQuantity;
-        this.checkedCompleted = false;
-        for (Activity activity : this.activityLog)
-            this.remainingQuantity -= activity.getActivityQuantity();
-
-        if (this.remainingQuantity <= 0)
-        {
-            this.remainingQuantity = 0;
-            this.checkedCompleted = true;
-        }
-
-        return tempQuantity == this.remainingQuantity;
-    }
-
-    /**
-     * Returns the Name of the Requirement (used for JavaFX)
-     *
-     * @return Name of the task
-     */
-    @Override
-    public String toString()
-    {
-        return this.name;
-    }
-
-    /*Requirement class overrides equals method, but neigh it nor superclass overrides hashCode method
+  /*Requirement class overrides equals method, but neigh it nor superclass overrides hashCode method
      * Which cause a warning. Therefore, hashCode() is generated here, although it isn't used by equals method.*/
 	@Override
 	public int hashCode() {
@@ -201,42 +154,83 @@ public class Requirement extends ModelEntity
 		result = prime * result + remainingQuantity;
 		return result;
 	}
+  
+	/**
+	 * Update the current Requirement to reflect changes.
+	 *
+	 * @return whether any changes were made
+	 */
+	public boolean update() {
 
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
 
-        Requirement that = (Requirement) o;
+		this.remainingQuantity = this.initialQuantity;
+		this.checkedCompleted = false;
+		for (Activity activity : this.activityLog) {
+			this.remainingQuantity -= activity.getActivityQuantity();
+		}
+		int tempQuantity = this.remainingQuantity;
 
-        if (checkedCompleted != that.checkedCompleted) return false;
-        if (Double.compare(that.estimatedTimeInHours, estimatedTimeInHours) != 0) return false;
-        if (initialQuantity != that.initialQuantity) return false;
-        if (remainingQuantity != that.remainingQuantity) return false;
-        if (!activityLog.equals(that.activityLog)) return false;
-        return quantityType.equals(that.quantityType);
-    }
+		if (this.remainingQuantity <= 0) {
+			this.remainingQuantity = 0;
+			this.checkedCompleted = true;
+		}
 
+		return tempQuantity == this.remainingQuantity;
+	}
+
+	/**
+	 * Returns the Name of the Requirement (used for JavaFX).
+	 *
+	 * @return Name of the task
+	 */
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
 	@Override
-    public void open(MenuController.Window current)
-    {
-        try
-        {
-            MainController.ui.requirementDetails(this);
-        } catch (IOException e)
-        {
-            UIManager.reportError("Unable to open view file");
-        }
-    }
+	public boolean equals(Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (object == null || this.getClass() != object.getClass()) {
+			return false;
+		}
 
-    // Constructors:
-    public Requirement(String name, String details, double time, int quantity, String type)
-    {
-        super(name, details);
-        this.estimatedTimeInHours = time;
-        this.initialQuantity = this.remainingQuantity = quantity;
-        this.quantityType = QuantityType.get(type);
-    }
+		Requirement that = (Requirement) object;
+
+		if (checkedCompleted != that.checkedCompleted) {
+			return false;
+		}
+		if (Double.compare(that.estimatedTimeInHours, estimatedTimeInHours) != 0) {
+			return false;
+		}
+		if (initialQuantity != that.initialQuantity) {
+			return false;
+		}
+		if (remainingQuantity != that.remainingQuantity) {
+			return false;
+		}
+		if (!activityLog.equals(that.activityLog)) {
+			return false;
+		}
+		return quantityType.equals(that.quantityType);
+	}
+
+	@Override
+	public void open(MenuController.Window current) {
+		try {
+			MainController.ui.requirementDetails(this);
+		} catch (IOException e) {
+			UIManager.reportError("Unable to open view file");
+		}
+	}
+
+	// Constructors:
+	public Requirement(String name, String details, double time, int quantity, String type) {
+		super(name, details);
+		this.estimatedTimeInHours = time;
+		this.initialQuantity = this.remainingQuantity = quantity;
+		this.quantityType = QuantityType.get(type);
+	}
 }
