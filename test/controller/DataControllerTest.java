@@ -21,19 +21,36 @@
 
 package controller;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import edu.wright.cs.raiderplanner.controller.DataController;
+import edu.wright.cs.raiderplanner.controller.XMLcontroller;
+import edu.wright.cs.raiderplanner.model.HubFile;
 
 /**
  * Created by bijan on 08/05/2017.
  */
 public class DataControllerTest {
+	File tempFile;
 	/**
 	 * WIP: This test class should set up required data and fields.
 	 * @throws Exception to handle when the test setup fails for any given reason.
 	 */
 	@BeforeEach
 	public void setUp() throws Exception {
+		tempFile = new File("./StudyProfiles/HP_First_Year.xml");
 	}
 
 	/**
@@ -42,6 +59,7 @@ public class DataControllerTest {
 	 */
 	@Test
 	public void existingSettingsFile() throws Exception {
+		assertTrue(tempFile.exists());
 	}
 
 	/**
@@ -50,6 +68,14 @@ public class DataControllerTest {
 	 */
 	@Test
 	public void getNodes() throws Exception {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+		Document doc = docBuilder.parse(tempFile);
+		doc.getDocumentElement().normalize();
+
+		Node rootElement = doc.getDocumentElement();
+		NodeList nodes = XMLcontroller.getNodes(rootElement);
+		assertTrue(nodes != null);
 	}
 
 	/**
@@ -66,6 +92,12 @@ public class DataControllerTest {
 	 */
 	@Test
 	public void loadHubFile() throws Exception {
+	/*	HubFile hub = DataController.loadHubFile(tempFile);
+	 * the line above causes ExceptionInInitialzerError
+	 * I will fire an issue on this one and it should be commented out
+	 * until it is resolved
+	 * NguyenVo 
+		assertTrue(hub != null);*/
 	}
 
 }
