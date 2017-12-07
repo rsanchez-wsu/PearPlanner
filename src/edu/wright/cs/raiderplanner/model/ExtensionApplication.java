@@ -28,6 +28,7 @@ import java.io.Serializable;
  * Created by Team BRONZE on 4/27/17
  */
 public class ExtensionApplication implements Serializable {
+	private static final long serialVersionUID = -4282183151420992773L;
 	// private data
 	private Extension extension;
 	private String moduleCode;

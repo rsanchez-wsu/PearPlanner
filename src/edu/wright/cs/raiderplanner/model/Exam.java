@@ -27,7 +27,8 @@ package edu.wright.cs.raiderplanner.model;
  */
 public class Exam extends Assignment
 {
-    // private data
+	private static final long serialVersionUID = -3359991897832843761L;
+	// private data
     private Exam resit = null;
     private ExamEvent timeSlot = null;
 

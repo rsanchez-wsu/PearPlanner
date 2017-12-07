@@ -26,6 +26,7 @@ package edu.wright.cs.raiderplanner.model;
  * Created by Team BRONZE on 4/27/17
  */
 public class Extension extends VersionControlEntity {
+	private static final long serialVersionUID = -2136553532837939729L;
 	// private data
 	private Deadline newDeadline;
 	private MultilineString circumstances;

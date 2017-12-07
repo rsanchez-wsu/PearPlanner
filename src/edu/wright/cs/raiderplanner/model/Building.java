@@ -26,6 +26,7 @@ package edu.wright.cs.raiderplanner.model;
  * Created by Team BRONZE on 4/27/17
  */
 public class Building extends VersionControlEntity {
+	private static final long serialVersionUID = -5033657906278674527L;
 	// private Data
 	private String code = null;
 	private double latitude;

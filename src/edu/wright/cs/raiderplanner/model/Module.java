@@ -32,7 +32,8 @@ import java.util.ArrayList;
  */
 public class Module extends VersionControlEntity
 {
-    // private data
+	private static final long serialVersionUID = 8048960526106313238L;
+	// private data
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private Person organiser;
     private String moduleCode;

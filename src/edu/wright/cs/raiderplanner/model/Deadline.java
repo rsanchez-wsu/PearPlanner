@@ -27,7 +27,9 @@ package edu.wright.cs.raiderplanner.model;
  */
 public class Deadline extends Event
 {
-    // maybe we can get rid of this
+	private static final long serialVersionUID = 7885214255899749339L;
+
+	// maybe we can get rid of this
     public Deadline(String cDate)
     {
         super(cDate);

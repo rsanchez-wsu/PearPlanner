@@ -30,6 +30,7 @@ import edu.wright.cs.raiderplanner.controller.MainController;
  * Created by Team BRONZE on 4/27/17
  */
 public class QuantityType extends ModelEntity {
+	private static final long serialVersionUID = -6738945959659506038L;
 	private static ArrayList<QuantityType> quantityDatabase = new ArrayList<>();
 
 	/**
@@ -219,6 +220,9 @@ public class QuantityType extends ModelEntity {
 		}
 	}
 
+	/*This equals method should not be overrided because there is no non-static fields in this class
+	 * If it was overrided, it sho  */
+	
 	/**
 	 * Test to see if the object name is equal to type.
 	 * @return if they are equal
