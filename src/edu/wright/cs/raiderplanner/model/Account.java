@@ -28,31 +28,48 @@ import java.io.Serializable;
  * Created by Team BRONZE on 4/27/17
  */
 public class Account implements Serializable {
+
+	/**
+	 * generated UID.
+	 */
+	private static final long serialVersionUID = 311704228680820589L;
 	// private data
 	private Person studentDetails;
 	private String studentNumber;
 
 	// public methods
 
-	// getters
+	/**
+	 * gets Student Details.
+	 */
 	public Person getStudentDetails() {
 		return studentDetails;
 	}
 
+	/**
+	 * gets Student Number.
+	 */
 	public String getStudentNumber() {
 		return studentNumber;
 	}
 
-	// setters
+	/**
+	 * sets Student Details.
+	 */
 	public void setStudentDetails(Person newStudentDetails) {
 		studentDetails = newStudentDetails;
 	}
 
+	/**
+	 * sets Student Number.
+	 */
 	public void setStudentNumber(String newStudentNumber) {
 		studentNumber = newStudentNumber;
 	}
 
-	// constructors
+	/**
+	 * constructor.
+	 */
 	public Account(Person studentDetails, String studentNumber) {
 		this.studentDetails = studentDetails;
 		this.studentNumber = studentNumber;
