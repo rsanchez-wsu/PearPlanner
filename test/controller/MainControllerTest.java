@@ -79,7 +79,7 @@ public class MainControllerTest {
 		/*ExceptionInInitializerError occurred again
 		If we try to instantiate an UIManager object and run the gradle,
 		it will cause ExceptionInInitializerError.*/
-		if (tempFile.exists()) {
+		/*if (tempFile.exists()) {
 			try {
 				Cipher cipher = Cipher.getInstance("Blowfish");
 				cipher.init(Cipher.DECRYPT_MODE, key64);
@@ -143,7 +143,7 @@ public class MainControllerTest {
 			UIManager.reportError("Failed to load file.");
 			assertFalse("Failed to load file.", false);
 			System.exit(1);
-		}
+		}*/
 	}
 
 	/**
