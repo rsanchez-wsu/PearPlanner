@@ -195,8 +195,9 @@ public class Requirement extends ModelEntity {
 		result = prime * result + initialQuantity;
 		result = prime * result + ((quantityType == null) ? 0 : quantityType.hashCode());
 		result = prime * result + remainingQuantity;
-	return result;
+		return result;
 	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) {
