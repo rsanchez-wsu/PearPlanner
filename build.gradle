@@ -173,3 +173,14 @@ tasks.withType(FindBugs) {
 	}
 	ignoreFailures = true
 }
+
+//Adding options to enable more robust compile-time error/warning and lint check
+ //Others are working on Type Safety Warning which refer to issue #32
+ //When the gradle is run the build is failed, because of missing serialVersionUID, calling close()
+ //on an auto-closable resource, and other warnings refer to genetic.
+ //I think this is better to stay commented out until the warnings are resolved.
+ //I will fire an issue on those warning that refers to genetic.
+ //Nguyen Vo
+ //tasks.withType(JavaCompile) {
+ //  options.compilerArgs << "-Xlint:all" << "-Werror"
+ //}
