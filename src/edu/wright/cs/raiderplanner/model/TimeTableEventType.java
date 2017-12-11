@@ -26,6 +26,8 @@ package edu.wright.cs.raiderplanner.model;
  * Created by Team BRONZE on 4/27/17
  */
 public class TimeTableEventType extends VersionControlEntity {
+	private static final long serialVersionUID = 7084389432312988661L;
+
 	public String toString() {
 		return name;
 	}

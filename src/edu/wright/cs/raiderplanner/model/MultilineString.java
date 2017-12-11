@@ -29,6 +29,7 @@ import java.util.Arrays;
  * Created by bendickson on 4/27/17.
  */
 public class MultilineString implements Serializable, Cloneable {
+	private static final long serialVersionUID = 7019230312439239151L;
 	// private Data;
 	private ArrayList<String> lines;
 

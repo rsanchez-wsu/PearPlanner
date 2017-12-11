@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
  */
 public class Person extends VersionControlEntity {
 
+	private static final long serialVersionUID = 7237323563603651918L;
 	private static Pattern salutationRegex = Pattern.compile("[a-zA-Z]*");
 	private static Pattern nameRegex = Pattern.compile("[a-zA-z\\s]*");
 

@@ -27,6 +27,7 @@ package edu.wright.cs.raiderplanner.model;
  * Created by Team BRONZE on 4/27/17
  */
 public class Room extends VersionControlEntity {
+	private static final long serialVersionUID = 555013283178076442L;
 	// private data
 	private Building building = null;
 	private String roomNumber;
