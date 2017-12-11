@@ -34,6 +34,7 @@ import java.util.Date;
  */
 public class Milestone extends ModelEntity {
 
+	private static final long serialVersionUID = 2090918999274347618L;
 	private ArrayList<Task> tasks = new ArrayList<>();
 	private Deadline deadline;
 

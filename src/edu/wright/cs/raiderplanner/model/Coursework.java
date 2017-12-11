@@ -29,6 +29,7 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17.
  */
 public class Coursework extends Assignment {
+  private static final long serialVersionUID = 5898556075406957629L;
 	private Event startDate;
 	private Deadline deadline;
 	private ArrayList<Extension> extensions;

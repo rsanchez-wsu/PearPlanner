@@ -30,6 +30,7 @@ import edu.wright.cs.raiderplanner.controller.MainController;
  * Created by Team BRONZE on 4/27/17
  */
 public class VersionControlEntity extends ModelEntity {
+	private static final long serialVersionUID = 8874224047839524705L;
 	protected int version;
 	protected String uid;
 	protected boolean sealed;

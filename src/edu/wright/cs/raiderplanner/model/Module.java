@@ -31,6 +31,7 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17 at 20:59
  */
 public class Module extends VersionControlEntity {
+  private static final long serialVersionUID = 8048960526106313238L;
 	// private data
 	private ArrayList<Assignment> assignments = new ArrayList<>();
 	private Person organiser;

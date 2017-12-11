@@ -122,7 +122,6 @@ public class ConsoleIO {
 				}
 				bw.write(logged.get(itr));
 			}
-			bw.close();
 		} catch (IOException e) {
 			setConsoleMessage("File not written", true);
 		}

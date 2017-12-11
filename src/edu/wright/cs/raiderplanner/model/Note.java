@@ -29,6 +29,7 @@ import java.util.GregorianCalendar;
  * Created by Team BRONZE on 4/27/17
  */
 public class Note implements Serializable {
+  private static final long serialVersionUID = 4870813759797154209L;
 	// private data
 	private String title;
 	private GregorianCalendar timeStamp;
