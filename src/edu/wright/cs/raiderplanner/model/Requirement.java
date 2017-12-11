@@ -33,6 +33,7 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17
  */
 public class Requirement extends ModelEntity {
+  private static final long serialVersionUID = 8170392851920791428L;
 	protected boolean checkedCompleted;
 	protected double estimatedTimeInHours;
 	protected ArrayList<Activity> activityLog = new ArrayList<>();
@@ -42,7 +43,10 @@ public class Requirement extends ModelEntity {
 
 	// public methods
 
-	// Getters:
+	/**
+	 * checks if it is complete.
+	 * @return boolean true or false
+	 */
 	public boolean isComplete() {
 		return this.checkedCompleted;
 	}
@@ -99,7 +103,10 @@ public class Requirement extends ModelEntity {
 		return (double) (this.initialQuantity - this.remainingQuantity) / this.initialQuantity;
 	}
 
-	// Setters:
+	/**
+	 * sets the estimated time in hours.
+	 * @param estimatedTimeInHours estimated time
+	 */
 	public void setEstimatedTimeInHours(double estimatedTimeInHours) {
 		this.estimatedTimeInHours = estimatedTimeInHours;
 	}
@@ -137,9 +144,9 @@ public class Requirement extends ModelEntity {
 			this.checkedCompleted = true;
 		}
 	}
-
+  
   /*Requirement class overrides equals method, but neigh it nor superclass overrides hashCode method
-     * Which cause a warning. Therefore, hashCode() is generated here, although it isn't used by equals method.*/
+   * Which cause a warning. Therefore, hashCode() is generated here, although it isn't used by equals method.*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
