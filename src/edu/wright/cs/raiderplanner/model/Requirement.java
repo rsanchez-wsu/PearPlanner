@@ -33,6 +33,7 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17
  */
 public class Requirement extends ModelEntity {
+	private static final long serialVersionUID = 8170392851920791428L;
 	protected boolean checkedCompleted;
 	protected double estimatedTimeInHours;
 	protected ArrayList<Activity> activityLog = new ArrayList<>();
@@ -175,6 +176,26 @@ public class Requirement extends ModelEntity {
 	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	/*Requirement class overrides equals method,
+	* but neigh it nor superclass overrides hashCode method
+	* Which cause a warning.
+	*  Therefore, hashCode() is generated here,
+	*  although it isn't used by equals method.*/
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((activityLog == null) ? 0 : activityLog.hashCode());
+		result = prime * result + (checkedCompleted ? 1231 : 1237);
+		long temp;
+		temp = Double.doubleToLongBits(estimatedTimeInHours);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + initialQuantity;
+		result = prime * result + ((quantityType == null) ? 0 : quantityType.hashCode());
+		result = prime * result + remainingQuantity;
+		return result;
 	}
 
 	@Override

@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17
  */
 public class ModelEntity implements Serializable {
+	private static final long serialVersionUID = -6684777070822468240L;
 	protected String name = "";
 	protected MultilineString details = null;
 	protected ArrayList<Note> notes;
@@ -105,5 +106,21 @@ public class ModelEntity implements Serializable {
 	public ModelEntity(String cname, String[] cdetails, ArrayList<Note> cnotes){
 	this(cname, cdetails);
 		notes = new ArrayList<Note>(cnotes);
+	}
+
+	/* the reason overriding hashCode() because it subclass, QuantityType,
+	 * overrided the equals method and it doesn't have any non-static field.
+	 * Therefore, hashCode() can't be implemented there,
+	 * instead in its superclass
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((details == null) ? 0 : details.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((notes == null) ? 0 : notes.hashCode());
+		return result;
 	}
 }

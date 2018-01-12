@@ -36,6 +36,7 @@ import java.util.HashMap;
  * Created by Team BRONZE on 4/27/17
  */
 public class HubFile implements Serializable {
+	private static final long serialVersionUID = -4120808474399182419L;
 	// private data
 	private ArrayList<VersionControlEntity> assets = new ArrayList<>();
 	private ArrayList<Module> modules = new ArrayList<>();

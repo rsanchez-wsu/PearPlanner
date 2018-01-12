@@ -33,6 +33,7 @@ import java.util.ArrayList;
  * Created by Team BRONZE on 4/27/17
  */
 public class StudyProfile extends VersionControlEntity {
+	private static final long serialVersionUID = -7665029130679237069L;
 	// private data
 	private ArrayList<Module> modules;
 	private ArrayList<Milestone> milestones;
