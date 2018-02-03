@@ -193,6 +193,9 @@ public class MenuController implements Initializable {
 	//chat variables
 	private final BorderPane mainPane = new BorderPane();
 	private final GridPane firstPane = new GridPane();
+	
+	//Probably need a menuPane
+	
 	private final GridPane userMessagePane = new GridPane();
 	private final HBox spacingBox = new HBox();
 	private TextField tfName = new TextField("");
@@ -1421,7 +1424,7 @@ public class MenuController implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources) { // Has access to the .fxml fields.
 		this.prepareAnimations();
 		this.isNavOpen = false;
 

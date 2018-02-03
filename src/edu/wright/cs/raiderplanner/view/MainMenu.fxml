@@ -65,6 +65,7 @@
                         <RowConstraints maxHeight="45.0" minHeight="10.0"/>
                         <RowConstraints maxHeight="45.0" minHeight="10.0"/>
                         <RowConstraints maxHeight="45.0" minHeight="10.0"/>
+                        <RowConstraints maxHeight="45.0" minHeight="10.0"/>
                         <RowConstraints/>
                     </rowConstraints>
                     <children>
@@ -203,6 +204,32 @@
                               </ImageView>
                             <Button onAction="#exportCalendar" style="-fx-background-color: transparent;-fx-text-fill:white; -fx-cursor: hand;"
                                     text="Export Calendar"
+                            />
+                          </HBox>
+                          
+                          <GridPane GridPane.rowIndex="6" vgap="15">
+                          <HBox GridPane.rowIndex="1">
+                            <ImageView fitHeight="2.0" fitWidth="173" pickOnBounds="true" preserveRatio="false">
+                                <HBox.margin>
+                                    <Insets left="0"/>
+                                </HBox.margin>
+                                <image>
+                                    <Image url="/edu/wright/cs/raiderplanner/content/line.png"/>
+                                </image>
+                            </ImageView>
+                          </HBox>
+
+                          <HBox GridPane.rowIndex="4">
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                  <HBox.margin>
+                                      <Insets left="5"/>
+                                  </HBox.margin>
+                                  <image>
+                                      <Image url="/edu/wright/cs/raiderplanner/content/settings.png"/>
+                                  </image>
+                              </ImageView>
+                            <Button onAction="#main_2" style="-fx-background-color: transparent;-fx-text-fill:white; -fx-cursor: hand;"
+                                    text="Mode Switch"
                             />
                           </HBox>
 

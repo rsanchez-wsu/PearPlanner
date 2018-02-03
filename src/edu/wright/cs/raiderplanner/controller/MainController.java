@@ -27,6 +27,7 @@ import edu.wright.cs.raiderplanner.model.ICalExport;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
 import edu.wright.cs.raiderplanner.view.UiManager;
 
+
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -168,6 +169,19 @@ public class MainController {
 	public static void main() {
 		try {
 			ui.mainMenu();
+		} catch (IOException e) {
+			UiManager.reportError("File does not exist: " + e.getMessage());
+		} catch (Exception e) {
+			UiManager.reportError(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Display the main menu 2.
+	 */
+	public static void main_2() {
+		try {
+			ui.mainMenu_2();
 		} catch (IOException e) {
 			UiManager.reportError("File does not exist: " + e.getMessage());
 		} catch (Exception e) {

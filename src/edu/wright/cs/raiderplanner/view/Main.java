@@ -33,6 +33,7 @@ public class Main extends Application {
 		// If initialization passed, call the Main menu:
 		MainController.main();
 		//UiManager.areYouFeelingLucky();
+		//UIManager.areYouFeelingLucky();
 	}
 
 	public static void main(String[] args) {

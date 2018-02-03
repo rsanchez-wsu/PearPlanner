@@ -87,6 +87,8 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/CreateAccount.fxml");
 	private URL mainMenuFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/MainMenu.fxml");
+	private URL mainMenuFxml_2 = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/MainMenu_2.fxml");
 	private URL studyProfileFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/StudyProfile.fxml");
 	private URL startupFxml = getClass().getResource(
@@ -131,6 +133,9 @@ public class UiManager {
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
 		FXMLLoader loader = new FXMLLoader(mainMenuFxml);
 		loader.setController(UiManager.mc);
+
+		loader.setController(UiManager.mc); // This may be where the initializer gets it's location and resources. 
+
 		Parent root = loader.load();
 
 		// Set the scene:
@@ -146,6 +151,33 @@ public class UiManager {
 		mainStage.getIcons().add(icon);
 		mainStage.showAndWait();
 	}
+	
+	/**
+	 * Displays the main menu.
+	 *
+	 * @throws Exception when the FXMLLoader is unable to load
+	 */
+	public void mainMenu_2() throws Exception {
+		// Load in the .fxml file:
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
+		FXMLLoader loader = new FXMLLoader(mainMenuFxml_2);
+		loader.setController(UiManager.mc); // This may be where the initializer gets it's location and resources. 
+		Parent root = loader.load();
+
+		// Set the scene:
+		mainStage.setScene(new Scene(root,
+				Screen.getPrimary().getVisualBounds().getWidth() * 0.77,
+				Screen.getPrimary().getVisualBounds().getHeight() * 0.9,
+				true, SceneAntialiasing.BALANCED));
+		mainStage.setTitle("RaiderPlanner");
+
+		// Set minimum resolution to around 360p in 3:5 aspect ratio for small phones
+		mainStage.setMinHeight(555);
+		mainStage.setMinWidth(333);
+		mainStage.getIcons().add(icon);
+		mainStage.showAndWait();
+	}
+
 
 	/**
 	 * Display the 'Add Activity' window.
