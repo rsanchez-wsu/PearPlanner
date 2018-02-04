@@ -174,7 +174,8 @@ public class ActivityController implements Initializable {
 	 */
 	public void addTask() {
 		// Table items:
-		ObservableList<Task> list = FXCollections.observableArrayList(MainController.getSpc().getCurrentTasks());
+		ObservableList<Task> list = FXCollections
+						.observableArrayList(MainController.getSpc().getCurrentTasks());
 		list.removeAll(this.tasks.getItems());
 		if (this.activity != null) {
 			list.removeAll(this.activity.getTasks());
