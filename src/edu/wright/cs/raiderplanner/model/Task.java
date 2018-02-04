@@ -74,16 +74,20 @@ public class Task extends ModelEntity {
 	public boolean isCheckedComplete() {
 		return canCheckComplete() && checkedComplete;
 	}
+	
 	/**
-	 * Used for deadline notifications
-	 * @return
+	 * Used for deadline notifications.
+	 * 
+	 * @return.
 	 */
 	public boolean weekNotificationSent() {
 		return weekNotification;
 	}
+	
 	/**
-	 * Used for deadline notifications
-	 * @return
+	 * Used for deadline notifications.
+	 * 
+	 * @return.
 	 */
 	public boolean twoDayNotificationSent() {
 		return twoDayNotification;
@@ -327,7 +331,7 @@ public class Task extends ModelEntity {
 			this.twoDayNotification = true;
 		}
 	}
-	
+
 	/**
 	 * Mark as complete/incomplete.
 	 *
@@ -396,13 +400,15 @@ public class Task extends ModelEntity {
 		}
 	}
 
-	/** 
+	/**
+	 * Constructs a Task.
+	 * 
 	 * Constructors:
-	 * @param name
-	 * @param details
-	 * @param deadline
-	 * @param weighting
-	 * @param type
+	 * @param name Name of task.
+	 * @param details Details of task.
+	 * @param deadline Deadline of task.
+	 * @param weighting weighting of task.
+	 * @param type Type of task.
 	 */
 	public Task(String name, String details, LocalDate deadline, int weighting, String type) {
 		super(name, details);
