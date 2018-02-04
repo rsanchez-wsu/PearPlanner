@@ -65,7 +65,7 @@ public class Exam extends Assignment {
 		resit = cresit;
 	}
 
-	public Exam(int cweighting, Person csetBy, Person cmarkedBy, Person creviewedBy, 
+	public Exam(int cweighting, Person csetBy, Person cmarkedBy, Person creviewedBy,
 						int cmarks, ExamEvent ctimeSlot) {
 		super(cweighting, csetBy, cmarkedBy, creviewedBy, cmarks);
 		timeSlot = ctimeSlot;

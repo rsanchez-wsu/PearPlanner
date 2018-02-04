@@ -47,8 +47,9 @@ public class Task extends ModelEntity {
 	private int weighting;
 	private TaskType type;
 	private ArrayList<Assignment> assignments = new ArrayList<>();
-	private boolean weekNotification = false; //Used to check if deadline notification has been sent.
-	private boolean twoDayNotification = false; //Used to check if deadline notification has been sent.
+	private boolean weekNotification = false;
+	private boolean twoDayNotification = false;
+
 
 	// public methods
 
@@ -73,11 +74,17 @@ public class Task extends ModelEntity {
 	public boolean isCheckedComplete() {
 		return canCheckComplete() && checkedComplete;
 	}
-	
+	/**
+	 * Used for deadline notifications
+	 * @return
+	 */
 	public boolean weekNotificationSent() {
 		return weekNotification;
 	}
-	
+	/**
+	 * Used for deadline notifications
+	 * @return
+	 */
 	public boolean twoDayNotificationSent() {
 		return twoDayNotification;
 	}
@@ -298,7 +305,7 @@ public class Task extends ModelEntity {
 			this.checkedComplete = true;
 		}
 	}
-	
+
 	/**
 	 * Toggle one week notification sent.
 	 */
@@ -309,8 +316,8 @@ public class Task extends ModelEntity {
 			this.weekNotification = true;
 		}
 	}
-	
-	/*
+
+	/**
 	 * Toggle two day notification sent.
 	 */
 	public void toggleTwoDayNotification() {
@@ -389,7 +396,14 @@ public class Task extends ModelEntity {
 		}
 	}
 
-	// Constructors:
+	/** 
+	 * Constructors:
+	 * @param name
+	 * @param details
+	 * @param deadline
+	 * @param weighting
+	 * @param type
+	 */
 	public Task(String name, String details, LocalDate deadline, int weighting, String type) {
 		super(name, details);
 		this.deadline = new Deadline(deadline.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
