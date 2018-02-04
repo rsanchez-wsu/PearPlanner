@@ -222,7 +222,8 @@ public class StudyPlannerController {
 		 *					Notification not = new Notification("You have an exam in a week!",
 		 *										new GregorianCalendar(), entry.getKey().getName(),
 		 *										entry.getKey());
-		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[0] = true;
+		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry
+		 *										.getValue()[0] = true;
 		 *				}
 		 *		 	}
 		 *		}
@@ -235,7 +236,8 @@ public class StudyPlannerController {
 		 *					Notification not = new Notification("Assignment due in a two days!",
 		 *									new GregorianCalendar(), entry.getKey().getName(),
 		 *									entry.getKey());
-		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[1] = true;
+		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry
+		 *									.getValue()[1] = true;
 		 *				}
 		 *			}
 		 *			if (entry.getKey() instanceof Exam) {
@@ -243,7 +245,8 @@ public class StudyPlannerController {
 		 *					Notification not = new Notification("You have an exam in two days!",
 		 *									new GregorianCalendar(), entry.getKey().getName(),
 		 *									entry.getKey());
-		 *					MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[1] = true;
+		 *					MainController.getSpc().getPlanner().addNotification(not); entry
+		 *									.getValue()[1] = true;
 		 *				}
 		 *		 	}
 		 *		}
