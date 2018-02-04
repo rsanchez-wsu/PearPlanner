@@ -74,19 +74,19 @@ public class Task extends ModelEntity {
 	public boolean isCheckedComplete() {
 		return canCheckComplete() && checkedComplete;
 	}
-	
+
 	/**
 	 * Used for deadline notifications.
-	 * 
+	 *
 	 * @return.
 	 */
 	public boolean weekNotificationSent() {
 		return weekNotification;
 	}
-	
+
 	/**
 	 * Used for deadline notifications.
-	 * 
+	 *
 	 * @return.
 	 */
 	public boolean twoDayNotificationSent() {
@@ -402,7 +402,6 @@ public class Task extends ModelEntity {
 
 	/**
 	 * Constructs a Task.
-	 * 
 	 * Constructors:
 	 * @param name Name of task.
 	 * @param details Details of task.
