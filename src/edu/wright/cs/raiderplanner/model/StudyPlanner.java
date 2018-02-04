@@ -181,6 +181,7 @@ public class StudyPlanner implements Serializable {
 	 * @return.
 	 */
 	public HashMap<ModelEntity, boolean[]> getDeadlineNotifications() {
+		System.out.print(deadlineNotifications);
 		return deadlineNotifications;
 	}
 

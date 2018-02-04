@@ -23,9 +23,13 @@ package edu.wright.cs.raiderplanner.controller;
 
 import edu.wright.cs.raiderplanner.model.Account;
 import edu.wright.cs.raiderplanner.model.Activity;
+import edu.wright.cs.raiderplanner.model.Assignment;
+import edu.wright.cs.raiderplanner.model.Coursework;
 import edu.wright.cs.raiderplanner.model.Event;
+import edu.wright.cs.raiderplanner.model.Exam;
 import edu.wright.cs.raiderplanner.model.HubFile;
 import edu.wright.cs.raiderplanner.model.Milestone;
+import edu.wright.cs.raiderplanner.model.ModelEntity;
 import edu.wright.cs.raiderplanner.model.Notification;
 import edu.wright.cs.raiderplanner.model.QuantityType;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
@@ -39,7 +43,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
@@ -160,37 +168,78 @@ public class StudyPlannerController {
 	 * Checker whether the user needs to be notified about something. (Deadlines etc.)
 	 */
 	public void checkForNotifications() {
+		int hours1 = 168, hours2 = 48; // temporary values until a Settings page is present
+		ArrayList<Task> taskList = this.getCurrentTasks();
+		for (Task task : taskList) {
+			if (!task.weekNotificationSent()) {
+				System.out.print(task.getDeadlineDate());
+				Calendar temp = Calendar.getInstance();
+				temp.add(Calendar.HOUR_OF_DAY, hours1);
+				Date date = temp.getTime();
+				System.out.print(date);
+				if(date.after(task.getDeadlineDate())) {
+					Notification not = new Notification("Assignment due in a week!", new GregorianCalendar(), task.getName(), task);
+					MainController.getSpc().getPlanner().addNotification(not); 
+					task.toggleWeekNotification();
+				}
+			}
+			if (!task.twoDayNotificationSent()) {
+				System.out.print(task.getDeadlineDate());
+				Calendar temp = Calendar.getInstance();
+				temp.add(Calendar.HOUR_OF_DAY, hours2);
+				Date date = temp.getTime();
+				System.out.print(date);
+				if(date.after(task.getDeadlineDate())) {
+					Notification not = new Notification("Assignment due in two days!", new GregorianCalendar(), task.getName(), task);
+					MainController.getSpc().getPlanner().addNotification(not); 
+					task.toggleTwoDayNotification();
+				}
+			}
+		}
+		/**Was the original commented out code, keeping for now for future reference if needed.
+		 * for (Map.Entry<ModelEntity, boolean[]> entry : this.planner.getDeadlineNotifications().entrySet()) { 
+		 *	System.out.print(entry.getKey());
+		 *	if (entry.getKey() instanceof Assignment) { 
+		 *		if (!entry.getValue()[0]) { 
+		 *			GregorianCalendar temp = new GregorianCalendar(); 
+		 *			temp.add(Calendar.HOUR, -hours1); 
+		 *			Date date = temp.getTime();
+		 *			if (entry.getKey() instanceof Coursework) { 
+		 *				if (date.after((((Coursework) entry.getKey()).getDeadline().getDate()))) { 
+		 *					Notification not = new Notification("Assignment due in a week!", new GregorianCalendar(), entry.getKey().getName(), entry.getKey());
+		 *		 			MainController.getSpc().getPlanner().addNotification(not); 
+		 *					entry.getValue()[0] = true; 
+		 *				}
+		 *			} 
+		 *			if (entry.getKey() instanceof Exam) { 
+		 *				if (date.after((((Exam) entry.getKey()).getTimeSlot().getDate()))) { 
+		 *					Notification not = new Notification("You have an exam in a week!", new GregorianCalendar(), entry.getKey().getName(), entry.getKey());
+		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[0] = true; 
+		 *				}
+		 *		 	} 
+		 *		} 
+		 *		else if (!entry.getValue()[1]) { 
+		 *			GregorianCalendar temp = new GregorianCalendar();
+		 *			temp.add(Calendar.HOUR, -hours2); 
+		 *			Date date = temp.getTime();
+		 *			if (entry.getKey() instanceof Coursework) { 
+		 *				if (date.after((((Coursework) entry.getKey()).getDeadline().getDate()))) { 
+		 *					Notification not = new Notification("Assignment due in a two days!", new GregorianCalendar(), entry.getKey().getName(), entry.getKey());
+		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[1] = true; 
+		 *				}
+		 *			} 
+		 *			if (entry.getKey() instanceof Exam) { 
+		 *				if (date.after((((Exam) entry.getKey()).getTimeSlot().getDate()))) { 
+		 *					Notification not = new Notification("You have an exam in two days!", new GregorianCalendar(), entry.getKey().getName(), entry.getKey());
+		 *					MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[1] = true; 
+		 *				}
+		 *		 	} 
+		 *		} 
+		 *		else this.planner.getDeadlineNotifications().remove(entry); 
+		 *	} 
+		 *}
+		*/
 		// TODO notifications
-		/*
-		 * int hours1 = 168, hours2 = 48; // temporary values until a Settings page is present
-		 * for (Map.Entry<ModelEntity, boolean[]> entry :
-		 * this.planner.getDeadlineNotifications().entrySet()) { if (entry.getKey() instanceof
-		 * Assignment) { if (!entry.getValue()[0]) { GregorianCalendar temp = new
-		 * GregorianCalendar(); temp.add(CALENDAR.HOUR, -hours1); Date date = temp.getTime();
-		 * if (entry.getKey() instanceof Coursework) { if (date.after((((Coursework)
-		 * entry.getKey()).getDeadline().getDate()))) { Notification not = new
-		 * Notification("Assignment due in a week!", new GregorianCalendar(),
-		 * entry.getKey().getName(), entry.getKey());
-		 * MainController.getSPC().getPlanner().addNotification(not); entry.getValue()[0] = true; }
-		 * } if (entry.getKey() instanceof Exam) { if (date.after((((Exam)
-		 * entry.getKey()).getTimeSlot().getDate()))) { Notification not = new
-		 * Notification("You have an exam in a week!", new GregorianCalendar(),
-		 * entry.getKey().getName(), entry.getKey());
-		 * MainController.getSPC().getPlanner().addNotification(not); entry.getValue()[0] = true; }
-		 * } } else if (!entry.getValue()[1]) { GregorianCalendar temp = new GregorianCalendar();
-		 * temp.add(CALENDAR.HOUR, -hours2); Date date = temp.getTime();
-		 * if (entry.getKey() instanceof Coursework) { if (date.after((((Coursework)
-		 * entry.getKey()).getDeadline().getDate()))) { Notification not = new
-		 * Notification("Assignment due in a two days!", new GregorianCalendar(),
-		 * entry.getKey().getName(), entry.getKey());
-		 * MainController.getSPC().getPlanner().addNotification(not); entry.getValue()[1] = true; }
-		 * } if (entry.getKey() instanceof Exam) { if (date.after((((Exam)
-		 * entry.getKey()).getTimeSlot().getDate()))) { Notification not = new
-		 * Notification("You have an exam in two days!", new GregorianCalendar(),
-		 * entry.getKey().getName(), entry.getKey());
-		 * MainController.getSPC().getPlanner().addNotification(not); entry.getValue()[1] = true; }
-		 * } } else this.planner.getDeadlineNotifications().remove(entry); } }
-		 */
 	}
 
 	/**
