@@ -168,7 +168,7 @@ public class StudyPlannerController {
 	 * Checker whether the user needs to be notified about something. (Deadlines etc.)
 	 */
 	public void checkForNotifications() {
-		int hours1 = 168; 
+		int hours1 = 168;
 		int hours2 = 48; // temporary values until a Settings page is present
 		ArrayList<Task> taskList = this.getCurrentTasks();
 		for (Task task : taskList) {
@@ -179,7 +179,7 @@ public class StudyPlannerController {
 				Date date = temp.getTime();
 				System.out.print(date);
 				if (date.after(task.getDeadlineDate())) {
-					Notification not = new Notification("Assignment due in a week!", 
+					Notification not = new Notification("Assignment due in a week!",
 									new GregorianCalendar(), task.getName(), task);
 					MainController.getSpc().getPlanner().addNotification(not);
 					task.toggleWeekNotification();
@@ -192,7 +192,7 @@ public class StudyPlannerController {
 				Date date = temp.getTime();
 				System.out.print(date);
 				if (date.after(task.getDeadlineDate())) {
-					Notification not = new Notification("Assignment due in two days!", 
+					Notification not = new Notification("Assignment due in two days!",
 									new GregorianCalendar(), task.getName(), task);
 					MainController.getSpc().getPlanner().addNotification(not);
 					task.toggleTwoDayNotification();
@@ -210,16 +210,18 @@ public class StudyPlannerController {
 		 *			Date date = temp.getTime();
 		 *			if (entry.getKey() instanceof Coursework) {
 		 *				if (date.after((((Coursework) entry.getKey()).getDeadline().getDate()))) {
-		 *					Notification not = new Notification("Assignment due in a week!", 
-		 *									new GregorianCalendar(), entry.getKey().getName(), entry.getKey());
+		 *					Notification not = new Notification("Assignment due in a week!",
+		 *									new GregorianCalendar(), entry.getKey().getName(),
+		 *									entry.getKey());
 		 *		 			MainController.getSpc().getPlanner().addNotification(not);
 		 *					entry.getValue()[0] = true;
 		 *				}
 		 *			}
 		 *			if (entry.getKey() instanceof Exam) {
 		 *				if (date.after((((Exam) entry.getKey()).getTimeSlot().getDate()))) {
-		 *					Notification not = new Notification("You have an exam in a week!", new GregorianCalendar(), 
-		 *										entry.getKey().getName(), entry.getKey());
+		 *					Notification not = new Notification("You have an exam in a week!",
+		 *										new GregorianCalendar(), entry.getKey().getName(),
+		 *										entry.getKey());
 		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[0] = true;
 		 *				}
 		 *		 	}
@@ -230,15 +232,17 @@ public class StudyPlannerController {
 		 *			Date date = temp.getTime();
 		 *			if (entry.getKey() instanceof Coursework) {
 		 *				if (date.after((((Coursework) entry.getKey()).getDeadline().getDate()))) {
-		 *					Notification not = new Notification("Assignment due in a two days!", 
-		 *									new GregorianCalendar(), entry.getKey().getName(), entry.getKey());
+		 *					Notification not = new Notification("Assignment due in a two days!",
+		 *									new GregorianCalendar(), entry.getKey().getName(),
+		 *									entry.getKey());
 		 *		 			MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[1] = true;
 		 *				}
 		 *			}
 		 *			if (entry.getKey() instanceof Exam) {
 		 *				if (date.after((((Exam) entry.getKey()).getTimeSlot().getDate()))) {
-		 *					Notification not = new Notification("You have an exam in two days!", 
-		 *									new GregorianCalendar(), entry.getKey().getName(), entry.getKey());
+		 *					Notification not = new Notification("You have an exam in two days!",
+		 *									new GregorianCalendar(), entry.getKey().getName(),
+		 *									entry.getKey());
 		 *					MainController.getSpc().getPlanner().addNotification(not); entry.getValue()[1] = true;
 		 *				}
 		 *		 	}
