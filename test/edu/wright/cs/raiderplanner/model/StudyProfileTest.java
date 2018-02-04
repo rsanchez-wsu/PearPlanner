@@ -21,19 +21,95 @@
 
 package edu.wright.cs.raiderplanner.model;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 /**
  * Created by bijan on 06/05/2017.
  */
 public class StudyProfileTest {
+	
+	
 
 	@Test
-	public void milestonesCompleted() throws Exception {
+	public void getModulesTest() {
+		String moduleString = "";
+		Module[] module = new Module[this.moduleString.size()];
 	}
 
 	@Test
-	public void milestonesProgress() throws Exception {
+	public void getMilestonesTest() {
+		
 	}
 
+	@Test
+	public void getExtensionsTest() {
+		
+	}
+	
+	@Test
+	public void getCalendarTest() {
+		
+	}
+	
+	@Test
+	public void getTasksTest() {
+		
+	}
+	
+	@Test
+	public void isCurrentTest() {
+		
+	}
+	
+	@Test
+	public void setCurrentTest() {
+		
+	}
+	
+	@Test
+	public void addEventToCalendarTest() {
+		
+	}
+	
+	@Test
+	public void getNameTest() {
+		
+	}
+	
+	@Test
+	public void getYearTest() {
+		
+	}
+	
+	@Test
+	public void getSemesterNoTest() {
+		
+	}
+	
+	@Test
+	public void matchesTest() {
+		
+	}
+	
+	@Test
+	public void addMilestoneTest() {
+		
+	}
+	
+	@Test
+	public void removeMilestoneTest() {
+		
+	}
+	
+	@Test
+	public void openTest() {
+		
+	}
+	
+	@Test
+	public void studyProfileTest() {
+		
+	}
 }
