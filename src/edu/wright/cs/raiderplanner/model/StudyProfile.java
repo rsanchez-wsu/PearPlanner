@@ -178,4 +178,5 @@ public class StudyProfile extends VersionControlEntity {
 
 		this.current = false;
 	}
+
 }

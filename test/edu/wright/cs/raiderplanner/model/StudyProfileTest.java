@@ -22,20 +22,50 @@
 package edu.wright.cs.raiderplanner.model;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Created by bijan on 06/05/2017.
  */
 public class StudyProfileTest {
-	
+	private StudyProfile studyProfile;
+	private HubFile hubFile;
+	private Person corganiser;
+	private Module module;
+	private List<ExtensionApplication> e2;
+	private List<VersionControlEntity> u2;
+	private ArrayList<Module> moduleList;
+	private Module[] moduleArray;
+
+	@BeforeEach
+	public void setUp() throws Exception {
+		studyProfile = new StudyProfile(hubFile);
+		studyProfile.se
+		corganiser = new Person("Mr.", "Greene", true);
+		e2 = new ArrayList<>();
+		u2 = new ArrayList<>();
+		hubFile = new HubFile(1, e2, u2);
+		module = new Module(corganiser, "sampleCModuleCode");
+		moduleList = new ArrayList<>();
+		moduleArray = new Module[moduleList.size()];
+
+	}
 	
 
 	@Test
-	public void getModulesTest() {
-		String moduleString = "";
-		Module[] module = new Module[this.moduleString.size()];
+	public void getModulesTest() throws Exception {
+		Module[] temp = new Module[moduleList.size()];
+		temp = moduleList.toArray(temp);
+		final Module[] expResult = temp;
+		final Module[] result = studyProfile.getModules();
+		assertEquals(expResult, result);
+		
 	}
 
 	@Test
