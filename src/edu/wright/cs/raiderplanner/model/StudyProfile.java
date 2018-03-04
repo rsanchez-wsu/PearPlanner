@@ -102,10 +102,8 @@ public class StudyProfile extends VersionControlEntity {
 	 *
 	 * @param event Event to be added.
 	 */
-	public void addEventToCalendar(Event event)
-	{
-		if (!calendar.contains(event))
-		{
+	public void addEventToCalendar(Event event) {
+		if (!calendar.contains(event)) {
 			calendar.add(event);
 		}
 	}
