@@ -66,7 +66,6 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -81,7 +80,6 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
@@ -190,22 +188,17 @@ public class MenuController implements Initializable {
 	@FXML
 	private HBox exportCalBox;
 
-	//chat variables
-	private final BorderPane mainPane = new BorderPane();
+	// Chat Variables
+	private static final BorderPane mainPane = new BorderPane();
 	private final GridPane firstPane = new GridPane();
-	private final GridPane userMessagePane = new GridPane();
-	private final HBox spacingBox = new HBox();
 	private TextField tfName = new TextField("");
 	private TextField tfHost = new TextField("");
-	private TextField tfMessageToSend = new TextField();
-	private TextArea msgArea = new TextArea();
 	private final Label name = new Label("Name:");
 	private final Label host = new Label("Host:");
 	private final Button submitButton = new Button("Submit");
-	private final Button sendButton = new Button("Send");
-	private boolean calendarOpen = false; //Used to monitor status of calendar (open or closed)
 
-	private String userName;
+	private boolean calendarOpen = false; //Used to monitor status of calendar (open or closed)
+	private static String userName;
 	private String hostName;
 	private int portNumber = 1111;
 
@@ -950,35 +943,12 @@ public class MenuController implements Initializable {
 		this.topBox.getChildren().clear();
 		this.title.setText("Chat");
 		this.mainContent.getChildren().addAll(mainPane);
-		createUserMessagePane();
-		createMainPane();
-		sendButtonAction();
+		ChatController.createUserMessagePane();
+		ChatController.createMainPane();
+		ChatController.sendButtonAction();
 	}
 
-	/**
-	 * This will load the msg_area which is where the user will see messages from other users and
-	 * him or herself. This will also load the text field where the user will be able to send his or
-	 * her own message to peers.
-	 */
-	public void createMainPane() {
-		mainPane.setCenter(msgArea);
-		mainPane.setBottom(userMessagePane);
-	}
 
-	/**
-	 * This will set the message area to uneditable and set the size for all the buttons This method
-	 * will also create padding between the textarea and the message area. and the send button.
-	 */
-	public void createUserMessagePane() {
-		msgArea.setEditable(false);
-		tfMessageToSend.setPrefWidth(800);
-		userMessagePane.setPadding(new Insets(10, 10, 10, 10));
-		sendButton.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
-		spacingBox.setPadding(new Insets(0, 5, 0, 5));
-		userMessagePane.add(tfMessageToSend, 0, 0);
-		userMessagePane.add(spacingBox, 1, 0);
-		userMessagePane.add(sendButton, 2, 0);
-	}
 
 	/**
 	 * This will load all the textfields,labels and buttons for the window that prompts the user for
@@ -1010,20 +980,6 @@ public class MenuController implements Initializable {
 		});
 	}
 
-	/**
-	 *  This will take in the action of when the send button is pressed. If a user sends a message,
-	 *  the line of text will append to the chat log so the user can see what they sent. It follows
-	 *  the format of USER: sentence.
-	 *  The text box with the user input will be set back to blank after a message is sent.
-	 */
-	public void sendButtonAction() {
-		sendButton.setOnAction((ActionEvent exception1) -> {
-			if (!(tfMessageToSend.getText().equals(""))) {
-				msgArea.appendText(userName + ": " + tfMessageToSend.getText() + "\n");
-				tfMessageToSend.setText("");
-			}
-		});
-	}
 
 	/**
 	 * This will set the username for the peer-to-peer chat.
@@ -1044,8 +1000,17 @@ public class MenuController implements Initializable {
 	 *
 	 * @return the currently registered user's chat ID.
 	 */
-	public String getUserName() {
+	public static String getUserName() {
 		return userName;
+	}
+
+	/**
+	 * Returns the current main pane.
+	 * @return the current main pane
+	 */
+
+	public static BorderPane getMainPane() {
+		return mainPane;
 	}
 
 	/**
@@ -1260,15 +1225,13 @@ public class MenuController implements Initializable {
 		actionsTask.setPadding(new Insets(5, 5, 10, 0));
 
 		// Buttons:
-		Button addNew = new Button("Add a new task");
 
 		Button check = new Button("Toggle complete");
 		check.getStyleClass().add("set-button");
 		check.setDisable(true);
-
 		Button delete = new Button("Remove");
 		delete.setDisable(true);
-
+		Button addNew = new Button("Add a new task");
 		// Bind properties on buttons:
 		delete.disableProperty().bind(new BooleanBinding() {
 			{
