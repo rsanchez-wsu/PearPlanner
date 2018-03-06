@@ -59,6 +59,8 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.print.PrinterJob;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -190,7 +192,7 @@ public class MenuController implements Initializable {
 	@FXML
 	private HBox exportCalBox;
 
-	//chat variables
+	// chat variables
 	private final BorderPane mainPane = new BorderPane();
 	private final GridPane firstPane = new GridPane();
 	private final GridPane userMessagePane = new GridPane();
@@ -199,11 +201,14 @@ public class MenuController implements Initializable {
 	private TextField tfHost = new TextField("");
 	private TextField tfMessageToSend = new TextField();
 	private TextArea msgArea = new TextArea();
-	private final Label name = new Label("Name:");
-	private final Label host = new Label("Host:");
+	private final Label name = new Label("Your Name:");
+	private final Label host = new Label("Host User's Name:");
 	private final Button submitButton = new Button("Submit");
 	private final Button sendButton = new Button("Send");
-	private boolean calendarOpen = false; //Used to monitor status of calendar (open or closed)
+	private boolean calendarOpen = false; // Used to monitor status of calendar (open or closed)
+	private boolean chatConnection = false;
+	private Alert chatConnectionSuccessful = new Alert(AlertType.INFORMATION);
+	private Alert chatConnectionUnsuccessful = new Alert(AlertType.ERROR);
 
 	private String userName;
 	private String hostName;
@@ -211,6 +216,9 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Sets this.current to equal passed variable and calls this.main().
+	 *
+	 * @param wind
+	 *            - the menu window
 	 */
 	public void main(Window wind) {
 		this.current = wind;
@@ -221,6 +229,8 @@ public class MenuController implements Initializable {
 	 * Main method containing switch statements.
 	 */
 	public void main() {
+		chatConnectionUnsuccessful.setContentText("Chat" + " connection unsuccessful.");
+		chatConnectionSuccessful.setContentText("Chat" + " connection successful.");
 		if (isNavOpen) {
 			openMenu.fire();
 		}
@@ -236,8 +246,8 @@ public class MenuController implements Initializable {
 		this.updateMenu();
 		exportCalBox.managedProperty().bind(exportCalBox.visibleProperty());
 
-		//When user chooses different option in menu
-		//		calendarOpen changes to monitor status within main window.
+		// When user chooses different option in menu
+		// calendarOpen changes to monitor status within main window.
 		switch (this.current) {
 		case DASHBOARD: {
 			if (MainController.getSpc().getPlanner().getCurrentStudyProfile() != null) {
@@ -275,8 +285,28 @@ public class MenuController implements Initializable {
 			calendarOpen = false;
 			break;
 		}
-		//Based on user choice of menu option "Export Calendar" button is shown/hidden
+		// Based on user choice of menu option
+		// "Export Calendar" button is shown/hidden
 		exportCalBox.setVisible(calendarOpen);
+	}
+
+	/**
+	 * Returns a boolean value of whether or not there is a successful chat connection.
+	 *
+	 * @return the boolean value of whether or not there is a successful chat connection.
+	 */
+	public boolean getChatConnection() {
+		return chatConnection;
+	}
+
+	/**
+	 * Sets the boolean variable of whether or not there is a successful chat connection.
+	 *
+	 * @param newChatConnection
+	 *            - the value to which to set chatConnection
+	 */
+	public void setChatConnection(boolean newChatConnection) {
+		this.chatConnection = newChatConnection;
 	}
 
 	/**
@@ -316,16 +346,20 @@ public class MenuController implements Initializable {
 			for (Module module : profile.getModules()) {
 				VBox vbox = new VBox();
 
-				// Set the width of the module to 15% of the screen resolution
+				// Set the width of the module to
+				// 15% of the screen resolution
 				if (screenWidth > screenHeight) {
 					vbox.setPrefWidth(screenWidth * 0.14);
 				} else {
-					// If device is in portrait mode, set vbox width based on height
+					// If device is in portrait mode, set
+					// vbox width based on height
 					vbox.setPrefWidth(screenHeight * 0.14);
 				}
-				// Set the height of the module to 112% of its width
+				// Set the height of the
+				// module to 112% of its width
 				vbox.setPrefHeight(vbox.getPrefWidth() * 1.12);
-				// Set margin between text and badge to 10% vbox width
+				// Set margin between text and
+				// badge to 10% vbox width
 				vbox.setSpacing(vbox.getPrefWidth() * 0.1);
 
 				vbox.setAlignment(Pos.CENTER);
@@ -334,7 +368,8 @@ public class MenuController implements Initializable {
 				Label nameLabel = new Label(module.getName());
 				nameLabel.setTextAlignment(TextAlignment.CENTER);
 
-				// Set left margin for title, which creates padding in case title is very long
+				// Set left margin for title, which
+				// creates padding in case title is very long
 				VBox.setMargin(nameLabel, new Insets(0, 0, 0, vbox.getPrefWidth() * 0.04));
 
 				vbox.getChildren().add(nameLabel);
@@ -343,7 +378,8 @@ public class MenuController implements Initializable {
 				Image image = SwingFXUtils.toFXImage(buff, null);
 				Pane badge = new Pane();
 
-				// Set the distance from left edge to badge 17% of vbox width
+				// Set the distance from left edge
+				// to badge 17% of vbox width
 				VBox.setMargin(badge, new Insets(0, 0, 0, vbox.getPrefWidth() * 0.17));
 				// Set the badge width to 66% that of vbox
 				badge.setPrefHeight(vbox.getPrefWidth() * 0.66);
@@ -508,8 +544,8 @@ public class MenuController implements Initializable {
 					if (this.showNotification.getTranslateY() == 0) {
 						TranslateTransition closeNot = new TranslateTransition(new Duration(173),
 								notifications);
-						closeNot.setToY(-(notifications.getHeight() + this.navShadowRadius + 56
-								+ 17));
+						closeNot.setToY(
+								-(notifications.getHeight() + this.navShadowRadius + 56 + 17));
 						closeNot.play();
 					}
 
@@ -627,8 +663,8 @@ public class MenuController implements Initializable {
 			}
 		});
 		// Populate Agenda:
-		ArrayList<Event> calendarEvents =
-				MainController.getSpc().getPlanner().getCurrentStudyProfile().getCalendar();
+		ArrayList<Event> calendarEvents = MainController.getSpc().getPlanner()
+				.getCurrentStudyProfile().getCalendar();
 		for (Event e : calendarEvents) {
 			// TODO - find a way to eliminate this if/else-if/instanceof anti-pattern
 			if (e instanceof TimetableEvent) {
@@ -699,7 +735,6 @@ public class MenuController implements Initializable {
 		this.topBox.getChildren().clear();
 		this.title.setText("Study Profiles");
 
-
 		// Columns:
 		TableColumn<StudyProfile, String> nameColumn = new TableColumn<>("Profile name");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -747,8 +782,8 @@ public class MenuController implements Initializable {
 					if (this.showNotification.getTranslateY() == 0) {
 						TranslateTransition closeNot = new TranslateTransition(new Duration(173),
 								notifications);
-						closeNot.setToY(-(notifications.getHeight() + this.navShadowRadius + 56
-								+ 17));
+						closeNot.setToY(
+								-(notifications.getHeight() + this.navShadowRadius + 56 + 17));
 						closeNot.play();
 					}
 					if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
@@ -822,8 +857,8 @@ public class MenuController implements Initializable {
 					if (this.showNotification.getTranslateY() == 0) {
 						TranslateTransition closeNot = new TranslateTransition(new Duration(173),
 								notifications);
-						closeNot.setToY(-(notifications.getHeight() + this.navShadowRadius + 56
-								+ 17));
+						closeNot.setToY(
+								-(notifications.getHeight() + this.navShadowRadius + 56 + 17));
 						closeNot.play();
 					}
 
@@ -908,7 +943,6 @@ public class MenuController implements Initializable {
 		moduleContent.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(moduleContent, Priority.ALWAYS);
 		GridPane.setVgrow(moduleContent, Priority.ALWAYS);
-
 
 		// Set click event:
 		moduleContent.setRowFactory(e -> {
@@ -1006,15 +1040,20 @@ public class MenuController implements Initializable {
 				userName = tfName.getText();
 			}
 			hostName = tfHost.getText();
+			if (chatConnection) {
+				chatConnectionSuccessful.showAndWait();
+			} else {
+				chatConnectionUnsuccessful.showAndWait();
+			}
 			loadChatWindow();
 		});
 	}
 
 	/**
-	 *  This will take in the action of when the send button is pressed. If a user sends a message,
-	 *  the line of text will append to the chat log so the user can see what they sent. It follows
-	 *  the format of USER: sentence.
-	 *  The text box with the user input will be set back to blank after a message is sent.
+	 * This will take in the action of when the send button is pressed. If a user sends a message,
+	 * the line of text will append to the chat log so the user can see what they sent. It follows
+	 * the format of USER: sentence. The text box with the user input will be set back to blank
+	 * after a message is sent.
 	 */
 	public void sendButtonAction() {
 		sendButton.setOnAction((ActionEvent exception1) -> {
@@ -1414,7 +1453,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-         * Handles 'Export Calendar' event.
+	 * Handles 'Export Calendar' event.
 	 */
 	public void exportCalendar() {
 		MainController.exportCalendar();
@@ -1443,7 +1482,7 @@ public class MenuController implements Initializable {
 			if (e.getButton() == MouseButton.PRIMARY) {
 				if (this.showNotification.getTranslateY() == 0) {
 					TranslateTransition closeNot = new TranslateTransition(new Duration(173),
-						notifications);
+							notifications);
 					closeNot.setToY(-(notifications.getHeight() + this.navShadowRadius + 56 + 17));
 					closeNot.play();
 				}
@@ -1485,8 +1524,7 @@ public class MenuController implements Initializable {
 
 		// Process notifications:
 		this.notificationList.getChildren().clear();
-		Notification[] pendingNotifs =
-				MainController.getSpc().getPlanner().getNotifications();
+		Notification[] pendingNotifs = MainController.getSpc().getPlanner().getNotifications();
 		for (int i = pendingNotifs.length - 1; i >= 0; i--) {
 			GridPane pane = new GridPane();
 
@@ -1494,9 +1532,7 @@ public class MenuController implements Initializable {
 			if (pendingNotifs[i].getLink() != null || !pendingNotifs[i].isRead()) {
 				pane.setCursor(Cursor.HAND);
 				pane.setId(Integer.toString(pendingNotifs.length - i - 1));
-				pane.setOnMouseClicked(e ->
-					this.handleRead(Integer.parseInt(pane.getId()))
-				);
+				pane.setOnMouseClicked(e -> this.handleRead(Integer.parseInt(pane.getId())));
 				// Check if unread:
 				if (!pendingNotifs[i].isRead()) {
 					pane.getStyleClass().add("unread-item");
