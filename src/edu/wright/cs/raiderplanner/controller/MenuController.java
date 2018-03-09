@@ -2,7 +2,7 @@
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar, Amila Dias
  *
- *
+ * Copyright (C) 2018 - Clayton D. Terrill
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -188,14 +188,24 @@ public class MenuController implements Initializable {
 	@FXML
 	private HBox exportCalBox;
 
+<<<<<<< HEAD
 	// Chat Variables
 	private static final BorderPane mainPane = new BorderPane();
+=======
+	// chat variables
+	private final BorderPane mainPane = new BorderPane();
+>>>>>>> upstream/master
 	private final GridPane firstPane = new GridPane();
 	private TextField tfName = new TextField("");
 	private TextField tfHost = new TextField("");
 	private final Label name = new Label("Name:");
 	private final Label host = new Label("Host:");
 	private final Button submitButton = new Button("Submit");
+<<<<<<< HEAD
+=======
+	private final Button sendButton = new Button("Send");
+	private boolean calendarOpen = false; // Used to monitor status of calendar (open or closed)
+>>>>>>> upstream/master
 
 	private boolean calendarOpen = false; //Used to monitor status of calendar (open or closed)
 	private static String userName;
@@ -229,7 +239,7 @@ public class MenuController implements Initializable {
 		this.updateMenu();
 		exportCalBox.managedProperty().bind(exportCalBox.visibleProperty());
 
-		//When user chooses different option in menu
+		// When user chooses different option in menu
 		//		calendarOpen changes to monitor status within main window.
 		switch (this.current) {
 		case DASHBOARD: {
@@ -268,7 +278,7 @@ public class MenuController implements Initializable {
 			calendarOpen = false;
 			break;
 		}
-		//Based on user choice of menu option "Export Calendar" button is shown/hidden
+		// Based on user choice of menu option "Export Calendar" button is shown/hidden
 		exportCalBox.setVisible(calendarOpen);
 	}
 
@@ -1327,7 +1337,7 @@ public class MenuController implements Initializable {
 	 * Handles clicking on a specific notification.
 	 *
 	 * @param id
-	 *            The identifier of the notification which was clicked.
+	 * The identifier of the notification which was clicked.
 	 */
 	public void handleRead(int id) {
 		// Get notification:
@@ -1370,6 +1380,14 @@ public class MenuController implements Initializable {
 	}
 
 	/**
+	 * Handles the 'Settings' event.
+	 */
+	public void showSettings() {
+		initialLoad = true; // Required so the notifications don't appear.
+		MainController.showSettings();
+	}
+
+	/**
 	 * Handles the 'Help' event.
 	 */
 	public void openBrowser() {
@@ -1377,7 +1395,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-         * Handles 'Export Calendar' event.
+	 * Handles 'Export Calendar' event.
 	 */
 	public void exportCalendar() {
 		MainController.exportCalendar();
@@ -1416,7 +1434,7 @@ public class MenuController implements Initializable {
 			}
 		});
 
-		// Welcome text:
+		// text:
 		this.welcome = new Label(
 				"Welcome back, " + MainController.getSpc().getPlanner().getUserName() + "!");
 		this.welcome.setPadding(new Insets(10, 15, 10, 15));
@@ -1581,7 +1599,7 @@ public class MenuController implements Initializable {
 	 * RowFactory for a TableView of Requirement.
 	 *
 	 * @param e1
-	 *            TableView that contains the RowFactory.
+	 * TableView that contains the RowFactory.
 	 *
 	 * @return new RowFactory
 	 */
@@ -1688,7 +1706,7 @@ public class MenuController implements Initializable {
 	 * Displays a GanttishDiagram window for the given Assignment.
 	 *
 	 * @param assignment
-	 *            Assignment for which to generate the GanttishDiagram.
+	 * Assignment for which to generate the GanttishDiagram.
 	 */
 	public void showGantt(Assignment assignment, Window previousWindow, ModelEntity previous) {
 		Stage stage = new Stage();
