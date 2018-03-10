@@ -1006,8 +1006,7 @@ public class MenuController implements Initializable {
 				userName = tfName.getText();
 				hostName = tfHost.getText();
 				loadChatWindow();
-			}
-			else {
+			} else {
 				UiManager.displayError("Username and host are required.");
 			}
 		});
@@ -1472,17 +1471,14 @@ public class MenuController implements Initializable {
 		if (MainController.getSpc().getPlanner().getCurrentStudyProfile() != null) {
 			if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
 				this.welcome = new Label("Welcome back!");
-			}
-			else {
+			} else {
 				this.welcome = new Label(
 					"Welcome back, " + MainController.getSpc().getPlanner().getUserName() + "!");
 			}
-		}
-		else {
+		} else {
 			if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
 				this.welcome = new Label("Welcome!");
-			}
-			else {
+			} else {
 				this.welcome = new Label(
 					"Welcome " + MainController.getSpc().getPlanner().getUserName() + "!");
 			}
