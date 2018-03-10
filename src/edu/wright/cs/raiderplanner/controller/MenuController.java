@@ -924,7 +924,7 @@ public class MenuController implements Initializable {
 		this.mainContent.addRow(3, moduleContent);
 		GridPane.setColumnSpan(moduleContent, GridPane.REMAINING);
 	}
-	
+
 	/**
 	 * This method will create a window that will prompt the user for a username and host name. If a
 	 * name is not entered then a username is randomly chosen. When the submit button is pressed a
@@ -966,7 +966,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * This will set the message area to uneditable and set the size for all the buttons. This method
+	 * This will set the message area to uneditable and set the size for all the buttons. The method
 	 * will also create padding between the text area, the message area, and the send button.
 	 */
 	public void createUserMessagePane() {
@@ -996,12 +996,12 @@ public class MenuController implements Initializable {
 	/**
 	 * This will take in the action of when the submit button is pressed. The submit button is for
 	 * the chat window where the user inputs his or her information. If the user does not enter a
-	 * username/hostname, an error will pop up notifying them to enter those values. Then at the 
+	 * username/hostname, an error will pop up notifying them to enter those values. Then at the
 	 * very end the chat window will be loaded.
 	 */
 	public void submitButtonAction() {
 		submitButton.setOnAction((ActionEvent exception1) -> {
-			if ((tfName.getText() != null && !(tfName.getText().equals(""))) 
+			if ((tfName.getText() != null && !(tfName.getText().equals("")))
 					&& (tfHost.getText() != null && !(tfHost.getText().equals("")))) {
 				userName = tfName.getText();
 				hostName = tfHost.getText();

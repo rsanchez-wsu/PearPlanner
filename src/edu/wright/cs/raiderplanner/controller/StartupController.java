@@ -94,11 +94,11 @@ public class StartupController {
 					stage.close();
 				} else {
 					UiManager.reportError("Directory can not be written to.");
-				}
+					}
 			} else {
 				UiManager.reportError("Directory cannot be read from.");
+				}
 			}
-		}
 		else {
 			UiManager.reportError("Directory does not exist.");
 		}
@@ -121,11 +121,11 @@ public class StartupController {
 					stage.close();
 				} else {
 					UiManager.reportError("Cannot write to file.");
-				}
+					}
 			} else {
 				UiManager.reportError("Cannot read file.");
+				}
 			}
-		}
 		else {
 			UiManager.reportError("File does not exist.");
 		}
