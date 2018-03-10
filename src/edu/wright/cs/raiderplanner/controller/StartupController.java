@@ -85,25 +85,22 @@ public class StartupController {
 		}
 
 		// Attempts to save planner file
-
 		if (plannerFile != null) {
-			if (plannerFile.getParentFile().exists()) {
-				if (plannerFile.getParentFile().canRead()) {
-					if (plannerFile.getParentFile().canWrite()) {
-						MainController.setPlannerFile(plannerFile);
-						MainController.save();
-						Stage stage = (Stage) this.openFileButton.getScene().getWindow();
-						stage.close();
-					} else {
-						UiManager.reportError("Directory can not be written to.");
-					}
+			if (plannerFile.getParentFile().canRead()) {
+				if (plannerFile.getParentFile().canWrite()) {
+					MainController.setPlannerFile(plannerFile);
+					MainController.save();
+					Stage stage = (Stage) this.openFileButton.getScene().getWindow();
+					stage.close();
 				} else {
-					UiManager.reportError("Directory cannot be read from.");
+					UiManager.reportError("Directory can not be written to.");
 				}
-
 			} else {
-				UiManager.reportError("Directory does not exist.");
+				UiManager.reportError("Directory cannot be read from.");
 			}
+		}
+		else {
+			UiManager.reportError("Directory does not exist.");
 		}
 	}
 
@@ -117,22 +114,20 @@ public class StartupController {
 
 		// Checks existence and permissions before setting the MainController file path.
 		if (plannerFile != null) {
-			if (plannerFile.exists()) {
-				if (plannerFile.canRead()) {
-					if (plannerFile.canWrite()) {
-						MainController.setPlannerFile(plannerFile);
-						Stage stage = (Stage) this.openFileButton.getScene().getWindow();
-						stage.close();
-					} else {
-						UiManager.reportError("Cannot write to file.");
-					}
+			if (plannerFile.canRead()) {
+				if (plannerFile.canWrite()) {
+					MainController.setPlannerFile(plannerFile);
+					Stage stage = (Stage) this.openFileButton.getScene().getWindow();
+					stage.close();
 				} else {
-					UiManager.reportError("Cannot read file.");
+					UiManager.reportError("Cannot write to file.");
 				}
-
 			} else {
-				UiManager.reportError("File does not exist.");
+				UiManager.reportError("Cannot read file.");
 			}
+		}
+		else {
+			UiManager.reportError("File does not exist.");
 		}
 
 	}
