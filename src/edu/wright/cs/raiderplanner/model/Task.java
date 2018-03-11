@@ -47,9 +47,8 @@ public class Task extends ModelEntity {
 	private int weighting;
 	private TaskType type;
 	private ArrayList<Assignment> assignments = new ArrayList<>();
-	private boolean weekNotification = false;
-	private boolean twoDayNotification = false;
-
+	private boolean firstNotification = false;
+	private boolean secondNotification = false;
 
 	// public methods
 
@@ -78,19 +77,19 @@ public class Task extends ModelEntity {
 	/**
 	 * Used for deadline notifications.
 	 *
-	 * @return.
+	 * @return boolean
 	 */
-	public boolean weekNotificationSent() {
-		return weekNotification;
+	public boolean firstNotificationSent() {
+		return firstNotification;
 	}
 
 	/**
 	 * Used for deadline notifications.
 	 *
-	 * @return.
+	 * @return boolean
 	 */
-	public boolean twoDayNotificationSent() {
-		return twoDayNotification;
+	public boolean secondNotificationSent() {
+		return secondNotification;
 	}
 
 	public TaskType getType() {
@@ -314,21 +313,17 @@ public class Task extends ModelEntity {
 	 * Toggle one week notification sent.
 	 */
 	public void toggleWeekNotification() {
-		if (this.weekNotificationSent()) {
-			this.weekNotification = false;
-		} else {
-			this.weekNotification = true;
-		}
+		this.firstNotification = !this.firstNotificationSent();
 	}
 
 	/**
 	 * Toggle two day notification sent.
 	 */
 	public void toggleTwoDayNotification() {
-		if (this.twoDayNotificationSent()) {
-			this.twoDayNotification = false;
+		if (this.secondNotificationSent()) {
+			this.secondNotification = false;
 		} else {
-			this.twoDayNotification = true;
+			this.secondNotification = true;
 		}
 	}
 

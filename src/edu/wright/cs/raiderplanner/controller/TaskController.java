@@ -416,7 +416,7 @@ public class TaskController implements Initializable {
 			this.weighting.setText(Integer.toString(this.task.getWeighting()));
 			this.taskType.getSelectionModel().select(this.task.getType().getName());
 			this.deadline.setValue(this.task.getDeadlineDate().toInstant()
-							.atZone(ZoneId.systemDefault()).toLocalDate());
+						.atZone(ZoneId.systemDefault()).toLocalDate());
 			this.dependencies.getItems().addAll(this.task.getDependencies());
 			this.requirements.getItems().addAll(this.task.getRequirements());
 			// =================
