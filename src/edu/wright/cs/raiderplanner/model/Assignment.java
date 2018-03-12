@@ -44,8 +44,6 @@ public class Assignment extends VersionControlEntity {
 	protected void replace(VersionControlEntity receivedVce) {
 		if (receivedVce instanceof Assignment) {
 			Assignment castedVce = (Assignment) receivedVce;
-			// this.tasks = castedVce.getTasks();
-			// this.requirements = castedVce.getRequirements();
 			this.weighting = castedVce.getWeighting();
 			if (castedVce.getSetBy() != null) {
 				this.setBy = castedVce.getSetBy();
@@ -261,6 +259,6 @@ public class Assignment extends VersionControlEntity {
 		markedBy = cmarkedBy;
 		reviewedBy = creviewedBy;
 		marks = cmarks;
-		//MainController.getSPC().getPlanner().getDeadlineNotifications().put(this, new boolean[2]);
+		MainController.getSpc().getPlanner().getDeadlineNotifications().put(this, new boolean[2]);
 	}
 }

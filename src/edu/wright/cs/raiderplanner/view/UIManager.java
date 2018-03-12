@@ -23,6 +23,7 @@ package edu.wright.cs.raiderplanner.view;
 
 import edu.wright.cs.raiderplanner.controller.AccountController;
 import edu.wright.cs.raiderplanner.controller.ActivityController;
+import edu.wright.cs.raiderplanner.controller.AssignmentController;
 import edu.wright.cs.raiderplanner.controller.MenuController;
 import edu.wright.cs.raiderplanner.controller.MilestoneController;
 import edu.wright.cs.raiderplanner.controller.RequirementController;
@@ -84,6 +85,8 @@ public class UIManager {
 			"/edu/wright/cs/raiderplanner/view/Task.fxml");
 	private URL requirementFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Requirement.fxml");
+	private URL assignmentFxml = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/Assignment.fxml");
 	private URL createAccountFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/CreateAccount.fxml");
 	private URL mainMenuFxml = getClass().getResource(
@@ -381,6 +384,34 @@ public class UIManager {
 		if (rc.isSuccess()) {
 			return rc.getRequirement();
 		}
+		return null;
+	}
+	
+	/**
+	 * Creates a window for adding a new Assignment.
+	 *
+	 * @return newly created Assignment
+	 * @throws IOException if there is an error while loading the FXML GUI
+	 */
+	public Assignment addAssignment() throws IOException {
+		AssignmentController ac = new AssignmentController();
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(assignmentFxml);
+		loader.setController(ac);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(root, 550, 260));
+		stage.setTitle("New Assignment");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+		// Handle creation of the Account object:
+		if (ac.isSuccess()) {
+			return ac.getAssignment();
+		}
+
 		return null;
 	}
 

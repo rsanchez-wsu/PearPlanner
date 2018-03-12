@@ -900,7 +900,7 @@ public class MenuController implements Initializable {
 
 		ObservableList<Assignment> list = FXCollections
 				.observableArrayList(module.getAssignments());
-
+		
 		// Create a moduleContent:
 		TableView<Assignment> moduleContent = new TableView<>();
 		moduleContent.setItems(list);
@@ -923,6 +923,40 @@ public class MenuController implements Initializable {
 		});
 		this.mainContent.addRow(3, moduleContent);
 		GridPane.setColumnSpan(moduleContent, GridPane.REMAINING);
+
+		
+		//this.mainContent.setVgap(5);
+		
+		// Actions toolbar:
+		HBox actionsReq = new HBox();
+		GridPane.setHgrow(actionsReq, Priority.ALWAYS);
+		actionsReq.setSpacing(5);
+		actionsReq.setPadding(new Insets(5, 5, 10, 0));
+
+		// Buttons:
+		// Add Assignment Button
+		Button addNewAssignment = new Button("Add New Assignment");
+
+		// Bind actions on buttons:
+		addNewAssignment.setOnAction(e -> {
+			try {
+				Assignment assignment = MainController.ui.addAssignment();
+				if (assignment != null) {
+					module.addAssignment(assignment);
+					ObservableList<Assignment> newlist = FXCollections
+							.observableArrayList(module.getAssignments());
+					moduleContent.setItems(newlist);
+				}
+			} catch (IOException e1) {
+				UIManager.reportError("Unable to open View file");
+			} catch (Exception e1) {
+				UIManager.reportError(e1.getMessage());
+			}
+		});
+		
+		actionsReq.getChildren().addAll(addNewAssignment);
+
+		this.mainContent.addRow(4, actionsReq);
 	}
 
 	/**

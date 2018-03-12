@@ -30,6 +30,7 @@ import edu.wright.cs.raiderplanner.model.Exam;
 import edu.wright.cs.raiderplanner.model.HubFile;
 import edu.wright.cs.raiderplanner.model.Milestone;
 import edu.wright.cs.raiderplanner.model.ModelEntity;
+import edu.wright.cs.raiderplanner.model.Module;
 import edu.wright.cs.raiderplanner.model.Notification;
 import edu.wright.cs.raiderplanner.model.QuantityType;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
@@ -46,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -174,27 +176,23 @@ public class StudyPlannerController {
 		ArrayList<Task> taskList = this.getCurrentTasks();
 		for (Task task : taskList) {
 			if (!task.firstNotificationSent()) {
-				System.out.print(task.getDeadlineDate());
 				Calendar temp = Calendar.getInstance();
 				temp.add(Calendar.HOUR_OF_DAY, hours1);
 				Date date = temp.getTime();
-				System.out.print(date);
 				if (date.after(task.getDeadlineDate())) {
-					Notification not = new Notification("Assignment due in a week!",
-									new GregorianCalendar(), task.getName(), task);
+					Notification not = new Notification("This is your first notification that your assignment is due soon!",
+						new GregorianCalendar(), task.getName(), task);
 					MainController.getSpc().getPlanner().addNotification(not);
 					task.toggleWeekNotification();
 				}
 			}
 			if (!task.secondNotificationSent()) {
-				System.out.print(task.getDeadlineDate());
 				Calendar temp = Calendar.getInstance();
 				temp.add(Calendar.HOUR_OF_DAY, hours2);
 				Date date = temp.getTime();
-				System.out.print(date);
 				if (date.after(task.getDeadlineDate())) {
-					Notification not = new Notification("Assignment due in two days!",
-									new GregorianCalendar(), task.getName(), task);
+					Notification not = new Notification("This is your second notification that your assignment is due soon!",
+							new GregorianCalendar(), task.getName(), task);
 					MainController.getSpc().getPlanner().addNotification(not);
 					task.toggleTwoDayNotification();
 				}
