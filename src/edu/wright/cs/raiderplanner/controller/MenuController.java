@@ -970,15 +970,15 @@ public class MenuController implements Initializable {
      * will also create padding between the text area, the message area, and the send button.
      */
 	public void createUserMessagePane() {
-	    msgArea.setEditable(false);
-	    tfMessageToSend.setPrefWidth(800);
-	    userMessagePane.setPadding(new Insets(10, 10, 10, 10));
-	    sendButton.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
-	    spacingBox.setPadding(new Insets(0, 5, 0, 5));
-	    userMessagePane.add(tfMessageToSend, 0, 0);
-	    userMessagePane.add(spacingBox, 1, 0);
-	    userMessagePane.add(sendButton, 2, 0);
-	    sendButton.setMinWidth(100);
+		msgArea.setEditable(false);
+		tfMessageToSend.setPrefWidth(800);
+		userMessagePane.setPadding(new Insets(10, 10, 10, 10));
+		sendButton.setBackground(new Background(new BackgroundFill(Color.AQUAMARINE, null, null)));
+		spacingBox.setPadding(new Insets(0, 5, 0, 5));
+		userMessagePane.add(tfMessageToSend, 0, 0);
+		userMessagePane.add(spacingBox, 1, 0);
+		userMessagePane.add(sendButton, 2, 0);
+		sendButton.setMinWidth(100);
 	}
 
 	/**
@@ -1000,16 +1000,16 @@ public class MenuController implements Initializable {
      * very end the chat window will be loaded.
      */
 	public void submitButtonAction() {
-	    submitButton.setOnAction((ActionEvent exception1) -> {
-	        if ((tfName.getText() != null && !(tfName.getText().equals("")))
-	                && (tfHost.getText() != null && !(tfHost.getText().equals("")))) {
-	            userName = tfName.getText();
-	            hostName = tfHost.getText();
-	            loadChatWindow();
-	        } else {
-	            UiManager.displayError("Username and host are required.");
-	        }
-	    });
+		submitButton.setOnAction((ActionEvent exception1) -> {
+			if ((tfName.getText() != null && !(tfName.getText().equals("")))
+					&& (tfHost.getText() != null && !(tfHost.getText().equals("")))) {
+				userName = tfName.getText();
+				hostName = tfHost.getText();
+				loadChatWindow();
+			} else {
+				UiManager.displayError("Username and host are required.");
+			}
+		});
 	}
 
 	/**
@@ -1469,19 +1469,19 @@ public class MenuController implements Initializable {
          * name or not during account creation.
          */
 		if (MainController.getSpc().getPlanner().getCurrentStudyProfile() != null) {
-		    if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
-		        this.welcome = new Label("Welcome back!");
-		    } else {
-		        this.welcome = new Label(
-		                "Welcome back, " + MainController.getSpc().getPlanner().getUserName() + "!");
-		    }
+			if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
+				this.welcome = new Label("Welcome back!");
+			} else {
+				this.welcome = new Label("Welcome back, "
+						+ MainController.getSpc().getPlanner().getUserName() + "!");
+			}
 		} else {
-		    if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
-		        this.welcome = new Label("Welcome!");
-		    } else {
-		        this.welcome = new Label(
-		                "Welcome " + MainController.getSpc().getPlanner().getUserName() + "!");
-		    }
+			if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
+				this.welcome = new Label("Welcome!");
+			} else {
+				this.welcome = new Label(
+						"Welcome " + MainController.getSpc().getPlanner().getUserName() + "!");
+			}
 		}
 		this.welcome.setPadding(new Insets(10, 15, 10, 15));
 		this.topBox.getChildren().add(this.welcome);
