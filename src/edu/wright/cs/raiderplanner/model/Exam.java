@@ -59,14 +59,14 @@ public class Exam extends Assignment {
 
 	// constructors
 	public Exam(int cweighting, Person csetBy, Person cmarkedBy, Person creviewedBy, 
-						int cmarks, ExamEvent ctimeSlot, Exam cresit) {
+			int cmarks, ExamEvent ctimeSlot, Exam cresit) {
 		super(cweighting, csetBy, cmarkedBy, creviewedBy, cmarks);
 		timeSlot = ctimeSlot;
 		resit = cresit;
 	}
 
 	public Exam(int cweighting, Person csetBy, Person cmarkedBy, Person creviewedBy,
-						int cmarks, ExamEvent ctimeSlot) {
+			int cmarks, ExamEvent ctimeSlot) {
 		super(cweighting, csetBy, cmarkedBy, creviewedBy, cmarks);
 		timeSlot = ctimeSlot;
 		resit = null;

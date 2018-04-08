@@ -900,7 +900,7 @@ public class MenuController implements Initializable {
 
 		ObservableList<Assignment> list = FXCollections
 				.observableArrayList(module.getAssignments());
-		
+
 		// Create a moduleContent:
 		TableView<Assignment> moduleContent = new TableView<>();
 		moduleContent.setItems(list);
@@ -924,9 +924,8 @@ public class MenuController implements Initializable {
 		this.mainContent.addRow(3, moduleContent);
 		GridPane.setColumnSpan(moduleContent, GridPane.REMAINING);
 
-		
 		//this.mainContent.setVgap(5);
-		
+
 		// Actions toolbar:
 		HBox actionsReq = new HBox();
 		GridPane.setHgrow(actionsReq, Priority.ALWAYS);
@@ -953,7 +952,7 @@ public class MenuController implements Initializable {
 				UIManager.reportError(e1.getMessage());
 			}
 		});
-		
+
 		actionsReq.getChildren().addAll(addNewAssignment);
 
 		this.mainContent.addRow(4, actionsReq);

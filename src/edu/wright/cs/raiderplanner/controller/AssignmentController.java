@@ -103,6 +103,15 @@ public class AssignmentController implements Initializable {
 			this.submit.setDisable(false);
 
 		}
+
+		if (this.name.getText().trim().isEmpty()
+				|| this.date.getValue().isBefore(LocalDate.now())
+				|| this.weighting.getText().trim().isEmpty()
+				|| this.assignmentType.getSelectionModel().getSelectedIndex() == -1) {
+
+			this.submit.setDisable(true);
+
+		}
 	}
 
 	/**
@@ -134,12 +143,12 @@ public class AssignmentController implements Initializable {
 	}
 
 	/**
-	 * Handle the 'Add Task' button action.
+	 * Handle the 'Add Assignment' button action.
 	 */
 	public void addTask() {
 		// Table items:
 		ObservableList<Task> list = FXCollections
-					.observableArrayList(MainController.getSpc().getCurrentTasks());
+				.observableArrayList(MainController.getSpc().getCurrentTasks());
 		if (this.assignment != null) {
 			list.removeAll(this.assignment.getTasks());
 		}
