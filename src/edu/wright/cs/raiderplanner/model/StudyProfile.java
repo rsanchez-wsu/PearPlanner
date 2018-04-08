@@ -45,30 +45,18 @@ public class StudyProfile extends VersionControlEntity {
 	// public methods
 
 	// getters:
-	/**
-	 * Returns an array of the Modules of this StudyProfile.
-	 * @return an array of the Modules
-	 */
 	public Module[] getModules() {
 		Module[] module = new Module[this.modules.size()];
 		module = this.modules.toArray(module);
 		return module;
 	}
 
-	/**
-     * Returns an array of the Milestones of this StudyProfile.
-     * @return an array of the Milestones
-     */
 	public Milestone[] getMilestones() {
 		Milestone[] milestone = new Milestone[this.milestones.size()];
 		milestone = this.milestones.toArray(milestone);
 		return milestone;
 	}
 
-	/**
-     * Returns an array of the extensions of this StudyProfile.
-     * @return an array of the extensions
-     */
 	public ExtensionApplication[] getExtensions() {
 		ExtensionApplication[] extension = new ExtensionApplication[this.extensions.size()];
 		extension = this.extensions.toArray(extension);
@@ -84,10 +72,7 @@ public class StudyProfile extends VersionControlEntity {
 		return calendar;
 	}
 
-	/**
-     * Returns an array of the Tasks of this StudyProfile.
-     * @return an array of the Tasks
-     */
+
 	public ArrayList<Task> getTasks() {
 		ArrayList<Task> tasks = new ArrayList<>();
 		this.modules.forEach(e -> e.getAssignments().forEach(ee -> tasks.addAll(ee.getTasks())));
@@ -106,7 +91,7 @@ public class StudyProfile extends VersionControlEntity {
 	/**
 	 * Set/unset this StudyProfile as the current profile of the StudyPlanner.
 	 *
-	 * @param current true if this is the current profile, false otherwise
+	 * @param current whether this StudyProfile is the current profile
 	 */
 	public void setCurrent(boolean current) {
 		this.current = current;
@@ -123,26 +108,14 @@ public class StudyProfile extends VersionControlEntity {
 		}
 	}
 
-	/**
-     * Returns the name of this StudyProfile as a String.
-     * @return the name of this StudyProfile
-     */
 	public String getName() {
 		return name;
 	}
 
-	/**
-     * Returns the year of this StudyProfile as an int.
-     * @return the year of this StudyProfile
-     */
 	public int getYear() {
 		return year;
 	}
 
-	/**
-     * Returns the semester number of this StudyProfile as an int.
-     * @return the semester number of this StudyProfile
-     */
 	public int getSemesterNo() {
 		return semesterNo;
 	}
@@ -189,11 +162,6 @@ public class StudyProfile extends VersionControlEntity {
 	}
 
 	// constructors
-	/**
-	 * Constructor for a StudyProfile that gets made from an initialHubFile.
-	 * @param initialHubFile - the file containing the initial modules, extensions,
-	 *     year, semester number, version, name, and details.
-	 */
 	public StudyProfile(HubFile initialHubFile) {
 		this.milestones = new ArrayList<>();
 
