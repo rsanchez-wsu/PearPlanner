@@ -55,6 +55,7 @@ public class StudyPlannerController {
 	private StudyPlanner planner;
 
 	/**
+	 * Returns SPC's StudyPlanner file, planner.
 	 *
 	 * @return SPC's StudyPlanner file, planner.
 	 */
