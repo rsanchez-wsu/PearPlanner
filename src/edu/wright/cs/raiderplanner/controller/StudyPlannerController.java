@@ -272,7 +272,7 @@ public class StudyPlannerController {
 	}
 
 	/**
-	 * Used when loading from a file
+	 * Used when loading from a file.
 	 *
 	 * @param planner
 	 *            StudyPlanner to be loaded.

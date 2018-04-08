@@ -94,7 +94,7 @@ public class StudyPlanner implements Serializable {
 	 * Java Serialization issues would not
 	 * occur for the end user.
 	 *
-	 * @param module.
+	 * @param module : given value is a Module type
 	 * @return.
 	 */
 	public int getTimeSpent(Module module) {
@@ -191,8 +191,7 @@ public class StudyPlanner implements Serializable {
 
 	/**
 	 * Returns an ArrayList of QuantityTypes.
-	 *
-	 * @return an ArrayList of QuantityTypes.
+	 * @return : returns a list of QuantityType
 	 */
 	public ArrayList<QuantityType> getQuantityTypes() {
 		return this.quantityTypes;
@@ -201,7 +200,7 @@ public class StudyPlanner implements Serializable {
 	/**
 	 * Returns an ArrayList of TaskTypes.
 	 *
-	 * @return an ArrayList of TaskTypes.
+	 * @return returns a list of TaskType
 	 */
 	public ArrayList<TaskType> getTaskTypes() {
 		return this.taskTypes;
@@ -229,8 +228,7 @@ public class StudyPlanner implements Serializable {
 
 	/**
 	 * Change the current Study Profile to a Study Profile with the given ID.
-	 *
-	 * @param profileId ID of a Study Profile
+	 * @param profileId : ID of a Study Profile.
 	 * @return whether changed successfully.
 	 */
 	public boolean setCurrentStudyProfile(String profileId) {
