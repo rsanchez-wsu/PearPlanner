@@ -22,7 +22,12 @@
 package edu.wright.cs.raiderplanner.model;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * PearPlanner/RaiderPlanner
@@ -102,5 +107,4 @@ public class Coursework extends Assignment {
 		deadline = cdeadline;
 		extensions = new ArrayList<Extension>(cextensions);
 	}
-
 }

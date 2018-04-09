@@ -63,6 +63,16 @@
                 <TextField prefWidth="241.0" fx:id="weighting" onKeyReleased="#validateWeighting" promptText="Weighting"/>
             </children>
         </HBox>
+                <VBox prefHeight="148.0" prefWidth="241.0" GridPane.rowIndex="3">
+            <children>
+                <TextField fx:id="setBy" alignment="TOP_LEFT" onKeyReleased="#handleChange" promptText="Set By"
+                           GridPane.rowIndex="1">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="5.0"/>
+                    </VBox.margin>
+                </TextField>
+            </children>
+        </VBox>
         <DatePicker fx:id="date" editable="false" onAction="#validateDate" prefHeight="31.0" prefWidth="305.0"
                     promptText="Date" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
             <GridPane.margin>

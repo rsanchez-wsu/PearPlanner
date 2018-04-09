@@ -1,10 +1,16 @@
 package edu.wright.cs.raiderplanner.controller;
 
 import edu.wright.cs.raiderplanner.model.QuantityType;
+import edu.wright.cs.raiderplanner.model.Room;
 import edu.wright.cs.raiderplanner.model.Task;
 import edu.wright.cs.raiderplanner.model.Assignment;
 import edu.wright.cs.raiderplanner.model.Coursework;
+import edu.wright.cs.raiderplanner.model.Deadline;
+import edu.wright.cs.raiderplanner.model.Event;
 import edu.wright.cs.raiderplanner.model.Exam;
+import edu.wright.cs.raiderplanner.model.ExamEvent;
+import edu.wright.cs.raiderplanner.model.Extension;
+import edu.wright.cs.raiderplanner.model.Person;
 import edu.wright.cs.raiderplanner.view.UIManager;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
@@ -34,8 +40,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -86,6 +97,7 @@ public class AssignmentController implements Initializable {
 	@FXML private ComboBox<String> assignmentType;
 	@FXML private TextField weighting;
 	@FXML private DatePicker date;
+	@FXML private TextField setBy;
 
 	// Labels:
 	@FXML private Label title;
@@ -98,6 +110,7 @@ public class AssignmentController implements Initializable {
 		if (!this.name.getText().trim().isEmpty()
 				&& !this.date.getValue().isBefore(LocalDate.now())
 				&& !this.weighting.getText().trim().isEmpty()
+				&& !this.setBy.getText().trim().isEmpty()
 				&& this.assignmentType.getSelectionModel().getSelectedIndex() != -1) {
 
 			this.submit.setDisable(false);
@@ -107,6 +120,7 @@ public class AssignmentController implements Initializable {
 		if (this.name.getText().trim().isEmpty()
 				|| this.date.getValue().isBefore(LocalDate.now())
 				|| this.weighting.getText().trim().isEmpty()
+				|| this.setBy.getText().trim().isEmpty()
 				|| this.assignmentType.getSelectionModel().getSelectedIndex() == -1) {
 
 			this.submit.setDisable(true);
@@ -160,10 +174,23 @@ public class AssignmentController implements Initializable {
 	 * Submit the form and create a new Assignment.
 	 */
 	public void handleSubmit() {
-		if (this.assignment == null) {			
-			this.assignment = new Assignment(Integer.parseInt(this.weighting.getText()), null, null, null, 0);
-			this.assignment.setName(this.name.getText());
-			// TODO Add dates
+		if (this.assignment == null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy'T00:00:00Z'");
+			LocalDate ldeadline = this.date.getValue();
+			String sdeadline = ldeadline.format(formatter);
+			Deadline deadline = new Deadline(sdeadline);
+			Person person = new Person("", this.setBy.getText(), true);
+			if (this.assignmentType.getValue() == "Coursework") {
+				ArrayList<Extension> cextentions = new ArrayList<Extension>();
+				this.assignment = new Coursework(Integer.parseInt(this.weighting.getText()), person, person, person, 0, null, deadline, cextentions);
+				this.assignment.setName(this.name.getText());
+				// TODO Add dates
+			} else if (this.assignmentType.getValue() == "Exam") {
+				Room room = null;
+				ExamEvent examEvent = new ExamEvent(sdeadline, room, 0);
+				this.assignment = new Exam(Integer.parseInt(this.weighting.getText()), person, person, person, 0, examEvent);
+				this.assignment.setName(this.name.getText());
+			}
 		}
 
 		this.success = true;
@@ -181,7 +208,7 @@ public class AssignmentController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		String[] placeholder = {"TODO", "Test"};
+		String[] placeholder = {"Coursework", "Exam"};
 		this.assignmentType.getItems().addAll(placeholder);
 		this.date.setValue(LocalDate.now());
 
@@ -193,6 +220,7 @@ public class AssignmentController implements Initializable {
 			this.weighting.setEditable(false);
 			this.date.setDisable(true);
 			this.assignmentType.setDisable(true);
+			this.setBy.setEditable(false);
 			// =================
 
 			// Fill in data:

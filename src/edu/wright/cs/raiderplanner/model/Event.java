@@ -42,7 +42,7 @@ public class Event extends VersionControlEntity {
 	private static final int DEFAULT_DURATION = 0;
 	private static Pattern dateRegex =
 			Pattern.compile("(\\d\\d)/(\\d\\d)/(\\d\\d\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)Z");
-	private static FastDateFormat formatter =
+	public static FastDateFormat formatter =
 			FastDateFormat.getInstance("MM/dd/yyyy'T'hh:mm:ss'Z'");
 
 	protected GregorianCalendar date = null;
