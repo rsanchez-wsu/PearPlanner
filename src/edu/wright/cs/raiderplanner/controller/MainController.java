@@ -2,7 +2,7 @@
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar, Amila Dias
  *
- *
+ * Copyright (C) 2018 - Clayton D. Terrill
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ package edu.wright.cs.raiderplanner.controller;
 import edu.wright.cs.raiderplanner.model.Event;
 import edu.wright.cs.raiderplanner.model.HubFile;
 import edu.wright.cs.raiderplanner.model.ICalExport;
+import edu.wright.cs.raiderplanner.model.Settings;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
 import edu.wright.cs.raiderplanner.view.UiManager;
 
@@ -66,6 +67,7 @@ public class MainController {
 
 	// TODO - Determine if this really should be public
 	public static UiManager ui = new UiManager();
+	public static Settings settings = new Settings();
 
 	// TODO - StudyPlannerController is a public class; determine if managing an
 	// instance in this way is best
@@ -101,7 +103,24 @@ public class MainController {
 	 */
 	public static void initialise() {
 		try {
-			ui.showStartup();
+			if (settings.getAccountStartup() == true) {
+				try {
+					File file = new File(settings.getDefaultFilePath());
+					if (file.exists() && !file.isDirectory()) {
+						plannerFile = file;
+					} else {
+						ui.showStartup();
+					}
+				} catch (FileNotFoundException e) {
+					UiManager.reportError("Error, File does not exist.");
+					ui.showStartup();
+				} catch (IOException e) {
+					UiManager.reportError("Error, Invalid file.");
+					ui.showStartup();
+				}
+			} else {
+				ui.showStartup();
+			}
 		} catch (IOException e) {
 			UiManager.reportError("Invalid file.");
 			System.exit(1);
@@ -165,6 +184,7 @@ public class MainController {
 
 	/**
 	 * Display the main menu.
+	 * Stage will be created.
 	 */
 	public static void main() {
 		try {
@@ -182,6 +202,34 @@ public class MainController {
 	public static void main_2() {
 		try {
 			ui.mainMenu_2();
+		} catch (IOException e) {
+			UiManager.reportError("File does not exist: " + e.getMessage());
+		} catch (Exception e) {
+			UiManager.reportError(e.getMessage());
+		}
+	}
+
+	/**
+	 * Display the main menu.
+	 * Stage is already present.
+	 */
+	public static void showMain() {
+		try {
+			ui.showMain();
+		} catch (IOException e) {
+			UiManager.reportError("File does not exist: " + e.getMessage());
+		} catch (Exception e) {
+			UiManager.reportError(e.getMessage());
+		}
+	}
+
+	/**
+	 * Display the settings menu.
+	 * Stage is already present.
+	 */
+	public static void showSettings() {
+		try {
+			ui.showSettings();
 		} catch (IOException e) {
 			UiManager.reportError("File does not exist: " + e.getMessage());
 		} catch (Exception e) {
@@ -275,7 +323,7 @@ public class MainController {
 	}
 
 	/**
-         * Function exports calendar ICS file to user defined location.
+	 * Function exports calendar ICS file to user defined location.
 	 */
 	public static void exportCalendar() {
 		ICalExport icalExport = new ICalExport();

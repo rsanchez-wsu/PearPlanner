@@ -2,7 +2,7 @@
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar, Amila Dias
  *
- *
+ * Copyright (C) 2018 - Clayton D. Terrill
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -148,7 +148,7 @@ public class MenuController implements Initializable {
 	private DropShadow moduleHoverShadow = new DropShadow(screenAverage * 0.02, 0, 0, Color.BLACK);
 	private InnerShadow modulePressedShadow = new InnerShadow(screenAverage * 0.017, 0, 0,
 			Color.BLACK);
-
+	private Stage stage = null;
 	// Labels:
 	private Label welcome;
 	@FXML
@@ -190,7 +190,7 @@ public class MenuController implements Initializable {
 	@FXML
 	private HBox exportCalBox;
 
-	//chat variables
+	// chat variables
 	private final BorderPane mainPane = new BorderPane();
 	private final GridPane firstPane = new GridPane();
 	
@@ -206,7 +206,7 @@ public class MenuController implements Initializable {
 	private final Label host = new Label("Host:");
 	private final Button submitButton = new Button("Submit");
 	private final Button sendButton = new Button("Send");
-	private boolean calendarOpen = false; //Used to monitor status of calendar (open or closed)
+	private boolean calendarOpen = false; // Used to monitor status of calendar (open or closed)
 
 	private String userName;
 	private String hostName;
@@ -239,7 +239,7 @@ public class MenuController implements Initializable {
 		this.updateMenu();
 		exportCalBox.managedProperty().bind(exportCalBox.visibleProperty());
 
-		//When user chooses different option in menu
+		// When user chooses different option in menu
 		//		calendarOpen changes to monitor status within main window.
 		switch (this.current) {
 		case DASHBOARD: {
@@ -278,7 +278,7 @@ public class MenuController implements Initializable {
 			calendarOpen = false;
 			break;
 		}
-		//Based on user choice of menu option "Export Calendar" button is shown/hidden
+		// Based on user choice of menu option "Export Calendar" button is shown/hidden
 		exportCalBox.setVisible(calendarOpen);
 	}
 
@@ -725,6 +725,8 @@ public class MenuController implements Initializable {
 
 		TableView<StudyProfile> table = new TableView<>();
 		table.setItems(list);
+		//limit the number of rows to allow space for buttons below the table
+		GridPane.setRowSpan(table, 20);
 		table.getColumns().addAll(colList);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(table, Priority.ALWAYS);
@@ -808,6 +810,8 @@ public class MenuController implements Initializable {
 		// Create a table:
 		TableView<Module> table = new TableView<>();
 		table.setItems(list);
+		//limit the number of rows to allow space for buttons below the table
+		GridPane.setRowSpan(table, 20);
 		table.getColumns().addAll(colList);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(table, Priority.ALWAYS);
@@ -969,8 +973,8 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * This will set the message area to uneditable and set the size for all the buttons This method
-	 * will also create padding between the textarea and the message area. and the send button.
+	 * This will set the message area to uneditable and set the size for all the buttons. The method
+	 * will also create padding between the text area, the message area, and the send button.
 	 */
 	public void createUserMessagePane() {
 		msgArea.setEditable(false);
@@ -981,6 +985,7 @@ public class MenuController implements Initializable {
 		userMessagePane.add(tfMessageToSend, 0, 0);
 		userMessagePane.add(spacingBox, 1, 0);
 		userMessagePane.add(sendButton, 2, 0);
+		sendButton.setMinWidth(100);
 	}
 
 	/**
@@ -998,18 +1003,19 @@ public class MenuController implements Initializable {
 	/**
 	 * This will take in the action of when the submit button is pressed. The submit button is for
 	 * the chat window where the user inputs his or her information. If the user does not enter a
-	 * username then one will be appointed for them. Then at the very end the chat window will be
-	 * loaded.
+	 * username/hostname, an error will pop up notifying them to enter those values. Then at the
+	 * very end the chat window will be loaded.
 	 */
 	public void submitButtonAction() {
 		submitButton.setOnAction((ActionEvent exception1) -> {
-			if (tfName.getText().equals("")) {
-				tfName.setText("User" + Math.random());
-			} else {
+			if ((tfName.getText() != null && !(tfName.getText().equals("")))
+					&& (tfHost.getText() != null && !(tfHost.getText().equals("")))) {
 				userName = tfName.getText();
+				hostName = tfHost.getText();
+				loadChatWindow();
+			} else {
+				UiManager.displayError("Username and host are required.");
 			}
-			hostName = tfHost.getText();
-			loadChatWindow();
 		});
 	}
 
@@ -1263,7 +1269,8 @@ public class MenuController implements Initializable {
 		actionsTask.setPadding(new Insets(5, 5, 10, 0));
 
 		// Buttons:
-		Button addNew = new Button("Add a new task");
+		Button addNew = null;
+		addNew = new Button("Add a new task");
 
 		Button check = new Button("Toggle complete");
 		check.getStyleClass().add("set-button");
@@ -1367,7 +1374,7 @@ public class MenuController implements Initializable {
 	 * Handles clicking on a specific notification.
 	 *
 	 * @param id
-	 *            The identifier of the notification which was clicked.
+	 * The identifier of the notification which was clicked.
 	 */
 	public void handleRead(int id) {
 		// Get notification:
@@ -1410,6 +1417,14 @@ public class MenuController implements Initializable {
 	}
 
 	/**
+	 * Handles the 'Settings' event.
+	 */
+	public void showSettings() {
+		initialLoad = true; // Required so the notifications don't appear.
+		MainController.showSettings();
+	}
+
+	/**
 	 * Handles the 'Help' event.
 	 */
 	public void openBrowser() {
@@ -1417,7 +1432,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-         * Handles 'Export Calendar' event.
+	 * Handles 'Export Calendar' event.
 	 */
 	public void exportCalendar() {
 		MainController.exportCalendar();
@@ -1456,9 +1471,26 @@ public class MenuController implements Initializable {
 			}
 		});
 
-		// Welcome text:
-		this.welcome = new Label(
-				"Welcome back, " + MainController.getSpc().getPlanner().getUserName() + "!");
+		/*
+		 * Welcome text. Displays the appropriate welcoming message depending on if the user
+		 * is new or a returning user. Also takes into account if the user entered their
+		 * name or not during account creation.
+		 */
+		if (MainController.getSpc().getPlanner().getCurrentStudyProfile() != null) {
+			if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
+				this.welcome = new Label("Welcome back!");
+			} else {
+				this.welcome = new Label("Welcome back, "
+						+ MainController.getSpc().getPlanner().getUserName() + "!");
+			}
+		} else {
+			if ((MainController.getSpc().getPlanner().getUserName()).isEmpty()) {
+				this.welcome = new Label("Welcome!");
+			} else {
+				this.welcome = new Label(
+						"Welcome " + MainController.getSpc().getPlanner().getUserName() + "!");
+			}
+		}
 		this.welcome.setPadding(new Insets(10, 15, 10, 15));
 		this.topBox.getChildren().add(this.welcome);
 
@@ -1621,7 +1653,7 @@ public class MenuController implements Initializable {
 	 * RowFactory for a TableView of Requirement.
 	 *
 	 * @param e1
-	 *            TableView that contains the RowFactory.
+	 * TableView that contains the RowFactory.
 	 *
 	 * @return new RowFactory
 	 */
@@ -1728,10 +1760,10 @@ public class MenuController implements Initializable {
 	 * Displays a GanttishDiagram window for the given Assignment.
 	 *
 	 * @param assignment
-	 *            Assignment for which to generate the GanttishDiagram.
+	 * Assignment for which to generate the GanttishDiagram.
 	 */
 	public void showGantt(Assignment assignment, Window previousWindow, ModelEntity previous) {
-		Stage stage = new Stage();
+		stage = new Stage();
 		mainContent.getChildren().remove(1, mainContent.getChildren().size());
 		topBox.getChildren().clear();
 		title.setText(assignment.getName() + " Gantt Diagram");
