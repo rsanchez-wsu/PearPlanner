@@ -9,11 +9,9 @@
             prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             stylesheets="@../content/stylesheet.css">
     <children>
-        <ToolBar minHeight="56.0" style="-fx-background-color: #026937" AnchorPane.leftAnchor="0.0"
+        <ToolBar minHeight="56.0" style="-fx-background-color: #026937" AnchorPane.leftAnchor="173.0"
                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <Button fx:id="openMenu" prefHeight="35.0" prefWidth="25.0" styleClass="button-image"
-                        style="-fx-background-image: url('/edu/wright/cs/raiderplanner/content/menu.png');"/>
                 <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
                     <children>
                         <Label fx:id="title" style="-fx-font-family: Ariel; -fx-text-fill: white; -fx-font-size: 2.5em" text="Study Dashboard"/>
@@ -32,7 +30,7 @@
 
             </items>
         </ToolBar>
-        <GridPane fx:id="mainContent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+        <GridPane fx:id="mainContent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="173.0"
                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
             <children>
                 <HBox fx:id="topBox" style="-fx-padding: 10 0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -42,7 +40,7 @@
                 </HBox>
             </children>
         </GridPane>
-        <AnchorPane fx:id="navList" prefWidth="173.0" style="-fx-background-color: #5C7167;" translateX="-222"
+        <AnchorPane fx:id="nav" prefWidth="173.0" style="-fx-background-color: #5C7167;" translateX="-222"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox style="-fx-background-color: #5C7167; -fx-padding: 8;"
@@ -207,7 +205,7 @@
                             />
                           </HBox>
                           
-                          <GridPane GridPane.rowIndex="6" vgap="15">
+                          <GridPane GridPane.rowIndex="6" vgap="7">
                           <HBox GridPane.rowIndex="1">
                             <ImageView fitHeight="2.0" fitWidth="173" pickOnBounds="true" preserveRatio="false">
                                 <HBox.margin>
@@ -228,11 +226,11 @@
                                       <Image url="/edu/wright/cs/raiderplanner/content/settings.png"/>
                                   </image>
                               </ImageView>
-                            <Button onAction="#main" style="-fx-background-color: transparent;-fx-text-fill:white; -fx-cursor: hand;"
+                            <Button fx:id="mode" style="-fx-background-color: transparent;-fx-text-fill:white; -fx-cursor: hand;"
                                     text="Mode Switch"
                             />
                           </HBox>
-
+                    </GridPane>
                       </GridPane>
                     </children>
                 </GridPane>

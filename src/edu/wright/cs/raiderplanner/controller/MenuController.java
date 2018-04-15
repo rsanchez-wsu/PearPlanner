@@ -52,6 +52,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -59,6 +60,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.print.PrinterJob;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -113,6 +115,8 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import edu.wright.cs.raiderplanner.controller.MainController;
+
 /**
  * Actions associated with the menu and its items.
  *
@@ -125,7 +129,7 @@ public class MenuController implements Initializable {
 	 * Initializes switch names and other buttons.
 	 */
 	public enum Window {
-		EMPTY, DASHBOARD, PROFILES, MODULES, MILESTONES, CALENDAR, CHAT
+		EMPTY, DASHBOARD, PROFILES, MODE, MODULES, MILESTONES, CALENDAR, CHAT
 	}
 
 	private Window current;
@@ -143,6 +147,8 @@ public class MenuController implements Initializable {
 	private int navShadowOffset = (int) (screenAverage * 0.01);
 	private DropShadow navShadow = new DropShadow(navShadowRadius, navShadowOffset, 0, Color.BLACK);
 	private DropShadow notifShadow = new DropShadow(screenAverage * 0.02, 0, 0.009, Color.BLACK);
+	private DropShadow noShadow = new DropShadow(screenAverage * 0, 0, 0,
+			Color.TRANSPARENT);
 	private DropShadow moduleDefaultShadow = new DropShadow(screenAverage * 0.005, 0, 0,
 			Color.BLACK);
 	private DropShadow moduleHoverShadow = new DropShadow(screenAverage * 0.02, 0, 0, Color.BLACK);
@@ -168,6 +174,8 @@ public class MenuController implements Initializable {
 	@FXML
 	private Button milestones;
 	@FXML
+	private Button mode;
+	@FXML
 	private Button modules;
 	@FXML
 	private Button calendar;
@@ -177,6 +185,10 @@ public class MenuController implements Initializable {
 	private Button closeDrawer;
 
 	// Panes:
+	@FXML
+	private AnchorPane anchor;
+	@FXML
+	private AnchorPane nav;
 	@FXML
 	private AnchorPane navList;
 	@FXML
@@ -189,6 +201,10 @@ public class MenuController implements Initializable {
 	private HBox topBox;
 	@FXML
 	private HBox exportCalBox;
+	
+	//fxml
+	private URL alternativeMainMenuFxml = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/MainMenu_2.fxml");
 
 	// chat variables
 	private final BorderPane mainPane = new BorderPane();
@@ -207,10 +223,12 @@ public class MenuController implements Initializable {
 	private final Button submitButton = new Button("Submit");
 	private final Button sendButton = new Button("Send");
 	private boolean calendarOpen = false; // Used to monitor status of calendar (open or closed)
+	private boolean modeClicked = false; //used to monitor status of mode switch in the menu
 
 	private String userName;
 	private String hostName;
 	private int portNumber = 1111;
+	private Parent root;
 
 	/**
 	 * Sets this.current to equal passed variable and calls this.main().
@@ -246,36 +264,49 @@ public class MenuController implements Initializable {
 			if (MainController.getSpc().getPlanner().getCurrentStudyProfile() != null) {
 				this.loadDashboard();
 				calendarOpen = false;
+				modeClicked = false;
 			}
 			break;
 		}
 		case PROFILES: {
 			this.loadStudyProfiles();
 			calendarOpen = false;
+			modeClicked = false;
+			break;
+		}
+		case MODE: {
+			this.switchDisplay();
+			modeClicked = true;
+			calendarOpen = false;
 			break;
 		}
 		case MODULES: {
 			this.loadModules();
 			calendarOpen = false;
+			modeClicked = false;
 			break;
 		}
 		case MILESTONES: {
 			this.loadMilestones();
 			calendarOpen = false;
+			modeClicked = false;
 			break;
 		}
 		case CALENDAR: {
 			this.loadCalendar();
 			calendarOpen = true;
+			modeClicked = false;
 			break;
 		}
 		case CHAT: {
 			this.obtainUserInformation();
 			calendarOpen = false;
+			modeClicked = false;
 			break;
 		}
 		default:
 			calendarOpen = false;
+			modeClicked = false;
 			break;
 		}
 		// Based on user choice of menu option "Export Calendar" button is shown/hidden
@@ -449,6 +480,19 @@ public class MenuController implements Initializable {
 		} catch (Exception e) {
 			UiManager.reportError(e.getMessage());
 		}
+	}
+	
+	private void switchDisplay() {
+		try {
+			FXMLLoader altFxml = new FXMLLoader(alternativeMainMenuFxml);
+			altFxml.setController(UiManager.getMc());
+			root = altFxml.load();
+			navList.getChildren().setAll(root);
+			nav.setEffect(noShadow);
+		} catch (Exception e) {
+			UiManager.reportError(e.getMessage());
+		}
+		
 	}
 
 	/**

@@ -97,6 +97,8 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
+	
+	private Parent root;
 
 	/**
 	 * Displays a 'Create Account' window and handles the creation of a new Account object.
@@ -136,11 +138,9 @@ public class UiManager {
 		// Load in the .fxml file:
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
 		FXMLLoader loader = new FXMLLoader(mainMenuFxml);
-		loader.setController(UiManager.mc);
+		loader.setController(UiManager.getMc());
 
-		loader.setController(UiManager.mc); // This may be where the initializer gets it's location and resources. 
-
-		Parent root = loader.load();
+		root = loader.load();
 
 		// Set the scene:
 		mainStage.setScene(new Scene(root,
@@ -345,7 +345,7 @@ public class UiManager {
 	 * @param current Window from which this method is called
 	 */
 	public void moduleDetails(Module module, MenuController.Window current) {
-		UiManager.mc.loadModule(module, current, null);
+		UiManager.getMc().loadModule(module, current, null);
 	}
 
 	/**
@@ -355,7 +355,7 @@ public class UiManager {
 	 * @param current Window from which this method is called
 	 */
 	public void moduleDetails(Module module, ModelEntity current) {
-		UiManager.mc.loadModule(module, MenuController.Window.EMPTY, current);
+		UiManager.getMc().loadModule(module, MenuController.Window.EMPTY, current);
 	}
 
 	/**
@@ -365,7 +365,7 @@ public class UiManager {
 	 * @param current Window from which this method is called
 	 */
 	public void assignmentDetails(Assignment assignment, MenuController.Window current) {
-		UiManager.mc.loadAssignment(assignment, current, null);
+		UiManager.getMc().loadAssignment(assignment, current, null);
 	}
 
 	/**
@@ -375,7 +375,7 @@ public class UiManager {
 	 * @param current Window from which this method is called
 	 */
 	public void assignmentDetails(Assignment assignment, ModelEntity current) {
-		UiManager.mc.loadAssignment(assignment, MenuController.Window.EMPTY, current);
+		UiManager.getMc().loadAssignment(assignment, MenuController.Window.EMPTY, current);
 	}
 
 	/**
@@ -665,6 +665,20 @@ public class UiManager {
 	public static void areYouFeelingLucky() {
 		while (UiManager.confirm("Are you feeling lucky?") == (Math.random() < 0.5)) {
 		}
+	}
+	
+	/**
+	 * @return the mc
+	 */
+	public static MenuController getMc() {
+		return mc;
+	}
+
+	/**
+	 * @param mc the mc to set
+	 */
+	public static void setMc(MenuController mc) {
+		UiManager.mc = mc;
 	}
 
 }

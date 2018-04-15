@@ -196,18 +196,6 @@ public class MainController {
 		}
 	}
 	
-	/**
-	 * Display the main menu 2.
-	 */
-	public static void main_2() {
-		try {
-			ui.mainMenu_2();
-		} catch (IOException e) {
-			UiManager.reportError("File does not exist: " + e.getMessage());
-		} catch (Exception e) {
-			UiManager.reportError(e.getMessage());
-		}
-	}
 
 	/**
 	 * Display the main menu.
