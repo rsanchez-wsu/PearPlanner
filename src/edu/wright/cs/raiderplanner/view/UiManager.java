@@ -89,7 +89,7 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/CreateAccount.fxml");
 	private URL mainMenuFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/MainMenu.fxml");
-	private URL mainMenuFxml_2 = getClass().getResource(
+	private URL mainMenuFxml2 = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/MainMenu_2.fxml");
 	private URL studyProfileFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/StudyProfile.fxml");
@@ -97,7 +97,7 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
-	
+
 	private Parent root;
 
 	/**
@@ -164,7 +164,7 @@ public class UiManager {
 	public void mainMenu_2() throws Exception {
 		// Load in the .fxml file:
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
-		FXMLLoader loader = new FXMLLoader(mainMenuFxml_2);
+		FXMLLoader loader = new FXMLLoader(mainMenuFxml2);
 		loader.setController(UiManager.mc);
 		Parent root = loader.load();
 
