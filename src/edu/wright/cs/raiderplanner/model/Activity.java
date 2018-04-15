@@ -83,6 +83,8 @@ public class Activity extends Event {
 	}
 
 	/**
+	 * ...
+	 *
 	 * @return an array of Tasks related to this Activity.
 	 */
 	public Task[] getTasks() {
@@ -91,6 +93,8 @@ public class Activity extends Event {
 	}
 
 	/**
+	 * ...
+	 *
 	 * @return the Quantity of this Activity.
 	 */
 	public int getActivityQuantity() {
@@ -98,6 +102,8 @@ public class Activity extends Event {
 	}
 
 	/**
+	 * ...
+	 *
 	 * @return the Quantity Type of this Activity.
 	 */
 	public QuantityType getType() {
@@ -105,6 +111,8 @@ public class Activity extends Event {
 	}
 
 	/**
+	 * ...
+	 *
 	 * @return a formatted String representation of this Activity's date.
 	 */
 	public String getDateString() {

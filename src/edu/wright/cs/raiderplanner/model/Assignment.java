@@ -78,6 +78,8 @@ public abstract class Assignment extends VersionControlEntity {
 	}
 
 	/**
+	 * ...
+	 *
 	 * @param verbose : given value is a boolean type
 	 * @return verboseString : returns StringBuilder object
 	 */

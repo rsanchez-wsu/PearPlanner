@@ -155,7 +155,7 @@ public class UiManager {
 		mainStage.getIcons().add(icon);
 		mainStage.showAndWait();
 	}
-	
+
 	/**
 	 * Displays the main menu.
 	 *
@@ -165,7 +165,7 @@ public class UiManager {
 		// Load in the .fxml file:
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
 		FXMLLoader loader = new FXMLLoader(mainMenuFxml_2);
-		loader.setController(UiManager.mc); // This may be where the initializer gets it's location and resources. 
+		loader.setController(UiManager.mc);
 		Parent root = loader.load();
 
 		// Set the scene:
@@ -666,15 +666,20 @@ public class UiManager {
 		while (UiManager.confirm("Are you feeling lucky?") == (Math.random() < 0.5)) {
 		}
 	}
-	
+
+
 	/**
-	 * @return the mc
+	 * returns the current menu controller.
+	 *
+	 * @return mc
 	 */
 	public static MenuController getMc() {
 		return mc;
 	}
 
 	/**
+	 * sets the menu controler.
+	 *
 	 * @param mc the mc to set
 	 */
 	public static void setMc(MenuController mc) {

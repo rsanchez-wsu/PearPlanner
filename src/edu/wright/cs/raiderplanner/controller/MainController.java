@@ -28,8 +28,8 @@ import edu.wright.cs.raiderplanner.model.Settings;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
 import edu.wright.cs.raiderplanner.view.UiManager;
 
-
 import java.awt.Desktop;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -195,7 +195,7 @@ public class MainController {
 			UiManager.reportError(e.getMessage());
 		}
 	}
-	
+
 
 	/**
 	 * Display the main menu.

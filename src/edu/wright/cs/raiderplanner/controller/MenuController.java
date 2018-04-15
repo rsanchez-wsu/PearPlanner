@@ -115,8 +115,6 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import edu.wright.cs.raiderplanner.controller.MainController;
-
 /**
  * Actions associated with the menu and its items.
  *
@@ -201,7 +199,7 @@ public class MenuController implements Initializable {
 	private HBox topBox;
 	@FXML
 	private HBox exportCalBox;
-	
+
 	//fxml
 	private URL alternativeMainMenuFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/MainMenu_2.fxml");
@@ -209,9 +207,9 @@ public class MenuController implements Initializable {
 	// chat variables
 	private final BorderPane mainPane = new BorderPane();
 	private final GridPane firstPane = new GridPane();
-	
+
 	//Probably need a menuPane
-	
+
 	private final GridPane userMessagePane = new GridPane();
 	private final HBox spacingBox = new HBox();
 	private TextField tfName = new TextField("");
@@ -481,7 +479,10 @@ public class MenuController implements Initializable {
 			UiManager.reportError(e.getMessage());
 		}
 	}
-	
+
+	/**
+	 * ...
+	 */
 	private void switchDisplay() {
 		try {
 			FXMLLoader altFxml = new FXMLLoader(alternativeMainMenuFxml);
@@ -492,7 +493,7 @@ public class MenuController implements Initializable {
 		} catch (Exception e) {
 			UiManager.reportError(e.getMessage());
 		}
-		
+
 	}
 
 	/**
@@ -1483,7 +1484,7 @@ public class MenuController implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) { // Has access to the .fxml fields.
+	public void initialize(URL location, ResourceBundle resources) {
 		this.prepareAnimations();
 		this.isNavOpen = false;
 
