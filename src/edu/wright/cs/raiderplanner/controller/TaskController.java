@@ -132,18 +132,11 @@ public class TaskController implements Initializable {
 
 	/**
 	 * Handle changes to the input fields.
+	 * @return 
 	 */
 	public void handleChange() {
-		// Check the input fields:
-		if (!this.name.getText().trim().isEmpty()
-				&& !this.weighting.getText().trim().isEmpty()
-				&& !this.deadline.getEditor().getText().trim().isEmpty()
-				&& !this.deadline.getValue().isBefore(LocalDate.now())
-				&& this.taskType.getSelectionModel().getSelectedIndex() != -1) {
-			this.submit.setDisable(false);
-		// =================
-		}
-
+		// Try to unlock:
+		unlockSubmit();	
 		// Process requirements and dependencies:
 		if (this.task != null) {
 			this.task.replaceDependencies(this.dependencies.getItems());
@@ -164,7 +157,31 @@ public class TaskController implements Initializable {
 		}
 		// =================
 	}
-
+	
+	/**
+	 * Used to test all user entries needed before allowing the ok/submit button to be 
+	 * 	pressed.  
+	 * @return true if unlock is successful, or false if not
+	 */
+	public boolean unlockSubmit() {
+		if (!this.name.getText().trim().isEmpty()
+				&& !this.weighting.getText().trim().isEmpty()
+				&& MainController.isNumeric(this.weighting.getText())
+				&& Integer.parseInt(this.weighting.getText()) < 100
+				&& Integer.parseInt(this.weighting.getText()) > 0
+				&& !this.deadline.getEditor().getText().trim().isEmpty()
+				&& !this.deadline.getValue().isBefore(LocalDate.now())				
+				&& this.taskType.getSelectionModel().getSelectedIndex() != -1
+				&& !this.deadline.getValue().isBefore(LocalDate.now())) {
+			this.submit.setDisable(false);	
+			return true;
+		}
+		else {
+			this.submit.setDisable(true);	
+			return false;			
+		}
+	}
+	
 	/**
 	 * Validate data in the Weighting field.
 	 */
@@ -241,6 +258,7 @@ public class TaskController implements Initializable {
 			this.completed.setVisible(true);
 			this.canComplete.setVisible(false);
 		}
+		this.unlockSubmit();
 	}
 
 	/**
