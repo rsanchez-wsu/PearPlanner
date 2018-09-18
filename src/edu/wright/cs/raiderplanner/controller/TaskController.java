@@ -161,7 +161,7 @@ public class TaskController implements Initializable {
 	 * Used to test all user entries needed before allowing the ok/submit button to be 
 	 * 	pressed. Checks all input fields for incorrect data, including whether weighting
 	 * is an Integer.
-	 * @return true if unlock is successful, or false if not
+	 * @return true if unlock is successful, or false if not.
 	 */
 	public boolean unlockSubmit() {
 		if (!this.name.getText().trim().isEmpty()
