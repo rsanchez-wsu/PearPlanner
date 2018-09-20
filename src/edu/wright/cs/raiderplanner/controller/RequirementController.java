@@ -137,7 +137,7 @@ public class RequirementController implements Initializable {
 	 * Validate data in the Quantity field, including that it is an Integer.
 	 */
 	public void validateQuantity() {
-		if (!MainController.isNumeric(this.quantity.getText()) 
+		if (!MainController.isNumeric(this.quantity.getText())
 				|| Double.parseDouble(this.quantity.getText()) < 0
 				|| Double.parseDouble(this.quantity.getText()) % 1 > 0) {
 			this.quantity.setStyle("-fx-text-box-border:red;");

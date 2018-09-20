@@ -135,7 +135,7 @@ public class TaskController implements Initializable {
 	 */
 	public void handleChange() {
 		// Try to unlock:
-		unlockSubmit();	
+		unlockSubmit();
 		// Process requirements and dependencies:
 		if (this.task != null) {
 			this.task.replaceDependencies(this.dependencies.getItems());
@@ -156,9 +156,9 @@ public class TaskController implements Initializable {
 		}
 		// =================
 	}
-	
+
 	/**
-	 * Used to test all user entries needed before allowing the ok/submit button to be 
+	 * Used to test all user entries needed before allowing the ok/submit button to be
 	 * 	pressed. Checks all input fields for incorrect data, including whether weighting
 	 * is an Integer.
 	 * @return true if unlock is successful, or false if not.
@@ -173,17 +173,17 @@ public class TaskController implements Initializable {
 				&& Double.parseDouble(this.weighting.getText()) > 0
 				&& Double.parseDouble(this.weighting.getText()) % 1 == 0
 				&& !this.deadline.getEditor().getText().trim().isEmpty()
-				&& !this.deadline.getValue().isBefore(LocalDate.now())				
+				&& !this.deadline.getValue().isBefore(LocalDate.now())
 				&& this.taskType.getSelectionModel().getSelectedIndex() != -1
 				&& !this.deadline.getValue().isBefore(LocalDate.now())) {
-			this.submit.setDisable(false);	
+			this.submit.setDisable(false);
 			return true;
 		} else {
-			this.submit.setDisable(true);	
-			return false;			
+			this.submit.setDisable(true);
+			return false;
 		}
 	}
-	
+
 	/**
 	 * Validate data in the Weighting field.
 	 * Confirms that input is an Integer.
