@@ -13,7 +13,7 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />	//Changed row max heights
+    <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="401.0" minHeight="10.0" prefHeight="350.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>

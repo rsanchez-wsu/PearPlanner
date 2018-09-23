@@ -38,11 +38,11 @@ public class Person extends VersionControlEntity {
 
 	private static Pattern salutationRegex = Pattern.compile("[a-zA-Z]*");
 	private static Pattern nameRegex = Pattern.compile("[a-zA-z\\s]*");
+
 	private ArrayList<String> givenNames;
 	private String familyName;
 	private String salutation;
 	private String email;
-
 	private boolean familyNameLast = true;
 
 	/**
@@ -140,23 +140,12 @@ public class Person extends VersionControlEntity {
 	public Person(String salutation, ArrayList<String> givenNames, String famName,
 			Boolean famNameLast, String newEmail) {
 
-		
-		
-		
 		setFamilyName(famName);
 		this.givenNames = new ArrayList<String>(givenNames);
 		setSalutation(salutation);
 		familyNameLast = famNameLast;
 		email = newEmail;
 
-	}
-
-	/**
-	 * 
-	 */
-	private void length() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
