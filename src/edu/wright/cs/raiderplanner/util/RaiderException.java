@@ -29,7 +29,7 @@ package edu.wright.cs.raiderplanner.util;
 @SuppressWarnings("serial")
 public class RaiderException extends Exception {
 	/*
-	 * Get the RaiderException
+	 * Get the RaiderException 
 	 */
 	public RaiderException() {
 		getMessage();
