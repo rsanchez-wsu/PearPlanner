@@ -84,6 +84,8 @@ public class AccountController implements Initializable {
 	 * @return true if the user entered a valid salutation.
 	 */
 	public boolean validateSalutation() {
+		
+		
 		if (!Person.validSalutation(this.salutation.getText().trim())) {
 			return false;
 		} else {
@@ -97,6 +99,8 @@ public class AccountController implements Initializable {
 	 * @return True if the user entered a valid name.
 	 */
 	public boolean validateName() {
+		
+	
 		if (!Person.validName(this.fullName.getText().trim())) {
 			return false;
 		} else {
@@ -172,8 +176,12 @@ public class AccountController implements Initializable {
 			invalidMessage += "Please enter a valid salutation\n";
 			validSuccess = false;
 		}
+		
+		int limit = 25;
 		if (this.fullName.getText().trim().isEmpty()) {
 			if (!this.handleEmptyName()) {
+			
+
 				validName = false;
 			}
 		}
