@@ -72,3 +72,9 @@ footer {
 footer a {
 	color: #005ce6;
 }
+#git-help {
+	margin-top: 60px;
+}
+#col-md-6 order-4 {
+	margin-top: 50px;
+}
