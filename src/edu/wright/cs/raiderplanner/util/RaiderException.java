@@ -22,38 +22,44 @@
 package edu.wright.cs.raiderplanner.util;
 
 /**
+ * Custom exception class that displays more useful error messages to users and programmers.
  * @author LoganKrause
  * @author CorbinMcGuire
  * @author DanielHoward
  */
 @SuppressWarnings("serial")
 public class RaiderException extends Exception {
-	/*
-	 * Get the RaiderException 
+	/**
+	 * Parameterless constructor.
 	 */
 	public RaiderException() {
 		getMessage();
 	}
-	/*
-	 * Method that displays the actual message.
+
+	/**
+	 * Message that displays the custom message.
+	 * @param message Helping message
 	 */
 	public RaiderException(String message) {
 		super(message);
-		message = "Error, Please try again or seek help";
+		message = "Error, Please try again or seek help.";
 	}
-	/*
-	 * (Javadoc)
+
+	/**
+	 * Returns the message to the user.
 	 * @see java.lang.Throwable#getMessage()
 	 * Able to assign specific message
 	 */
 	public String getMessage() {
 		return super.getMessage();
 	}
-	/*
+
+	/**
 	 * Displays Error message and exception.
+	 * @param message Receives the message passed by the thrown exception.
+	 * @param throwable Thrown exception.
 	 */
 	public RaiderException(String message, Throwable throwable) {
 		super(message, throwable);
 	}
 }
-
