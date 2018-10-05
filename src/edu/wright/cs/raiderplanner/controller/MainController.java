@@ -407,13 +407,15 @@ public class MainController {
 	 */
 	public static void openBrowser() {
 		if (Desktop.isDesktopSupported()) {
+			
 			try {
-				Desktop.getDesktop().browse(new URI("https://rsanchez-wsu.github.io/RaiderPlanner/"));
+				Desktop.getDesktop().browse(new URI("https://drive.google.com/open?id=1gScZiQoCq68FFXTqOHxAHOGxm9iC91Uh"));
 			} catch (IOException e) {
 				UiManager.reportError("Default browser not found or failed to launch");
 			} catch (URISyntaxException e) {
 				UiManager.reportError("Invaild URI syntax");
 			}
+			
 		}
 	}
 
