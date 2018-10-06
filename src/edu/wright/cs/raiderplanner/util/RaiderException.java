@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018
+ * Copyright (C) 2018 - Logan Krause, Corbin McGuire, Daniel Howard
  *
  *
  *
@@ -50,6 +50,7 @@ public class RaiderException extends Exception {
 	 * @see java.lang.Throwable#getMessage()
 	 * Able to assign specific message
 	 */
+	@Override
 	public String getMessage() {
 		return super.getMessage();
 	}
