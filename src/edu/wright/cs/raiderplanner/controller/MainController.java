@@ -234,7 +234,7 @@ public class MainController {
 	 * Decrypts a file and loads it.
 	 * @param plannerFile the file to be loaded
 	 */
-	public static void loadFile(File plannerFile) {
+	public static void loadFile(File plannerFile) {		
 		if (plannerFile.exists()) {
 			try {
 				Cipher cipher = Cipher.getInstance("Blowfish");
@@ -281,13 +281,12 @@ public class MainController {
 				UiManager.reportError(e.getMessage() + "Unknown error.");
 				System.exit(1);
 			}
-		} else {
-			// TODO - fix this, as it is clearly a race condition
-			// This should never happen unless a file changes permissions
-			// or existence in the milliseconds that it runs the above code
-			// after checks in StartupController
-			UiManager.reportError("Failed to load file.");
-			System.exit(1);
+//		} else {
+//			// TODO - fix this, as it is clearly a race condition
+//			// This should never happen unless a file changes permissions
+//			// or existence in the milliseconds that it runs the above code
+//			// after checks in StartupController
+//			UiManager.reportError("Failed to load file.");
 		}
 	}
 
