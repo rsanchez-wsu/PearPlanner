@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar
@@ -23,7 +24,6 @@ package edu.wright.cs.raiderplanner.view;
 
 import edu.wright.cs.raiderplanner.controller.AccountController;
 import edu.wright.cs.raiderplanner.controller.ActivityController;
-import edu.wright.cs.raiderplanner.controller.GradPlannerController;
 import edu.wright.cs.raiderplanner.controller.MenuController;
 import edu.wright.cs.raiderplanner.controller.MilestoneController;
 import edu.wright.cs.raiderplanner.controller.RequirementController;
@@ -96,15 +96,11 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
-	private URL gradPlannerFXML= getClass().getResource(
-			"/edu/wright/cs/raiderplanner/view/gradPlanner.fxml");
-	
 
 	/**
 	 * Displays a 'Create Account' window and handles the creation of a new Account object.
 	 *
 	 * @return newly created Account
-	 * @throws Exception if user quits
 	 */
 	public Account createAccount() throws Exception {
 		AccountController accountControl = new AccountController();
@@ -121,12 +117,11 @@ public class UiManager {
 		stage.getIcons().add(icon);
 		stage.showAndWait();
 		// Handle creation of the Account object:
-		if (accountControl.isSuccess()) {
-			Account newAccount = accountControl.getAccount();
-			return newAccount;
-		} else {
-			throw new Exception("User quit.");
+		if (!accountControl.isSuccess()) {
+			System.exit(0);
 		}
+		Account newAccount = accountControl.getAccount();
+		return newAccount;
 	}
 
 	/**
@@ -482,30 +477,7 @@ public class UiManager {
 		});
 		stage.showAndWait();
 	}
-	
-	/**
-	 * Display Graduation Planner
-	 * @throws IOException if there is an error while loading the FXML GUI
-	 */
-	public void showGradPlanner() throws IOException {
-		GradPlannerController sc = new GradPlannerController();
-		// Load in the .fxml file:
-		FXMLLoader loader = new FXMLLoader(gradPlannerFXML);
-		loader.setController(sc);
-		Parent root = loader.load();
-		// Set the scene:
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root, 400, 500));
-		stage.setTitle("RaiderPlanner");
-		stage.resizableProperty().setValue(false);
-		stage.getIcons().add(icon);
-		// Replaces red x click with a System.exit(0);
-		stage.setOnCloseRequest(event -> {
-			event.consume();
-			System.exit(0);
-		});
-		stage.showAndWait();
-	}
+
 	/**
 	 * Displays a file dialog for importing .xml files
 	 *
