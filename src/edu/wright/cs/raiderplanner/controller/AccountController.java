@@ -62,8 +62,7 @@ public class AccountController implements Initializable {
 	private boolean success = false;
 
 	/**
-	 * Returns the Account object being managed by this controller.
-	 *
+	 * Getter for Account
 	 * @return the Account object being managed by this controller.
 	 */
 	public Account getAccount() {
@@ -71,8 +70,7 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Returns true if the last submit operation succeeded, false otherwise.
-	 *
+	 * Getter for Success
 	 * @return true if the last submit operation succeeded, false otherwise.
 	 */
 	public boolean isSuccess() {
@@ -80,7 +78,10 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid salutation and sets the style accordingly.
+	 * Determines if the user has entered a valid salutation by calling the 
+	 * validateSalutation() from the Person Class in Model, which checks that 
+	 * the entered Salutation only contains a combination of upper/lower case 
+	 * letters and returns a boolean value. Then sets the style so it is cohesive. 
 	 * @return true if the user entered a valid salutation.
 	 */
 	public boolean validateSalutation() {
@@ -93,7 +94,10 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid name and sets the style accordingly.
+	 * Determines if the user has entered a valid name by calling the validateName() 
+	 * from the Person Class in Model, which checks that the entered Name only 
+	 * contains a combination of spaces and upper/lower case letters and returns 
+	 * a boolean value. Then sets the style so it is cohesive.
 	 * @return True if the user entered a valid name.
 	 */
 	public boolean validateName() {
@@ -106,7 +110,11 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid email and sets the style accordingly.
+	 * Determines if the user has entered a valid email checking if the textfield 
+	 * is empty and by calling the validateEmail() from the Person Class in 
+	 * Model, which uses the EmailValidator (Apache Commons Validator 1.6 API)
+	 * to check that the email is valid and returns a boolean value. Then sets 
+	 * the style so it is cohesive.
 	 * @return True if the user entered a valid email.
 	 */
 	public boolean validateEmail() {
@@ -120,22 +128,30 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid account number and sets the style accordingly.
+	 * Determines if the user has entered a valid account number by checking 
+	 * that the length of the text is 7, that the first character is a 'w', 
+	 * that the next 3 characters are digits, and that the last 3 
+	 * characters are letters and lower case. Then sets the style so it is cohesive.
 	 * @return True if the user entered a valid account number.
 	 */
 	public boolean validateNumber() {
+		//Check that the length is 7
 		if (accountNo.getText().trim().length() == 7) {
+			//Check that the first character is a 'w'
 			if (accountNo.getText().trim().charAt(0) != 'w') {
 				return false;
 			} else {
 				for (int i = 1; i < 4; ++i) {
+					//Check that the next 3 characters are digits
 					if (!Character.isDigit(accountNo.getText().trim().charAt(i))) {
 						return false;
 					}
 				}
 				for (int i = 4; i < 7; ++i) {
+					//Check that the last 3 characters are letters
 					if (!Character.isLetter(accountNo.getText().trim().charAt(i))) {
 						return false;
+						//Check that the last 3 characters are lower case
 					} else if (!Character.isLowerCase(accountNo.getText().trim().charAt(i))) {
 						return false;
 					}
@@ -150,13 +166,13 @@ public class AccountController implements Initializable {
 	/**
 	 * Handles the actions taken when the user tries to submit a new account.
 	 * The appropriate warnings and errors are displayed if the user enters incorrect information.
-	 * If a user enters an invalid input, they will be taken back to the page, to change fields.
+	 * If a user enters an invalid input, they will be taken back to the page to change fields.
 	 */
 	public void handleSubmit() {
 		String invalidMessage = "";
 		boolean validSuccess = true;
 		boolean validName = true;
-		if (!validateNumber()) {
+		if (!validateNumber()) {	
 			invalidMessage += "Please enter a valid W Number\n";
 			validSuccess = false;
 		}
@@ -200,7 +216,8 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Displays dialog and handles appropriate user choices if the full name field is empty.
+	 * Displays emptyNameAlert dialog and handles appropriate user choices if 
+	 * the full name field is empty.
 	 * @return True if the user selects Okay
 	 */
 	public boolean handleEmptyName() {

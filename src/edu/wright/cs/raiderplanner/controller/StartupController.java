@@ -64,6 +64,8 @@ public class StartupController {
 
 	/**
 	 * Handles newFileButton's action event. Creates new profile and file.
+	 * 
+	 * @throws exception if the user hits quit then return to UI
 	 */
 	@FXML
 	void newFileB(ActionEvent event) {

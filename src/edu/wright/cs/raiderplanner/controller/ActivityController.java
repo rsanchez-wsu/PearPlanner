@@ -77,7 +77,7 @@ public class ActivityController implements Initializable {
 	}
 
 	/**
-	 * Returns the Activity object being managed by this controller.
+	 * Getter for Activity
 	 *
 	 * @return the Activity object being managed by this controller.
 	 */
@@ -86,7 +86,7 @@ public class ActivityController implements Initializable {
 	}
 
 	/**
-	 * Returns true if the last submit operation succeeded, false otherwise.
+	 * Getter for Success.
 	 *
 	 * @return true if the last submit operation succeeded, false otherwise.
 	 */
@@ -133,12 +133,18 @@ public class ActivityController implements Initializable {
 	}
 
 	/**
-	 * Validate data in the Duration field.
+	 * Validate data in the Duration field. If the isNumeric() method is called from
+	 * the MainController Class and is false (checks if the text parameter is a double)
+	 * or the Integer value of the text is less than 0. The duration TextField's 
+	 * border is set to red and the submit button is disabled. Otherwise the duration's
+	 * style is set so that it is cohesive and handleChange() is called. 
 	 */
 	public void validateDuration() {
+		//If the duration text is not a double or less than 0.
 		if (!MainController.isNumeric(this.duration.getText())
 				|| Integer.parseInt(this.duration.getText()) < 0) {
 			this.duration.setStyle("-fx-text-box-border:red;");
+			//Disable Submit Button
 			this.submit.setDisable(true);
 		} else {
 			this.duration.setStyle("");
@@ -147,12 +153,18 @@ public class ActivityController implements Initializable {
 	}
 
 	/**
-	 * Validate data in the Quantity field.
+	 * Validate data in the Quantity field. If the isNumeric() method is called from
+	 * the MainController Class and is false (checks if the text parameter is a double) 
+	 * or the Integer value of the text is less than 0. The quantity TextField's
+	 * border is set to red and the submit button is disabled. Otherwise the quantity's
+	 * style is set so that it is cohesive and handleChange() is called.
 	 */
 	public void validateQuantity() {
+		//If the quantity text is not a double or less than 0.
 		if (!MainController.isNumeric(this.quantity.getText())
 				|| Integer.parseInt(this.quantity.getText()) < 0) {
 			this.quantity.setStyle("-fx-text-box-border:red;");
+			//Disable Submit Button
 			this.submit.setDisable(true);
 		} else {
 			this.quantity.setStyle("");
@@ -161,11 +173,15 @@ public class ActivityController implements Initializable {
 	}
 
 	/**
-	 * Validate data in the Date field.
+	 * Validate data in the Date field. If the date is before the current date, the 
+	 * DatePicker's border is set to red and the submit button is disabled. Otherwise 
+	 * the date's style is set so that it is cohesive and the handleChange() is called.
 	 */
 	public void validateDate() {
+		//If the date is before the current date
 		if (this.date.getValue().isBefore(LocalDate.now())) {
 			this.date.setStyle("-fx-border-color:red;");
+			//Disable Submit Button
 			this.submit.setDisable(true);
 		} else {
 			this.date.setStyle("");
@@ -196,6 +212,7 @@ public class ActivityController implements Initializable {
 	 * Submit the form and create a new Activity.
 	 */
 	public void handleSubmit() {
+		//Create Activity
 		if (this.activity == null) {
 
 			this.activity = new Activity(this.name.getText(),
@@ -208,6 +225,7 @@ public class ActivityController implements Initializable {
 		}
 
 		this.success = true;
+		//Submit the form
 		Stage stage = (Stage) this.submit.getScene().getWindow();
 		stage.close();
 	}

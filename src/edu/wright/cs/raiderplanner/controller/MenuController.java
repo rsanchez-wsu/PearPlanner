@@ -221,7 +221,8 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Main method containing switch statements.
+	 * Main method containing switch statements that shows different items depending on user action.
+	 * 
 	 */
 	public void main() {
 		if (isNavOpen) {
@@ -330,7 +331,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Study Dashboard pane.
+	 * Display the Study Dashboard pane with all buttons and text.
 	 */
 	public void loadDashboard() {
 		// set ToolTips
@@ -483,6 +484,9 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Handles when the user selects the new profile button on the main screen.
+	 * This includes making a file for the profile.
+	 * @throws Exception if issues with making a new account
+	 * @throws Exception if there is an issue with the controller
 	 */
 	public void createNewProfile() {
 		MainController.save();
@@ -527,6 +531,7 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Handles when the user selects the open profile button on the main screen.
+	 * @throws If you cannot reload the main controller
 	 */
 	public void openProfile() {
 		MainController.save();
@@ -559,6 +564,7 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the 'Add Activity' window.
+	 * @throws Exception if you cannot open the file to view it.
 	 */
 	public void addActivity() {
 		try {
@@ -576,6 +582,7 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the Milestones pane.
+	 * @throws Exception if you cannot open the file to view it.
 	 */
 	public void loadMilestones() {
 		// Update main pane:
@@ -720,6 +727,7 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the Study Profiles pane.
+	 * @throws Exception if you cannot open the file to view it.
 	 */
 	public void loadStudyProfiles() {
 		// Update main pane:

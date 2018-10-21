@@ -81,6 +81,7 @@ public class ChatController {
 	 *  the line of text will append to the chat log so the user can see what they sent. It follows
 	 *  the format of USER: sentence.
 	 *  The text box with the user input will be set back to blank after a message is sent.
+	 *  @param username, to know who sent the message
 	 */
 	public static void sendButtonAction(String userName) {
 		sendButton.setOnAction((ActionEvent exception1) -> {

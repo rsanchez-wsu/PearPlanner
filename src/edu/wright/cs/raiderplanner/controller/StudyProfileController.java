@@ -57,7 +57,7 @@ public class StudyProfileController implements Initializable {
 	}
 
 	/**
-	 * Close this window.
+	 * Closes this window.
 	 */
 	public void handleClose() {
 		Stage stage = (Stage) this.title.getScene().getWindow();
