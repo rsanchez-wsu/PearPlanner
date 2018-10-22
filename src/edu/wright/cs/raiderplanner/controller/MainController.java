@@ -29,6 +29,7 @@ import edu.wright.cs.raiderplanner.model.Notification;
 import edu.wright.cs.raiderplanner.model.Settings;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
 import edu.wright.cs.raiderplanner.view.UiManager;
+import edu.wright.cs.raiderplanner.util.RaiderException;
 
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
@@ -102,8 +103,9 @@ public class MainController {
 	/**
 	 * Initializes the Study Planner by either registering a new account or
 	 * importing an existing Study Planner file.
+	 * @throwsException
 	 */
-	public static void initialise() {
+	public static void initialise() throws Exception {
 		if (settings.getAccountStartup() == true) {
 			File file = new File(settings.getDefaultFilePath());
 			if (file.exists() && !file.isDirectory()) {
@@ -135,9 +137,10 @@ public class MainController {
 						loadFile(plannerFile);
 						/*This is cating a general exception because the
 						 * createAccount method throws a general exception*/
-					} catch (Exception e) {
+					} catch (RaiderException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						e.getMessage();
 					}
 					if (plannerFile != null) {
 						if (plannerFile.getParentFile().exists()) {
