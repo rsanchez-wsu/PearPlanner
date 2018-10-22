@@ -124,6 +124,7 @@ dependencies {
 	compile 'org.junit.vintage:junit-vintage-engine:4.12.1'
 	compile fileTree(dir: 'src', include: ['*.jar'])
 	compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
+	compile 
 	runtime group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
 }
 
