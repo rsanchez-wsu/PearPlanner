@@ -134,6 +134,7 @@ public class MainController {
 						study.getPlanner().addNotification(not);
 						MainController.setSpc(study);
 						plannerFile = MainController.ui.savePlannerFileDialog();
+
 						loadFile(plannerFile);
 						/*This is cating a general exception because the
 						 * createAccount method throws a general exception*/
@@ -148,15 +149,27 @@ public class MainController {
 								if (plannerFile.getParentFile().canWrite()) {
 									MainController.setPlannerFile(plannerFile);
 									MainController.save();
+						if (plannerFile != null) {
+							if (plannerFile.getParentFile().exists()) {
+								if (plannerFile.getParentFile().canRead()) {
+									if (plannerFile.getParentFile().canWrite()) {
+										MainController.save();
+										loadFile(plannerFile);
+									} else {
+										UiManager.reportError("Directory can't be written to.");
+                  }
 								} else {
-									UiManager.reportError("Directory can't be written to.");
+									UiManager.reportError("Directory cannot be read from.");
 								}
 							} else {
-								UiManager.reportError("Directory cannot be read from.");
+								UiManager.reportError("Directory does not exist.");
 							}
-						} else {
-							UiManager.reportError("Directory does not exist.");
 						}
+						/*This is catching a general exception because the
+						 * createAccount method throws a general exception*/
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				} else {
 					long modifiedTime = Long.MIN_VALUE;
@@ -193,29 +206,28 @@ public class MainController {
 					study.getPlanner().addNotification(not);
 					MainController.setSpc(study);
 					plannerFile = MainController.ui.savePlannerFileDialog();
-					loadFile(plannerFile);
-					/*This is cating a general exception because the
+					if (plannerFile != null) {
+						if (plannerFile.getParentFile().exists()) {
+							if (plannerFile.getParentFile().canRead()) {
+								if (plannerFile.getParentFile().canWrite()) {
+									MainController.save();
+									loadFile(plannerFile);
+								} else {
+									UiManager.reportError("Directory can not be written to.");
+								}
+							} else {
+								UiManager.reportError("Directory cannot be read from.");
+							}
+
+						} else {
+							UiManager.reportError("Directory does not exist.");
+						}
+					}
+					/*This is catching a general exception because the
 					 * createAccount method throws a general exception*/
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				if (plannerFile != null) {
-					if (plannerFile.getParentFile().exists()) {
-						if (plannerFile.getParentFile().canRead()) {
-							if (plannerFile.getParentFile().canWrite()) {
-								MainController.setPlannerFile(plannerFile);
-								MainController.save();
-							} else {
-								UiManager.reportError("Directory can not be written to.");
-							}
-						} else {
-							UiManager.reportError("Directory cannot be read from.");
-						}
-
-					} else {
-						UiManager.reportError("Directory does not exist.");
-					}
 				}
 			} else {
 				long modifiedTime = Long.MIN_VALUE;
