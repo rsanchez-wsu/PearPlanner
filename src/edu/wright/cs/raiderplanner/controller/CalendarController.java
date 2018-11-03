@@ -60,7 +60,7 @@ public class CalendarController {
 	private LocalDateTime stime;
 
 	/**
-	 * This is a class to handle the code for the chat feature.
+	 * Default constructor
 	 * @author MichaelPantoja
 	 */
 	public CalendarController() {
@@ -77,11 +77,13 @@ public class CalendarController {
 	}
 
 	/**
-	 * Temporary function for calendar.
+	 * Getter for layout
 	 * @return The current layout of the calendar.
 	 *
 	 * @author MichaelPantoja
 	 */
+
+
 	public VBox getLayout() {
 		return layout;
 	}
@@ -201,3 +203,4 @@ public class CalendarController {
 	}
 
 }
+

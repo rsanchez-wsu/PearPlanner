@@ -240,6 +240,8 @@ public class TaskController implements Initializable {
 
 	/**
 	 * Handle the 'Add requirement' button action.
+	 * @throws IOException if unable to open view file
+	 * @throws Exception if another issue happens and displays message
 	 */
 	public void addRequirement() {
 		try {

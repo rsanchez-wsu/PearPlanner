@@ -54,6 +54,7 @@ public class ChatController {
 	 * This will prevent the message area from being edited and set the size for all the buttons
 	 * This method will also create padding between the text and message areas and the send button.
 	 */
+
 	public static void createUserMessagePane() {
 		msgArea.setEditable(false);
 		tfMessageToSend.setPrefWidth(800);
@@ -83,6 +84,7 @@ public class ChatController {
 	 *  the format of USER: sentence.
 	 *  The text box with the user input will be set back to blank after a message is sent.
 	 */
+
 	public static void sendButtonAction(String userName) {
 		sendButton.setOnAction((ActionEvent exception1) -> {
 			if (!(tfMessageToSend.getText().equals(""))) {

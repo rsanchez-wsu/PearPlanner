@@ -1,4 +1,5 @@
 /*
+ /*
  * Copyright (C) 2017 - Eric Levine
  *
  *
@@ -64,6 +65,8 @@ public class StartupController {
 
 	/**
 	 * Handles newFileButton's action event. Creates new profile and file.
+	 * 
+	 * @throws Exception e if an issue occurs with createAccount()
 	 */
 	@FXML
 	void newFileB(ActionEvent event) {

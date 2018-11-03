@@ -484,7 +484,11 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Handles when the user selects the new profile button on the main screen.
+	 * 
+	 * @throws Exception e if there is an issue making an account and saving plannerfile prints stack trace if there is an issue
+	 * @throws Exception e if you cannot reload the controller then prints stack trace.
 	 */
+
 	public void createNewProfile() {
 		MainController.save();
 		File plannerFile = null;
@@ -528,7 +532,10 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Handles when the user selects the open profile button on the main screen.
+	 * 
+	 * @throws Exception if the reload of the main controller does not work and prints stack trace
 	 */
+
 	public void openProfile() {
 		MainController.save();
 		File plannerFile = MainController.ui.loadPlannerFileDialog();
@@ -560,7 +567,11 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the 'Add Activity' window.
+	 * 
+	 * @throws IOException if you aren't able to open the view file
+	 * @throws Exception if any other issue happens and it gets the error message
 	 */
+
 	public void addActivity() {
 		try {
 			Activity activity = MainController.ui.addActivity();
@@ -577,7 +588,10 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the Milestones pane.
+	 * 
+	 * @throws IOException if you aren't able to open the view file
 	 */
+
 	public void loadMilestones() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -720,8 +734,11 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Study Profiles pane.
+	 * Display the Study Profiles pane and sets a table as well as a click event.
+	 * 
+	 * @throws IOException if you aren't able to open the view file
 	 */
+
 	public void loadStudyProfiles() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -802,8 +819,9 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Modules pane.
+	 * Display the Modules pane and creates the table and set click event.
 	 */
+
 	public void loadModules() {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -873,8 +891,11 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Display the Module pane.
+	 * Display the Module pane. This also updates the main pane and creates a back button, and a details pane.
+	 * 
+	 * @param Takes a module, previous window, and a modelEntity
 	 */
+
 	public void loadModule(Module module, Window previousWindow, ModelEntity previous) {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
@@ -1134,7 +1155,11 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the Assignment pane.
+	 * 
+	 * @throws IOException if you aren't able to open the view file
+	 * @throws Exception if unlisted error occurs display what happened
 	 */
+
 	public void loadAssignment(Assignment assignment, Window previousWindow, ModelEntity previous) {
 		// Update main pane:
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());

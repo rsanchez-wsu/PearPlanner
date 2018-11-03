@@ -1,4 +1,5 @@
 /*
+ /*
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar
  *
@@ -67,7 +68,9 @@ public class StudyPlannerController {
      *
      * @param key64    SecretKey used for encoding.
      * @param fileName name of the file.
-     * @return whether saved successfully.
+     * @return whether saved successfully
+     * @throws IOException if the file doesn't exist
+     * @throws Exception if something else happens print what happened
      */
 	public boolean save(SecretKey key64, String fileName) {
 		try {
@@ -155,14 +158,7 @@ public class StudyPlannerController {
 			return new ArrayList<>();
 		}
 	}
-	/**
-	 * 
-	 * Calls StudyPlanner to remove profile and all connecting data
-	 * @param t : StudyProfile
-	 */
-	public void removeProfile(StudyProfile t) {
-		this.planner.removeProfile(t);
-	}
+
 	/**
 	 * Checker whether the user needs to be notified about something. (Deadlines etc.)
 	 */

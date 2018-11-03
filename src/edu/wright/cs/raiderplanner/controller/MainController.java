@@ -102,7 +102,9 @@ public class MainController {
 	/**
 	 * Initializes the Study Planner by either registering a new account or
 	 * importing an existing Study Planner file.
+	 * @throws Prints stack trace if an issue arrises 
 	 */
+
 	public static void initialise() {
 		if (settings.getAccountStartup() == true) {
 			File file = new File(settings.getDefaultFilePath());
@@ -231,7 +233,18 @@ public class MainController {
 	/**
 	 * Decrypts a file and loads it.
 	 * @param plannerFile the file to be loaded
+	 * @throws FileNotFoundException if file doesn't exist
+	 * @throws ClassNotFoundException if class is not found
+	 * @throws BadPaddingException if invalid file
+	 * @throws IOException if invalid file
+	 * @throws IllegalBlockSizeException if invalid file
+	 * @throws InvalidKeyException if you are giving an invalid key
+	 * @throws NoSuchAlgorithmException if you cannot decode the given file
+	 * @throws NoSuchPaddingException if there is an invalid file
+	 * @throws Exception e if unknown error.
+	 * They all close the system
 	 */
+
 	public static void loadFile(File plannerFile) {
 		if (plannerFile.exists()) {
 			try {
@@ -291,7 +304,10 @@ public class MainController {
 
 	/**
 	 * Display the main menu.
+	 * @throws IOException file doesn't exist
+	 * @throws Exception e gets the message of the issue
 	 */
+
 	public static void main() {
 		try {
 			ui.mainMenu();
@@ -305,7 +321,10 @@ public class MainController {
 	/**
 	 * Display the main menu.
 	 * Stage is already present.
+	 * @throws IOException file doesn't exist
+	 * @throws Exception e gets the message of the issue
 	 */
+
 	public static void showMain() {
 		try {
 			ui.showMain();
@@ -319,7 +338,10 @@ public class MainController {
 	/**
 	 * Display the settings menu.
 	 * Stage is already present.
+	 * @throws IOException file doesn't exist
+	 * @throws Exception e gets the message of the issue
 	 */
+
 	public static void showSettings() {
 		try {
 			ui.showSettings();
@@ -331,10 +353,11 @@ public class MainController {
 	}
 
 	/**
-	 * Handles importing a new file.
-	 *
-	 * @return whether imported successfully.
+	 * Handles importing a new file. If it is successful loads the file and processes it. 
+	 * If it already exists then the let the user know.
+	 * @return Returns true if the file was imported and false if it was not imported correct.
 	 */
+
 	public static boolean importFile() {
 		// Call a dialog:
 		File tempFile = ui.loadFileDialog();
@@ -357,7 +380,9 @@ public class MainController {
 	 * Save the current state of the program to file.
 	 *
 	 * @return true for a successful save, false otherwise
+	 * @throws Exception e if the method can not save your data and returns false
 	 */
+
 	public static boolean save() {
 		try {
 			spc.save(MainController.key64, MainController.plannerFile.getAbsolutePath());
@@ -431,8 +456,12 @@ public class MainController {
 	}
 
 	/**
-         * Function exports calendar ICS file to user defined location.
+	 * Function exports calendar ICS file to user defined location and reports to the user
+	 * if the export is successful or fails.
+	 * 
+	 * @throws NullPointerException if the calendar doesn't exist
 	 */
+
 	public static void exportCalendar() {
 		ICalExport icalExport = new ICalExport();
 		try {
