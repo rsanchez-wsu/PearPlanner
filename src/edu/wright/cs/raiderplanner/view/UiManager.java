@@ -95,7 +95,6 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
-	
 	private static int setupCount = 0;
 
 	/**
@@ -176,9 +175,9 @@ public class UiManager {
 		FXMLLoader loader = new FXMLLoader(mainMenuFxml);
 		loader.setController(UiManager.mc);
 		Parent root = loader.load();
-		setupCount++;//prevents saving file closing the program when the main menu has been opened. 
-		//so if the cancel or exit are pressed in saving file, only closes the program during 
-		//first account setup 
+		setupCount++;//prevents saving file closing the program when the main menu has been opened.
+		//so if the cancel or exit are pressed in saving file, only closes the program during
+		//first account setup
 		//Set the scene with the SettingsFxml:
 		mainStage.getScene().setRoot(root);
 		mainStage.setTitle("RaiderPlanner");
