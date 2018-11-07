@@ -177,9 +177,9 @@ public class UiManager {
 		loader.setController(UiManager.mc);
 		Parent root = loader.load();
 		setupCount++;//prevents saving file closing the program when the main menu has been opened. 
-		//so if the cancel or exit are pressed in saving file, only closes the program during first account setup
-		
-		// Set the scene with the SettingsFxml:
+		//so if the cancel or exit are pressed in saving file, only closes the program during 
+		//first account setup 
+		//Set the scene with the SettingsFxml:
 		mainStage.getScene().setRoot(root);
 		mainStage.setTitle("RaiderPlanner");
 	}
@@ -558,7 +558,9 @@ public class UiManager {
 		}
 		fileChooser.setInitialDirectory(savesFolder);
 		File file = fileChooser.showSaveDialog(mainStage);
-		if (file == null && setupCount == 0)System.exit(0);
+		if (file == null && setupCount == 0){
+			System.exit(0);
+		}	
 		//allows program to close if cancel or exit are pressed
 		setupCount++;
 		//prevents the cancel button from closing the program except for initial setup.
