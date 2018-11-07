@@ -558,7 +558,7 @@ public class UiManager {
 		}
 		fileChooser.setInitialDirectory(savesFolder);
 		File file = fileChooser.showSaveDialog(mainStage);
-		if(file == null && setupCount == 0)System.exit(0);
+		if (file == null && setupCount == 0)System.exit(0);
 		//allows program to close if cancel or exit are pressed
 		setupCount++;
 		//prevents the cancel button from closing the program except for initial setup.
