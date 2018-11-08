@@ -35,9 +35,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 
 import java.io.IOException;
 /**
@@ -45,7 +46,7 @@ import java.io.IOException;
  * launches (i.e., New/Open/Exit buttons).
  *
  * @author Mark Riedel on 10/9/2018.
- */
+*/
 public class GradPlannerController {
 	
 	ObservableList<String> semesterList = FXCollections
@@ -74,17 +75,17 @@ public class GradPlannerController {
 	@FXML
 	private ComboBox chooseSemester;
 	
-	String startYear=startYearFx.getText();
-	String year1=startYear.toString();
+	String startYear = startYearFx.getText();
+	String year1 = startYear.toString();
 	
-	String secondYear=startYearFx.getText()+1;
-	String year2=secondYear.toString();
+	String secondYear = startYearFx.getText() + 1;
+	String year2 = secondYear.toString();
 	
-	String thirdYear=startYearFx.getText()+2;
-	String year3=thirdYear.toString();
+	String thirdYear = startYearFx.getText() + 2;
+	String year3 = thirdYear.toString();
 	
-	String fourthYear=startYearFx.getText();
-	String year4=fourthYear.toString()	;
+	String fourthYear = startYearFx.getText();
+	String year4 = fourthYear.toString();
 	
 	/**
 	 * Adds SemesterList to the Combo Box
@@ -95,7 +96,7 @@ public class GradPlannerController {
 		chooseSemester.setItems(semesterList);
 	}
 	/**
-	 * Allows for the TextFields Standard Configurations 
+	 * Allows for the TextFields Standard Configurations. 
 	 */
 	public void semesterNumber() {
 		semesterOne.setText("Semester 1");
@@ -118,21 +119,21 @@ public class GradPlannerController {
 	}
 	
 	public void nameYear() {
-		semesterOne.setText("Fall "+year1);
+		semesterOne.setText("Fall " + year1);
 		semesterOne.setEditable(false);
-		semesterTwo.setText("Spring"+year1);
+		semesterTwo.setText("Spring" + year1);
 		semesterTwo.setEditable(false);
-		semesterThree.setText("Fall"+year2);
+		semesterThree.setText("Fall" + year2);
 		semesterThree.setEditable(false);
-		semesterFour.setText("Spring"+year2);
+		semesterFour.setText("Spring" + year2);
 		semesterFour.setEditable(false);
-		semesterFive.setText("Fall"+year3);
+		semesterFive.setText("Fall" + year3);
 		semesterFive.setEditable(false);
-		semesterSix.setText("Spring"+year3);
+		semesterSix.setText("Spring" + year3);
 		semesterSix.setEditable(false);
-		semesterSeven.setText("Fall"+year4);
+		semesterSeven.setText("Fall" + year4);
 		semesterSeven.setEditable(false);
-		semesterEight.setText("Spring"+year4);
+		semesterEight.setText("Spring" + year4);
 		semesterEight.setEditable(false);
 		
 	}
