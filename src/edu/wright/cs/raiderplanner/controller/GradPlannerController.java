@@ -21,8 +21,6 @@
 
 package edu.wright.cs.raiderplanner.controller;
 
-import java.io.IOException;
-
 import edu.wright.cs.raiderplanner.model.Account;
 import edu.wright.cs.raiderplanner.model.Notification;
 import edu.wright.cs.raiderplanner.model.Requirement;
@@ -41,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 /**
  * Controller for the first window that is presented when the application
  * launches (i.e., New/Open/Exit buttons).
