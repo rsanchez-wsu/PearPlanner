@@ -128,7 +128,7 @@ public class MainController {
 						// Welcome notification:
 						Notification not =
 								new Notification("Welcome!", new GregorianCalendar(),
-								"Thank you for using RaiderPlanner!");
+										"Thank you for using RaiderPlanner!");
 						study.getPlanner().addNotification(not);
 						MainController.setSpc(study);
 						plannerFile = MainController.ui.savePlannerFileDialog();
@@ -163,6 +163,7 @@ public class MainController {
 							modifiedTime = files[i].lastModified();
 						}
 					}
+					
 					plannerFile = modifiedFile;
 					// If a file is present:
 					loadFile(plannerFile);
@@ -177,6 +178,14 @@ public class MainController {
 				}
 				if (files.length == 1 && files[0].getName().contains("SamplePlanner.dat")) {
 					noAccount = true;
+				}
+				if (files.length >= 0) {
+					try {
+						noAccount=MainController.ui.accountStart();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			if (noAccount) {
@@ -213,15 +222,7 @@ public class MainController {
 					e.printStackTrace();
 				}
 			} else {
-				long modifiedTime = Long.MIN_VALUE;
-				File modifiedFile = new File("");
-				for (int i = 0; i < files.length; ++i) {
-					if (files[i].lastModified() > modifiedTime) {
-						modifiedFile = files[i];
-						modifiedTime = files[i].lastModified();
-					}
-				}
-				plannerFile = modifiedFile;
+				plannerFile = MainController.ui.loadPlannerFileDialog();
 				// If a file is present:
 				loadFile(plannerFile);
 			}
@@ -247,8 +248,8 @@ public class MainController {
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
 						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
-								+ "Potter. To make your own StudyPlanner, restart the application "
-								+ "and choose \"New File\".");
+										+ "Potter. To make your own StudyPlanner, restart the application "
+										+ "and choose \"New File\".");
 					}
 				}
 			} catch (FileNotFoundException e) {
@@ -431,7 +432,7 @@ public class MainController {
 	}
 
 	/**
-         * Function exports calendar ICS file to user defined location.
+	 * Function exports calendar ICS file to user defined location.
 	 */
 	public static void exportCalendar() {
 		ICalExport icalExport = new ICalExport();

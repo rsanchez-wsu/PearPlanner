@@ -22,6 +22,7 @@
 package edu.wright.cs.raiderplanner.view;
 
 import edu.wright.cs.raiderplanner.controller.AccountController;
+import edu.wright.cs.raiderplanner.controller.AccountLoader;
 import edu.wright.cs.raiderplanner.controller.ActivityController;
 import edu.wright.cs.raiderplanner.controller.MenuController;
 import edu.wright.cs.raiderplanner.controller.MilestoneController;
@@ -95,9 +96,32 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
+	private URL accountStartFxml = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/AccountStart.fxml");
 	
 	private static int setupCount = 0;
-
+	/**
+	 * Displays a window to allow the user to load an existing account or create a new one.
+	 * @throws IOException 
+	 */
+	public boolean accountStart() throws IOException {
+		AccountLoader accountControl = new AccountLoader();
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
+		FXMLLoader loader = new FXMLLoader(accountStartFxml);
+		loader.setController(accountControl);
+		Parent root = loader.load();
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root, 550, 232));
+		stage.setTitle("Create Account");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+		if (!accountControl.isSuccess()) {
+			System.exit(0);
+		}
+		boolean newAccount=accountControl.handleSubmit();
+		return newAccount;
+	}
 	/**
 	 * Displays a 'Create Account' window and handles the creation of a new Account object.
 	 *
