@@ -64,6 +64,7 @@ public class Event extends VersionControlEntity {
 	}
 
 	/**
+	 * Getter for date.
 	 * @return this Event's date.
 	 */
 	public Date getDate() {
@@ -71,6 +72,7 @@ public class Event extends VersionControlEntity {
 	}
 
 	/**
+	 * Getter for duration.
 	 * @return the Event's duration.
 	 */
 	public int getDuration() {
@@ -78,6 +80,7 @@ public class Event extends VersionControlEntity {
 	}
 
 	/**
+	 * Getter for calendar.
 	 * @return this Event's calendar object.
 	 */
 	public GregorianCalendar getCalendar() {

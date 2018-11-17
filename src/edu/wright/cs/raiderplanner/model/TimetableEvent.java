@@ -75,6 +75,7 @@ public class TimetableEvent extends Event {
 	}
 
 	/**
+	 * Getter for room.
 	 * @return the details of the room the event is in.
 	 */
 	public Room getRoom() {
@@ -82,6 +83,7 @@ public class TimetableEvent extends Event {
 	}
 
 	/**
+	 * Getter for lecturer.
 	 * @return the details of the lecturer holding the event.
 	 */
 	public Person getLecturer() {
@@ -89,6 +91,7 @@ public class TimetableEvent extends Event {
 	}
 
 	/**
+	 * Getter for Time Table Event.
 	 * @return the eventType of the timetable event.
 	 */
 	public TimeTableEventType getTimeTableEventType() {

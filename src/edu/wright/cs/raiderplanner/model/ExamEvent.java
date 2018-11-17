@@ -74,6 +74,7 @@ public class ExamEvent extends Event {
 	}
 
 	/**
+	 * Getter for room.
 	 * @return the room associated with this exam event.
 	 */
 	public Room getRoom() {
