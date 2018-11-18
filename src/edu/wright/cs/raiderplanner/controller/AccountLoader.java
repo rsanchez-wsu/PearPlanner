@@ -1,5 +1,8 @@
 /*
-
+ * Copyright (C) 2018 - Gabe Dodds, Joe Yancey
+ *
+ *
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -21,61 +24,48 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * Handle actions associated with the GUI window for creating new accounts.
- * This includes validating the data contained in the various text fields,
- * retrieving the validated data, and storing the submitted data to the proper
- * objects.
+ * Handle actions associated with the GUI window for loading existing accounts.
  *
- * @author Zilvinas Ceikauskas
+ * @author Gabe Dodds, Joe Yancey
  */
 public class AccountLoader implements Initializable {
-	@FXML private ComboBox<String> option;
-	@FXML private Button submit;
-	@FXML private GridPane pane;
-	@FXML private Alert invalidInputAlert = new Alert(AlertType.ERROR);
-	@FXML private Alert emptyNameAlert = new Alert(AlertType.CONFIRMATION);
-	@FXML private String load;
-	@FXML private String create;
-	
-	private boolean success = false;
-	private int selection;
-	
-	public boolean isSuccess() {
-		return success;
-	}
-	
-	public void Account() {
+	@FXML
+	private ToggleGroup myToggleGroup;
+	@FXML
+	private RadioButton f1;
+	@FXML
+	private RadioButton f2;
+	@FXML
+	private Button submit;
+	@FXML
+	private GridPane pane;
+	@FXML
+	private Alert invalidInputAlert = new Alert(AlertType.ERROR);
 
-		if (this.option.getId().equals("load")) {
-			 selection=1;
-		}
-		else if (this.option.getSelectionModel().getSelectedItem().trim().equals("Create")){
-			selection= 2;
-		}
-		else { 
-			selection= 3;
+	private boolean selection = true;
+
+	/**
+	 * check the selection from the user.
+	 */
+	public void radioSelect() {
+		if (f1.isSelected()) {
+			selection = false;
+		} else {
+			selection = true;
 		}
 	}
 
-	public boolean validChoice() {
-		if(selection!=0) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 	/**
 	 * Handle Quit button.
 	 */
@@ -83,13 +73,16 @@ public class AccountLoader implements Initializable {
 		Stage stage = (Stage) this.submit.getScene().getWindow();
 		stage.close();
 	}
+
+	/**
+	 * Handle submit button.
+	 *
+	 * @return
+	 */
 	public boolean handleSubmit() {
-		if(selection==1) {
-			return false;
-		}
-		else{
-			return true;
-		}
+		Stage stage = (Stage) this.submit.getScene().getWindow();
+		stage.close();
+		return selection;
 	}
 
 	@Override

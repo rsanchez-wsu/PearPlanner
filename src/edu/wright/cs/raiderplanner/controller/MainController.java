@@ -163,7 +163,6 @@ public class MainController {
 							modifiedTime = files[i].lastModified();
 						}
 					}
-					
 					plannerFile = modifiedFile;
 					// If a file is present:
 					loadFile(plannerFile);
@@ -179,9 +178,9 @@ public class MainController {
 				if (files.length == 1 && files[0].getName().contains("SamplePlanner.dat")) {
 					noAccount = true;
 				}
-				if (files.length >= 0) {
+				if (files.length >= 1) {
 					try {
-						noAccount=MainController.ui.accountStart();
+						noAccount = MainController.ui.accountStart();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -248,8 +247,8 @@ public class MainController {
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
 						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
-										+ "Potter. To make your own StudyPlanner, restart the application "
-										+ "and choose \"New File\".");
+										+ "Potter. To make your own StudyPlanner, restart the "
+										+ "application and choose \"New File\".");
 					}
 				}
 			} catch (FileNotFoundException e) {
