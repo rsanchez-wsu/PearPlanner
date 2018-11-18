@@ -54,8 +54,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * A helper class of static methods and fields which are used to handle the
- * loading and saving of application state data.
+ * A helper class of static methods and fields which are used to handle the loading and saving of
+ * application state data.
  *
  * @author Ben Dickson
  */
@@ -93,16 +93,16 @@ public class MainController {
 	/**
 	 * Sets the StudyPlannerController managed by this MainController.
 	 *
-	 * @param newSpc the new StudyPlannerController.
+	 * @param newSpc
+	 *            the new StudyPlannerController.
 	 */
 	public static void setSpc(StudyPlannerController newSpc) {
 		spc = newSpc;
 	}
 
 	/**
-	 * Initializes the Study Planner by either registering a new account or
-	 * importing an existing Study Planner file.
-	 * @throws Exception e if there is an issue registering a new account or importing a file
+	 * Initializes the Study Planner by either registering a new account or importing an existing
+	 * Study Planner file.
 	 */
 	public static void initialise() {
 		if (settings.getAccountStartup() == true) {
@@ -116,41 +116,45 @@ public class MainController {
 					if (files.length == 0) {
 						noAccount = true;
 					}
-					if (files.length == 1
-							&& files[0].getName().contains("SamplePlanner.dat")) {
+					if (files.length == 1 && files[0].getName().contains("SamplePlanner.dat")) {
 						noAccount = true;
 					}
 				}
 				if (noAccount) {
 					try {
-						Account newAccount = MainController.ui.createAccount();
-						StudyPlannerController study =
-								new StudyPlannerController(newAccount);
-						// Welcome notification:
-						Notification not =
-								new Notification("Welcome!", new GregorianCalendar(),
-								"Thank you for using RaiderPlanner!");
-						study.getPlanner().addNotification(not);
-						MainController.setSpc(study);
-						plannerFile = MainController.ui.savePlannerFileDialog();
-						if (plannerFile != null) {
-							if (plannerFile.getParentFile().exists()) {
-								if (plannerFile.getParentFile().canRead()) {
-									if (plannerFile.getParentFile().canWrite()) {
-										MainController.save();
-										loadFile(plannerFile);
+						Account newAccount = MainController.ui.createAccount(noAccount);
+						if (newAccount == null) {
+
+						} else {
+							StudyPlannerController study = new StudyPlannerController(newAccount);
+							// Welcome notification:
+							Notification not = new Notification("Welcome!", new GregorianCalendar(),
+									"Thank you for using RaiderPlanner!");
+							study.getPlanner().addNotification(not);
+							MainController.setSpc(study);
+							plannerFile = MainController.ui.savePlannerFileDialog();
+							if (plannerFile != null) {
+								if (plannerFile.getParentFile().exists()) {
+									if (plannerFile.getParentFile().canRead()) {
+										if (plannerFile.getParentFile().canWrite()) {
+											MainController.save();
+											loadFile(plannerFile);
+										} else {
+											UiManager.reportError("Directory can't be written to.");
+										}
 									} else {
-										UiManager.reportError("Directory can't be written to.");
+										UiManager.reportError("Directory cannot be read from.");
 									}
 								} else {
-									UiManager.reportError("Directory cannot be read from.");
+									UiManager.reportError("Directory does not exist.");
 								}
-							} else {
-								UiManager.reportError("Directory does not exist.");
 							}
 						}
-						/*This is catching a general exception because the
-						 * createAccount method throws a general exception*/
+
+						/*
+						 * This is catching a general exception because the createAccount method
+						 * throws a general exception
+						 */
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -182,7 +186,7 @@ public class MainController {
 			}
 			if (noAccount) {
 				try {
-					Account newAccount = MainController.ui.createAccount();
+					Account newAccount = MainController.ui.createAccount(noAccount);
 					StudyPlannerController study = new StudyPlannerController(newAccount);
 					// Welcome notification:
 					Notification not = new Notification("Welcome!", new GregorianCalendar(),
@@ -207,8 +211,10 @@ public class MainController {
 							UiManager.reportError("Directory does not exist.");
 						}
 					}
-					/*This is catching a general exception because the
-					 * createAccount method throws a general exception*/
+					/*
+					 * This is catching a general exception because the createAccount method throws
+					 * a general exception
+					 */
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -231,7 +237,9 @@ public class MainController {
 
 	/**
 	 * Decrypts a file and loads it.
-	 * @param plannerFile the file to be loaded
+	 * 
+	 * @param plannerFile
+	 *            the file to be loaded
 	 */
 	public static void loadFile(File plannerFile) {
 		if (plannerFile.exists()) {
@@ -248,8 +256,8 @@ public class MainController {
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
 						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
-								+ "Potter. To make your own StudyPlanner, restart the application "
-								+ "and choose \"New File\".");
+										+ "Potter. To make your own StudyPlanner, restart the application "
+										+ "and choose \"New File\".");
 					}
 				}
 			} catch (FileNotFoundException e) {
@@ -267,7 +275,7 @@ public class MainController {
 			} catch (IllegalBlockSizeException e) {
 				UiManager.reportError("Error, Invalid file, Illegal Block Size Exception.");
 				System.exit(1);
-			}  catch (InvalidKeyException e) {
+			} catch (InvalidKeyException e) {
 				UiManager.reportError("Error, Invalid Key, Cannot decode the given file.");
 				System.exit(1);
 			} catch (NoSuchAlgorithmException e) {
@@ -276,7 +284,7 @@ public class MainController {
 			} catch (NoSuchPaddingException e) {
 				UiManager.reportError("Error, Invalid file, No Such Padding.");
 				System.exit(1);
-			}  catch (Exception e) {
+			} catch (Exception e) {
 				UiManager.reportError(e.getMessage() + "Unknown error.");
 				System.exit(1);
 			}
@@ -292,7 +300,6 @@ public class MainController {
 
 	/**
 	 * Display the main menu.
-	 * @throws IOException e if the file doesnt exist. Any other exceptions gets error message.
 	 */
 	public static void main() {
 		try {
@@ -305,9 +312,7 @@ public class MainController {
 	}
 
 	/**
-	 * Display the main menu.
-	 * Stage is already present.
-	 * @throws IOException e if the file doesnt exist. Any other exceptions gets error message.
+	 * Display the main menu. Stage is already present.
 	 */
 	public static void showMain() {
 		try {
@@ -320,9 +325,7 @@ public class MainController {
 	}
 
 	/**
-	 * Display the settings menu.
-	 * Stage is already present.
-	 * @throws IOException e if the file doesnt exist. Any other exceptions gets error message.
+	 * Display the settings menu. Stage is already present.
 	 */
 	public static void showSettings() {
 		try {
@@ -335,7 +338,7 @@ public class MainController {
 	}
 
 	/**
-	 * Handles importing a new file and if the file is imported it lets the user know.
+	 * Handles importing a new file.
 	 *
 	 * @return whether imported successfully.
 	 */
@@ -346,8 +349,7 @@ public class MainController {
 			// If a file was selected, process the file:
 			HubFile fileData = DataController.loadHubFile(tempFile);
 			if (fileData != null) {
-				if (!fileData.isUpdate()
-						&& !MainController.spc.createStudyProfile(fileData)) {
+				if (!fileData.isUpdate() && !MainController.spc.createStudyProfile(fileData)) {
 					UiManager.reportError("This Study Profile is already created!");
 				} else {
 					return true;
@@ -359,7 +361,7 @@ public class MainController {
 
 	/**
 	 * Save the current state of the program to file.
-	 * @throws Exception e if there was an issue with saving information
+	 *
 	 * @return true for a successful save, false otherwise
 	 */
 	public static boolean save() {
@@ -375,8 +377,9 @@ public class MainController {
 	/**
 	 * Sets the planner file that is loaded/saved.
 	 *
-	 * @param file the File object from which the planner file will be loaded or
-	 * 				to which it will be saved.
+	 * @param file
+	 *            the File object from which the planner file will be loaded or to which it will be
+	 *            saved.
 	 */
 	public static void setPlannerFile(File file) {
 		plannerFile = file;
@@ -385,7 +388,8 @@ public class MainController {
 	/**
 	 * Checks if a string can be converted to an Integer.
 	 *
-	 * @param value String to be tested
+	 * @param value
+	 *            String to be tested
 	 * @return True if string can be converted, false otherwise
 	 */
 	public static boolean isInteger(String value) {
@@ -398,16 +402,19 @@ public class MainController {
 	}
 
 	/**
-	 * Apparently (according to Stackoverflow) the Java Standard library doesn't have a
-	 * standard check for testing if a string value is a number or not?!)
+	 * Apparently (according to Stackoverflow) the Java Standard library doesn't have a standard
+	 * check for testing if a string value is a number or not?!)
 	 *
-	 * <p>Therefore, we are using this proposed isNumeric method from:
+	 * <p>
+	 * Therefore, we are using this proposed isNumeric method from:
 	 *
-	 * <p>http://stackoverflow.com/a/1102916
+	 * <p>
+	 * http://stackoverflow.com/a/1102916
 	 *
-	 * @param str String to be tested
-	 * @return true the given String is numeric (i.e., can be parsed into a
-	 * 				Double), false otherwise.
+	 * @param str
+	 *            String to be tested
+	 * @return true the given String is numeric (i.e., can be parsed into a Double), false
+	 *         otherwise.
 	 */
 	public static boolean isNumeric(String str) {
 		try {
@@ -425,7 +432,8 @@ public class MainController {
 	public static void openBrowser() {
 		if (Desktop.isDesktopSupported()) {
 			try {
-				Desktop.getDesktop().browse(new URI("https://rsanchez-wsu.github.io/RaiderPlanner/"));
+				Desktop.getDesktop()
+						.browse(new URI("https://rsanchez-wsu.github.io/RaiderPlanner/"));
 			} catch (IOException e) {
 				UiManager.reportError("Default browser not found or failed to launch");
 			} catch (URISyntaxException e) {
@@ -435,13 +443,13 @@ public class MainController {
 	}
 
 	/**
-         * Function exports calendar ICS file to user defined location.
+	 * Function exports calendar ICS file to user defined location.
 	 */
 	public static void exportCalendar() {
 		ICalExport icalExport = new ICalExport();
 		try {
-			ArrayList<Event> exportCal =
-					getSpc().getPlanner().getCurrentStudyProfile().getCalendar();
+			ArrayList<Event> exportCal = getSpc().getPlanner().getCurrentStudyProfile()
+					.getCalendar();
 			for (Event e : exportCal) {
 				icalExport.createExportEvent(e);
 			}

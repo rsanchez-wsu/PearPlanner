@@ -509,14 +509,17 @@ public class MenuController implements Initializable {
 		MainController.save();
 		File plannerFile = null;
 		try {
-			Account newAccount = MainController.ui.createAccount();
-			StudyPlannerController study = new StudyPlannerController(newAccount);
+			Account newAccount = MainController.ui.createAccount(false);
+			if(newAccount != null) {
+				StudyPlannerController study = new StudyPlannerController(newAccount);
 			// Welcome notification:
 			Notification not = new Notification("Welcome!", new GregorianCalendar(),
 					"Thank you for using RaiderPlanner!");
 			study.getPlanner().addNotification(not);
 			MainController.setSpc(study);
 			plannerFile = MainController.ui.savePlannerFileDialog();
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -537,7 +540,10 @@ public class MenuController implements Initializable {
 				UiManager.reportError("Directory does not exist.");
 			}
 		}
-		MainController.loadFile(plannerFile);
+		if(plannerFile != null) {
+			MainController.loadFile(plannerFile);
+		}
+		
 		try {
 			MainController.ui.reloadMainMenu();
 		} catch (Exception e) {
