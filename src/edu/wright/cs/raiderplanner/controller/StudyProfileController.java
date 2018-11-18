@@ -21,7 +21,12 @@
 
 package edu.wright.cs.raiderplanner.controller;
 
+import edu.wright.cs.raiderplanner.model.Event;
+import edu.wright.cs.raiderplanner.model.HubFile;
+import edu.wright.cs.raiderplanner.model.Module;
+import edu.wright.cs.raiderplanner.model.MultilineString;
 import edu.wright.cs.raiderplanner.model.StudyProfile;
+import edu.wright.cs.raiderplanner.model.VersionControlEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -36,6 +42,7 @@ import java.util.ResourceBundle;
  */
 public class StudyProfileController implements Initializable {
 	private StudyProfile profile;
+	private MenuController mc;
 
 	// Labels:
 	@FXML private Label title;
@@ -47,6 +54,7 @@ public class StudyProfileController implements Initializable {
 
 	// Buttons:
 	@FXML private Button setCurrent;
+	@FXML private Button deleteProfile;
 
 	/**
 	 * Set this StudyProfile as the current profile.
@@ -54,6 +62,7 @@ public class StudyProfileController implements Initializable {
 	public void setCurrent() {
 		MainController.getSpc().getPlanner().setCurrentStudyProfile(this.profile);
 		this.setCurrent.setDisable(true);
+		mc.main();
 	}
 
 	/**
@@ -63,12 +72,35 @@ public class StudyProfileController implements Initializable {
 		Stage stage = (Stage) this.title.getScene().getWindow();
 		stage.close();
 	}
+	/**
+	 * remove this StudyProfile from List
+	 */
+	public void deleteProfile() {
+		if(MainController.getSpc().containsStudyProfile(profile.getYear(), profile.getSemesterNo())) {
+			if(profile.isCurrent()) {
+				MainController.getSpc().getPlanner().getCurrentStudyProfile().clearProfile();
+				MainController.getSpc().getPlanner().setCurrentStudyProfile(new StudyProfile(new HubFile(0,
+					0,0,new ArrayList<Module>(),new ArrayList<VersionControlEntity>(),
+					new ArrayList<Event>(),"No semester",new MultilineString("No details"),"No UId")));
+			}
+			MainController.getSpc().getPlanner().removeProfile(profile);
+		}
+		handleClose();
+	}
 
 	/**
 	 * Constructor for the StudyProfileController.
 	 */
 	public StudyProfileController(StudyProfile profile) {
 		this.profile = profile;
+	}
+
+	/**
+	 * Constructor for the StudyProfileController.
+	 */
+	public StudyProfileController(StudyProfile profile,MenuController mc) {
+		this.profile = profile;
+		this.mc = mc;
 	}
 
 	@Override

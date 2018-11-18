@@ -2,7 +2,6 @@
   "ExpandedNodes": [
     "",
     "\\docs",
-    "\\docs\\css",
     "\\docs\\images",
     "\\src",
     "\\src\\edu",
@@ -11,5 +10,6 @@
     "\\src\\edu\\wright\\cs\\raiderplanner",
     "\\src\\edu\\wright\\cs\\raiderplanner\\model"
   ],
+  "SelectedNode": "\\docs\\images",
   "PreviewInSolutionExplorer": false
 }

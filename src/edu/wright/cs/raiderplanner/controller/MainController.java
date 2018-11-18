@@ -2,7 +2,7 @@
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar, Amila Dias
  *
- * Copyright (C) 2018 - Clayton D. Terrill
+ * Copyright (C) 2018 - Clayton D. Terrill, Ian Mahaffy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -102,6 +102,7 @@ public class MainController {
 	/**
 	 * Initializes the Study Planner by either registering a new account or
 	 * importing an existing Study Planner file.
+	 * @throws Exception e if there is an issue registering a new account or importing a file
 	 */
 	public static void initialise() {
 		if (settings.getAccountStartup() == true) {
@@ -252,7 +253,7 @@ public class MainController {
 					}
 				}
 			} catch (FileNotFoundException e) {
-				UiManager.reportError("Error, Cannot find this file.","file not found exception when trying loadfile, most 
+				UiManager.reportError("Error, Cannot find this file.","file not found exception when trying loadfile, most
 				likely due to invalid parameters");
 				System.exit(1);
 			} catch (ClassNotFoundException e) {
@@ -260,15 +261,15 @@ public class MainController {
 				loadfile, most likely due to problems reading the object input stream as a sealed object");
 				System.exit(1);
 			} catch (BadPaddingException e) {
-				UiManager.reportError("Error, Cannot decode the given file.", "bad padding exception thrown when trying 
+				UiManager.reportError("Error, Cannot decode the given file.", "bad padding exception thrown when trying
 				loadfile, most likely due to problems with the cipher");
 				System.exit(1);
 			} catch (IOException e) {
-				UiManager.reportError("Error, Invalid file.", "IO exception thrown when trying loadfile, most likely due to 
+				UiManager.reportError("Error, Invalid file.", "IO exception thrown when trying loadfile, most likely due to
 				an invalide file or problems with one of the input streams");
 				System.exit(1);
 			} catch (IllegalBlockSizeException e) {
-				UiManager.reportError("Error, Object too large, cannot decode the file.", "Illegal block size exception 
+				UiManager.reportError("Error, Object too large, cannot decode the file.", "Illegal block size exception
 				thrown when trying loadfile, most likely due to a problem with constructing a sealed object");
 				System.exit(1);
 			}  catch (InvalidKeyException e) {
@@ -276,17 +277,17 @@ public class MainController {
 				when trying loadfile, most likely due to using an invalid key while initialising the the cypher");
 				System.exit(1);
 			} catch (NoSuchAlgorithmException e) {
-				UiManager.reportError("Error, Cannot decode the given file.", "no such algorithm exception thrown when 
-				trying loadfile, most likely due to the program not being able to find the indicated cypher while 
+				UiManager.reportError("Error, Cannot decode the given file.", "no such algorithm exception thrown when
+				trying loadfile, most likely due to the program not being able to find the indicated cypher while
 				initialising the the cypher");
 				System.exit(1);
 			} catch (NoSuchPaddingException e) {
 				UiManager.reportError("Error, Cannot decode the given file",  "no such padding exception thrown when trying
-				loadfile, most likely due to problems with the parameters used in the get instance call made while 
+				loadfile, most likely due to problems with the parameters used in the get instance call made while
 				initialising the the cypher");
 				System.exit(1);
 			}  catch (Exception e) {
-				UiManager.reportError(e.getMessage() + "Unknown error.", e.getMessage() + "unknown error occured while 
+				UiManager.reportError(e.getMessage() + "Unknown error.", e.getMessage() + "unknown error occured while
 				trying loadfile");
 				System.exit(1);
 			}
@@ -302,6 +303,7 @@ public class MainController {
 
 	/**
 	 * Display the main menu.
+	 * @throws IOException e if the file doesnt exist. Any other exceptions gets error message.
 	 */
 	public static void main() {
 		try {
@@ -316,6 +318,7 @@ public class MainController {
 	/**
 	 * Display the main menu.
 	 * Stage is already present.
+	 * @throws IOException e if the file doesnt exist. Any other exceptions gets error message.
 	 */
 	public static void showMain() {
 		try {
@@ -330,6 +333,7 @@ public class MainController {
 	/**
 	 * Display the settings menu.
 	 * Stage is already present.
+	 * @throws IOException e if the file doesnt exist. Any other exceptions gets error message.
 	 */
 	public static void showSettings() {
 		try {
@@ -342,7 +346,7 @@ public class MainController {
 	}
 
 	/**
-	 * Handles importing a new file.
+	 * Handles importing a new file and if the file is imported it lets the user know.
 	 *
 	 * @return whether imported successfully.
 	 */
@@ -366,7 +370,7 @@ public class MainController {
 
 	/**
 	 * Save the current state of the program to file.
-	 *
+	 * @throws Exception e if there was an issue with saving information
 	 * @return true for a successful save, false otherwise
 	 */
 	public static boolean save() {
@@ -387,6 +391,21 @@ public class MainController {
 	 */
 	public static void setPlannerFile(File file) {
 		plannerFile = file;
+	}
+
+	/**
+	 * Checks if a string can be converted to an Integer.
+	 *
+	 * @param value String to be tested
+	 * @return True if string can be converted, false otherwise
+	 */
+	public static boolean isInteger(String value) {
+		try {
+			Integer.parseInt(value);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
