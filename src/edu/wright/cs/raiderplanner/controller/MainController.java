@@ -232,63 +232,62 @@ public class MainController {
 	 * Decrypts a file and loads it.
 	 * @param plannerFile the file to be loaded
 	 */
-	public static void loadFile(File plannerFile) {
-		if (plannerFile.exists()) {
-			try {
-				Cipher cipher = Cipher.getInstance("Blowfish");
-				cipher.init(Cipher.DECRYPT_MODE, key64);
-				try (CipherInputStream cis = new CipherInputStream(
-						new BufferedInputStream(new FileInputStream(plannerFile)), cipher);
-						ObjectInputStream ois = new ObjectInputStream(cis)) {
-					SealedObject sealedObject = (SealedObject) ois.readObject();
-					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
-					// Sample note
-					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
-							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
-						UiManager.reportSuccess(
-								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
-								+ "Potter. To make your own StudyPlanner, restart the application "
-								+ "and choose \"New File\".");
-					}
-				}
-			} catch (FileNotFoundException e) {
-				UiManager.reportError("Error, File does not exist.");
-				System.exit(1);
-			} catch (ClassNotFoundException e) {
-				UiManager.reportError("Error, Class NotFoundException.");
-				System.exit(1);
-			} catch (BadPaddingException e) {
-				UiManager.reportError("Error, Invalid file, Bad Padding Exception.");
-				System.exit(1);
-			} catch (IOException e) {
-				UiManager.reportError("Error, Invalid file.");
-				System.exit(1);
-			} catch (IllegalBlockSizeException e) {
-				UiManager.reportError("Error, Invalid file, Illegal Block Size Exception.");
-				System.exit(1);
-			}  catch (InvalidKeyException e) {
-				UiManager.reportError("Error, Invalid Key, Cannot decode the given file.");
-				System.exit(1);
-			} catch (NoSuchAlgorithmException e) {
-				UiManager.reportError("Error, Cannot decode the given file.");
-				System.exit(1);
-			} catch (NoSuchPaddingException e) {
-				UiManager.reportError("Error, Invalid file, No Such Padding.");
-				System.exit(1);
-			}  catch (Exception e) {
-				UiManager.reportError(e.getMessage() + "Unknown error.");
-				System.exit(1);
-			}
-		} else {
-			// TODO - fix this, as it is clearly a race condition
-			// This should never happen unless a file changes permissions
-			// or existence in the milliseconds that it runs the above code
-			// after checks in StartupController
-			UiManager.reportError("Failed to load file.");
-			System.exit(1);
-		}
-	}
-
+	 public static void loadFile(File plannerFile) {
+ 		if (plannerFile.exists()) {
+ 			try {
+ 				Cipher cipher = Cipher.getInstance("Blowfish");
+ 				cipher.init(Cipher.DECRYPT_MODE, key64);
+ 				try (CipherInputStream cis = new CipherInputStream(
+ 						new BufferedInputStream(new FileInputStream(plannerFile)), cipher);
+ 						ObjectInputStream ois = new ObjectInputStream(cis)) {//this part is fairly complicated, may cause issues aswell
+ 					SealedObject sealedObject = (SealedObject) ois.readObject();
+ 					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
+ 					// Sample note
+ 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
+ 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
+ 						UiManager.reportSuccess(
+ 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
+ 								+ "Potter. To make your own StudyPlanner, restart the application "
+ 								+ "and choose \"New File\".");
+ 					}
+ 				}
+ 			} catch (FileNotFoundException e) {
+ 				UiManager.reportError("Error, Cannot find this file.","file not found exception when trying loadfile, most likely due to invalid parameters");
+ 				System.exit(1);
+ 			} catch (ClassNotFoundException e) {
+ 				UiManager.reportError("Error, Cannot find the study planner.", "class not found exception thrown when trying loadfile, most likely due to problems reading the object input stream as a sealed object");
+ 				System.exit(1);
+ 			} catch (BadPaddingException e) {
+ 				UiManager.reportError("Error, Cannot decode the given file.", "bad padding exception thrown when trying loadfile, most likely due to problems with the cipher");
+ 				System.exit(1);
+ 			} catch (IOException e) {
+ 				UiManager.reportError("Error, Invalid file.", "IO exception thrown when trying loadfile, most likely due to an invalide file or problems with one of the input streams");
+ 				System.exit(1);
+ 			} catch (IllegalBlockSizeException e) {
+ 				UiManager.reportError("Error, Object too large, cannot decode the file.", "Illegal block size exception thrown when trying loadfile, most likely due to a problem with constructing a sealed object");
+ 				System.exit(1);
+ 			}  catch (InvalidKeyException e) {
+ 				UiManager.reportError("Error, Invalid Key, Cannot decode the given file.", "invalid key exception thrown when trying loadfile, most likely due to using an invalid key while initialising the the cypher");
+ 				System.exit(1);
+ 			} catch (NoSuchAlgorithmException e) {
+ 				UiManager.reportError("Error, Cannot decode the given file.", "no such algorithm exception thrown when trying loadfile, most likely due to the program not being able to find the indicated cypher while initialising the the cypher");
+ 				System.exit(1);
+ 			} catch (NoSuchPaddingException e) {
+ 				UiManager.reportError("Error, Cannot decode the given file",  "no such padding exception thrown when trying loadfile, most likely due to problems with the parameters used in the get instance call made while initialising the the cypher");
+ 				System.exit(1);
+ 			}  catch (Exception e) {
+ 				UiManager.reportError(e.getMessage() + "Unknown error.", e.getMessage() + "unknown error occured while trying loadfile");
+ 				System.exit(1);
+ 			}
+ 		} else {
+ 			// TODO - fix this, as it is clearly a race condition
+ 			// This should never happen unless a file changes permissions
+ 			// or existence in the milliseconds that it runs the above code
+ 			// after checks in StartupController
+ 			UiManager.reportError("Failed to load file.", "Failed to load file.");
+ 			System.exit(1);
+ 		}
+ 	}
 	/**
 	 * Display the main menu.
 	 */
