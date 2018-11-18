@@ -225,7 +225,8 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Main method containing switch statements. This checks to see if the calendar is open as well as loads to see
+	 * Main method containing switch statements. This checks to see if the calendar is open as well
+	 * as loads to see.
 	 * if you need the profile, module, milestones, calendar, and chat.
 	 */
 	public void main() {
@@ -503,20 +504,24 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Handles when the user selects the new profile button on the main screen and creates a profile when this occurs.
+	 * Handles when the user selects the new profile button on the main screen and creates a
+	 * profile when this occurs.
 	 */
 	public void createNewProfile() {
 		MainController.save();
 		File plannerFile = null;
 		try {
-			Account newAccount = MainController.ui.createAccount();
-			StudyPlannerController study = new StudyPlannerController(newAccount);
+			Account newAccount = MainController.ui.createAccount(false);
+			if (newAccount != null) {
+				StudyPlannerController study = new StudyPlannerController(newAccount);
 			// Welcome notification:
-			Notification not = new Notification("Welcome!", new GregorianCalendar(),
+				Notification not = new Notification("Welcome!", new GregorianCalendar(),
 					"Thank you for using RaiderPlanner!");
-			study.getPlanner().addNotification(not);
-			MainController.setSpc(study);
-			plannerFile = MainController.ui.savePlannerFileDialog();
+				study.getPlanner().addNotification(not);
+				MainController.setSpc(study);
+				plannerFile = MainController.ui.savePlannerFileDialog();
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -537,9 +542,12 @@ public class MenuController implements Initializable {
 				UiManager.reportError("Directory does not exist.");
 			}
 		}
-		MainController.loadFile(plannerFile);
+		if (plannerFile != null) {
+			MainController.loadFile(plannerFile);
+		}
+
 		try {
-			MainController.ui.reloadMainMenu();
+			this.main();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -580,7 +588,8 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the 'Add Activity' window.
-	 * @throws IOException if you can not open the file. Exception e if other unexpected issues occur
+	 * @throws IOException if you can not open the file. Exception e if other
+unexpected issues occur.
 	 */
 	public void addActivity() {
 		try {

@@ -95,16 +95,15 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
-	
 	private static int setupCount = 0;
 
 	/**
 	 * Displays a 'Create Account' window and handles the creation of a new Account object.
-	 *
+	 * boolean first: true if there is no existing account, false if account already exists.
 	 * @return newly created Account
 	 * @throws IOException for loader.load()
 	 */
-	public Account createAccount() throws IOException {
+	public Account createAccount(boolean first) throws IOException {
 		AccountController accountControl = new AccountController();
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
 		// Load in the .fxml file:
@@ -119,10 +118,18 @@ public class UiManager {
 		stage.getIcons().add(icon);
 		stage.showAndWait();
 		// Handle creation of the Account object:
-		// If user exits before submitting information, program exits.
-		if (!accountControl.isSuccess()) {
+		// If user exits before submitting information and there is already a loaded profile,
+		//the process is cancelled
+		// and the user is returned to the main menu.
+		// If there is not existing profile, the program exits
+
+		if (!accountControl.isSuccess() && first == true) {
 			System.exit(0);
+		} else if (!accountControl.isSuccess() && first == false) {
+			stage.close();
+			return null;
 		}
+
 		Account newAccount = accountControl.getAccount();
 		return newAccount;
 	}
@@ -176,9 +183,11 @@ public class UiManager {
 		FXMLLoader loader = new FXMLLoader(mainMenuFxml);
 		loader.setController(UiManager.mc);
 		Parent root = loader.load();
-		setupCount++;//prevents saving file closing the program when the main menu has been opened. 
-		//so if the cancel or exit are pressed in saving file, only closes the program during first account setup
-		
+		setupCount++;
+		//prevents saving file closing the program when the main menu has been opened.
+		//so if the cancel or exit are pressed in saving file, only closes the program
+		//during first account setup
+
 		// Set the scene with the SettingsFxml:
 		mainStage.getScene().setRoot(root);
 		mainStage.setTitle("RaiderPlanner");
@@ -187,7 +196,6 @@ public class UiManager {
 	/**
 	 * Displays the settings menu in the current stage.
 	 * Uses the mainStage set forth by the main menu on start up.
-	 *
 	 * @throws Exception when the FXMLLoader is unable to load
 	 */
 	public void showSettings() throws Exception {
@@ -558,8 +566,12 @@ public class UiManager {
 		}
 		fileChooser.setInitialDirectory(savesFolder);
 		File file = fileChooser.showSaveDialog(mainStage);
-		if(file == null && setupCount == 0)System.exit(0);//allows program to close if cancel or exit are pressed
-		setupCount++;//prevents the cancel button from closing the program except for initial setup.
+		//allows program to close if cancel or exit are pressed
+		if (file == null && setupCount == 0) {
+			System.exit(0);
+		}
+		//prevents the cancel button from closing the program except for initial setup.
+		setupCount++;
 		return file;
 	}
 
