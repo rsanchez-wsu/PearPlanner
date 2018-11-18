@@ -28,8 +28,8 @@ import edu.wright.cs.raiderplanner.model.ICalExport;
 import edu.wright.cs.raiderplanner.model.Notification;
 import edu.wright.cs.raiderplanner.model.Settings;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
-import edu.wright.cs.raiderplanner.view.UiManager;
 import edu.wright.cs.raiderplanner.util.RaiderException;
+import edu.wright.cs.raiderplanner.view.UiManager;
 
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
@@ -310,13 +310,14 @@ public class MainController {
 	/**
 	 * Display the main menu.
 	 * Stage is already present.
+	 * @throws Exception RaiderException
 	 */
-	public static void showMain() {
+	public static void showMain() throws Exception {
 		try {
 			ui.showMain();
 		} catch (IOException e) {
 			UiManager.reportError("File does not exist: " + e.getMessage());
-		} catch (Exception e) {
+		} catch (RaiderException e) {
 			UiManager.reportError(e.getMessage());
 		}
 	}
