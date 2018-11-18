@@ -32,6 +32,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This is a class to handle the code for the chat feature.
  * @author MichaelPantoja
@@ -85,8 +88,11 @@ public class ChatController {
 	 */
 	public static void sendButtonAction(String userName) {
 		sendButton.setOnAction((ActionEvent exception1) -> {
+			DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+			LocalDateTime time = LocalDateTime.now();
 			if (!(tfMessageToSend.getText().equals(""))) {
-				msgArea.appendText(userName + ": " + tfMessageToSend.getText() + "\n");
+				msgArea.appendText(userName + ": " + tfMessageToSend.getText());
+				msgArea.appendText("\t\t\t" + date.format(time) + "\n");
 				tfMessageToSend.setText("");
 			}
 		});
