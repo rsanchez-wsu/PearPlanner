@@ -317,8 +317,8 @@ public class MainController {
 			ui.showMain();
 		} catch (IOException e) {
 			UiManager.reportError("File does not exist: " + e.getMessage());
-		} catch (RaiderException e) {
-			UiManager.reportError(e.getMessage());
+		} catch (RaiderException r) {
+			UiManager.reportError(r.getMessage());
 		}
 	}
 
