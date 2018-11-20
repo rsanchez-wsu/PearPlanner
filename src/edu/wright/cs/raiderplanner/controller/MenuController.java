@@ -50,12 +50,14 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -72,6 +74,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
@@ -222,9 +225,11 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Main method containing switch statements.
+	 * Main method containing switch statements. This checks to see if the calendar is open as well as loads to see
+	 * if you need the profile, module, milestones, calendar, and chat.
 	 */
 	public void main() {
+		mainContent.setStyle("");
 		if (isNavOpen) {
 			openMenu.fire();
 		}
@@ -346,6 +351,22 @@ public class MenuController implements Initializable {
 		this.topBox.getChildren().add(this.welcome);
 		this.title.setText("Study Dashboard");
 
+		FlowPane modulesPane = new FlowPane();
+		mainContent.setStyle("");
+
+
+		if (MainController.getSpc().getPlanner().getCurrentStudyProfile().getModules().length
+				== 0) {
+			VBox dashPic = new VBox();
+			//dashPic.autosize();
+			dashPic.getChildren().add(new ImageView(new
+					Image("/edu/wright/cs/raiderplanner/content/DashBoardHelp.png")));
+			dashPic.setAlignment(Pos.CENTER);
+			this.mainContent.setStyle("-fx-background-color:#ffffff;");
+			modulesPane.setStyle("-fx-background-color:#ffffff;");
+			this.mainContent.add(dashPic, 1, 3);
+		}
+
 		StudyProfile profile = MainController.getSpc().getPlanner().getCurrentStudyProfile();
 
 		// Display studyProfile:
@@ -355,7 +376,6 @@ public class MenuController implements Initializable {
 		this.mainContent.getColumnConstraints()
 				.add(new ColumnConstraints(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE,
 						Region.USE_COMPUTED_SIZE, Priority.ALWAYS, HPos.CENTER, true));
-		FlowPane modulesPane = new FlowPane();
 
 		Thread renderModules = new Thread(() -> {
 			Label oldLabel = new Label(this.welcome.getText());
@@ -483,7 +503,7 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Handles when the user selects the new profile button on the main screen.
+	 * Handles when the user selects the new profile button on the main screen and creates a profile when this occurs.
 	 */
 	public void createNewProfile() {
 		MainController.save();
@@ -560,6 +580,7 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the 'Add Activity' window.
+	 * @throws IOException if you can not open the file. Exception e if other unexpected issues occur
 	 */
 	public void addActivity() {
 		try {
@@ -583,6 +604,19 @@ public class MenuController implements Initializable {
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("Milestones");
+
+		//Add instructions for the current page
+		HBox instruction = new HBox();
+		GridPane.setHgrow(instruction, Priority.ALWAYS);
+		instruction.setSpacing(50);
+		instruction.setPadding(new Insets(5, 5, 10, 0));
+		this.welcome = new Label(
+				"Welcome " + MainController.getSpc().getPlanner().getUserName()
+				+ "! Use Milestones "	+ "to track important tasks.");
+		this.welcome.setPadding(new Insets(10, 15, 10, 15));
+		this.topBox.getChildren().add(this.welcome);
+		this.mainContent.setVgap(10);
+		this.mainContent.setPadding(new Insets(15));
 
 		// Columns:
 		TableColumn<Milestone, String> nameColumn = new TableColumn<>("Milestone");
@@ -715,8 +749,22 @@ public class MenuController implements Initializable {
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("Calendar");
+
+		//Add instructions for the current page
+		HBox instruction = new HBox();
+		GridPane.setHgrow(instruction, Priority.ALWAYS);
+		instruction.setSpacing(50);
+		instruction.setPadding(new Insets(5, 5, 10, 0));
+		this.welcome = new Label(
+				"Welcome " + MainController.getSpc().getPlanner().getUserName()
+				+ "! See your tasks "	+ "here.");
+		this.welcome.setPadding(new Insets(10, 15, 10, 15));
+		this.topBox.getChildren().add(this.welcome);
+		this.mainContent.setVgap(10);
+		this.mainContent.setPadding(new Insets(15));
 		CalendarController myCalendar = new CalendarController();
 		this.mainContent.getChildren().add(myCalendar.getLayout());
+
 	}
 
 	/**
@@ -728,6 +776,18 @@ public class MenuController implements Initializable {
 		this.topBox.getChildren().clear();
 		this.title.setText("Study Profiles");
 
+		//Add instructions for the current page
+		HBox instruction = new HBox();
+		GridPane.setHgrow(instruction, Priority.ALWAYS);
+		instruction.setSpacing(50);
+		instruction.setPadding(new Insets(5, 5, 10, 0));
+		this.welcome = new Label("Welcome " + MainController.getSpc().getPlanner().getUserName()
+				+ "! Here you can view your study profiles. "
+				+ "Double-click on a profile to see more informaiton.");
+		this.welcome.setPadding(new Insets(10, 15, 10, 15));
+		this.topBox.getChildren().add(this.welcome);
+		this.mainContent.setVgap(10);
+		this.mainContent.setPadding(new Insets(15));
 
 		// Columns:
 		TableColumn<StudyProfile, String> nameColumn = new TableColumn<>("Profile name");
@@ -785,8 +845,8 @@ public class MenuController implements Initializable {
 					if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
 							&& event.getClickCount() == 2) {
 						try {
-							MainController.ui.studyProfileDetails(row.getItem());
 							this.main();
+							loadStudyProfile(row.getItem());
 						} catch (IOException e1) {
 							UiManager.reportError("Unable to open View file");
 						}
@@ -802,6 +862,20 @@ public class MenuController implements Initializable {
 	}
 
 	/**
+	 * Display the StudyProfile details.
+	 */
+	public void loadStudyProfile(StudyProfile profile) throws IOException {
+		StudyProfileController spc = new StudyProfileController(profile,
+				this);
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(
+				"/edu/wright/cs/raiderplanner/view/StudyProfile.fxml"));
+		loader.setController(spc);
+		Parent root = loader.load();
+		this.mainContent.add(root,0,25);
+	}
+
+	/**
 	 * Display the Modules pane.
 	 */
 	public void loadModules() {
@@ -809,6 +883,20 @@ public class MenuController implements Initializable {
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.title.setText("Modules");
+
+		//Add instructions for the current page
+		HBox instruction = new HBox();
+		GridPane.setHgrow(instruction, Priority.ALWAYS);
+		instruction.setSpacing(50);
+		instruction.setPadding(new Insets(5, 5, 10, 0));
+		this.welcome = new Label(
+				"Welcome " + MainController.getSpc().getPlanner().getUserName()
+				+ "! Modules shows your current courses. "
+				+ "Double-click on a course for more information.");
+		this.welcome.setPadding(new Insets(10, 15, 10, 15));
+		this.topBox.getChildren().add(this.welcome);
+		this.mainContent.setVgap(10);
+		this.mainContent.setPadding(new Insets(15));
 		// Columns:
 		TableColumn<Module, String> codeColumn = new TableColumn<>("Module code");
 		codeColumn.setCellValueFactory(new PropertyValueFactory<>("moduleCode"));
@@ -881,6 +969,21 @@ public class MenuController implements Initializable {
 		this.topBox.getChildren().clear();
 		this.title.setText(module.getModuleCode() + " " + module.getName());
 		// =================
+
+		//Add instructions for the current page
+		HBox instruction = new HBox();
+		GridPane.setHgrow(instruction, Priority.ALWAYS);
+		instruction.setSpacing(50);
+		instruction.setPadding(new Insets(5, 5, 10, 0));
+		this.welcome = new Label(
+				"Welcome " + MainController.getSpc().getPlanner().getUserName()
+				+ "! Use this page to view modules. "
+				+ "Double-click on a module to see more options like "
+					+ "generate Gantish Diagram, or add Tasks/Requirements.");
+		this.welcome.setPadding(new Insets(10, 15, 10, 15));
+		this.topBox.getChildren().add(this.welcome);
+		this.mainContent.setVgap(10);
+		this.mainContent.setPadding(new Insets(15));
 
 		// Create a back button:
 		this.backButton(previousWindow, previous);
@@ -1466,7 +1569,6 @@ public class MenuController implements Initializable {
 
 		if (not.getLink() != null) {
 			not.getLink().open(this.current);
-			this.main();
 		}
 	}
 
