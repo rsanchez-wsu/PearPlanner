@@ -100,11 +100,13 @@ public class UiManager {
 
 	/**
 	 * Displays a 'Create Account' window and handles the creation of a new Account object.
+	 * 
+	 * boolean first: true if there is no existing account, false if account already exists.
 	 *
 	 * @return newly created Account
 	 * @throws IOException for loader.load()
 	 */
-	public Account createAccount() throws IOException {
+	public Account createAccount(boolean first) throws IOException {
 		AccountController accountControl = new AccountController();
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
 		// Load in the .fxml file:
@@ -119,10 +121,17 @@ public class UiManager {
 		stage.getIcons().add(icon);
 		stage.showAndWait();
 		// Handle creation of the Account object:
-		// If user exits before submitting information, program exits.
-		if (!accountControl.isSuccess()) {
+		// If user exits before submitting information and there is already a loaded profile, the process is cancelled
+		// and the user is returned to the main menu.
+		// If there is not existing profile, the program exits
+		
+		if (!accountControl.isSuccess() && first == true) {
 			System.exit(0);
+		} else if(!accountControl.isSuccess() && first == false){
+			stage.close();
+			return null;
 		}
+		
 		Account newAccount = accountControl.getAccount();
 		return newAccount;
 	}
@@ -306,8 +315,19 @@ public class UiManager {
 	 * @throws IOException if there is an error while loading the FXML GUI
 	 */
 	public void studyProfileDetails(StudyProfile profile) throws IOException {
-		UiManager.mc.main(MenuController.Window.PROFILES);
-		UiManager.mc.loadStudyProfile(profile);
+		StudyProfileController spc = new StudyProfileController(profile);
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(studyProfileFxml);
+		loader.setController(spc);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(root, 550, 232));
+		stage.setTitle(profile.getName());
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
 	}
 
 	/**
