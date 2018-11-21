@@ -225,7 +225,8 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Main method containing switch statements. This checks to see if the calendar is open as well as loads to see
+	 * Main method containing switch statements.
+	 *     This checks to see if the calendar is open as well as loads to see
 	 * if you need the profile, module, milestones, calendar, and chat.
 	 */
 	public void main() {
@@ -503,7 +504,8 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Handles when the user selects the new profile button on the main screen and creates a profile when this occurs.
+	 * Handles when the user selects the new profile button on the
+	 *     main screen and creates a profile when this occurs.
 	 */
 	public void createNewProfile() {
 		MainController.save();
@@ -580,7 +582,8 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Display the 'Add Activity' window.
-	 * @throws IOException if you can not open the file. Exception e if other unexpected issues occur
+	 * @throws IOException if you can not open the file.
+	 *     Exception e if other unexpected issues occur.
 	 */
 	public void addActivity() {
 		try {
