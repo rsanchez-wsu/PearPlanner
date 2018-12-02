@@ -280,12 +280,12 @@ public class MainController {
 						+ "one of the input streams");
 				System.exit(1);
 			} catch (IllegalBlockSizeException e) {
-				UiManager.reportError("Error, Object too large, cannot decode the file.", 
+				UiManager.reportError("Error, Object too large, cannot decode the file.",
 						"Illegal block size exception thrown when trying loadfile, most "
 						+ "likely due to a problem with constructing a sealed object");
 				System.exit(1);
 			}  catch (InvalidKeyException e) {
-				UiManager.reportError("Error, Invalid Key, Cannot decode the given file.", 
+				UiManager.reportError("Error, Invalid Key, Cannot decode the given file.",
 						"invalid key exception thrown when trying loadfile, most likely due "
 						+ "to using an invalid key while initialising the the cypher");
 				System.exit(1);
