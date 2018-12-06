@@ -181,7 +181,7 @@ public class AccountController implements Initializable {
 			invalidMessage += "Please enter a valid email\n";
 			validSuccess = false;
 		}
-		if (!validateSalutation()) {
+		if (validateSalutation()) {
 			invalidMessage += "Please enter a valid salutation\n";
 			validSuccess = false;
 		}
