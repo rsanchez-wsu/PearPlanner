@@ -170,7 +170,6 @@ public class AccountController implements Initializable {
 		String invalidMessage = "";
 		boolean validSuccess = true;
 		boolean validName = true;
-		
 		if (!validateNumber()) {
 			invalidMessage += "Please enter a valid W Number\n";
 			validSuccess = false;
