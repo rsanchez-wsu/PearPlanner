@@ -170,6 +170,7 @@ public class AccountController implements Initializable {
 		String invalidMessage = "";
 		boolean validSuccess = true;
 		boolean validName = true;
+		
 		if (!validateNumber()) {
 			invalidMessage += "Please enter a valid W Number\n";
 			validSuccess = false;
@@ -182,10 +183,7 @@ public class AccountController implements Initializable {
 			invalidMessage += "Please enter a valid email\n";
 			validSuccess = false;
 		}
-		if (!validateSalutation()) {
-			invalidMessage += "Please enter a valid salutation\n";
-			validSuccess = false;
-		}
+		
 		if (this.fullName.getText().trim().isEmpty()) {
 			if (!this.handleEmptyName()) {
 				validName = false;
