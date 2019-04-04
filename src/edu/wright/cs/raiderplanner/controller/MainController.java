@@ -30,9 +30,11 @@ import edu.wright.cs.raiderplanner.model.Settings;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
 import edu.wright.cs.raiderplanner.util.RaiderException;
 import edu.wright.cs.raiderplanner.view.UiManager;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
@@ -47,6 +49,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -60,6 +63,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 
 /**
  * A helper class of static methods and fields which are used to handle the
@@ -459,6 +463,9 @@ public class MainController {
 	public static void openHelpPage() {
 		final Button site = new Button("Website");
 		final Button pdf = new Button("user-manual");
+		final Hyperlink link = new Hyperlink();
+		final Hyperlink link1 = new Hyperlink();
+		final Hyperlink link2 = new Hyperlink();
 		Label tab1 = new Label("RaiderPlanner is an application based off of the Pear Planner "
 				+ "to help students keep"
 				+ " track of assignments and exams, allowing them to achieve their full academic"
@@ -476,21 +483,64 @@ public class MainController {
 				+ " the this address: https://github.com/rsanchez-wsu/RaiderPlanner"
 				+ "\n" + "Planned features include a graduation planner, Pilot integration, and a "
 				+ "schedule sharing feature");
+		final Label tab4 = new Label("1. Can you give me a general overview of RaiderPlanner?\n");
+		final Label tab5 = new Label("\n2. How do I create an account?\n" + "\n\tAnswer: Please "
+				+ " see the 'Getting Started' tab listed above.  You will need to select "
+				+ "a salutation, fill in yourname, a valid UID, and your email.address.\n\n");
+		final Label tab6 = new Label("3. What is a HUB file used for?\n" + "\n\tAnswer: A hub file "
+				+ "is an eXtensible Markup Language (XML) file, which is designed to store "
+				+ "and transport data in a format very similar to Hyper Text Markup "
+				+ "Language (HTML).  It carries the data that RaiderPlanner reads in about "
+				+ "your courses and schedule.  If you enjoy software development, you can "
+				+ "look up Java's DOM parser, and create a parser for ouropen source "
+				+ "RaiderPlanner program.\n\n");
+		final Label tab7 = new Label("4. Which HUB file should I select?\n" + "\n\tAnswer: "
+				+ " Currently, there are several options including: HP_First_Year.xml, "
+				+ " StudyProfile_2018_SPRING_UPDATE_001.xml StudyProfile_2018_SPRING.xml "
+				+ " and test3.xml.\n\n");
+		final Label tab8 = new Label("5. If I see an issue with RaiderPlanner, how can I "
+				+ "report it?\n");
+		final Label tab9 = new Label("\n6. I am a Software Developer or an aspiring Developer, "
+				+ " and would like to contribute to RaiderPlanner, how can I help?\n"
+				+ "\n\tAnswer:  You can click the link below and fork our project from GitHub."
+				+ " Feel free to add suggestions, or fix bugs whether known or unknown!"
+				+ " Then submit a pull request to have your changes made to RaiderPlanner!");
 		tab1.setWrapText(true);
 		tab2.setWrapText(true);
 		tab3.setWrapText(true);
-		VBox splitter = new VBox();
-		splitter.getChildren().add(tab2);
-		splitter.getChildren().add(pdf);
-		splitter.getChildren().add(site);
-		TitledPane t1 = new TitledPane("What is RaiderPlanner?",tab1);
-		TitledPane t2 = new TitledPane("Getting Started",splitter);
-		TitledPane t3 = new TitledPane("Whats Next?",tab3);
+		tab4.setWrapText(true);
+		tab5.setWrapText(true);
+		tab6.setWrapText(true);
+		tab7.setWrapText(true);
+		tab8.setWrapText(true);
+		tab9.setWrapText(true);
+		VBox splitter1 = new VBox();
+		splitter1.getChildren().add(tab1);
+		VBox splitter2 = new VBox();
+		splitter2.getChildren().add(tab2);
+		splitter2.getChildren().add(pdf);
+		splitter2.getChildren().add(site);
+		VBox splitter3 = new VBox();
+		splitter3.getChildren().add(tab3);
+		VBox splitter4 = new VBox();
+		splitter4.getChildren().add(tab4);
+		splitter4.getChildren().add(link);
+		splitter4.getChildren().add(tab5);
+		splitter4.getChildren().add(tab6);
+		splitter4.getChildren().add(tab7);
+		splitter4.getChildren().add(tab8);
+		splitter4.getChildren().add(link1);
+		splitter4.getChildren().add(tab9);
+		splitter4.getChildren().add(link2);
+		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
+		TitledPane t2 = new TitledPane("Getting Started",splitter2);
+		TitledPane t3 = new TitledPane("Whats Next?", splitter3);
+		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
 		Accordion root = new Accordion();
-		root.getPanes().addAll(t1, t2, t3);
+		root.getPanes().addAll(t1, t2, t3, t4);
 		Stage newStage = new Stage();
 		newStage.setTitle("Raider Helper");
-		Scene scene = new Scene(root,400,300);
+		Scene scene = new Scene(root,600,800);
 		newStage.setScene(scene);
 		newStage.show();
 
@@ -515,6 +565,36 @@ public class MainController {
 				} catch (IOException ex) {
 					System.out.println("Error: Website not found");
 				}
+			}
+		});
+		link.setText("\tWatch The Overview of RaiderPlanner on Youtube.");
+		link.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.youtube.com/watch?v=-tkcqaEy2HU").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link1.setText("\tClick here to submit an issue to be fixed in RaiderPlanner");
+		link1.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://github.com/gzdwsu/RaiderPlanner/issues").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link2.setText("\tClick to view our project on GitHub");
+		link2.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://github.com/gzdwsu/RaiderPlanner").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
 			}
 		});
 	}
