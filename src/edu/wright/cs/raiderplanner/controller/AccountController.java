@@ -183,6 +183,10 @@ public class AccountController implements Initializable {
 			invalidMessage += "Please enter a valid email\n";
 			validSuccess = false;
 		}
+		if (!validateSalutation()) {
+			invalidMessage += "Please enter a valid salutation\n";
+			validSuccess = false;
+		}
 		if (this.fullName.getText().trim().isEmpty()) {
 			if (!this.handleEmptyName()) {
 				validName = false;
@@ -201,6 +205,7 @@ public class AccountController implements Initializable {
 			invalidInputAlert.showAndWait();
 		}
 	}
+
 	/**
 	 * Handle Quit button.
 	 */
