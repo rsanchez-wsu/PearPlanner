@@ -1,0 +1,32 @@
+html {
+    width: 800px;
+}
+
+header {
+    margin-left: 25%;
+}
+
+main {
+    margin-top: 50px;
+    margin-left: 25%;
+}
+
+label {
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+    margin-top: 20px;
+}
+
+input[type=submit] {
+  margin-top: 40px;
+  
+}
+
+header h1 {
+  font-size: 1.2em;
+}
+
+p{
+	font-family: 'Roboto', sans-serif;
+}

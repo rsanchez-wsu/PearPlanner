@@ -41,6 +41,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -132,6 +133,16 @@ public class ActivityController implements Initializable {
 	 * Checks inputs, and unlocks the submit button if inputs are valid
 	 */
 	public void handleChange() {
+		// Limit number of char's typed in details textArea
+		this.details.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 400 ? change : null));
+		this.name.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 100 ? change : null));
+		this.quantity.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 50 ? change : null));
+		this.duration.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 50 ? change : null));
+
 		if (!this.name.getText().trim().isEmpty()
 				&& !this.quantity.getText().trim().isEmpty()
 				&& MainController.isNumeric(this.quantity.getText())

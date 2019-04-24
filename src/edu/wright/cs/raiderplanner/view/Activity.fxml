@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="550.0" stylesheets="@../content/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane style="-fx-background-color: #026655;" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="550.0" stylesheets="@../content/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="239.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="291.0" />
@@ -37,7 +37,7 @@
         </HBox>
         <HBox GridPane.columnSpan="2147483647">
         	<children>
-	        	<Label fx:id="title" text="Add an Activity">
+	        	<Label style="-fx-text-fill: white" fx:id="title" text="Add an Activity">
 		            <font>
 		                <Font size="30.0" />
 		            </font>

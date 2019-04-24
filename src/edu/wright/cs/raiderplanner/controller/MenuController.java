@@ -560,8 +560,8 @@ public class MenuController implements Initializable {
 	public void openProfile() {
 		MainController.save();
 		File plannerFile = MainController.ui.loadPlannerFileDialog();
-		MainController.setPlannerFile(plannerFile);
 		if (plannerFile != null) {
+			MainController.setPlannerFile(plannerFile);
 			if (plannerFile.exists()) {
 				if (plannerFile.canRead()) {
 					if (plannerFile.canWrite()) {
@@ -576,14 +576,16 @@ public class MenuController implements Initializable {
 			} else {
 				UiManager.reportError("File does not exist.");
 			}
+			MainController.loadFile(plannerFile);
+
+			try {
+				MainController.ui.reloadMainMenu();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		MainController.loadFile(plannerFile);
-		try {
-			MainController.ui.reloadMainMenu();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 
 	/**
@@ -933,8 +935,6 @@ public class MenuController implements Initializable {
 		// Create a table:
 		TableView<Module> table = new TableView<>();
 		table.setItems(list);
-		//limit the number of rows to allow space for buttons below the table
-		GridPane.setRowSpan(table, 20);
 		table.getColumns().addAll(colList);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		GridPane.setHgrow(table, Priority.ALWAYS);
@@ -967,6 +967,57 @@ public class MenuController implements Initializable {
 		});
 		this.mainContent.addRow(2, table);
 		this.mainContent.getStyleClass().add("list-item");
+
+		// Actions toolbar:
+		HBox actions = new HBox();
+		GridPane.setHgrow(actions, Priority.ALWAYS);
+		actions.setSpacing(5);
+		actions.setPadding(new Insets(5, 5, 10, 0));
+
+		// Buttons:
+		Button add = new Button("Add a new Module");
+		Button remove = new Button("Remove");
+		remove.setDisable(true);
+
+		// Bind properties on buttons:
+		remove.disableProperty().bind(new BooleanBinding() {
+			{
+				bind(table.getSelectionModel().getSelectedItems());
+			}
+
+			@Override
+			protected boolean computeValue() {
+				return !(list.size() > 0
+						&& table.getSelectionModel().getSelectedItem() != null);
+			}
+		});
+
+		// Bind actions on buttons:
+		add.setOnAction(e -> {
+			try {
+				Module module  = MainController.ui.addModule();
+
+				if (module != null) {
+					list.add(module);
+					MainController.getSpc().getPlanner().getCurrentStudyProfile().addModule(module);
+				}
+			} catch (IOException e1) {
+				UiManager.reportError("Unable to open View file");
+			}
+		});
+
+		remove.setOnAction(e -> {
+			if (UiManager.confirm("Are you sure you want to remove this module?")) {
+				Module module = table.getSelectionModel().getSelectedItem();
+				list.remove(module);
+				MainController.getSpc().getPlanner().getCurrentStudyProfile().removeModule(module);
+			}
+		});
+
+		actions.getChildren().addAll(add, remove);
+
+		mainContent.addRow(3, actions);
+
 	}
 
 	/**

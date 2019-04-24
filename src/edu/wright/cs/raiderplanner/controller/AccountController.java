@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
- * Bijan Ghasemi Afshar, Alena Brand
+ * Copyright (C) 2019 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
+ * Bijan Ghasemi Afshar, Alena Brand, Daniel Bleigh
  *
  *
  *
@@ -23,6 +23,7 @@ package edu.wright.cs.raiderplanner.controller;
 
 import edu.wright.cs.raiderplanner.model.Account;
 import edu.wright.cs.raiderplanner.model.Person;
+import edu.wright.cs.raiderplanner.view.UiManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -88,7 +89,7 @@ public class AccountController implements Initializable {
 	 * @return true if the user entered a valid salutation.
 	 */
 	public boolean validateSalutation() {
-		if (!Person.validSalutation(this.salutation.getSelectionModel().getSelectedItem().trim())) {
+		if (this.salutation.getValue() == null) {
 			return false;
 		} else {
 			this.salutation.setStyle("");
@@ -121,7 +122,11 @@ public class AccountController implements Initializable {
 	 * @return True if the user entered a valid email.
 	 */
 	public boolean validateEmail() {
-		if (this.email.getText().trim().isEmpty()
+		if (this.email.getText().isEmpty()) {
+			return false;
+		} else if (!this.email.getText().contains("@")) {
+			return false;
+		} else if (this.email.getText().trim().isEmpty()
 				|| Person.validEmail(this.email.getText().trim())) {
 			this.email.setStyle("");
 			return true;
@@ -172,10 +177,6 @@ public class AccountController implements Initializable {
 		boolean validName = true;
 		if (!validateNumber()) {
 			invalidMessage += "Please enter a valid W Number\n";
-			validSuccess = false;
-		}
-		if (!validateName()) {
-			invalidMessage += "Please enter a valid name\n";
 			validSuccess = false;
 		}
 		if (!validateEmail()) {
