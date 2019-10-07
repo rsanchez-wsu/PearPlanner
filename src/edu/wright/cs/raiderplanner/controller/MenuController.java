@@ -516,7 +516,7 @@ public class MenuController implements Initializable {
 			if (newAccount != null) {
 				StudyPlannerController study = new StudyPlannerController(newAccount);
 				// Welcome notification:
-				Notification not = new Notification("Welcome !", new GregorianCalendar(),
+				Notification not = new Notification("Welcome!", new GregorianCalendar(),
 						"Thank you for using RaiderPlanner!");
 				study.getPlanner().addNotification(not);
 				MainController.setSpc(study);
