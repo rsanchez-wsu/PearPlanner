@@ -350,7 +350,7 @@ public class MenuController implements Initializable {
 		this.mainContent.getChildren().remove(1, this.mainContent.getChildren().size());
 		this.topBox.getChildren().clear();
 		this.topBox.getChildren().add(this.welcome);
-		this.welcome.setText("Please select the subject to study.");
+		//this.welcome.setText("Please select the subject to study.");
 		this.title.setText("Study Dashboard");
 
 		FlowPane modulesPane = new FlowPane();
@@ -361,14 +361,22 @@ public class MenuController implements Initializable {
 				== 0) {
 			VBox dashPic = new VBox();
 			//dashPic.autosize();
-			dashPic.getChildren().add(new ImageView(new
-					Image("/edu/wright/cs/raiderplanner/content/DashBoardHelp.png")));
+			ImageView dashImg = new ImageView(new Image("/edu/wright/cs/raiderplanner/content/DashBoardHelp.png"));
+			dashPic.getChildren().add(dashImg);
 			dashPic.setAlignment(Pos.CENTER);
+			dashPic.setMinWidth(150);
+			dashPic.setMinHeight(300);
+			dashImg.setPreserveRatio(true);
+			dashImg.fitWidthProperty().bind(dashPic.widthProperty());
+			dashImg.fitHeightProperty().bind(dashPic.heightProperty());
 			this.mainContent.setStyle("-fx-background-color:#ffffff;");
 			modulesPane.setStyle("-fx-background-color:#ffffff;");
 			this.mainContent.add(dashPic, 1, 3);
 		}
-
+		//Make element fit
+		this.welcome.setMinWidth(150);
+		
+		
 		StudyProfile profile = MainController.getSpc().getPlanner().getCurrentStudyProfile();
 
 		// Display studyProfile:
