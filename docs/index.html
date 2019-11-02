@@ -18,21 +18,47 @@
     <link rel="stylesheet" href="assets/css/untitled.css">
 	<link rel="icon" href="assets/img/favnew.png">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/navbar.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js">
+	</script>
+	<script>
+	function openSlideMenu(){
+		document.getElementById('menu').style.width = '250px';
+		document.getElementById('content').style.marginLeft = '250px';
+	}
+	function closeSlideMenu(){
+		document.getElementById('menu').style.width = '0';
+		document.getElementById('content').style.marginLeft = '0';
+	}
+	</script>
 </head>
 
 <body id="page-top">
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav">
-        <div class="container"><a class="navbar-brand" href="#page-top"><img src="assets/img/new.png"></a><button class="navbar-toggler navbar-toggler-right" data-toggle="collapse"
+    	<div id="content">
+    		<span class="slide">
+    			<a href="#" onclick="openSlideMenu()">
+    				<i class="fas fa-bars"></i>
+    			</a>
+    		</span>
+    		<div id="menu" class="navBar">
+    			<a href="#" class="close" onclick="closeSlideMenu()">
+    				<i class="fas fa-times"></i>
+    			</a>
+    		<a class="nav-link js-scroll-trigger" href="#page-top">Home</a>
+    		<a class="nav-link js-scroll-trigger" href="#about">About</a>
+    		<a class="nav-link js-scroll-trigger" href="#portfolio">Contribute</a>
+    		<a class="nav-link js-scroll-trigger" href="#account">New Account</a>
+    		<a class="nav-link js-scroll-trigger" href=help.html>Help</a>
+    		<a class="nav-link js-scroll-trigger" href="demo.html">Online Demo</a>
+    		</div>
+    	</div>
+        <div class="container"><a class="navbar-brand" href="#page-top"></a><button class="navbar-toggler navbar-toggler-right" data-toggle="collapse"
                 data-target="#navbarResponsive" type="button" data-toogle="collapse" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="nav navbar-nav ml-auto text-uppercase">
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#page-top">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#portfolio">Contribute</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href=help.html>Help</a></li>
-		    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="demo.html">Online Demo</a></li>
-                </ul>
-            </div>
+
+        </div>
+        <div class="logo">
+          <a  href='index.html'><img src="assets/img/new.png" alt="Logo"></a>
         </div>
     </nav>
     <header class="masthead">
@@ -137,7 +163,7 @@
                         </li>
                     </ul>
                 </div>
-            </div> 
+            </div>
         </div>
     </section>
     <section id="portfolio" class="bg-light">
@@ -147,7 +173,7 @@
                     <h2 class="section-heading" style="font-size: 21px;">A short video highlighting RaiderPlanner's current features:<br></h2>
                 </div>
                 <div class="col">
-                    <div class="d-flex justify-content-center" data-aos="fade" data-aos-duration="700"><iframe width="560" height="315" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/-tkcqaEy2HU?rel=0" style="margin-left: 0px;margin-bottom: 75px;margin-top: 5px;width: 651px;height: 423px;"></iframe></div>
+                    <div class="d-flex justify-content-center" data-aos="fade" data-aos-duration="700"><iframe width="560" height="315" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/-4xK72rpJfc" style="margin-left: 0px;margin-bottom: 75px;margin-top: 5px;width: 651px;height: 423px;"></iframe></div>
                 </div>
             </div>
             <div class="row">
@@ -206,8 +232,11 @@
                     </div>
                 </div>
             </div>
-            <h2> How to Create a New Account</h2>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/9lUxAKLZX_s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+   </section>
+   <section id="account" style="background-color: rgb(255,255,255);" >
+            <h1 class="text-center" style="color: rgb(0,0,0);"> How to Create a New Account</h1>
+            <iframe  width="560" height="315" align="center" src="https://www.youtube.com/embed/9lUxAKLZX_s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </section>
     <section id="contact" style="background-color: rgb(52,58,64);">
@@ -245,7 +274,7 @@
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
                                 <div class="modal-body"><h2 class="text-uppercase">The Way Ahead</h2><img src="assets/img/movingforward.jpeg" class="img-fluid d-block mx-auto"><p>The Fall 2017 students of Mr. Sanchez' CEG-3120 class started out the semester working on several issues identified by Mr. Sanchez. As part of the course progression students were asked to identify issues or enhancements for RaiderPlanner. The objective is to incorporate some or all of these recommended changes throughout the course of the project.
-</p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span> Close window</span></button></div>
+</p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span>Â Close window</span></button></div>
                             </div>
                         </div>
                     </div>
@@ -261,7 +290,7 @@
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
                                 <div class="modal-body"><h2 class="text-uppercase">Key Features</h2><img src="assets/img/classPicture.jpg" alt="Class picture" class="img-fluid d-block mx-auto"><p>The current implementation of RaiderPlanner (formerly PearPlanner) keeps the 4 central capabilities from the original project, along with implementation of several changes made by the CEG-3120 students. This planner can be used by a student to keep track of the major items due over the course of the semester, and includes tools allowing the user to add calendar reminders, make notes and assign tasks for each assignment.
-</p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span> Close window</span></button></div>
+</p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span>Â Close window</span></button></div>
                             </div>
                         </div>
                     </div>
@@ -276,7 +305,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
-                                <div class="modal-body"><h2>PearPlanner</h2><img src="assets/img/pearplanner.jpg" alt="pearplanner" class="img-fluid d-block mx-auto"><p>Credit for the original project goes to: Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas and Bijan Ghasemi Afshar</p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span> Close window</span></button></div>
+                                <div class="modal-body"><h2>PearPlanner</h2><img src="assets/img/pearplanner.jpg" alt="pearplanner" class="img-fluid d-block mx-auto"><p>Credit for the original project goes to: Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas and Bijan Ghasemi Afshar</p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span>Â Close window</span></button></div>
                             </div>
                         </div>
                     </div>
@@ -294,9 +323,9 @@
                                 <div class="modal-body"><h2>User Manual</h2><p>Credit for the original project goes to: Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas and Bijan Ghasemi Afshar</p>
 								<div class="pdfcont">
 									<embed src="assets/files/usermanual.pdf" type="application/pdf" width="100%" height="600px"/>
-								</div>									
-								<button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span> Close window</span></button></div>
-                           
+								</div>
+								<button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span>Â Close window</span></button></div>
+
 
 						   </div>
                         </div>
@@ -318,7 +347,7 @@
     <li>Extract the file into your desired location.</li>
     <li>Start Eclipse and import your file.</li>
     <li>Run RaiderPlanner.git to start the program.</li>
-</ol><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span> Close window</span></button></div>
+</ol><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span>Â Close window</span></button></div>
                             </div>
                         </div>
                     </div>
@@ -333,7 +362,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-8 mx-auto">
-                                <div class="modal-body"><h2 class="text-uppercase">Point of contact</h2><img src="assets/img/code.jpg" alt="contact info" class="img-fluid d-block mx-auto"><p>You can view this project on GitHub.  <a href = "https://github.com/rsanchez-wsu/RaiderPlanner" title= "Link going to the projects GitHub page" target="_blank" >Click here to open the GitHub project page in a new window.</a></p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span> Close window</span></button></div>
+                                <div class="modal-body"><h2 class="text-uppercase">Point of contact</h2><img src="assets/img/code.jpg" alt="contact info" class="img-fluid d-block mx-auto"><p>You can view this project on GitHub.  <a href = "https://github.com/rsanchez-wsu/RaiderPlanner" title= "Link going to the projects GitHub page" target="_blank" >Click here to open the GitHub project page in a new window.</a></p><button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span>Â Close window</span></button></div>
                             </div>
                         </div>
                     </div>
@@ -352,8 +381,8 @@
 								<div class="pdfcont">
 									<embed src="assets/files/credit.pdf" type="application/pdf" width="100%" height="600px"/>
 								</div>
-								
-								<button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span> Close window</span></button></div>
+
+								<button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-times"></i><span>Â Close window</span></button></div>
                             </div>
                         </div>
                     </div>
