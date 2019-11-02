@@ -34,6 +34,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -153,7 +154,7 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid account number by checking
+	 * Determines if the user has entered a valid campus username by checking
 	 * that the length of the text is 7, that the first character is a 'w',
 	 * that the next 3 characters are digits, and that the last 3
 	 * characters are letters and lower case. Then sets the style so it is cohesive.
@@ -193,19 +194,19 @@ public class AccountController implements Initializable {
 		boolean validSuccess = true;
 		boolean validName = true;
 		if (!validateNumber()) {
-			invalidMessage += "Please enter a valid W Number\n";
+			invalidMessage += "Please enter a valid Campus Username\n";
 			validSuccess = false;
 		}
 		if (!validateEmail()) {
-			invalidMessage += "Please enter a valid email\n";
+			invalidMessage += "Please enter a valid Email\n";
 			validSuccess = false;
 		}
 		if (!validateSalutation()) {
-			invalidMessage += "Please enter a valid salutation\n";
+			invalidMessage += "Please enter a valid Salutation\n";
 			validSuccess = false;
 		}
 		if (!validateMajor()) {
-			invalidMessage += "Please enter a valid major\n";
+			invalidMessage += "Please enter a valid Major\n";
 			validSuccess = false;
 		}
 		if (this.fullName.getText().trim().isEmpty()) {
@@ -253,6 +254,9 @@ public class AccountController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Platform.runLater(() -> this.pane.requestFocus());
+		Tooltip tooltip = new Tooltip("Checked to indicate that family "
+				+ "name comes last; Not checked to indicate it comes first");
+		famLast.setTooltip(tooltip);
 		submit.defaultButtonProperty().bind(submit.focusedProperty());
 		submit.setOnAction(e -> {
 			if (submit.isFocused()) {

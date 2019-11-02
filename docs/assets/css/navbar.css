@@ -1,0 +1,47 @@
+.navBar {
+	height: 100%;
+	width: 0;
+	opacity: .9;
+	overflow-x: hidden;
+	padding-top: 60px;
+	transition: 0.8s;
+	position: fixed;
+	z-index:1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+}
+
+.navBar a {
+	display: block;
+	padding: 20px 30px;
+	font-size: 25px;
+	text-decoration: none;
+	color: #ccc;
+}
+
+.navBar .close {
+	position: absolute;
+	top: 0;
+	right: 22px;
+	margin-left: 22px;
+	font-size: 30px;
+}
+
+.slide a {
+	color: #000;
+	font-size: 40px;
+	
+}
+
+.navBar a:hover {
+
+	color: #fff;
+	transition: 0.4s;
+}
+
+#content {
+	transition: margin-left 0.8s;
+	overflow: hidden;
+	width: 50%
+}

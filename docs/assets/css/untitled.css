@@ -14,16 +14,26 @@ a {
   color: blue;
 }
 a:visited{
-  color:purple;  
+  color:purple;
 }
+nav{
+  padding: none;
+}
+nav img{
+  width: 30%;
+  float: right;
+
+}
+
 .masthead{
- background-image: url('assets/img/home-bg.jpg'); 
+ background-image: url('assets/img/home-bg.jpg');
 }
 .navbar-brand{
  background-size: cover;
   min-width: 20px;
-  height: 51px; 
+  height: 51px;
 }
+
 .fa-stack fa-4x{
   width: 100px;
 }

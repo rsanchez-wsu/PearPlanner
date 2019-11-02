@@ -35,6 +35,7 @@ import edu.wright.cs.raiderplanner.model.TimetableEvent;
 import edu.wright.cs.raiderplanner.model.VersionControlEntity;
 import edu.wright.cs.raiderplanner.view.ConsoleIo;
 import edu.wright.cs.raiderplanner.view.UiManager;
+import javafx.scene.control.ButtonType;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -509,6 +510,7 @@ public class DataController {
 	 */
 	public static HubFile loadHubFile(File tempFile) {
 		HubFile hub = null;
+		ButtonType buttonPressed = null;
 		if (tempFile.exists()) {
 			try {
 				// learned from:
@@ -530,19 +532,23 @@ public class DataController {
 					} else if (XmlController.matchesSchema(nodes, HubFile.SCHEMA_UPDATE_FILE)) {
 						hub = processUpdateHubFile(nodes);
 					} else {
-						UiManager.reportError("Invalid Parent Nodes");
+						buttonPressed = UiManager.displayFileOpenError("Invalid Parent Nodes");
 					}
 				} else {
-					UiManager.reportError("Invalid XML file");
+					buttonPressed = UiManager.displayFileOpenError("Invalid XML file");
 				}
 
 			} catch (IOException e) {
-				UiManager.reportError("Invalid File: \n" + e.getMessage());
+				buttonPressed = UiManager.displayFileOpenError("Invalid File: \n" + e.getMessage());
 			} catch (SAXException e) {
-				UiManager.reportError("SAX Exception");
+				buttonPressed = UiManager.displayFileOpenError("SAX Exception");
 			} catch (Exception e) {
-				UiManager.reportError(e.getMessage());
+				buttonPressed = UiManager.displayFileOpenError(e.getMessage());
 			}
+		}
+		if (buttonPressed == ButtonType.OK) {
+			tempFile = MainController.ui.loadFileDialog();
+			hub = loadHubFile(tempFile);
 		}
 		return hub;
 	}

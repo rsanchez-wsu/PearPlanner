@@ -63,6 +63,7 @@ public class TaskType extends ModelEntity {
 	}
 
 	/**
+	 * (non-Javadoc).
 	 * @param tt Name of the task you want the type of.
 	 * @return Returns a TaskType if it finds a task of that name, or DEFAULT otherwise.
 	 */
@@ -78,6 +79,7 @@ public class TaskType extends ModelEntity {
 	}
 
 	/**
+	 * (non-Javadoc).
 	 * @param tt TaskType being checked.
 	 * @return true if the TaskType exists in taskDatabase.
 	 */
@@ -93,6 +95,7 @@ public class TaskType extends ModelEntity {
 	}
 
 	/**
+	 * (non-Javadoc).
 	 * @param tt string name of TaskType being checked.
 	 * @return true if the TaskType with name tt exists in taskDatabase.
 	 */

@@ -76,7 +76,7 @@ public class CalendarController {
 				.setDisplayedLocalDateTime(content.getDisplayedLocalDateTime().plusMinutes(1050)));
 	}
 
-	/**
+	/** (non-Javadoc).
 	 * Gets layout for calendar
 	 * @return The current layout of the calendar.
 	 *
