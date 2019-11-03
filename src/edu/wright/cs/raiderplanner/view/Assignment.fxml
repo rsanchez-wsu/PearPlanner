@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="550.0" stylesheets="@../content/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="288.0" minHeight="0.0" prefHeight="255.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="222.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <HBox GridPane.columnSpan="2147483647">
+            <children>
+                <Label fx:id="title" text="Add an Assignment">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Label>
+                <Label fx:id="headingTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
+                    <graphic>
+                        <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true">
+                            <image>
+                                <Image url="@../content/information.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+        <VBox alignment="CENTER_RIGHT" prefHeight="233.0" prefWidth="473.0" spacing="10.0" GridPane.rowIndex="1">
+            <children>
+                <HBox prefHeight="51.0" prefWidth="219.0">
+                    <children>
+                        <TextField fx:id="name" alignment="TOP_LEFT" onAction="#handleChange" onKeyReleased="#handleChange" prefColumnCount="0" prefHeight="31.0" prefWidth="200.0" promptText="Name" />
+                        <Label fx:id="nameTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
+                            <graphic>
+                                <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true">
+                                    <image>
+                                        <Image url="@../content/information.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <HBox.margin>
+                                <Insets left="5.0" top="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox prefHeight="49.0" prefWidth="510.0">
+               <children>
+                  <DatePicker fx:id="startDate" onAction="#handleChange" prefHeight="30.0" prefWidth="150.0" promptText="Start Date">
+                     <HBox.margin>
+                        <Insets right="4.0" />
+                     </HBox.margin></DatePicker>
+                  <Label fx:id="dateTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
+                     <graphic>
+                        <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true">
+                           <image>
+                              <Image url="@../content/information.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+                </HBox>
+            <HBox prefHeight="49.0" prefWidth="510.0">
+               <children>
+                  <DatePicker fx:id="dueDate" onAction="#handleChange" prefHeight="30.0" prefWidth="150.0" promptText="Due Date">
+                     <HBox.margin>
+                        <Insets right="4.0" />
+                     </HBox.margin>
+                  </DatePicker>
+                  <Label fx:id="dateTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
+                     <graphic>
+                        <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true">
+                           <image>
+                              <Image url="@../content/information.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="219.0">
+               <children>
+                  <TextField fx:id="weighting" alignment="TOP_LEFT" onAction="#handleChange" onKeyReleased="#handleChange" prefColumnCount="0" prefHeight="31.0" prefWidth="120.0" promptText="Weighting" />
+                  <Label fx:id="weightingTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
+                     <graphic>
+                        <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true">
+                           <image>
+                              <Image url="@../content/information.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            </children>
+            <GridPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+            </GridPane.margin>
+        </VBox>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="53.0" prefWidth="0.0" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="submit" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="31.0" prefWidth="84.0" text="OK" GridPane.rowIndex="3">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="quit" cancelButton="true" mnemonicParsing="false" onAction="#handleQuit" prefHeight="31.0" prefWidth="90.0" text="Quit">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" />
+    </padding>
+</GridPane>

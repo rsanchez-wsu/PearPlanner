@@ -13,8 +13,40 @@ downloadlink {
 a {
   color: blue;
 }
-
+a:visited{
+  color:purple;  
+}
+.masthead{
+ background-image: url('assets/img/home-bg.jpg'); 
+}
+.navbar-brand{
+ background-size: cover;
+  min-width: 20px;
+  height: 51px; 
+}
+.fa-stack fa-4x{
+  width: 100px;
+}
 .downloadlist {
   text-align: left;
 }
 
+#img1, #img2, #img3 {
+    width: 60%;
+}
+
+#logo {
+    width: 20%;
+}
+
+.demo-class {
+	text-align: center;
+}
+
+#contact a{
+	color: white;
+}
+
+#contact a:hover{
+	color:yellow;
+}

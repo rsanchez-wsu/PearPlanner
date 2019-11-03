@@ -21,6 +21,7 @@
 
 package edu.wright.cs.raiderplanner.controller;
 
+import edu.wright.cs.raiderplanner.controller.MenuController;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -32,8 +33,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 /**
  * This is a class to handle the code for the chat feature.
@@ -46,6 +53,14 @@ public class ChatController {
 	private static TextField tfMessageToSend = new TextField();
 	private static TextArea msgArea = new TextArea();
 	private static final Button sendButton = new Button("Send");
+	private static Socket sock;
+	private static int port;
+	private static OutputStream output;
+	private static PrintWriter printOutput;
+	private static InputStream incoming;
+	private static Scanner incomingMessage;
+	private static String hostName;
+	private static String userName;
 
 	/**
 	 * Default Constructor.
@@ -68,6 +83,58 @@ public class ChatController {
 		userMessagePane.add(sendButton, 2, 0);
 		sendButton.setMinWidth(100);
 		sendButton.setDefaultButton(true);
+		setupServerConnection();
+	}
+
+	/**
+	 * This method opens up a connection to the chat server from this client.
+	 */
+	private static void setupServerConnection() {
+		// Establish connection
+		port = 8080;
+		hostName = MenuController.getHostName();
+		userName = MenuController.getUserName();
+		try {
+			// Handle input
+			sock = new Socket("localhost", port);
+			output = sock.getOutputStream();
+			printOutput = new PrintWriter(output, true);
+
+			// Handle incoming messages
+			incoming = sock.getInputStream();
+			incomingMessage = new Scanner(incoming);
+
+			// Send hostname across to serverMain
+			// This is done before client created, so it won't go to screen
+			printOutput.println(hostName + "," + userName);
+			printOutput.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// Create background thread to grab incoming messages
+		new Thread(() -> {
+			while (true) {
+				if (incomingMessage.hasNext()) {
+					DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+					LocalDateTime time = LocalDateTime.now();
+					String[] tokens = incomingMessage.nextLine().split(",");
+					String user;
+					String message;
+					if (tokens.length == 2) {
+						user = tokens[0];
+						message = tokens[1];
+					} else {
+						user = "";
+						message = tokens[0];
+					}
+
+					msgArea.appendText(user + ": " + message);
+					msgArea.appendText("\t\t\t" + date.format(time) + "\n");
+				}
+			}
+		}).start();
 	}
 
 	/**
@@ -91,8 +158,8 @@ public class ChatController {
 			DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			LocalDateTime time = LocalDateTime.now();
 			if (!(tfMessageToSend.getText().equals(""))) {
-				msgArea.appendText(userName + ": " + tfMessageToSend.getText());
-				msgArea.appendText("\t\t\t" + date.format(time) + "\n");
+				printOutput.println(tfMessageToSend.getText());
+				printOutput.flush();
 				tfMessageToSend.setText("");
 			}
 		});

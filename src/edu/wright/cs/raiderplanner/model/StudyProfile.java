@@ -189,6 +189,24 @@ public class StudyProfile extends VersionControlEntity {
 		return this.milestones.remove(milestone);
 	}
 
+	/**
+	 * Adds a Module to this StudyProfile.
+	 *
+	 * @param module Module to be added.
+	 */
+	public void addModule(Module module) {
+		this.modules.add(module);
+	}
+
+	/**
+	 * Removes a module from this StudyProfile.
+	 * @param module Module to be removed.
+	 * @return whether the Module was removed successfully.
+	 */
+	public boolean removeModule(Module module) {
+		return this.modules.remove(module);
+	}
+
 	@Override
 	public void open(MenuController.Window current) {
 		try {

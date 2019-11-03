@@ -117,7 +117,7 @@ public class MilestoneController implements Initializable {
 			this.milestone.replaceTasks(this.tasks.getItems());
 
 			if (!this.milestone.isComplete()) {
-				this.completed.setVisible(false);
+				this.completed.setVisible(true);
 			} else {
 				this.completed.setVisible(true);
 			}

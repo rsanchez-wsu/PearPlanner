@@ -59,7 +59,7 @@
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                      <TextField fx:id="name" alignment="TOP_LEFT" maxWidth="-Infinity" onKeyReleased="#handleChange" prefColumnCount="0" prefWidth="250.0" promptText="Name" />
+                      <TextField fx:id="name" alignment="TOP_LEFT" maxWidth="-Infinity" onKeyPressed="#limitTextInput" onKeyReleased="#handleChange" prefColumnCount="0" prefWidth="250.0" promptText="Name" />
                   <Label fx:id="nameTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
                      <graphic>
                         <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true">
@@ -76,7 +76,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                      <TextField fx:id="weighting" alignment="TOP_LEFT" maxWidth="-Infinity" onKeyReleased="#validateWeighting" prefWidth="250.0" promptText="Weighting" />
+                      <TextField fx:id="weighting" alignment="TOP_LEFT" maxWidth="-Infinity" onKeyPressed="#limitTextInput" onKeyReleased="#validateWeighting" prefWidth="250.0" promptText="Weighting" />
                   <Label fx:id="weightingTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
                      <graphic>
                         <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true"> 
@@ -95,7 +95,7 @@
         </VBox>
         <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
         	<children>
-		        <TextArea fx:id="details" prefHeight="68.0" prefWidth="271.0" promptText="Details">
+		        <TextArea fx:id="details" onKeyPressed="#limitTextInput" prefHeight="68.0" prefWidth="271.0" promptText="Details">
 		            <GridPane.margin>
 		                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 		            </GridPane.margin>
@@ -132,7 +132,7 @@
                            <items>
                                <MenuItem fx:id="taskTypeMenu" disable="true" mnemonicParsing="false" onAction="#newTaskType" text="Add">
                                    <graphic>
-                                       <TextField fx:id="taskTypeName" onKeyReleased="#validateNewTaskType" promptText="Task type" />
+                                       <TextField fx:id="taskTypeName" onKeyPressed="#limitTextInput" onKeyReleased="#validateNewTaskType" promptText="Task type" />
                                    </graphic>
                                </MenuItem>
                            </items>

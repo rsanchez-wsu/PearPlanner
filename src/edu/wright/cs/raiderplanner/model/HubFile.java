@@ -486,7 +486,8 @@ public class HubFile implements Serializable {
 				personValues.get("givenNames").getString(),
 				personValues.get("familyName").getString(),
 				personValues.get("familyNameLast").getBoolean(),
-				personValues.get("email").getString());
+				personValues.get("email").getString(),
+				personValues.get("major").getString());
 
 		DataController.addVceProperties(person, personValues);
 		return person;

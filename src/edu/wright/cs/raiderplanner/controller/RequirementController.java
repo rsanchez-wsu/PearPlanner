@@ -42,6 +42,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
@@ -116,6 +118,7 @@ public class RequirementController implements Initializable {
 	/**
 	 * Handle changes to the input fields.
 	 */
+
 	public void handleChange() {
 		// Check the input fields:
 		if (!this.name.getText().trim().isEmpty()
@@ -260,6 +263,22 @@ public class RequirementController implements Initializable {
 	public void handleQuit() {
 		Stage stage = (Stage) this.submit.getScene().getWindow();
 		stage.close();
+	}
+
+	/**
+	 * Limits number of characters typed in all textArea/textfields.
+	 */
+	public void limitTextInput() {
+		this.details.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 400 ? change : null));
+		this.name.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 100 ? change : null));
+		this.quantity.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 100 ? change : null));
+		this.time.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 50 ? change : null));
+		this.quantityName.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 100 ? change : null));
 	}
 
 	/**

@@ -55,6 +55,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -63,6 +65,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -221,7 +224,7 @@ public class TaskController implements Initializable {
 		if (this.weighting.getText().trim().isEmpty()) {
 			this.weighting.setStyle("");
 			this.weighting.setTooltip(null);
-			return 0;
+			return -1;
 		} else if (!MainController.isNumeric(this.weighting.getText().trim())) {
 			this.weighting.setTooltip(new Tooltip("Input must be numeric."));
 			this.weighting.setStyle("-fx-text-box-border:red;");
@@ -414,6 +417,20 @@ public class TaskController implements Initializable {
 	public void handleQuit() {
 		Stage stage = (Stage) this.submit.getScene().getWindow();
 		stage.close();
+	}
+
+	/**
+	 * Limits number of characters typed in all textArea/textfields.
+	 */
+	public void limitTextInput() {
+		this.details.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 400 ? change : null));
+		this.name.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 100 ? change : null));
+		this.weighting.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 50 ? change : null));
+		this.taskTypeName.setTextFormatter(new TextFormatter<String>(change
+				-> change.getControlNewText().length() <= 100 ? change : null));
 	}
 
 	/**

@@ -24,8 +24,10 @@ package edu.wright.cs.raiderplanner.view;
 import edu.wright.cs.raiderplanner.controller.AccountController;
 import edu.wright.cs.raiderplanner.controller.AccountLoader;
 import edu.wright.cs.raiderplanner.controller.ActivityController;
+import edu.wright.cs.raiderplanner.controller.AssignmentController;
 import edu.wright.cs.raiderplanner.controller.MenuController;
 import edu.wright.cs.raiderplanner.controller.MilestoneController;
+import edu.wright.cs.raiderplanner.controller.ModuleController;
 import edu.wright.cs.raiderplanner.controller.RequirementController;
 import edu.wright.cs.raiderplanner.controller.SettingsController;
 import edu.wright.cs.raiderplanner.controller.StartupController;
@@ -80,8 +82,12 @@ public class UiManager {
 			new FileChooser.ExtensionFilter("ICS file", "*.ics");
 	private URL activityFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Activity.fxml");
+	private URL assignmentFxml = getClass().getResource(
+					"/edu/wright/cs/raiderplanner/view/Assignment.fxml");
 	private URL milestoneFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Milestone.fxml");
+	private URL moduleFxml = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/Module.fxml");
 	private URL taskFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Task.fxml");
 	private URL requirementFxml = getClass().getResource(
@@ -134,7 +140,7 @@ public class UiManager {
 		Parent root = loader.load();
 		// Set the scene:
 		Stage stage = new Stage();
-		stage.setScene(new Scene(root, 565, 232));
+		stage.setScene(new Scene(root, 575, 432));
 		stage.setTitle("Create Account");
 		stage.resizableProperty().setValue(false);
 		stage.getIcons().add(icon);
@@ -226,6 +232,34 @@ public class UiManager {
 		// Set the scene with the SettingsFxml:
 		mainStage.getScene().setRoot(root);
 		mainStage.setTitle("RaiderPlanner-Settings");
+	}
+
+	/**
+	 * Display the 'Add Assignment' window.
+	 * Checks to see if the creation is successful.
+	 * @param module - module containing this assignment.
+	 * @return newly created Assignment. If not successful return null.
+	 * @throws IOException exception if IO error is triggered
+	 */
+	public Assignment addAssignment(Module module) throws IOException {
+		AssignmentController ac = new AssignmentController(module);
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(assignmentFxml);
+		loader.setController(ac);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(root, 550, 358));
+		stage.setTitle("New Assignment");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+		// Add the assignment to the StudyPlanner
+		if (ac.isSuccess()) {
+			return ac.getAssignment();
+		}
+		return null;
 	}
 
 	/**
@@ -335,6 +369,34 @@ public class UiManager {
 	public void studyProfileDetails(StudyProfile profile) throws IOException {
 		UiManager.mc.main(MenuController.Window.PROFILES);
 		UiManager.mc.loadStudyProfile(profile);
+	}
+
+	/**
+	 * Displays the 'Add Module' window.
+	 * Checks to see if the module was added.
+	 * @return newly created Module object. if not return null.
+	 * @throws IOException if there is an error while loading the FXML GUI.
+	 */
+	public Module addModule() throws IOException {
+		ModuleController mc = new ModuleController();
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(moduleFxml);
+		loader.setController(mc);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(root, 550, 355));
+		stage.setTitle("Module");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+
+		// Add the Module to the StudyPlanner
+		if (mc.isSuccess()) {
+			return mc.getModule();
+		}
+		return null;
 	}
 
 	/**
@@ -474,6 +536,8 @@ public class UiManager {
 		stage.getIcons().add(icon);
 		stage.showAndWait();
 	}
+
+
 
 	/**
 	 * Display startup window.

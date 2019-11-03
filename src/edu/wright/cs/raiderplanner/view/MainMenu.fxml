@@ -275,7 +275,7 @@
             </ImageView>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="notifications" prefHeight="400.0" prefWidth="288.0" style="-fx-background-color: #5C7167" translateX="-20.0" translateY="-500.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+        <AnchorPane fx:id="notifications" prefHeight="500.0" prefWidth="388.0" style="-fx-background-color: #5C7167; -fx-font-size: 18" translateX="-20.0" translateY="-700.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
             <children>
                 <ToolBar minHeight="50.0" style="-fx-background-color: #E4DEC7" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
@@ -291,7 +291,7 @@
                     <content>
                         <GridPane fx:id="notificationList">
                             <columnConstraints>
-                                <ColumnConstraints maxWidth="286.0" prefWidth="286.0" />
+                                <ColumnConstraints maxWidth="386.0" prefWidth="386.0" />
                             </columnConstraints>
                         </GridPane>
                     </content>
