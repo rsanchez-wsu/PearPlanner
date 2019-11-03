@@ -362,9 +362,8 @@ public class MenuController implements Initializable {
 			VBox dashPic = new VBox();
 			//dashPic.autosize();
 
-			ImageView dashImg = new ImageView(new Image("/edu/wright/cs/raiderplanner/content/DashBoardHelp.png"));
-
-			
+			ImageView dashImg = new ImageView(new Image("/edu"
+			+ "/wright/cs/raiderplanner/content/DashBoardHelp.png"));
 
 			dashPic.getChildren().add(dashImg);
 			dashPic.setAlignment(Pos.CENTER);
