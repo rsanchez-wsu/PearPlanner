@@ -23,7 +23,7 @@
     </rowConstraints>
     <children>
 	<HBox GridPane.rowIndex="0">
-	    <Label fx:id="welcomeLabel" text="Welcome to RaiderPlanner!">
+	    <Label fx:id="welcomeLabel" style="-fx-text-fill: white" text="Welcome to RaiderPlanner!">
 		<font>
 		     <Font size="35.0" />
 	        </font>
@@ -39,7 +39,7 @@
 	</HBox>
 	
 	<HBox GridPane.rowIndex="1">
-            <Label fx:id="salutationLabel" text="  Salutation:                             ">
+            <Label fx:id="salutationLabel" style="-fx-text-fill: white" text="  Salutation:                             ">
                 <font>
                      <Font size="18.0" />
                 </font>
@@ -47,7 +47,7 @@
 					<Insets top="80.0" />
 				</padding>
 	    	</Label>
-	    	<Label fx:id="nameLabel" text="   Full Name: ">
+	    	<Label fx:id="nameLabel" style="-fx-text-fill: white" text="   Full Name: ">
         		<font>
         			<Font size="18.0" />
         		</font>
@@ -88,7 +88,7 @@
         </HBox>
         
 	<HBox GridPane.rowIndex="3">
-        	<Label fx:id="salutationLabel" text="Campus Username:                   ">
+        	<Label fx:id="salutationLabel" style="-fx-text-fill: white" text="Campus Username:                   ">
         		<font>
         			<Font size="18.0" />
         		</font>
@@ -96,7 +96,7 @@
         			<Insets top="30.0" left="10" />
         		</padding>
         	</Label>
-        	<Label fx:id="emailLabel" text=" Email: ">
+        	<Label fx:id="emailLabel" style="-fx-text-fill: white" text=" Email: ">
         		<font>
         			<Font size="18.0" />
         		</font>
@@ -128,7 +128,7 @@
         </HBox>
 		
 		<HBox GridPane.rowIndex="5">
-		<Label fx:id="majorLabel" text="Major:       ">
+		<Label fx:id="majorLabel" style="-fx-text-fill: white" text="Major:       ">
         		<font>
         			<Font size="18.0" />
         		</font>
@@ -167,7 +167,7 @@
                 </Button>
             </children>
         </HBox>
-        <Label fx:id="createAccountLabel" text="	 Create Account">
+        <Label fx:id="createAccountLabel" style="-fx-text-fill: white" text="	 Create Account">
             <font>
                 <Font size="31.0" />
 	    </font>

@@ -116,7 +116,7 @@
             <children>
                 <HBox maxHeight="-Infinity" prefHeight="25.0" prefWidth="271.0">
                <children>
-                      <Label text="Tasks">
+                      <Label style="-fx-text-fill: white" text="Tasks">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

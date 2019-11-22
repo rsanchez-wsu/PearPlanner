@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	  <title>Create User</title>
+	  <meta name="description" content="user login page">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/forms.css">
+  </head>
+
+  <body>
+    <header>
+      <h1>Create RaiderPlanner Account</h1>
+      <a  href='index.html'><img src="assets/img/new.png" alt="Logo"></a>
+
+    </header>
+
+    <main>
+
+      <form action="createsubmit.html">
+        Username: <input type="text" name="rp_user" id="name"
+          required placeholder="Enter Wings Username"
+          pattern="^[A-Za-z1-9]{7}"
+          title="Must be exactly 7 characters"><br>
+        <p> </P>
+        Password:  <input type="text" name="rp_pass" id="pass"
+          required placeholder="Enter Password"
+          pattern="^[A-Za-z1-9]{8,}"
+          title="Must be at least 8 characters"><br>
+
+        <p></>
+        <input type="submit" value="Create User" >
+        <a href="login.html">Back to Login</a>
+      </form>
+
+    </main>
+  </body>
+
+</html>
