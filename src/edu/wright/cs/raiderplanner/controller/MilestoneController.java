@@ -99,10 +99,6 @@ public class MilestoneController implements Initializable {
 	@FXML private ListView<Task> tasks;
 
 	// Tooltips:
-	@FXML private Label nameTooltip;
-	@FXML private Label deadlineTooltip;
-	@FXML private Label detailsTooltip;
-	@FXML private Label tasksTooltip;
 	@FXML private Label headingTooltip;
 
 	/**
@@ -293,12 +289,12 @@ public class MilestoneController implements Initializable {
 		this.tasks.getItems().addListener((ListChangeListener<Task>) c -> handleChange());
 		// =================
 
-		// Initialize tooltip messages:
-		nameTooltip.setTooltip(new Tooltip("Enter the name of the milestone."));
-		deadlineTooltip.setTooltip(new Tooltip("Enter a deadline for the milestone \n in "
+		// Initialize tooltips:
+		name.setTooltip(new Tooltip("Enter the name of the milestone."));
+		deadline.setTooltip(new Tooltip("Enter a deadline for the milestone \n in "
 				+ "the format: MM/DD/YYYY"));
-		detailsTooltip.setTooltip(new Tooltip("Enter any details for the milestone."));
-		tasksTooltip.setTooltip(new Tooltip("Add or remove tasks from you milestone."));
+		details.setTooltip(new Tooltip("Enter any details for the milestone."));
+		tasks.setTooltip(new Tooltip("Add or remove tasks from you milestone."));
 		headingTooltip.setTooltip(new Tooltip("A Milestone is a goal that you can set for "
 				+ "yourself to achieve\nin the future.  You can "
 				+ "give a deadline and tasks\nthat need to be completed to achieve this goal."));
