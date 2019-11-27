@@ -20,17 +20,32 @@
       <form action="createsubmit.html">
         Username: <input type="text" name="rp_user" id="name"
           required placeholder="Enter Wings Username"
-          pattern="^[A-Za-z1-9]{7}"
+          pattern="^[A-Za-z0-9]{7}"
           title="Must be exactly 7 characters"><br>
         <p> </P>
-        Password:  <input type="text" name="rp_pass" id="pass"
+        Password:  <input type="password" name="rp_pass" id="pass"
           required placeholder="Enter Password"
-          pattern="^[A-Za-z1-9]{8,}"
+          pattern="^[A-Za-z0-9]{8,}"
           title="Must be at least 8 characters"><br>
 
         <p></>
-        <input type="submit" value="Create User" >
-        <a href="login.html">Back to Login</a>
+        </P>
+        <input type="checkbox" onclick="myFunction()" >Show Password
+        
+        <script>
+        	function myFunction(){
+        		var x = document.getElementById("pass");
+        		if (x.type == "password"){
+        			x.type = "text";
+        			}
+        			else{
+        			x.type = "password";
+        		}
+        	}
+        </script>
+        <p/>
+        <input type ="submit" value = "Create User">
+        <a href = "login.html">Back to Login</a>
       </form>
 
     </main>
