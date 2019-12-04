@@ -1558,6 +1558,7 @@ public class MenuController implements Initializable {
 		// Buttons:
 		Button check = new Button("Toggle complete");
 		check.getStyleClass().add("set-button");
+		check.setStyle("-fx-background-color: #026937; -fx-text-fill: white;");
 		check.setDisable(true);
 
 		Button delete = new Button("Remove");
