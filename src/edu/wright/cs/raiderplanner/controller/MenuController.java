@@ -792,7 +792,7 @@ public class MenuController implements Initializable {
 		instruction.setPadding(new Insets(5, 5, 10, 0));
 		this.welcome = new Label("Welcome " + MainController.getSpc().getPlanner().getUserName()
 				+ "! Here you can view your study profiles. "
-				+ "Double-click on a profile to see more informaiton.");
+				+ "Double-click on a profile to see more information.");
 		this.welcome.setPadding(new Insets(10, 15, 10, 15));
 		this.topBox.getChildren().add(this.welcome);
 		this.mainContent.setVgap(10);
