@@ -272,12 +272,20 @@ public class MainController {
 						ObjectInputStream ois = new ObjectInputStream(cis)) {
 					SealedObject sealedObject = (SealedObject) ois.readObject();
 					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
-					// Sample note
+					// Sample note for Harry Potter HUB file
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
 							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
 						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
 								+ "Potter. To make your own StudyPlanner, restart the application "
+								+ "and choose \"New File\".");
+					}
+					// Sample notes for 2019 WSU HUB file
+					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
+							.getCurrentStudyProfile().getName().equals("Fall 2019 Semester")) {
+						UiManager.reportSuccess(
+								"Note: This is a sample StudyPlanner pre-loaded with WSU information. "
+								+ "To make your own StudyPlanner, restart the application "
 								+ "and choose \"New File\".");
 					}
 				}
