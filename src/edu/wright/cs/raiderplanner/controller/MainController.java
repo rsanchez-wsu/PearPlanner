@@ -284,7 +284,8 @@ public class MainController {
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
 							.getCurrentStudyProfile().getName().equals("Fall 2019 Semester")) {
 						UiManager.reportSuccess(
-								"Note: This is a sample StudyPlanner pre-loaded with WSU information. "
+								"Note: This is a sample StudyPlanner that is pre-loaded with"
+								+ " WSU information. "
 								+ "To make your own StudyPlanner, restart the application "
 								+ "and choose \"New File\".");
 					}
