@@ -527,8 +527,8 @@ public class MainController {
 				+ " import hub file button from the menu on the left"
 				+  "\nNeed more help? Open up the user manual or RaiderPlanner Website here:");
 		Label tab3 = new Label("Planned features include a graduation planner, Pilot integration, "
-				+ "schedule sharing feature. If you want to contribute to RaiderPlanner, follow the link"
-				+ " below to our Github repository!");
+				+ "schedule sharing feature. If you want to contribute to RaiderPlanner"
+				+ ", follow the link below to our Github repository!");
 		final Label tab4 = new Label("1. Can you give me a general overview of RaiderPlanner?\n");
 		final Label tab5 = new Label("\n2. How do I create an account?\n" + "\n\tAnswer: Please "
 				+ " see the 'Getting Started' tab listed above.  You will need to select "
@@ -551,9 +551,12 @@ public class MainController {
 				+ "\n\tAnswer:  You can click the link below and fork our project from GitHub."
 				+ " Feel free to add suggestions, or fix bugs whether known or unknown!"
 				+ " Then submit a pull request to have your changes made to RaiderPlanner!");
-		final Label tab10 = new Label("If you are new to programming and want to learn and try to contribute to RaiderPlanner, there "
-				+ "are many things you can do! RaiderPlanner uses the Java programming language and uses practices such as "
-				+ "HTML, CSS, and others. Below are some links to get you started learning these practices used in RaiderPlanner!");
+		final Label tab10 = new Label("If you are new to programming and want to learn and try"
+				+ " to contribute to RaiderPlanner, there "
+				+ "are many things you can do! RaiderPlanner uses the Java programming "
+				+ "language and uses practices such as "
+				+ "HTML, CSS, and others. Below are some links to get you started learning these "
+				+ "practices used in RaiderPlanner!");
 		tab1.setWrapText(true);
 		tab2.setWrapText(true);
 		tab3.setWrapText(true);
