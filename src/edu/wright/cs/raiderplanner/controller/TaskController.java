@@ -365,7 +365,7 @@ public class TaskController implements Initializable {
 		// Update the current list:
 		this.taskType.getItems().clear();
 		this.taskType.getItems().addAll(TaskType.listOfNames());
-		if(task != null) {
+		if (task != null) {
 			this.taskType.getSelectionModel().select(task.getName());
 		}
 		// =================

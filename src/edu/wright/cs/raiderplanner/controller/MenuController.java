@@ -2100,9 +2100,9 @@ public class MenuController implements Initializable {
 		stage = new Stage();
 		save.setOnAction(e -> {
 			String path = MainController.ui.saveFileDialog(stage);
-			if(path != null) {
-				GanttishDiagram.createGanttishDiagram(MainController.getSpc().getPlanner(), assignment,
-					path);
+			if (path != null) {
+				GanttishDiagram.createGanttishDiagram(MainController.getSpc().getPlanner(),
+						assignment, path);
 			}
 		});
 		// =================
