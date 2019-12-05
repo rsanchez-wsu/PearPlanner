@@ -21,6 +21,10 @@
 
 package edu.wright.cs.raiderplanner.controller;
 
+import com.github.plushaze.traynotification.animations.Animations;
+import com.github.plushaze.traynotification.notification.Notifications;
+import com.github.plushaze.traynotification.notification.TrayNotification;
+
 import edu.wright.cs.raiderplanner.model.Milestone;
 import edu.wright.cs.raiderplanner.model.Task;
 import edu.wright.cs.raiderplanner.view.UiManager;
@@ -42,7 +46,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -162,18 +168,27 @@ public class MilestoneController implements Initializable {
 	 * Submit the form and create a new Milestone.
 	 */
 	public void handleSubmit() {
+		TrayNotification trayNotif = new TrayNotification();
+		trayNotif.setTitle("Raider Planner");
+		trayNotif.setRectangleFill(Paint.valueOf("#2A9A84"));
+		trayNotif.setAnimation(Animations.POPUP);
+		trayNotif.setNotification(Notifications.SUCCESS);
+		trayNotif.showAndDismiss(Duration.seconds(2));
+
 		if (this.milestone == null) {
 			// Create a new Milestone:
 			this.milestone = new Milestone(this.name.getText(),
 					this.details.getText(), this.deadline.getValue());
 			this.milestone.addTasks(this.tasks.getItems());
 			// =================
+			trayNotif.setMessage("Milestone Successfully Created");
 		} else {
 			// Update the current Milestone:
 			this.milestone.setName(this.name.getText());
 			this.milestone.setDetails(this.details.getText());
 			this.milestone.setDeadline(this.deadline.getValue());
 			// =================
+			trayNotif.setMessage("Milestone Successfully Updated");
 		}
 
 		this.success = true;

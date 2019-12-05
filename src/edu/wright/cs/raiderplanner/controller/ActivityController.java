@@ -120,12 +120,6 @@ public class ActivityController implements Initializable {
 	@FXML private ListView<Task> tasks;
 
 	// Tooltips:
-	@FXML private Label nameTooltip;
-	@FXML private Label durationTooltip;
-	@FXML private Label quantityTooltip;
-	@FXML private Label dateTooltip;
-	@FXML private Label taskTooltip;
-	@FXML private Label detailsTooltip;
 	@FXML private Label headingTooltip;
 
 	/**
@@ -167,7 +161,7 @@ public class ActivityController implements Initializable {
 			this.submit.setDisable(true);
 		} else if (Integer.parseInt(this.duration.getText()) < 0) {
 			this.duration.setStyle("-fx-text-box-border:red;");
-			this.duration.setTooltip(new Tooltip("Duration can not be negative"));
+			this.duration.setTooltip(new Tooltip("Duration cannot be negative"));
 			this.submit.setDisable(true);
 		} else {
 			this.duration.setStyle("");
@@ -194,7 +188,7 @@ public class ActivityController implements Initializable {
 			this.submit.setDisable(true);
 		}  else if (Integer.parseInt(this.quantity.getText()) < 0) {
 			this.quantity.setStyle("-fx-text-box-border:red;");
-			this.quantity.setTooltip(new Tooltip("Quantity can not be negative"));
+			this.quantity.setTooltip(new Tooltip("Quantity cannot be negative"));
 			this.submit.setDisable(true);
 		} else {
 			this.quantity.setStyle("");
@@ -211,7 +205,7 @@ public class ActivityController implements Initializable {
 	public void validateDate() {
 		if (this.date.getValue().isBefore(LocalDate.now())) {
 			this.date.setStyle("-fx-border-color:red;");
-			this.date.setTooltip(new Tooltip("Date can not be in the past"));
+			this.date.setTooltip(new Tooltip("Date cannot be in the past"));
 			this.submit.setDisable(true);
 		} else {
 			this.date.setStyle("");
@@ -227,6 +221,16 @@ public class ActivityController implements Initializable {
 		// Table items:
 		ObservableList<Task> list = FXCollections
 				.observableArrayList(MainController.getSpc().getCurrentTasks());
+		// created a task to allow for the Add Activity UI to work
+		// properly until tasks are able to be added
+		String name = "Study";
+		String details = "Study Notes";
+		LocalDate deadline = LocalDate.of(2019, 12, 12);
+		int weighting = 5;
+		String type = "Study";
+		Task task = new Task(name, details, deadline, weighting, type);
+		list.add(task);
+		// end of task creation for testing purposes
 		list.removeAll(this.tasks.getItems());
 		if (this.activity != null) {
 			list.removeAll(this.activity.getTasks());
@@ -366,18 +370,24 @@ public class ActivityController implements Initializable {
 		// =================
 
 		// Initialize Tooltips:
-		nameTooltip.setTooltip(new Tooltip("Enter the name for your new activity."));
-		durationTooltip.setTooltip(new Tooltip("Enter how long this Activity will take you "
-				+ "to complete."));
-		quantityTooltip.setTooltip(new Tooltip("Enter how many times this activity needs to "
-				+ "be completed."));
-		dateTooltip.setTooltip(new Tooltip("Enter the date to complete this activity."));
-		detailsTooltip.setTooltip(new Tooltip("Enter any additional information for this "
-				+ "activity."));
-		taskTooltip.setTooltip(new Tooltip("Add tasks to your activity to help stay organized "
-				+ "and efficient."));
 		headingTooltip.setTooltip(new Tooltip("An Activity is something that you need to do "
-				+ "and\nfeatures a duration, activity type, date, and tasks."));
+				+ "and\nfeatures a duration, quantity, quantity type, date, and tasks."));
+		Tooltip nameTooltip = new Tooltip("Enter the name for your new activity.");
+		name.setTooltip(nameTooltip);
+		Tooltip dateTooltip = new Tooltip("Enter the date to complete this activity.");
+		date.setTooltip(dateTooltip);
+		Tooltip durationTooltip = new Tooltip("Enter how long this Activity will take you "
+				+ "to complete.");
+		duration.setTooltip(durationTooltip);
+		Tooltip quantityTooltip = new Tooltip("Enter how many times this activity needs to "
+				+ "be completed.");
+		quantity.setTooltip(quantityTooltip);
+		Tooltip taskTooltip = new Tooltip("Add tasks to your activity to help stay organized "
+				+ "and efficient.");
+		tasks.setTooltip(taskTooltip);
+		Tooltip detailsTooltip = new Tooltip("Enter any additional information for this "
+				+ "activity.");
+		details.setTooltip(detailsTooltip);
 
 		Platform.runLater(() -> this.pane.requestFocus());
 	}

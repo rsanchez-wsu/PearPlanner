@@ -610,7 +610,7 @@ public class MainController {
 				try {
 					File myFile = new
 							File("Final Documents/"
-									+ "User Manual.pdf");
+									+ "User Manual RaiderPlanner.pdf");
 					Desktop.getDesktop().open(myFile);
 				} catch (IOException ex) {
 					System.out.println("Error: user-manual not found");

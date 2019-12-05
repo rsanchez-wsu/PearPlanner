@@ -99,6 +99,8 @@ public class AssignmentController implements Initializable {
 	@FXML
 	private Label nameTooltip;
 	@FXML
+	private Label startTooltip;
+	@FXML
 	private Label dateTooltip;
 	@FXML
 	private Label weightingTooltip;
@@ -169,6 +171,7 @@ public class AssignmentController implements Initializable {
 
 		// Initialize tooltip messages:
 		nameTooltip.setTooltip(new Tooltip("Enter the name of the assignment."));
+		startTooltip.setTooltip(new Tooltip("Enter the start date of the assignment."));
 		dateTooltip.setTooltip(new Tooltip("Enter the due date of the assignment."));
 		weightingTooltip.setTooltip(new Tooltip("Enter the weight of the assignment."));
 		headingTooltip.setTooltip(new Tooltip("Add an assignment to your module."));
