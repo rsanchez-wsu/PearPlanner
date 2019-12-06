@@ -123,7 +123,7 @@ public class ModuleController implements Initializable {
 		if (this.module == null) {
 			// Create a new Module
 			Person organizer = new Person(this.salutation.getText(),
-					this.organizerName.getText(), true, this.majorId.getText());
+					this.organizerName.getText(), true, this.code.getText());
 
 			this.module = new Module(organizer, this.code.getText());
 			this.module.setName(this.name.getText());
@@ -132,7 +132,7 @@ public class ModuleController implements Initializable {
 		} else {
 
 			Person organizer = new Person(this.salutation.getText(),
-					this.organizerName.getText(), true, this.majorId.getText());
+					this.organizerName.getText(), true);
 
 			// Update the current Module:
 			this.module.setOrganiser(organizer);

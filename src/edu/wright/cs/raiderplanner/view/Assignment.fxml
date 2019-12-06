@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="550.0" stylesheets="@../content/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="550.0" style="-fx-background-color: #01783e;" stylesheets="@../content/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
     </columnConstraints>
@@ -26,7 +26,7 @@
     <children>
         <HBox GridPane.columnSpan="2147483647">
             <children>
-                <Label fx:id="title" text="Add an Assignment">
+                <Label fx:id="title" style="-fx-text-fill: white" text="Add an Assignment">
                     <font>
                         <Font size="30.0" />
                     </font>
@@ -70,7 +70,7 @@
                      <HBox.margin>
                         <Insets right="4.0" />
                      </HBox.margin></DatePicker>
-                  <Label fx:id="dateTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
+                  <Label fx:id="startTooltip" ellipsisString="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" text="My Image">
                      <graphic>
                         <ImageView fitHeight="13.0" fitWidth="13.0" preserveRatio="true" smooth="true">
                            <image>

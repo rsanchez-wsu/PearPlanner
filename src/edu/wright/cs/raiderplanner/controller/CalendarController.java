@@ -68,10 +68,10 @@ public class CalendarController {
 		setupNav();
 		setupContent();
 		setupAgendaButtons();
-		populateAgenda();
-		setupPrintBtn();
 		calendarEvents = MainController.getSpc().getPlanner()
 				.getCurrentStudyProfile().getCalendar();
+		populateAgenda();
+		setupPrintBtn();
 		Platform.runLater(() -> content
 				.setDisplayedLocalDateTime(content.getDisplayedLocalDateTime().plusMinutes(1050)));
 	}

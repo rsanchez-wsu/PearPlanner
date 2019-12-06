@@ -23,9 +23,9 @@
 package edu.wright.cs.raiderplanner.model;
 
 import edu.wright.cs.raiderplanner.controller.MenuController.Window;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
@@ -42,9 +42,8 @@ public class Event extends VersionControlEntity {
 	private static final int DEFAULT_DURATION = 0;
 	private static Pattern dateRegex =
 			Pattern.compile("(\\d\\d)/(\\d\\d)/(\\d\\d\\d\\d)T(\\d\\d):(\\d\\d):(\\d\\d)Z");
-	private static FastDateFormat formatter =
-			FastDateFormat.getInstance("MM/dd/yyyy'T'hh:mm:ss'Z'");
-
+	String pattern = "MM/dd/yyyy'T'hh:mm:ss'Z'";
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 	protected GregorianCalendar date = null;
 	protected int duration = DEFAULT_DURATION;
 
@@ -96,7 +95,7 @@ public class Event extends VersionControlEntity {
 		// 09/04/2017T15:00:00Z
 		if (validDateString(dateString)) {
 			try {
-				Date parsedDate = formatter.parse(dateString);
+				Date parsedDate = simpleDateFormat.parse(dateString);
 				this.date = new GregorianCalendar();
 				this.date.setTime(parsedDate);
 			} catch (ParseException e) {
