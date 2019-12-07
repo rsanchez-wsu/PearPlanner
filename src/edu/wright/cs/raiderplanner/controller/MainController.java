@@ -619,7 +619,6 @@ public class MainController {
 		splitter1.setStyle("-fx-background-color: #CBA052;");
 		t5.setStyle("-fx-border-color: gold;");
 		t5.setStyle("-fx-color: green;");
-		
 		Accordion root = new Accordion();
 		root.setStyle("-fx-background-color:#026937;");
 		root.getPanes().addAll(t1, t2, t3, t4, t5);
