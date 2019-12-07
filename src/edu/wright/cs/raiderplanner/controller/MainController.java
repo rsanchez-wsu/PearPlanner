@@ -39,6 +39,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -470,8 +471,15 @@ public class MainController {
 	* Launches the default browser to display a URI.
 	*/
 	public static void openHelpPage() {
+		final Image icon = new Image("file:icon.png");
+		String btnStyle = "-fx-pref-width: 100px; -fx-padding: 5; -fx-color: #ffffff;";
 		final Button site = new Button("Website");
-		final Button pdf = new Button("user-manual");
+		site.setStyle(btnStyle);
+		final Button pdf = new Button("User Manual");
+		pdf.setStyle(btnStyle);
+		VBox menuButtons = new VBox();
+		menuButtons.getChildren().addAll(pdf, site);
+		menuButtons.setSpacing(2);
 		final Hyperlink link = new Hyperlink();
 		final Hyperlink link1 = new Hyperlink();
 		final Hyperlink link2 = new Hyperlink();
@@ -561,8 +569,7 @@ public class MainController {
 		splitter1.getChildren().add(tab1);
 		VBox splitter2 = new VBox();
 		splitter2.getChildren().add(tab2);
-		splitter2.getChildren().add(pdf);
-		splitter2.getChildren().add(site);
+		splitter2.getChildren().add(menuButtons);
 		VBox splitter3 = new VBox();
 		splitter3.getChildren().add(tab3);
 		VBox splitter4 = new VBox();
@@ -592,17 +599,26 @@ public class MainController {
 		splitter5.getChildren().add(locationText3);
 		splitter5.getChildren().add(organizationText3);
 		splitter5.getChildren().add(positionLink3);
+		String tpStyle = "-fx-color:#026937; -fx-border-width: 1 0;"
+				+ "-fx-border-color: #ffffff; -fx-text-fill: #CEA052;";
 		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
+		t1.setStyle(tpStyle);
 		TitledPane t2 = new TitledPane("Getting Started",splitter2);
+		t2.setStyle(tpStyle);
 		TitledPane t3 = new TitledPane("Whats Next?", splitter3);
+		t3.setStyle(tpStyle);
 		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
+		t4.setStyle(tpStyle);
 		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
+		t5.setStyle(tpStyle);
 		Accordion root = new Accordion();
+		root.setStyle("-fx-background-color:#026937;");
 		root.getPanes().addAll(t1, t2, t3, t4, t5);
 		Stage newStage = new Stage();
 		newStage.setTitle("Raider Helper");
 		Scene scene = new Scene(root,600,800);
 		newStage.setScene(scene);
+		newStage.getIcons().add(icon);
 		newStage.show();
 
 		pdf.setOnAction((event) -> {
