@@ -599,18 +599,27 @@ public class MainController {
 		splitter5.getChildren().add(locationText3);
 		splitter5.getChildren().add(organizationText3);
 		splitter5.getChildren().add(positionLink3);
-		String tpStyle = "-fx-color:#026937; -fx-border-width: 1 0;"
-				+ "-fx-border-color: #ffffff; -fx-text-fill: #CEA052;";
 		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
-		t1.setStyle(tpStyle);
+		t1.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
 		TitledPane t2 = new TitledPane("Getting Started",splitter2);
-		t2.setStyle(tpStyle);
+		t2.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
 		TitledPane t3 = new TitledPane("Whats Next?", splitter3);
-		t3.setStyle(tpStyle);
+		t3.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
 		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
-		t4.setStyle(tpStyle);
+		t4.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
 		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
-		t5.setStyle(tpStyle);
+		splitter1.setStyle("-fx-background-color: #CBA052;");
+		t5.setStyle("-fx-border-color: gold;");
+		t5.setStyle("-fx-color: green;");
+		
 		Accordion root = new Accordion();
 		root.setStyle("-fx-background-color:#026937;");
 		root.getPanes().addAll(t1, t2, t3, t4, t5);
