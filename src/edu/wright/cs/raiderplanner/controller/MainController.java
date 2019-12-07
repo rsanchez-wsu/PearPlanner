@@ -39,6 +39,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -274,7 +275,7 @@ public class MainController {
 					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
 					// Sample note
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
-							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
+							.getCurrentStudyProfile().getName().equals("First Year Gryffindor")) {
 						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
 								+ "Potter. To make your own StudyPlanner, restart the application "
@@ -470,8 +471,15 @@ public class MainController {
 	* Launches the default browser to display a URI.
 	*/
 	public static void openHelpPage() {
+		final Image icon = new Image("file:icon.png");
+		String btnStyle = "-fx-pref-width: 100px; -fx-padding: 5; -fx-color: #ffffff;";
 		final Button site = new Button("Website");
-		final Button pdf = new Button("user-manual");
+		site.setStyle(btnStyle);
+		final Button pdf = new Button("User Manual");
+		pdf.setStyle(btnStyle);
+		VBox menuButtons = new VBox();
+		menuButtons.getChildren().addAll(pdf, site);
+		menuButtons.setSpacing(2);
 		final Hyperlink link = new Hyperlink();
 		final Hyperlink link1 = new Hyperlink();
 		final Hyperlink link2 = new Hyperlink();
@@ -525,10 +533,10 @@ public class MainController {
 				+ "2: Choose the name of the file you want to save to." + "\n"
 				+ "3: To unlock all the other features RaiderPlanner has to offer, click the"
 				+ " import hub file button from the menu on the left"
-				+  "\nNeed more help? Open up the user manual or RaiderPlanner Website here:");
+				+  "\nNeed more help? Open up the user manual or RaiderPlanner Website here");
 		Label tab3 = new Label("Planned features include a graduation planner, Pilot integration, "
-				+ "schedule sharing feature. If you want to contribute to RaiderPlanner"
-				+ ", follow the link below to our Github repository!");
+				+ "and a schedule sharing feature. If you want to contribute to RaiderPlanner"
+				+ " , follow the link below to our Github repository!");
 		final Label tab4 = new Label("1. Can you give me a general overview of RaiderPlanner?\n");
 		final Label tab5 = new Label("\n2. How do I create an account?\n" + "\n\tAnswer: Please "
 				+ " see the 'Getting Started' tab listed above.  You will need to select "
@@ -571,8 +579,7 @@ public class MainController {
 		splitter1.getChildren().add(tab1);
 		VBox splitter2 = new VBox();
 		splitter2.getChildren().add(tab2);
-		splitter2.getChildren().add(pdf);
-		splitter2.getChildren().add(site);
+		splitter2.getChildren().add(menuButtons);
 		VBox splitter3 = new VBox();
 		splitter3.getChildren().add(tab3);
 		splitter3.getChildren().add(link7);
@@ -608,22 +615,27 @@ public class MainController {
 		splitter6.getChildren().add(link4);
 		splitter6.getChildren().add(link5);
 		splitter6.getChildren().add(link6);
-		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
-		TitledPane t2 = new TitledPane("Getting Started",splitter2);
-		TitledPane t3 = new TitledPane("Whats Next?", splitter3);
-		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
-		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
-		TitledPane t6 = new TitledPane("Want to learn how to contribute?", splitter6);
 		String tpStyle = "-fx-color:#026937; -fx-border-width: 1 0;"
 				+ "-fx-border-color: #ffffff; -fx-text-fill: #CEA052;";
+		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
+		t1.setStyle(tpStyle);
+		TitledPane t2 = new TitledPane("Getting Started",splitter2);
+		t2.setStyle(tpStyle);
+		TitledPane t3 = new TitledPane("Whats Next?", splitter3);
+		t3.setStyle(tpStyle);
+		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
+		t4.setStyle(tpStyle);
+		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
+		TitledPane t6 = new TitledPane("Want to learn how to contribute?", splitter6);
 		t5.setStyle(tpStyle);
 		Accordion root = new Accordion();
-		root.setStyle("-fx-background-color:#026837;");
+		root.setStyle("-fx-background-color:#026937;");
 		root.getPanes().addAll(t1, t2, t3, t4, t5, t6);
 		Stage newStage = new Stage();
 		newStage.setTitle("RaiderPlanner Help");
 		Scene scene = new Scene(root,600,600);
 		newStage.setScene(scene);
+		newStage.getIcons().add(icon);
 		newStage.show();
 
 		pdf.setOnAction((event) -> {
@@ -631,7 +643,7 @@ public class MainController {
 				try {
 					File myFile = new
 							File("Final Documents/"
-									+ "User Manual.pdf");
+									+ "User Manual RaiderPlanner.pdf");
 					Desktop.getDesktop().open(myFile);
 				} catch (IOException ex) {
 					System.out.println("Error: user-manual not found");
