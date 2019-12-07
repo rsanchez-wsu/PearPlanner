@@ -333,7 +333,7 @@ public class MenuController implements Initializable {
 		// set ToolTips
 		openMenu.setTooltip(new Tooltip("Menu"));
 		showNotification.setTooltip(new Tooltip("Notifications"));
-		addActivity.setTooltip(new Tooltip("Add activity"));
+		addActivity.setTooltip(new Tooltip("Add Activity"));
 		calendar.setTooltip(new Tooltip("Open Calendar"));
 
 		// Update main pane:
@@ -636,7 +636,7 @@ public class MenuController implements Initializable {
 		deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
 		deadlineColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
-		TableColumn<Milestone, String> completedColumn = new TableColumn<>("Tasks completed");
+		TableColumn<Milestone, String> completedColumn = new TableColumn<>("Tasks Completed");
 		completedColumn.setCellValueFactory(new PropertyValueFactory<>("taskCompletedAsString"));
 		completedColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
@@ -709,7 +709,7 @@ public class MenuController implements Initializable {
 		actions.setPadding(new Insets(5, 5, 10, 0));
 
 		// Buttons:
-		Button add = new Button("Add a new Milestone");
+		Button add = new Button("Add a New Milestone");
 		Button remove = new Button("Remove");
 		remove.setDisable(true);
 
@@ -792,14 +792,14 @@ public class MenuController implements Initializable {
 		instruction.setPadding(new Insets(5, 5, 10, 0));
 		this.welcome = new Label("Welcome " + MainController.getSpc().getPlanner().getUserName()
 				+ "! Here you can view your study profiles. "
-				+ "Double-click on a profile to see more informaiton.");
+				+ "Double-click on a profile to see more information.");
 		this.welcome.setPadding(new Insets(10, 15, 10, 15));
 		this.topBox.getChildren().add(this.welcome);
 		this.mainContent.setVgap(10);
 		this.mainContent.setPadding(new Insets(15));
 
 		// Columns:
-		TableColumn<StudyProfile, String> nameColumn = new TableColumn<>("Profile name");
+		TableColumn<StudyProfile, String> nameColumn = new TableColumn<>("Profile Name");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
 		TableColumn<StudyProfile, Integer> yearColumn = new TableColumn<>("Year");
@@ -905,13 +905,13 @@ public class MenuController implements Initializable {
 		this.mainContent.setVgap(10);
 		this.mainContent.setPadding(new Insets(15));
 		// Columns:
-		TableColumn<Module, String> codeColumn = new TableColumn<>("Module code");
+		TableColumn<Module, String> codeColumn = new TableColumn<>("Module Code");
 		codeColumn.setCellValueFactory(new PropertyValueFactory<>("moduleCode"));
 
-		TableColumn<Module, String> nameColumn = new TableColumn<>("Module name");
+		TableColumn<Module, String> nameColumn = new TableColumn<>("Module Name");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-		TableColumn<Module, Number> timeSpent = new TableColumn<>("Time spent");
+		TableColumn<Module, Number> timeSpent = new TableColumn<>("Time Spent");
 		timeSpent.setCellValueFactory(new PropertyValueFactory<Module, Number>("timeSpent") {
 			@Override
 			public ObservableValue<Number> call(
@@ -971,7 +971,7 @@ public class MenuController implements Initializable {
 		actions.setPadding(new Insets(5, 5, 10, 0));
 
 		// Buttons:
-		Button add = new Button("Add a new Module");
+		Button add = new Button("Add a New Module");
 		Button remove = new Button("Remove");
 		remove.setDisable(true);
 
@@ -1121,7 +1121,7 @@ public class MenuController implements Initializable {
 		GridPane.setColumnSpan(moduleContent, GridPane.REMAINING);
 
 		// Buttons:
-		Button addAssignment = new Button("Add a new Assignment");
+		Button addAssignment = new Button("Add a New Assignment");
 		Button deleteAssignment = new Button("Remove");
 		deleteAssignment.setDisable(true);
 
@@ -1416,7 +1416,7 @@ public class MenuController implements Initializable {
 		remainingColumn.setCellValueFactory(new PropertyValueFactory<>("remainingQuantity"));
 		remainingColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
-		TableColumn<Requirement, QuantityType> typeColumn = new TableColumn<>("Quantity type");
+		TableColumn<Requirement, QuantityType> typeColumn = new TableColumn<>("Quantity Type");
 		typeColumn.setCellValueFactory(new PropertyValueFactory<>("quantityType"));
 
 		ArrayList<TableColumn<Requirement, ?>> colList = new ArrayList<>(
@@ -1447,7 +1447,7 @@ public class MenuController implements Initializable {
 		actionsReq.setPadding(new Insets(5, 5, 10, 0));
 
 		// Buttons:
-		Button addNewReq = new Button("Add a new requirement");
+		Button addNewReq = new Button("Add a New Requirement");
 
 		Button deleteReq = new Button("Remove");
 		deleteReq.setDisable(true);
@@ -1502,7 +1502,7 @@ public class MenuController implements Initializable {
 		deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
 		deadlineColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
 
-		TableColumn<Task, BooleanProperty> canComplete = new TableColumn<>("Can be completed?");
+		TableColumn<Task, BooleanProperty> canComplete = new TableColumn<>("Can be Completed?");
 		canComplete.setCellValueFactory(new PropertyValueFactory<>("possibleToComplete"));
 		canComplete.setStyle("-fx-alignment: CENTER-RIGHT;");
 
@@ -1556,14 +1556,15 @@ public class MenuController implements Initializable {
 		actionsTask.setPadding(new Insets(5, 5, 10, 0));
 
 		// Buttons:
-		Button check = new Button("Toggle complete");
+		Button check = new Button("Toggle Complete");
 		check.getStyleClass().add("set-button");
+		check.setStyle("-fx-background-color: #026937; -fx-text-fill: white;");
 		check.setDisable(true);
 
 		Button delete = new Button("Remove");
 		delete.setDisable(true);
 		Button addNew = null;
-		addNew = new Button("Add a new task");
+		addNew = new Button("Add a New Task");
 		// Bind properties on buttons:
 		delete.disableProperty().bind(new BooleanBinding() {
 			{

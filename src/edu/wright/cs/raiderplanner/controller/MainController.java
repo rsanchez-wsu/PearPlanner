@@ -275,7 +275,7 @@ public class MainController {
 					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
 					// Sample note
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
-							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
+							.getCurrentStudyProfile().getName().equals("First Year Gryffindor")) {
 						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
 								+ "Potter. To make your own StudyPlanner, restart the application "
