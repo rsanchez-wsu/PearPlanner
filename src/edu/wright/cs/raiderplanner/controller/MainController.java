@@ -610,13 +610,6 @@ public class MainController {
 		splitter5.getChildren().add(locationText3);
 		splitter5.getChildren().add(organizationText3);
 		splitter5.getChildren().add(positionLink3);
-		VBox splitter6 = new VBox();
-		splitter6.getChildren().add(tab10);
-		splitter6.getChildren().add(link4);
-		splitter6.getChildren().add(link5);
-		splitter6.getChildren().add(link6);
-		TitledPane t6 = new TitledPane("Want to learn how to contribute?", splitter6);
-		t6.setStyle(tpStyle);
 		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
 		t1.setStyle(tpStyle);
 		TitledPane t2 = new TitledPane("Getting Started",splitter2);
@@ -628,7 +621,7 @@ public class MainController {
 		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
 		t5.setStyle(tpStyle);
 		Accordion root = new Accordion();
-		root.getPanes().addAll(t1, t2, t3, t4, t5, t6);
+		root.getPanes().addAll(t1, t2, t3, t4, t5);
 		Scene scene = new Scene(root,600,600);
 		Stage newStage = new Stage();
 		newStage.setTitle("RaiderPlanner Help");
