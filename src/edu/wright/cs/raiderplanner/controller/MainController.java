@@ -615,6 +615,8 @@ public class MainController {
 		splitter6.getChildren().add(link4);
 		splitter6.getChildren().add(link5);
 		splitter6.getChildren().add(link6);
+		String tpStyle = "-fx-color:#026937; -fx-border-width: 1 0;"
+				+ "-fx-border-color: #ffffff; -fx-text-fill: #CEA052;";
 		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
 		t1.setStyle(tpStyle);
 		TitledPane t2 = new TitledPane("Getting Started",splitter2);
@@ -624,12 +626,15 @@ public class MainController {
 		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
 		t4.setStyle(tpStyle);
 		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
-		Accordion root = new Accordion();
-		root.getPanes().addAll(t1, t2, t3, t4, t5, t6);
+		t5.setStyle(tpStyle);
 		TitledPane t6 = new TitledPane("Want to learn how to contribute?", splitter6);
+		t6.setStyle(tpStyle);
+		Accordion root = new Accordion();
+		root.setStyle("-fx-background-color:#026937;");
+		root.getPanes().addAll(t1, t2, t3, t4, t5, t6);
+		Scene scene = new Scene(root,600,600);
 		Stage newStage = new Stage();
 		newStage.setTitle("RaiderPlanner Help");
-		Scene scene = new Scene(root,600,600);
 		newStage.setScene(scene);
 		newStage.getIcons().add(icon);
 		newStage.show();
