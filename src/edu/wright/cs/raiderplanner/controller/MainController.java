@@ -624,12 +624,8 @@ public class MainController {
 		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
 		t4.setStyle(tpStyle);
 		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
-		String tpStyle = "-fx-color:#026937; -fx-border-width: 1 0;"
-				+ "-fx-border-color: #ffffff; -fx-text-fill: #CEA052;";
-		t5.setStyle(tpStyle);
 		Accordion root = new Accordion();
-		root.setStyle("-fx-background-color:#026937;");
-		root.getPanes().addAll(t1, t2, t3, t4, t5);
+		root.getPanes().addAll(t1, t2, t3, t4, t5, t6);
 		TitledPane t6 = new TitledPane("Want to learn how to contribute?", splitter6);
 		Stage newStage = new Stage();
 		newStage.setTitle("RaiderPlanner Help");
