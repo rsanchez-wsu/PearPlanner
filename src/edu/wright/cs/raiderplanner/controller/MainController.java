@@ -484,6 +484,10 @@ public class MainController {
 		final Hyperlink link1 = new Hyperlink();
 		final Hyperlink link2 = new Hyperlink();
 		final Hyperlink link3 = new Hyperlink();
+		final Hyperlink link4 = new Hyperlink();
+		final Hyperlink link5 = new Hyperlink();
+		final Hyperlink link6 = new Hyperlink();
+		final Hyperlink link7 = new Hyperlink();
 		ArrayList positions = new ArrayList<>();
 		positions = responseProcessor.retrievePositionTitles();
 		ArrayList titles = (ArrayList) positions.get(0);
@@ -522,7 +526,7 @@ public class MainController {
 				+ " track of assignments and exams, allowing them to achieve their full academic"
 				+ " potential. "
 				+ "Current features include a calendar, an alarm, and a Gantt diagram generator"
-				+ " to keep track of progress");
+				+ " to keep track of progress.");
 		Label tab2 = new Label("How to use RaiderPlanner in 3 easy steps:"
 				+ "\n" + "1: Enter valid information for all the fields on the startup page. "
 						+ "All other information is optional." + "\n"
@@ -530,10 +534,9 @@ public class MainController {
 				+ "3: To unlock all the other features RaiderPlanner has to offer, click the"
 				+ " import hub file button from the menu on the left"
 				+  "\nNeed more help? Open up the user manual or RaiderPlanner Website here");
-		Label tab3 = new Label("If you want, you can contribute to RaiderPlanner on github at"
-				+ " the this address: https://github.com/rsanchez-wsu/RaiderPlanner"
-				+ "\n" + "Planned features include a graduation planner, Pilot integration, and a "
-				+ "schedule sharing feature");
+		Label tab3 = new Label("Planned features include a graduation planner, Pilot integration, "
+				+ "and a schedule sharing feature. If you want to contribute to RaiderPlanner"
+				+ " , follow the link below to our Github repository!");
 		final Label tab4 = new Label("1. Can you give me a general overview of RaiderPlanner?\n");
 		final Label tab5 = new Label("\n2. How do I create an account?\n" + "\n\tAnswer: Please "
 				+ " see the 'Getting Started' tab listed above.  You will need to select "
@@ -556,6 +559,12 @@ public class MainController {
 				+ "\n\tAnswer:  You can click the link below and fork our project from GitHub."
 				+ " Feel free to add suggestions, or fix bugs whether known or unknown!"
 				+ " Then submit a pull request to have your changes made to RaiderPlanner!");
+		final Label tab10 = new Label("If you are new to programming and want to learn and try"
+				+ " to contribute to RaiderPlanner, there "
+				+ "are many things you can do! RaiderPlanner uses the Java programming "
+				+ "language and uses practices such as "
+				+ "HTML, CSS, and others. Below are some links to get you started learning these "
+				+ "practices used in RaiderPlanner!");
 		tab1.setWrapText(true);
 		tab2.setWrapText(true);
 		tab3.setWrapText(true);
@@ -565,6 +574,7 @@ public class MainController {
 		tab7.setWrapText(true);
 		tab8.setWrapText(true);
 		tab9.setWrapText(true);
+		tab10.setWrapText(true);
 		VBox splitter1 = new VBox();
 		splitter1.getChildren().add(tab1);
 		VBox splitter2 = new VBox();
@@ -572,6 +582,7 @@ public class MainController {
 		splitter2.getChildren().add(menuButtons);
 		VBox splitter3 = new VBox();
 		splitter3.getChildren().add(tab3);
+		splitter3.getChildren().add(link7);
 		VBox splitter4 = new VBox();
 		splitter4.getChildren().add(tab4);
 		splitter4.getChildren().add(link);
@@ -614,9 +625,9 @@ public class MainController {
 		Accordion root = new Accordion();
 		root.setStyle("-fx-background-color:#026937;");
 		root.getPanes().addAll(t1, t2, t3, t4, t5);
+		Scene scene = new Scene(root,600,600);
 		Stage newStage = new Stage();
-		newStage.setTitle("Raider Helper");
-		Scene scene = new Scene(root,600,800);
+		newStage.setTitle("RaiderPlanner Help");
 		newStage.setScene(scene);
 		newStage.getIcons().add(icon);
 		newStage.show();
@@ -680,6 +691,46 @@ public class MainController {
 		link3.setOnAction((ActionEvent event) -> {
 			try {
 				Desktop.getDesktop().browse(new URL("https://www.google.com").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link4.setText("\tClick here to learn Java");
+		link4.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.w3schools.com/java/").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link5.setText("\tClick here to learn HTML");
+		link5.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.w3schools.com/html/").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link6.setText("\tClick here to learn CSS Styling");
+		link6.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.w3schools.com/css/").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link7.setText("\tGithub");
+		link7.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://github.com/gzdwsu/RaiderPlanner").toURI());
 			} catch (IOException ex) {
 				System.out.println("Error: Website not found");
 			} catch (URISyntaxException ec) {
