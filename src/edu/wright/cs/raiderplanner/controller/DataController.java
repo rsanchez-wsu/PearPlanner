@@ -511,7 +511,7 @@ public class DataController {
 	public static HubFile loadHubFile(File tempFile) {
 		HubFile hub = null;
 		ButtonType buttonPressed = null;
-		if (tempFile.exists()) {
+		if (tempFile != null && tempFile.exists()) {
 			try {
 				// learned from:
 				// https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
