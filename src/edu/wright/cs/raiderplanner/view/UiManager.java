@@ -3,6 +3,8 @@
  * Bijan Ghasemi Afshar
  *
  * Copyright (C) 2018 - Clayton D. Terrill
+ * 
+ * Copyright (C) 2020 - Tyler Palcic
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,6 +55,8 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -139,8 +143,13 @@ public class UiManager {
 		loader.setController(accountControl);
 		Parent root = loader.load();
 		// Set the scene:
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double screenHeight = screenSize.getHeight();
+		double screenWidth = screenSize.getWidth();
+		double sceneHeight = screenHeight * .55;
+		double sceneWidth = screenWidth * .47;
 		Stage stage = new Stage();
-		stage.setScene(new Scene(root, 575, 432));
+		stage.setScene(new Scene(root, sceneWidth, sceneHeight));
 		stage.setTitle("Create Account");
 		stage.resizableProperty().setValue(false);
 		stage.getIcons().add(icon);
