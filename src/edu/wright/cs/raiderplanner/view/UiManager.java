@@ -50,6 +50,7 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -143,13 +144,8 @@ public class UiManager {
 		loader.setController(accountControl);
 		Parent root = loader.load();
 		// Set the scene:
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double screenHeight = screenSize.getHeight();
-		double screenWidth = screenSize.getWidth();
-		double sceneHeight = screenHeight * .55;
-		double sceneWidth = screenWidth * .47;
 		Stage stage = new Stage();
-		stage.setScene(new Scene(root, sceneWidth, sceneHeight));
+		stage.setScene(new Scene(root));
 		stage.setTitle("Create Account");
 		stage.resizableProperty().setValue(false);
 		stage.getIcons().add(icon);
