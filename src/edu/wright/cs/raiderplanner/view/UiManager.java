@@ -3,7 +3,7 @@
  * Bijan Ghasemi Afshar
  *
  * Copyright (C) 2018 - Clayton D. Terrill
- * 
+ *
  * Copyright (C) 2020 - Tyler Palcic
  *
  * This program is free software: you can redistribute it and/or modify
@@ -54,6 +54,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
