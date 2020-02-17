@@ -1,0 +1,294 @@
+<hubfile>
+    <version>0</version>
+    <assets>
+        <persons>
+            <person>
+                <name>Brian D. Rigling</name>
+                <details>Professor and Interim Dean, College of Engineering and Computer Science</details>
+                <version>0</version>
+                <uid>BRDASM-12</uid>
+                <givenNames>Brian</givenNames>
+                <familyName>Rigling</familyName>
+                <salutation>Dr.</salutation>
+                <email>brian.rigling@wright.edu</email>
+                <familyNameLast>true</familyNameLast>
+            </person>
+            <person>
+                <name>Michelle Andreen Cheatham</name>
+                <details>Assistant Professor</details>
+                <version>0</version>
+                <uid>PERSON_123</uid>
+                <givenNames>Michelle</givenNames>
+                <familyName>Cheatham</familyName>
+                <salutation>Dr</salutation>
+                <email>michelle.cheatham@wright.edu</email>
+                <familyNameLast>true</familyNameLast>
+            </person>
+            <person>
+                <name>Karen Meyer</name>
+                <details>Senior Lecturer and Program Director for CSE</details>
+                <version>0</version>
+                <uid>KMEYER_34</uid>
+                <givenNames>Karen</givenNames>
+                <familyName>Meyer</familyName>
+                <salutation>Ms.</salutation>
+                <email>karen.meyer@wright.edu</email>
+                <familyNameLast>true</familyNameLast>
+            </person>
+            <person>
+                <name>Garrett Goodman</name>
+                <details>Professor</details>
+                <version>0</version>
+                <uid>PERSON_234</uid>
+                <givenNames>Garrett</givenNames>
+                <familyName>Goodman</familyName>
+                <salutation>Mr.</salutation>
+                <email>garrett.goodman@wright.edu</email>
+                <familyNameLast>true</familyNameLast>
+            </person>
+            <person>
+                <name>Michael L. Raymer</name>
+                <details>Professor</details>
+                <version>0</version>
+                <uid>MRAYME_78</uid>
+                <givenNames>Michael</givenNames>
+                <familyName>Raymer</familyName>
+                <salutation>Dr.</salutation>
+                <email>michael.raymer@wright.edu</email>
+                <familyNameLast>true</familyNameLast>
+            </person>
+        </persons>
+        <buildings>
+            <building>
+                <name>Student Success Center</name>
+                <details>The Student Success Center houses University College, home to our first year students. The building features high-tech, active-learning classrooms, and writing and math support labs.</details>
+                <version>0</version>
+                <uid>SSC_12</uid>
+                <code>SSC</code>
+                <latitude>52.4227</latitude>
+                <longitude>1.59027</longitude>
+            </building>
+        </buildings>
+        <rooms>
+            <room>
+                <name>SSC Seminar Room</name>
+                <details>Large seminar room on level 1</details>
+                <version>0</version>
+                <uid>SSC_12</uid>
+                <building>SSC_12</building>
+                <roomNumber>SSC 1.02</roomNumber>
+            </room>
+            <room>
+                <name>SSC Lecture Theatre</name>
+                <details>Known as the SSC Lecture Theatre, this tiered room seats 280 people. Fully integrated audio-visual equipment is easy to use with back projection possible with an audio-visual technician. The lecture theatre is located on the ground floor. The SSC Lecture Theatre is a great space for a plenary session and breakout area.</details>
+                <version>0</version>
+                <uid>ROOM_009</uid>
+                <building>BUILDING_SSC</building>
+                <roomNumber>SSC 0.01</roomNumber>
+            </room>
+        </rooms>
+        <timetableEventTypes>
+            <timetableEventType>
+                <name>Lecture</name>
+                <details>An educational talk on the subject matter.</details>
+                <version>0</version>
+                <uid>LECTURE</uid>
+            </timetableEventType>
+        </timetableEventTypes>
+    </assets>
+    <studyProfile>
+        <name>Fall 2019 Semester</name>
+        <details>The Fall semester of the academic year 2019-2020.</details>
+        <uid>SEMESTER_2019_2</uid>
+        <year>2019</year>
+        <semester>2</semester>
+        <modules>
+            <module>
+                <name>Computer Science I</name>
+                <details>Basic concepts of programming and programming languages. Structured programming, stepwise refinement, and object-oriented development. Integrated Writing course.</details>
+                <version>0</version>
+                <uid>MODULE_CS1180</uid>
+                <organiser>PERSON_123</organiser>
+                <moduleCode>CS 1180</moduleCode>
+                <timetable>
+                    <timetableEvent>
+                        <name>Programming 2 Lecture</name>
+                        <details>Learn about C#</details>
+                        <version>0</version>
+                        <uid>TT_CS1180_LEC_01</uid>
+                        <date>09/04/2018T11:00:00Z</date>
+                        <room>ROOM_009</room>
+                        <lecturer>PERSON_123</lecturer>
+                        <timetableEventType>LECTURE</timetableEventType>
+                        <duration>110</duration>
+                    </timetableEvent>
+                </timetable>
+                <assignments>
+                    <exam>
+                        <name>Final Exam Resit</name>
+                        <details>If you messed up on the final exam you will need to take this.</details>
+                        <version>0</version>
+                        <uid>CS1180_EXAM_1_RESIT</uid>
+                        <resit></resit>
+                        <timeslot>
+                            <name>Deadline</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CS1180_EXAM_1_TIMESLOT</uid>
+                            <date>09/08/2018T15:00:00Z</date>
+                            <room>ROOM_009</room>
+                            <duration>120</duration>
+                        </timeslot>
+                        <weighting>30</weighting>
+                        <setBy>PERSON_123</setBy>
+                        <markedBy>PERSON_123</markedBy>
+                        <reviewedBy>PERSON_123</reviewedBy>
+                        <marks>120</marks>
+                    </exam>
+                    <coursework>
+                        <name>Main Coursework</name>
+                        <details>This is the coursework.</details>
+                        <version>0</version>
+                        <uid>CS1180_CW_1</uid>
+                        <startDate>
+                            <name>Start Date</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CS1180_CW_1_START</uid>
+                            <date>09/04/2018T15:00:00Z</date>
+                        </startDate>
+                        <deadline>
+                            <name>Deadline</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CS1180_CW_1_DEADLINE</uid>
+                            <date>09/05/2018T15:00:00Z</date>
+                        </deadline>
+                        <extensions>
+                            <extension>STUDENT_999_EXTENSION_101</extension>
+                        </extensions>
+                        <weighting>20</weighting>
+                        <setBy>PERSON_123</setBy>
+                        <markedBy>PERSON_123</markedBy>
+                        <reviewedBy>PERSON_123</reviewedBy>
+                        <marks>100</marks>
+                    </coursework>
+                    <exam>
+                        <name>Final Exam</name>
+                        <details>This is the final exam. Do not be late or you will definitely not pass.</details>
+                        <version>0</version>
+                        <uid>CS1180_EXAM_1</uid>
+                        <resit>SOFTENG_EXAM_1_RESIT</resit>
+                        <timeslot>
+                            <name>Deadline</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CS1180_EXAM_1_TIMESLOT</uid>
+                            <date>09/06/2018T15:00:00Z</date>
+                            <room>ROOM_009</room>
+                            <duration>120</duration>
+                        </timeslot>
+                        <weighting>30</weighting>
+                        <setBy>PERSON_123</setBy>
+                        <markedBy>PERSON_123</markedBy>
+                        <reviewedBy>PERSON_123</reviewedBy>
+                        <marks>120</marks>
+                    </exam>
+                </assignments>
+            </module>
+            <module>
+                <name>Intro to Software Engineering</name>
+                <details>Introduction to Software Engineering concepts. Development life-cycle models, requirements analysis, systems modeling, system design, testing, and project management techniques.</details>
+                <version>0</version>
+                <uid>MODULE_CEG4110</uid>
+                <organiser>PERSON_234</organiser>
+                <moduleCode>CEG 4110</moduleCode>
+                <timetable>
+                    <timetableEvent>
+                        <name>Software Engineering Lecture</name>
+                        <details>Learn more about the Gantt Diagram and why some people call it a Gantt Chart</details>
+                        <version>0</version>
+                        <uid>TT_CEG4110_LEC_01</uid>
+                        <date>09/04/2018T11:00:00Z</date>
+                        <room>ROOM_009</room>
+                        <lecturer>PERSON_234</lecturer>
+                        <timetableEventType>LECTURE</timetableEventType>
+                        <duration>110</duration>
+                    </timetableEvent>
+                </timetable>
+                <assignments>
+                    <exam>
+                        <name>Final Exam Resit</name>
+                        <details>If you messed up you will need to take this.</details>
+                        <version>0</version>
+                        <uid>CEG4110_EXAM_1_RESIT</uid>
+                        <resit></resit>
+                        <timeslot>
+                            <name>Deadline</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CEG4110_EXAM_1_TIMESLOT</uid>
+                            <date>09/08/2018T15:00:00Z</date>
+                            <room>ROOM_009</room>
+                            <duration>120</duration>
+                        </timeslot>
+                        <weighting>30</weighting>
+                        <setBy>PERSON_234</setBy>
+                        <markedBy>PERSON_234</markedBy>
+                        <reviewedBy>PERSON_234</reviewedBy>
+                        <marks>120</marks>
+                    </exam>
+                    <coursework>
+                        <name>Main Coursework</name>
+                        <details>This is the coursework.</details>
+                        <version>0</version>
+                        <uid>CEG4110_CW_1</uid>
+                        <startDate>
+                            <name>Start Date</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CEG4110_CW_1_START</uid>
+                            <date>09/04/2018T15:00:00Z</date>
+                        </startDate>
+                        <deadline>
+                            <name>Deadline</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CEG4110_CW_1_DEADLINE</uid>
+                            <date>09/05/2018T15:00:00Z</date>
+                        </deadline>
+                        <extensions>
+                            <extension>STUDENT_999_EXTENSION_101</extension>
+                        </extensions>
+                        <weighting>20</weighting>
+                        <setBy>PERSON_234</setBy>
+                        <markedBy>PERSON_234</markedBy>
+                        <reviewedBy>PERSON_234</reviewedBy>
+                        <marks>100</marks>
+                    </coursework>
+                    <exam>
+                        <name>Final Exam</name>
+                        <details>This is the final exam. Do not be late or you will not pass.</details>
+                        <version>0</version>
+                        <uid>CEG4110_EXAM_1</uid>
+                        <resit>CEG4110_EXAM_1_RESIT</resit>
+                        <timeslot>
+                            <name>Deadline</name>
+                            <details>Start Date for the Coursework</details>
+                            <version>0</version>
+                            <uid>CEG4110_EXAM_1_TIMESLOT</uid>
+                            <date>09/06/2018T15:00:00Z</date>
+                            <room>ROOM_009</room>
+                            <duration>120</duration>
+                        </timeslot>
+                        <weighting>30</weighting>
+                        <setBy>PERSON_234</setBy>
+                        <markedBy>PERSON_234</markedBy>
+                        <reviewedBy>PERSON_234</reviewedBy>
+                        <marks>120</marks>
+                    </exam>
+                </assignments>
+            </module>
+        </modules>
+    </studyProfile>
+</hubfile>

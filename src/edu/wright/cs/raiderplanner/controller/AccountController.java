@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
- * Bijan Ghasemi Afshar, Alena Brand
+ * Copyright (C) 2019 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
+ * Bijan Ghasemi Afshar, Alena Brand, Daniel Bleigh
  *
  *
  *
@@ -23,6 +23,7 @@ package edu.wright.cs.raiderplanner.controller;
 
 import edu.wright.cs.raiderplanner.model.Account;
 import edu.wright.cs.raiderplanner.model.Person;
+import edu.wright.cs.raiderplanner.view.UiManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,6 +34,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -53,6 +55,7 @@ public class AccountController implements Initializable {
 	@FXML private ComboBox<String> salutation;
 	@FXML private TextField fullName;
 	@FXML private TextField email;
+	@FXML private TextField majorId;
 	@FXML private CheckBox famLast;
 	@FXML private Button submit;
 	@FXML private GridPane pane;
@@ -88,7 +91,7 @@ public class AccountController implements Initializable {
 	 * @return true if the user entered a valid salutation.
 	 */
 	public boolean validateSalutation() {
-		if (!Person.validSalutation(this.salutation.getSelectionModel().getSelectedItem().trim())) {
+		if (this.salutation.getValue() == null) {
 			return false;
 		} else {
 			this.salutation.setStyle("");
@@ -113,6 +116,22 @@ public class AccountController implements Initializable {
 	}
 
 	/**
+	 * Determines if the user has entered a valid major by checking that the
+	 * field is not empty. Then sets the style so it is cohesive.
+	 * TODO: Create a dropdown menu so that the user can select from a list of
+	 * majors
+	 * @return True if the user entered a valid major.
+	 */
+	public boolean validateMajor() {
+		if (this.majorId.getText().trim().isEmpty()) {
+			return false;
+		} else {
+			//this.major.setStyle("");
+			return true;
+		}
+	}
+
+	/**
 	 * Determines if the user has entered a valid email checking if the textfield
 	 * is empty and by calling the validateEmail() from the Person Class in
 	 * Model, which uses the EmailValidator (Apache Commons Validator 1.6 API)
@@ -121,7 +140,11 @@ public class AccountController implements Initializable {
 	 * @return True if the user entered a valid email.
 	 */
 	public boolean validateEmail() {
-		if (this.email.getText().trim().isEmpty()
+		if (this.email.getText().isEmpty()) {
+			return false;
+		} else if (!this.email.getText().contains("@")) {
+			return false;
+		} else if (this.email.getText().trim().isEmpty()
 				|| Person.validEmail(this.email.getText().trim())) {
 			this.email.setStyle("");
 			return true;
@@ -131,7 +154,7 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid account number by checking
+	 * Determines if the user has entered a valid campus username by checking
 	 * that the length of the text is 7, that the first character is a 'w',
 	 * that the next 3 characters are digits, and that the last 3
 	 * characters are letters and lower case. Then sets the style so it is cohesive.
@@ -171,19 +194,19 @@ public class AccountController implements Initializable {
 		boolean validSuccess = true;
 		boolean validName = true;
 		if (!validateNumber()) {
-			invalidMessage += "Please enter a valid W Number\n";
-			validSuccess = false;
-		}
-		if (!validateName()) {
-			invalidMessage += "Please enter a valid name\n";
+			invalidMessage += "Please enter a valid Campus Username\n";
 			validSuccess = false;
 		}
 		if (!validateEmail()) {
-			invalidMessage += "Please enter a valid email\n";
+			invalidMessage += "Please enter a valid Email\n";
 			validSuccess = false;
 		}
 		if (!validateSalutation()) {
-			invalidMessage += "Please enter a valid salutation\n";
+			invalidMessage += "Please enter a valid Salutation\n";
+			validSuccess = false;
+		}
+		if (!validateMajor()) {
+			invalidMessage += "Please enter a valid Major\n";
 			validSuccess = false;
 		}
 		if (this.fullName.getText().trim().isEmpty()) {
@@ -193,7 +216,8 @@ public class AccountController implements Initializable {
 		}
 		if (validSuccess && validName) {
 			Person pers = new Person(this.salutation.getSelectionModel().getSelectedItem().trim(),
-					this.fullName.getText().trim(), this.famLast.isSelected());
+					this.fullName.getText().trim(), this.famLast.isSelected(),
+					this.majorId.getText().trim());
 			this.account = new Account(pers, this.accountNo.getText().trim());
 			this.success = true;
 			Stage stage = (Stage) this.submit.getScene().getWindow();
@@ -230,6 +254,9 @@ public class AccountController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Platform.runLater(() -> this.pane.requestFocus());
+		Tooltip tooltip = new Tooltip("Checked to indicate that family "
+				+ "name comes last; Not checked to indicate it comes first");
+		famLast.setTooltip(tooltip);
 		submit.defaultButtonProperty().bind(submit.focusedProperty());
 		submit.setOnAction(e -> {
 			if (submit.isFocused()) {

@@ -28,14 +28,20 @@ import edu.wright.cs.raiderplanner.model.ICalExport;
 import edu.wright.cs.raiderplanner.model.Notification;
 import edu.wright.cs.raiderplanner.model.Settings;
 import edu.wright.cs.raiderplanner.model.StudyPlanner;
+import edu.wright.cs.raiderplanner.rest.ResponseProcessor;
 import edu.wright.cs.raiderplanner.util.RaiderException;
 import edu.wright.cs.raiderplanner.view.UiManager;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.Desktop;
@@ -47,6 +53,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -60,6 +67,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 
 /**
  * A helper class of static methods and fields which are used to handle the
@@ -75,6 +83,9 @@ public class MainController {
 	private MainController() {
 	}
 
+	// Create ResponseProcessor object
+	//static ResponseProcessor responseProcessor = new ResponseProcessor();
+
 	// TODO - Determine if this really should be public
 	public static UiManager ui = new UiManager();
 	public static Settings settings = new Settings();
@@ -88,6 +99,9 @@ public class MainController {
 	private static SecretKey key64 = new SecretKeySpec(
 			new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 }, "Blowfish");
 	private static File plannerFile = null;
+
+	// Create ResponseProcessor object to call REST consumption methods
+	static ResponseProcessor responseProcessor = new ResponseProcessor();
 
 	/**
 	 * Returns the StudyPlannerController managed by this MainController.
@@ -259,12 +273,21 @@ public class MainController {
 						ObjectInputStream ois = new ObjectInputStream(cis)) {
 					SealedObject sealedObject = (SealedObject) ois.readObject();
 					spc = new StudyPlannerController((StudyPlanner) sealedObject.getObject(cipher));
-					// Sample note
+					// Sample note for Harry Potter HUB file
 					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
-							.getCurrentStudyProfile().getName().equals("First year Gryffindor")) {
+							.getCurrentStudyProfile().getName().equals("First Year Gryffindor")) {
 						UiManager.reportSuccess(
 								"Note: This is a pre-loaded sample StudyPlanner, as used by Harry "
 								+ "Potter. To make your own StudyPlanner, restart the application "
+								+ "and choose \"New File\".");
+					}
+					// Sample notes for 2019 WSU HUB file
+					if (spc.getPlanner().getCurrentStudyProfile() != null && spc.getPlanner()
+							.getCurrentStudyProfile().getName().equals("Fall 2019 Semester")) {
+						UiManager.reportSuccess(
+								"Note: This is a sample StudyPlanner that is pre-loaded with"
+								+ " WSU information. "
+								+ "To make your own StudyPlanner, restart the application "
 								+ "and choose \"New File\".");
 					}
 				}
@@ -457,14 +480,62 @@ public class MainController {
 	* Launches the default browser to display a URI.
 	*/
 	public static void openHelpPage() {
+		final Image icon = new Image("file:icon.png");
+		String btnStyle = "-fx-pref-width: 100px; -fx-padding: 5; -fx-color: #ffffff;";
 		final Button site = new Button("Website");
-		final Button pdf = new Button("user-manual");
+		site.setStyle(btnStyle);
+		final Button pdf = new Button("User Manual");
+		pdf.setStyle(btnStyle);
+		VBox menuButtons = new VBox();
+		menuButtons.getChildren().addAll(pdf, site);
+		menuButtons.setSpacing(2);
+		final Hyperlink link = new Hyperlink();
+		final Hyperlink link1 = new Hyperlink();
+		final Hyperlink link2 = new Hyperlink();
+		final Hyperlink link3 = new Hyperlink();
+		final Hyperlink link4 = new Hyperlink();
+		final Hyperlink link5 = new Hyperlink();
+		final Hyperlink link6 = new Hyperlink();
+		final Hyperlink link7 = new Hyperlink();
+		ArrayList positions = new ArrayList<>();
+		positions = responseProcessor.retrievePositionTitles();
+		ArrayList titles = (ArrayList) positions.get(0);
+		Text titleText1 = new Text();
+		Text titleText2 = new Text();
+		Text titleText3 = new Text();
+		String title1 = titles.get(0).toString();
+		String title2 = (String) titles.get(1);
+		String title3 = (String) titles.get(2);
+		titleText1.setText(title1);
+		titleText2.setText(title2);
+		titleText3.setText(title3);
+		ArrayList locations = (ArrayList) positions.get(1);
+		Text locationText1 = new Text();
+		Text locationText2 = new Text();
+		Text locationText3 = new Text();
+		String location1 = locations.get(0).toString();
+		String location2 = locations.get(1).toString();
+		String location3 = locations.get(2).toString();
+		locationText1.setText(location1);
+		locationText2.setText(location2);
+		locationText3.setText(location3);
+		ArrayList organizations = (ArrayList) positions.get(2);
+		Text organizationText1 = new Text();
+		Text organizationText2 = new Text();
+		Text organizationText3 = new Text();
+		String organization1 = organizations.get(0).toString();
+		String organization2 = (String) organizations.get(1);
+		String organization3 = (String) organizations.get(2);
+		organizationText1.setText(organization1);
+		organizationText2.setText(organization2);
+		organizationText3.setText(organization3);
+
 		Label tab1 = new Label("RaiderPlanner is an application based off of the Pear Planner "
 				+ "to help students keep"
 				+ " track of assignments and exams, allowing them to achieve their full academic"
 				+ " potential. "
 				+ "Current features include a calendar, an alarm, and a Gantt diagram generator"
-				+ " to keep track of progress");
+				+ " to keep track of progress.");
 		Label tab2 = new Label("How to use RaiderPlanner in 3 easy steps:"
 				+ "\n" + "1: Enter valid information for all the fields on the startup page. "
 						+ "All other information is optional." + "\n"
@@ -472,26 +543,110 @@ public class MainController {
 				+ "3: To unlock all the other features RaiderPlanner has to offer, click the"
 				+ " import hub file button from the menu on the left"
 				+  "\nNeed more help? Open up the user manual or RaiderPlanner Website here");
-		Label tab3 = new Label("If you want, you can contribute to RaiderPlanner on github at"
-				+ " the this address: https://github.com/rsanchez-wsu/RaiderPlanner"
-				+ "\n" + "Planned features include a graduation planner, Pilot integration, and a "
-				+ "schedule sharing feature");
+		Label tab3 = new Label("Planned features include a graduation planner, Pilot integration, "
+				+ "and a schedule sharing feature. If you want to contribute to RaiderPlanner"
+				+ " , follow the link below to our Github repository!");
+		final Label tab4 = new Label("1. Can you give me a general overview of RaiderPlanner?\n");
+		final Label tab5 = new Label("\n2. How do I create an account?\n" + "\n\tAnswer: Please "
+				+ " see the 'Getting Started' tab listed above.  You will need to select "
+				+ "a salutation, fill in yourname, a valid UID, and your email.address.\n\n");
+		final Label tab6 = new Label("3. What is a HUB file used for?\n" + "\n\tAnswer: A hub file "
+				+ "is an eXtensible Markup Language (XML) file, which is designed to store "
+				+ "and transport data in a format very similar to Hyper Text Markup "
+				+ "Language (HTML).  It carries the data that RaiderPlanner reads in about "
+				+ "your courses and schedule.  If you enjoy software development, you can "
+				+ "look up Java's DOM parser, and create a parser for ouropen source "
+				+ "RaiderPlanner program.\n\n");
+		final Label tab7 = new Label("4. Which HUB file should I select?\n" + "\n\tAnswer: "
+				+ " Currently, there are several options including: HP_First_Year.xml, "
+				+ " StudyProfile_2018_SPRING_UPDATE_001.xml StudyProfile_2018_SPRING.xml "
+				+ " and test3.xml.\n\n");
+		final Label tab8 = new Label("5. If I see an issue with RaiderPlanner, how can I "
+				+ "report it?\n");
+		final Label tab9 = new Label("\n6. I am a Software Developer or an aspiring Developer, "
+				+ " and would like to contribute to RaiderPlanner, how can I help?\n"
+				+ "\n\tAnswer:  You can click the link below and fork our project from GitHub."
+				+ " Feel free to add suggestions, or fix bugs whether known or unknown!"
+				+ " Then submit a pull request to have your changes made to RaiderPlanner!");
+		final Label tab10 = new Label("If you are new to programming and want to learn and try"
+				+ " to contribute to RaiderPlanner, there "
+				+ "are many things you can do! RaiderPlanner uses the Java programming "
+				+ "language and uses practices such as "
+				+ "HTML, CSS, and others. Below are some links to get you started learning these "
+				+ "practices used in RaiderPlanner!");
 		tab1.setWrapText(true);
 		tab2.setWrapText(true);
 		tab3.setWrapText(true);
-		VBox splitter = new VBox();
-		splitter.getChildren().add(tab2);
-		splitter.getChildren().add(pdf);
-		splitter.getChildren().add(site);
-		TitledPane t1 = new TitledPane("What is RaiderPlanner?",tab1);
-		TitledPane t2 = new TitledPane("Getting Started",splitter);
-		TitledPane t3 = new TitledPane("Whats Next?",tab3);
+		tab4.setWrapText(true);
+		tab5.setWrapText(true);
+		tab6.setWrapText(true);
+		tab7.setWrapText(true);
+		tab8.setWrapText(true);
+		tab9.setWrapText(true);
+		tab10.setWrapText(true);
+		VBox splitter1 = new VBox();
+		splitter1.getChildren().add(tab1);
+		VBox splitter2 = new VBox();
+		splitter2.getChildren().add(tab2);
+		splitter2.getChildren().add(menuButtons);
+		VBox splitter3 = new VBox();
+		splitter3.getChildren().add(tab3);
+		splitter3.getChildren().add(link7);
+		VBox splitter4 = new VBox();
+		splitter4.getChildren().add(tab4);
+		splitter4.getChildren().add(link);
+		splitter4.getChildren().add(tab5);
+		splitter4.getChildren().add(tab6);
+		splitter4.getChildren().add(tab7);
+		splitter4.getChildren().add(tab8);
+		splitter4.getChildren().add(link1);
+		splitter4.getChildren().add(tab9);
+		splitter4.getChildren().add(link2);
+		// splitter5 contains "Help me get a job" objects
+		VBox splitter5 = new VBox();
+		Hyperlink positionLink1 = new Hyperlink();
+		Hyperlink positionLink2 = new Hyperlink();
+		Hyperlink positionLink3 = new Hyperlink();
+		splitter5.getChildren().add(titleText1);
+		splitter5.getChildren().add(locationText1);
+		splitter5.getChildren().add(organizationText1);
+		splitter5.getChildren().add(positionLink1);
+		splitter5.getChildren().add(titleText2);
+		splitter5.getChildren().add(locationText2);
+		splitter5.getChildren().add(organizationText2);
+		splitter5.getChildren().add(positionLink2);
+		splitter5.getChildren().add(titleText3);
+		splitter5.getChildren().add(locationText3);
+		splitter5.getChildren().add(organizationText3);
+		splitter5.getChildren().add(positionLink3);
+		TitledPane t1 = new TitledPane("What is RaiderPlanner?", splitter1);
+		t1.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
+		TitledPane t2 = new TitledPane("Getting Started",splitter2);
+		t2.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
+		TitledPane t3 = new TitledPane("Whats Next?", splitter3);
+		t3.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
+		TitledPane t4 = new TitledPane("Frequently Asked Questions", splitter4);
+		t4.setStyle("-fx-border-color: gold;");
+		t1.setStyle("-fx-color: green;");
+		splitter1.setStyle("-fx-background-color: #CBA052;");
+		TitledPane t5 = new TitledPane("Help find me a job!", splitter5);
+		splitter1.setStyle("-fx-background-color: #CBA052;");
+		t5.setStyle("-fx-border-color: gold;");
+		t5.setStyle("-fx-color: green;");
 		Accordion root = new Accordion();
-		root.getPanes().addAll(t1, t2, t3);
+		root.setStyle("-fx-background-color:#026937;");
+		root.getPanes().addAll(t1, t2, t3, t4, t5);
+		Scene scene = new Scene(root,600,600);
 		Stage newStage = new Stage();
-		newStage.setTitle("Raider Helper");
-		Scene scene = new Scene(root,400,300);
+		newStage.setTitle("RaiderPlanner Help");
 		newStage.setScene(scene);
+		newStage.getIcons().add(icon);
 		newStage.show();
 
 		pdf.setOnAction((event) -> {
@@ -499,7 +654,7 @@ public class MainController {
 				try {
 					File myFile = new
 							File("Final Documents/"
-									+ "User Manual.pdf");
+									+ "User Manual RaiderPlanner.pdf");
 					Desktop.getDesktop().open(myFile);
 				} catch (IOException ex) {
 					System.out.println("Error: user-manual not found");
@@ -515,6 +670,124 @@ public class MainController {
 				} catch (IOException ex) {
 					System.out.println("Error: Website not found");
 				}
+			}
+		});
+		link.setText("\tWatch The Overview of RaiderPlanner on Youtube.");
+		link.setOnAction((ActionEvent event) -> {
+			try {
+				String cc = "https://www.youtube.com/watch?v=-tkcqaEy2HU";
+				System.out.println(cc);
+				Desktop.getDesktop().browse(new URL("https://www.youtube.com/watch?v=-tkcqaEy2HU").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link1.setText("\tClick here to submit an issue to be fixed in RaiderPlanner");
+		link1.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://github.com/gzdwsu/RaiderPlanner/issues").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link2.setText("\tClick to view our project on GitHub");
+		link2.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://github.com/gzdwsu/RaiderPlanner").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link3.setText("\tClick to find a local job on USAJobs.");
+		link3.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.google.com").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link4.setText("\tClick here to learn Java");
+		link4.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.w3schools.com/java/").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link5.setText("\tClick here to learn HTML");
+		link5.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.w3schools.com/html/").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link6.setText("\tClick here to learn CSS Styling");
+		link6.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://www.w3schools.com/css/").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		link7.setText("\tGithub");
+		link7.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL("https://github.com/gzdwsu/RaiderPlanner").toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+		ArrayList urls = (ArrayList) positions.get(3);
+		String url1 = urls.get(0).toString().replace("\"", "");
+		positionLink1.setText("Click to view Job Description");
+		positionLink1.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL(url1).toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+
+		String url2 = urls.get(1).toString().replace("\"", "");
+		positionLink2.setText("Click to view Job Description");
+		positionLink2.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL(url2).toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
+			}
+		});
+
+		String url3 = urls.get(2).toString().replace("\"", "");
+		positionLink3.setText("Click to view Job Description");
+		positionLink3.setOnAction((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URL(url3).toURI());
+			} catch (IOException ex) {
+				System.out.println("Error: Website not found");
+			} catch (URISyntaxException ec) {
+				System.out.println("Error: URI not found");
 			}
 		});
 	}

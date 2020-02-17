@@ -68,15 +68,15 @@ public class CalendarController {
 		setupNav();
 		setupContent();
 		setupAgendaButtons();
-		populateAgenda();
-		setupPrintBtn();
 		calendarEvents = MainController.getSpc().getPlanner()
 				.getCurrentStudyProfile().getCalendar();
+		populateAgenda();
+		setupPrintBtn();
 		Platform.runLater(() -> content
 				.setDisplayedLocalDateTime(content.getDisplayedLocalDateTime().plusMinutes(1050)));
 	}
 
-	/**
+	/** (non-Javadoc).
 	 * Gets layout for calendar
 	 * @return The current layout of the calendar.
 	 *

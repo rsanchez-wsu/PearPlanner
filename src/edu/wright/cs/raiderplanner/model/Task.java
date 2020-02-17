@@ -332,7 +332,7 @@ public class Task extends ModelEntity {
 	 */
 	public void setDeadline(LocalDate date) {
 		this.deadline.setDate(date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
-				+ "T00:00:01Z");
+			+ "T00:00:01Z");
 	}
 
 	/**

@@ -23,6 +23,7 @@ package edu.wright.cs.raiderplanner.model;
 
 import edu.wright.cs.raiderplanner.controller.DataController;
 import edu.wright.cs.raiderplanner.controller.XmlController;
+import edu.wright.cs.raiderplanner.view.ConsoleIo;
 
 import org.w3c.dom.NodeList;
 
@@ -482,11 +483,23 @@ public class HubFile implements Serializable {
 		HashMap<String, XmlController.NodeReturn> personValues =
 				xmlTools.getSchemaValues(nc, HubFile.SCHEMA_PERSON);
 
+		//Added error correction code below for 'major',
+		//might want to add try catch blocks for each call to personValues
+		String major;
+		try {
+			major = personValues.get("major").getString();
+		} catch (Exception e) {
+			ConsoleIo.setConsoleMessage("Node: " + "'major'" + " not found.", true);
+			major = "none";
+			ConsoleIo.setConsoleMessage("Set " + "'major'" + " to \"none\".", true);
+		}
+
 		Person person = new Person(personValues.get("salutation").getString(),
 				personValues.get("givenNames").getString(),
 				personValues.get("familyName").getString(),
 				personValues.get("familyNameLast").getBoolean(),
-				personValues.get("email").getString());
+				personValues.get("email").getString(),
+				major);
 
 		DataController.addVceProperties(person, personValues);
 		return person;
