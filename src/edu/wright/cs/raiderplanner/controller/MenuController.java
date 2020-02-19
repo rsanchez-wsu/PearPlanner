@@ -1180,8 +1180,7 @@ public class MenuController implements Initializable {
 		this.topBox.getChildren().clear();
 		this.title.setText("Chat");
 		this.mainContent.getChildren().addAll(firstPane);
-		
-		Window();
+		createFirstWindow();
 		submitButtonAction();
 	}
 
