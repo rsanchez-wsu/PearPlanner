@@ -135,7 +135,7 @@ dependencies {
 	compile 'org.junit.vintage:junit-vintage-engine:4.12.1'
 	implementation 'com.github.PlusHaze:TrayNotification:5393c3a54f'
 	compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
-	compile group: 'javax.mail', name: 'java.mail-api', version: '1.6.2'
+	compile group: 'javax.mail', name: 'Lib/java.mail-api.jar', version: '1.6.2'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     // add dependency for jackson's @JsonCreator and @JsonProperty annotations
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
@@ -204,7 +204,7 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
 /**
  * Keep Gradle from rewriting the generic default JRE container configuration
  */
-eclipse.classpath.file.whenMerged { classpath ->
+eclipse.classpath.file.whenMerged { classpath -> 
 	classpath.entries.removeAll { entry -> entry.kind == 'con' }
 	classpath.entries.add(new Container('org.eclipse.jdt.launching.JRE_CONTAINER'))
 }
