@@ -204,7 +204,7 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
 /**
  * Keep Gradle from rewriting the generic default JRE container configuration
  */
-eclipse.classpath.file.whenMerged { classpath ->
+eclipse.classpath.file.whenMerged { classpath -> 
 	classpath.entries.removeAll { entry -> entry.kind == 'con' }
 	classpath.entries.add(new Container('org.eclipse.jdt.launching.JRE_CONTAINER'))
 }
