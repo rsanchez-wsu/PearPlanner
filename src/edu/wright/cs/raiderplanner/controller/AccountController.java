@@ -288,7 +288,7 @@ public class AccountController implements Initializable {
 				message.setText("Hello, " + fullName.getText()
 						+ " we are sending you this email to confirm that you have succussfully "
 						+ " signed"
-						+ " up for RaiderPlanner!" + "\n" + "Happy Studying," + "\n"
+						+ " up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
 						+ "The RaiderPlanner Team" + "\n"
 						+ "Here are your credentials, please do not lose these, your eyes only!"
 						+ "\n" + "Email: " + email.getText() + "\n" + "Wright State Username: "
