@@ -135,6 +135,7 @@ dependencies {
 	compile 'org.junit.vintage:junit-vintage-engine:4.12.1'
 	implementation 'com.github.PlusHaze:TrayNotification:5393c3a54f'
 	compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
+	compile group: 'javax.mail', name: 'java.mail-api', version: '1.6.2'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     // add dependency for jackson's @JsonCreator and @JsonProperty annotations
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
