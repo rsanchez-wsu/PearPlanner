@@ -47,6 +47,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * This class creates the items needed for the popup GUI.
+ */
 public class NewStudyProfileController implements Initializable {
 	public static DataFormat format = new DataFormat("object/Requirement");
 

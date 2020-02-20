@@ -33,11 +33,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+/**
+ * This class generates an XML Hubfile based on some input
+ * from the user and some hardcoded examples.
+ */
 public class WriteStudyProfile {
 
 	/**
-	 * This class generates an XML Hubfile based on some input
-	 * from the user and some hardcoded examples.
+	 * This constructor writes to a studyProfile document.
 	 * @param hubFile Hubfile that contains the user's data
 	 */
 	public WriteStudyProfile(HubFile hubFile) {
