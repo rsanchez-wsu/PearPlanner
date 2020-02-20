@@ -18,6 +18,10 @@
 
 package edu.wright.cs.raiderplanner.controller;
 
+import edu.wright.cs.raiderplanner.model.HubFile;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,17 +33,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import edu.wright.cs.raiderplanner.model.HubFile;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 public class WriteStudyProfile {
 
 	/**
 	 * This class generates an XML Hubfile based on some input
-	 * from the user and some hardcoded examples
-	 * @param hubFile Hubfile that contains the user's
-	 * requested profile name, semester, and year
+	 * from the user and some hardcoded examples.
+	 * @param hubFile Hubfile that contains the user's data
 	 */
 	public WriteStudyProfile(HubFile hubFile) {
 
@@ -99,8 +98,8 @@ public class WriteStudyProfile {
 			buildingName.appendChild(doc.createTextNode("Russ"));
 			building.appendChild(buildingName);
 			Element buildingDetails = doc.createElement("details");
-			buildingDetails.appendChild(doc.createTextNode("College of Engineering" +
-					"and Computer Science"));
+			buildingDetails.appendChild(doc.createTextNode("College of Engineering"
+					+ "and Computer Science"));
 			building.appendChild(buildingDetails);
 			Element buildingVersion = doc.createElement("version");
 			buildingVersion.appendChild(doc.createTextNode("1"));
@@ -151,8 +150,8 @@ public class WriteStudyProfile {
 			timetableName.appendChild(doc.createTextNode("Lecture"));
 			timetableEventType.appendChild(timetableName);
 			Element timetableDetails = doc.createElement("details");
-			timetableDetails.appendChild(doc.createTextNode("Lectures " +
-					"are things that some people don't turn up to"));
+			timetableDetails.appendChild(doc.createTextNode("Lectures "
+					+ "are things that some people don't turn up to"));
 			timetableEventType.appendChild(timetableDetails);
 			Element timetableVersion = doc.createElement("version");
 			timetableVersion.appendChild(doc.createTextNode("1"));
@@ -379,9 +378,9 @@ public class WriteStudyProfile {
 					+ hubFile.getSemesterUId() + ".xml"));
 
 			transformer.transform(source, result);
-		} catch(ParserConfigurationException e) {
+		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-		} catch(TransformerException e) {
+		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
 

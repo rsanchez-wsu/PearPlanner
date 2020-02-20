@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
- * Bijan Ghasemi Afshar, Amila Dias
+ * Bijan Ghasemi Afshar
  *
- * Copyright (C) 2018 - Clayton D. Terrill, Ian Mahaffy
+ * Copyright (C) 2018 - Ian Mahaffy, Gage Berghoff
  *
  * Copyright (C) 2020 - Joshua Ehlinger
  *

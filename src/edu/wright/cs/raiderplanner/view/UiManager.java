@@ -23,8 +23,29 @@
 
 package edu.wright.cs.raiderplanner.view;
 
-import edu.wright.cs.raiderplanner.controller.*;
-import edu.wright.cs.raiderplanner.model.*;
+import edu.wright.cs.raiderplanner.controller.AccountController;
+import edu.wright.cs.raiderplanner.controller.AccountLoader;
+import edu.wright.cs.raiderplanner.controller.ActivityController;
+import edu.wright.cs.raiderplanner.controller.AssignmentController;
+import edu.wright.cs.raiderplanner.controller.MenuController;
+import edu.wright.cs.raiderplanner.controller.MilestoneController;
+import edu.wright.cs.raiderplanner.controller.ModuleController;
+import edu.wright.cs.raiderplanner.controller.NewStudyProfileController;
+import edu.wright.cs.raiderplanner.controller.RequirementController;
+import edu.wright.cs.raiderplanner.controller.SettingsController;
+import edu.wright.cs.raiderplanner.controller.StartupController;
+import edu.wright.cs.raiderplanner.controller.TaskController;
+import edu.wright.cs.raiderplanner.controller.WriteStudyProfile;
+import edu.wright.cs.raiderplanner.model.Account;
+import edu.wright.cs.raiderplanner.model.Activity;
+import edu.wright.cs.raiderplanner.model.Assignment;
+import edu.wright.cs.raiderplanner.model.HubFile;
+import edu.wright.cs.raiderplanner.model.Milestone;
+import edu.wright.cs.raiderplanner.model.ModelEntity;
+import edu.wright.cs.raiderplanner.model.Module;
+import edu.wright.cs.raiderplanner.model.Requirement;
+import edu.wright.cs.raiderplanner.model.StudyProfile;
+import edu.wright.cs.raiderplanner.model.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -661,7 +682,7 @@ public class UiManager {
 		HubFile hubFile = null;
 		try {
 			hubFile = this.createStudyProfile();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			UiManager.reportError("There was a problem creating the Study Profile");
 		}
 		//StudyProfile profile = new StudyProfile(hubFile);

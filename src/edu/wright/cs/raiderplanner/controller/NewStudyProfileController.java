@@ -21,7 +21,11 @@ package edu.wright.cs.raiderplanner.controller;
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
 import com.github.plushaze.traynotification.notification.TrayNotification;
-import edu.wright.cs.raiderplanner.model.*;
+import edu.wright.cs.raiderplanner.model.Event;
+import edu.wright.cs.raiderplanner.model.HubFile;
+import edu.wright.cs.raiderplanner.model.Module;
+import edu.wright.cs.raiderplanner.model.MultilineString;
+import edu.wright.cs.raiderplanner.model.VersionControlEntity;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -124,9 +128,9 @@ public class NewStudyProfileController implements Initializable {
 			ArrayList<VersionControlEntity> vceList = new ArrayList();
 			ArrayList<Event> eventList = new ArrayList();
 			int semesterTypeInt = 1;
-			if(semesterType.getValue().equals("Fall")) {
+			if (semesterType.getValue().equals("Fall")) {
 				semesterTypeInt = 1;
-			} else if(semesterType.getValue().equals("Spring")) {
+			} else if (semesterType.getValue().equals("Spring")) {
 				semesterTypeInt = 2;
 			} else {
 				semesterTypeInt = 3;
