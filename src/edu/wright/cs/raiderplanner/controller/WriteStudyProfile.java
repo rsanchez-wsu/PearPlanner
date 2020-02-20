@@ -1,4 +1,7 @@
 /*
+ * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
+ * Bijan Ghasemi Afshar
+ *
  * Copyright (C) 2020 - Joshua Ehlinger
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 
 package edu.wright.cs.raiderplanner.controller;
 

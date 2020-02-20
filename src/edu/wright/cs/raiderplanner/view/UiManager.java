@@ -1,11 +1,9 @@
 /*
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
- * Bijan Ghasemi Afshar
+ * BHijan Ghasemi Afshar
  *
  * Copyright (C) 2018 - Clayton D. Terrill
- *
  * Copyright (C) 2020 - Joshua Ehlinger
- *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
