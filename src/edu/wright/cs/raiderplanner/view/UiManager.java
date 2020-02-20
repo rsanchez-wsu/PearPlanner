@@ -4,6 +4,8 @@
  *
  * Copyright (C) 2018 - Clayton D. Terrill
  *
+ * Copyright (C) 2020 - Joshua Ehlinger
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -21,26 +23,8 @@
 
 package edu.wright.cs.raiderplanner.view;
 
-import edu.wright.cs.raiderplanner.controller.AccountController;
-import edu.wright.cs.raiderplanner.controller.AccountLoader;
-import edu.wright.cs.raiderplanner.controller.ActivityController;
-import edu.wright.cs.raiderplanner.controller.AssignmentController;
-import edu.wright.cs.raiderplanner.controller.MenuController;
-import edu.wright.cs.raiderplanner.controller.MilestoneController;
-import edu.wright.cs.raiderplanner.controller.ModuleController;
-import edu.wright.cs.raiderplanner.controller.RequirementController;
-import edu.wright.cs.raiderplanner.controller.SettingsController;
-import edu.wright.cs.raiderplanner.controller.StartupController;
-import edu.wright.cs.raiderplanner.controller.TaskController;
-import edu.wright.cs.raiderplanner.model.Account;
-import edu.wright.cs.raiderplanner.model.Activity;
-import edu.wright.cs.raiderplanner.model.Assignment;
-import edu.wright.cs.raiderplanner.model.Milestone;
-import edu.wright.cs.raiderplanner.model.ModelEntity;
-import edu.wright.cs.raiderplanner.model.Module;
-import edu.wright.cs.raiderplanner.model.Requirement;
-import edu.wright.cs.raiderplanner.model.StudyProfile;
-import edu.wright.cs.raiderplanner.model.Task;
+import edu.wright.cs.raiderplanner.controller.*;
+import edu.wright.cs.raiderplanner.model.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -102,6 +86,8 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
+	private URL newStudyProfileFxml = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/NewStudyProfile.fxml");
 
 	private static int setupCount = 0;
 	/**
@@ -156,6 +142,30 @@ public class UiManager {
 
 		Account newAccount = accountControl.getAccount();
 		return newAccount;
+	}
+
+	/**
+	 * Displays a 'Create Study Profile' window and handles the creation of a new HubFile object.
+	 * @return newly created HubFile
+	 * @throws IOException for loader.load()
+	 */
+	public HubFile createStudyProfile() throws IOException {
+		NewStudyProfileController nspController = new NewStudyProfileController();
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(newStudyProfileFxml);
+		loader.setController(nspController);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root, 575, 332));
+		stage.setTitle("Create Study Profile");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+		//Handle creation of HubFile object
+		HubFile newHubFile = nspController.getHubFile();
+		return newHubFile;
 	}
 
 	/**
@@ -646,6 +656,17 @@ public class UiManager {
 			System.exit(0);
 		}
 		setupCount++;//prevents the cancel button from closing the program except for initial setup.
+
+		//Create Study Profile
+		HubFile hubFile = null;
+		try {
+			hubFile = this.createStudyProfile();
+		} catch(IOException e) {
+			UiManager.reportError("There was a problem creating the Study Profile");
+		}
+		//StudyProfile profile = new StudyProfile(hubFile);
+		WriteStudyProfile studyProfile = new WriteStudyProfile(hubFile);
+
 		return file;
 	}
 
