@@ -1867,7 +1867,7 @@ public class MenuController implements Initializable {
 
 	public void notificationRemove() {
 		this.notificationList.getChildren().clear();
-		this.notificationList=null;
+		this.notificationList = null;
 	}
 	/**
 	 * Handles menu options.
