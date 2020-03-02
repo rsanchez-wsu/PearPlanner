@@ -140,7 +140,7 @@ public class UiManager {
 		Parent root = loader.load();
 		// Set the scene:
 		Stage stage = new Stage();
-		stage.setScene(new Scene(root, 575, 432));
+		stage.setScene(new Scene(root));
 		stage.setTitle("Create Account");
 		stage.resizableProperty().setValue(false);
 		stage.getIcons().add(icon);
