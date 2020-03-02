@@ -1204,12 +1204,12 @@ public class MenuController implements Initializable {
 	 * his or her username and host name and sets hint for W number format.
 	 */
 	public void createFirstWindow() {
-		logo.setFitHeight(100);
-		logo.setFitWidth(115);
+		logo.setFitHeight(400);
+		logo.setFitWidth(600);
 		logo.setImage(icon);
 		firstPane.add(logo,1,0);
 		firstPane.setMinSize(200, 200);
-		firstPane.setPadding(new Insets(10,10,10,10));
+		firstPane.setPadding(new Insets(100,100,100,150));
 		firstPane.add(name, 0, 1);
 		firstPane.add(tfName, 1, 1);
 		firstPane.add(host, 0, 2);
@@ -1220,7 +1220,7 @@ public class MenuController implements Initializable {
 		firstPane.setStyle("-fx-border-color: #cc9900");
 		firstPane.setVgap(12);
 		firstPane.setHgap(12);
-		firstPane.setAlignment(Pos.CENTER);
+		firstPane.setAlignment(Pos.BOTTOM_CENTER);
 	}
 
 	/**
