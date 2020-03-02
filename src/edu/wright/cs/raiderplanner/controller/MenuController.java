@@ -1866,15 +1866,8 @@ public class MenuController implements Initializable {
 	 */
 
 	public void notificationRemove() {
-		Notification[] nots = MainController.getSpc().getPlanner().getNotifications();
-		for (int i = 0; i < nots.length; ++i) {
-			int index = this.notificationList.getChildren().size() - 1 - i;
-			nots[i].isRead();
-			for (int f = 0; f < nots.length; ++f) {
-				int index2 = this.notificationList.getChildren().size() - 1 - f;
-				nots[f].notify();
-			}
-		}
+		this.notificationList.getChildren().clear();
+		this.notificationList = null;
 	}
 	/**
 	 * Handles menu options.
