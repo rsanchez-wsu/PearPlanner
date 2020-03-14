@@ -1,9 +1,9 @@
 /*
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
- * Bijan Ghasemi Afshar, Amila Dias
+ * Bijan Ghasemi Afshar
  *
- * Copyright (C) 2018 - Clayton D. Terrill, Ian Mahaffy
- *
+ * Copyright (C) 2018 - Ian Mahaffy, Gage Berghoff
+ * Copyright (C) 2020 - Joshua Ehlinger
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -32,7 +32,6 @@ import edu.wright.cs.raiderplanner.rest.ResponseProcessor;
 import edu.wright.cs.raiderplanner.util.RaiderException;
 import edu.wright.cs.raiderplanner.view.UiManager;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -51,7 +50,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.InvalidKeyException;
@@ -163,6 +161,15 @@ public class MainController {
 						study.getPlanner().addNotification(not);
 						MainController.setSpc(study);
 						plannerFile = MainController.ui.savePlannerFileDialog();
+						//Create Study Profile
+						HubFile hubFile = null;
+						try {
+							hubFile = ui.createStudyProfile();
+						} catch (IOException e) {
+							UiManager.reportError("There was a problem creating the Study Profile");
+						}
+						//StudyProfile profile = new StudyProfile(hubFile);
+						WriteStudyProfile studyProfile = new WriteStudyProfile(hubFile);
 						if (plannerFile != null) {
 							if (plannerFile.getParentFile().exists()) {
 								if (plannerFile.getParentFile().canRead()) {
@@ -220,6 +227,15 @@ public class MainController {
 					study.getPlanner().addNotification(not);
 					MainController.setSpc(study);
 					plannerFile = MainController.ui.savePlannerFileDialog();
+					//Create Study Profile
+					HubFile hubFile = null;
+					try {
+						hubFile = ui.createStudyProfile();
+					} catch (IOException e) {
+						UiManager.reportError("There was a problem creating the Study Profile");
+					}
+					//StudyProfile profile = new StudyProfile(hubFile);
+					WriteStudyProfile studyProfile = new WriteStudyProfile(hubFile);
 					if (plannerFile != null) {
 						if (plannerFile.getParentFile().exists()) {
 							if (plannerFile.getParentFile().canRead()) {
