@@ -193,7 +193,8 @@ public class AccountController implements Initializable {
 				&& !this.passwordId.getText().contains("Z")) {
 			System.out.println("Password must contain a capital letter");
 			return false;
-		} else if (this.passwordId.getText().length() < 6 || this.passwordId.getText().length() > 16) {
+		} else if (this.passwordId.getText().length() < 6
+				|| this.passwordId.getText().length() > 16) {
 			return false;
 		} else {
 			//this.passwordId.setStyle("");
@@ -342,7 +343,8 @@ public class AccountController implements Initializable {
 					&& !this.passwordId.getText().contains("Z")) {
 				invalidMessage += "Password must contain a capital letter";
 				validSuccess = false;
-			} else if (this.passwordId.getText().length() < 6 || this.passwordId.getText().length() > 16) {
+			} else if (this.passwordId.getText().length() < 6
+					|| this.passwordId.getText().length() > 16) {
 				invalidMessage += "Password must be between 6 and 16 characters\n";
 				validSuccess = false;
 			}
