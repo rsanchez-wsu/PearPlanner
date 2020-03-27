@@ -3,7 +3,7 @@
  * Bijan Ghasemi Afshar
  * Copyright (C) 2018 - Roberto C. Sánchez
  *
- * Copyright (C) 2020 - Joshua Ehlinger
+ * Copyright (C) 2020 - Joshua Ehlinger, Nathan Griffith, Sierra Sprungl, Bryten Jones
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://urldefense.proofpoint.com/v2/url?u=http-3A__www.gnu.org_licenses_&d=DwIGaQ&c=3buyMx9JlH1z22L_G5pM28wz_Ru6WjhVHwo-vpeS0Gk&r=NJsaOkIcsbD11vowtkPWAH9wBPv9p9_R7PfbWk-WlRg&m=oEnrif7qa3TGqGsbrQJze7iomAaXGD9dXJx-TSXKzDY&s=PHsBdgUzTq8asRMBdkFiosncy16LNgE2X7Th73PGdIY&e= >.
  *
  */
 
@@ -520,7 +520,8 @@ public class HubFile implements Serializable {
 				personValues.get("familyName").getString(),
 				personValues.get("familyNameLast").getBoolean(),
 				personValues.get("email").getString(),
-				major);
+				major, personValues.get("password").getString());
+
 
 		DataController.addVceProperties(person, personValues);
 		return person;

@@ -2,7 +2,7 @@
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar, Eric Sweet, Roberto C. Sánchez
  *
- *
+ *Copyright (C) 2020 - Nathan Griffith, Sierra Sprungl, Bryten Jones
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://urldefense.proofpoint.com/v2/url?u=http-3A__www.gnu.org_licenses_&d=DwIGaQ&c=3buyMx9JlH1z22L_G5pM28wz_Ru6WjhVHwo-vpeS0Gk&r=NJsaOkIcsbD11vowtkPWAH9wBPv9p9_R7PfbWk-WlRg&m=5Ls_Dbj5OtiJVEqbnNDOYixWoJu7aubauuPcc7dvm9M&s=xwJJHO_wwqOvcQxYaUtgEsYRaqEOPF2GD5rRcEa8NIw&e= >.
  *
  */
 
@@ -43,6 +43,7 @@ public class Person extends VersionControlEntity {
 	private String familyName;
 	private String salutation;
 	private String email;
+	private String password;
 	private boolean familyNameLast = true;
 	private String major;
 
@@ -56,9 +57,9 @@ public class Person extends VersionControlEntity {
 	 * @param famNameLast true to indicate that family comes last in the
 	 * 		<b>name</b> parameter; false to indicate it comes first
 	 */
-	public Person(String salutation, String name, Boolean famNameLast) {
+	public Person(String salutation, String name, Boolean famNameLast, String string, String string2) {
 
-		this(salutation, name, famNameLast, "", "None");
+		this(salutation, name, famNameLast, "", "None", "None");
 
 	}
 
@@ -124,7 +125,7 @@ public class Person extends VersionControlEntity {
 		familyNameLast = famNameLast;
 		email = newEmail;
 		major = "None";
-
+		password = "None";
 	}
 
 	/**
@@ -139,14 +140,14 @@ public class Person extends VersionControlEntity {
 	 * @param major The person's major
 	 */
 	public Person(String salutation, String name, Boolean famNameLast, String newEmail,
-			String major) {
+			String major, String password) {
 
 		setSalutation(salutation);
 		setName(name, famNameLast);
 		familyNameLast = famNameLast;
 		email = newEmail;
 		this.major = major;
-
+		this.password = password;
 	}
 
 	/**
@@ -173,7 +174,7 @@ public class Person extends VersionControlEntity {
 		setName(personName, famNameLast);
 		email = newEmail;
 		major = "None";
-
+		password = "None";
 	}
 
 	/**
@@ -189,7 +190,7 @@ public class Person extends VersionControlEntity {
 	 * @param major The person's major
 	 */
 	public Person(String salutation, String givenNames, String famName,
-			Boolean famNameLast, String newEmail, String major) {
+			Boolean famNameLast, String newEmail, String major, String password) {
 
 		setSalutation(salutation);
 		String personName;
@@ -201,7 +202,7 @@ public class Person extends VersionControlEntity {
 		setName(personName, famNameLast);
 		email = newEmail;
 		this.major = major;
-
+		this.password = password;
 	}
 
 	/**
@@ -216,7 +217,7 @@ public class Person extends VersionControlEntity {
 	 * @param major The Person's major
 	 */
 	public Person(String salutation, ArrayList<String> givenNames, String famName,
-			Boolean famNameLast, String newEmail, String major) {
+			Boolean famNameLast, String newEmail, String major, String password) {
 
 		setFamilyName(famName);
 		this.givenNames = new ArrayList<String>(givenNames);
@@ -224,7 +225,7 @@ public class Person extends VersionControlEntity {
 		familyNameLast = famNameLast;
 		email = newEmail;
 		this.major = major;
-
+		this.password = password;
 	}
 
 	@Override
@@ -406,6 +407,19 @@ public class Person extends VersionControlEntity {
 	*/
 	public void setMajor(String newMajor) {
 		major = newMajor;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	* Sets this person's password.
+	*
+	* @param newPassword The person's new password
+	*/
+	public void setPassword(String newPassword) {
+		password = newPassword;
 	}
 
 	/**
