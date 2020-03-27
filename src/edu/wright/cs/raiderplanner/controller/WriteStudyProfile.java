@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://urldefense.proofpoint.com/v2/url?u=http-3A__www.gnu.org_licenses_&d=DwIGAg&c=3buyMx9JlH1z22L_G5pM28wz_Ru6WjhVHwo-vpeS0Gk&r=NJsaOkIcsbD11vowtkPWAH9wBPv9p9_R7PfbWk-WlRg&m=5Ls_Dbj5OtiJVEqbnNDOYixWoJu7aubauuPcc7dvm9M&s=xwJJHO_wwqOvcQxYaUtgEsYRaqEOPF2GD5rRcEa8NIw&e= >.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
