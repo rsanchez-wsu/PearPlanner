@@ -411,7 +411,7 @@ public class Person extends VersionControlEntity {
 	}
 
 	/**
-	 * Gets the users password
+	 * Gets the users password.
 	 *
 	 * @return Users password
 	 */
