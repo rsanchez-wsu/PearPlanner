@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
- * Bijan Ghasemi Afshar, Alena Brand, Daniel Bleigh
+ * Copyright (C) 2020 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
+ * Bijan Ghasemi Afshar, Alena Brand, Daniel Bleigh, Sierra Sprungl, Nathan Griffith, Bryten Jones
  *
  *
  *
@@ -40,27 +40,50 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+
 /**
- * Handle actions associated with the GUI window for creating new accounts.
- * This includes validating the data contained in the various text fields,
- * retrieving the validated data, and storing the submitted data to the proper
- * objects.
+ * Handle actions associated with the GUI window for creating new accounts. This includes validating
+ * the data contained in the various text fields, retrieving the validated data, and storing the
+ * submitted data to the proper objects.
+ * UPDATE: Functionality to create a notification email when all data contained in the various text
+ * fields has be validated and an account has been successfully created was added. This email will
+ * be sent to whatever email address is provided at sign-up.
  *
  * @author Zilvinas Ceikauskas
  */
+
 public class AccountController implements Initializable {
-	@FXML private TextField accountNo;
-	@FXML private ComboBox<String> salutation;
-	@FXML private TextField fullName;
-	@FXML private TextField email;
-	@FXML private TextField majorId;
-	@FXML private CheckBox famLast;
-	@FXML private Button submit;
-	@FXML private GridPane pane;
-	@FXML private Alert invalidInputAlert = new Alert(AlertType.ERROR);
-	@FXML private Alert emptyNameAlert = new Alert(AlertType.CONFIRMATION);
+	@FXML
+	private TextField accountNo;
+	@FXML
+	private ComboBox<String> salutation;
+	@FXML
+	private TextField fullName;
+	@FXML
+	private TextField email;
+	@FXML
+	private TextField majorId;
+	@FXML
+	private CheckBox famLast;
+	@FXML
+	private Button submit;
+	@FXML
+	private GridPane pane;
+	@FXML
+	private Alert invalidInputAlert = new Alert(AlertType.ERROR);
+	@FXML
+	private Alert emptyNameAlert = new Alert(AlertType.CONFIRMATION);
 
 	private Account account;
 	private boolean success = false;
@@ -84,10 +107,11 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid salutation by calling the
-	 * validateSalutation() from the Person Class in Model, which checks that
-	 * the entered Salutation only contains a combination of upper/lower case
-	 * letters and returns a boolean value. Then sets the style so it is cohesive.
+	 * Determines if the user has entered a valid salutation by calling the validateSalutation()
+	 * from the Person Class in Model, which checks that the entered Salutation only contains a
+	 * combination of upper/lower case letters and returns a boolean value. Then sets the style so
+	 * it is cohesive.
+	 *
 	 * @return true if the user entered a valid salutation.
 	 */
 	public boolean validateSalutation() {
@@ -100,10 +124,10 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid name by calling the validateName()
-	 * from the Person Class in Model, which checks that the entered Name only
-	 * contains a combination of spaces and upper/lower case letters and returns
-	 * a boolean value. Then sets the style so it is cohesive.
+	 * Determines if the user has entered a valid name by calling the validateName() from the Person
+	 * Class in Model, which checks that the entered Name only contains a combination of spaces and
+	 * upper/lower case letters and returns a boolean value. Then sets the style so it is cohesive.
+	 *
 	 * @return True if the user entered a valid name.
 	 */
 	public boolean validateName() {
@@ -116,27 +140,27 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid major by checking that the
-	 * field is not empty. Then sets the style so it is cohesive.
-	 * TODO: Create a dropdown menu so that the user can select from a list of
-	 * majors
+	 * Determines if the user has entered a valid major by checking that the field is not empty.
+	 * Then sets the style so it is cohesive. TODO: Create a dropdown menu so that the user can
+	 * select from a list of majors
+	 *
 	 * @return True if the user entered a valid major.
 	 */
 	public boolean validateMajor() {
 		if (this.majorId.getText().trim().isEmpty()) {
 			return false;
 		} else {
-			//this.major.setStyle("");
+			// this.major.setStyle("");
 			return true;
 		}
 	}
 
 	/**
-	 * Determines if the user has entered a valid email checking if the textfield
-	 * is empty and by calling the validateEmail() from the Person Class in
-	 * Model, which uses the EmailValidator (Apache Commons Validator 1.6 API)
-	 * to check that the email is valid and returns a boolean value. Then sets
-	 * the style so it is cohesive.
+	 * Determines if the user has entered a valid email checking if the textfield is empty and by
+	 * calling the validateEmail() from the Person Class in Model, which uses the EmailValidator
+	 * (Apache Commons Validator 1.6 API) to check that the email is valid and returns a boolean
+	 * value. Then sets the style so it is cohesive.
+	 *
 	 * @return True if the user entered a valid email.
 	 */
 	public boolean validateEmail() {
@@ -154,10 +178,10 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Determines if the user has entered a valid campus username by checking
-	 * that the length of the text is 7, that the first character is a 'w',
-	 * that the next 3 characters are digits, and that the last 3
-	 * characters are letters and lower case. Then sets the style so it is cohesive.
+	 * Determines if the user has entered a valid campus username by checking that the length of the
+	 * text is 7, that the first character is a 'w', that the next 3 characters are digits, and that
+	 * the last 3 characters are letters and lower case. Then sets the style so it is cohesive.
+	 *
 	 * @return True if the user entered a valid account number.
 	 */
 	public boolean validateNumber() {
@@ -185,9 +209,11 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Handles the actions taken when the user tries to submit a new account.
-	 * The appropriate warnings and errors are displayed if the user enters incorrect information.
-	 * If a user enters an invalid input, they will be taken back to the page, to change fields.
+	 * Handles the actions taken when the user tries to submit a new account. The appropriate
+	 * warnings and errors are displayed if the user enters incorrect information. If a user enters
+	 * an invalid input, they will be taken back to the page, to change fields. UPDATE: If the a
+	 * user enters valid input for all fields and an account is successfully created a confirmation
+	 * email is sent to the email provided by the user.
 	 */
 	public void handleSubmit() {
 		String invalidMessage = "";
@@ -220,7 +246,59 @@ public class AccountController implements Initializable {
 					this.majorId.getText().trim());
 			this.account = new Account(pers, this.accountNo.getText().trim());
 			this.success = true;
+
+			/* Gets the username and password for the raiderplanner email account */
+			final String username = "raiderplanner3120@gmail.com";
+			final String password = "Ngbjss3120";
+
+			/*
+			 * Sets-up SMTP server and server information to prepare the program for sending an
+			 * email.
+			 */
+			Properties props = new Properties();
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.port", "587");
+			props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+			/*
+			 * Varifys that the username and password given for RaiderPlanner email account is valid
+			 */
+			Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+				@Override
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			});
+
 			Stage stage = (Stage) this.submit.getScene().getWindow();
+
+			/*
+			 * Creates a new email message, by setting the sender, recipient, subject, and
+			 * text/content of the email message. After creating the email it is sent if no errors
+			 * arise. If an error occurs an error message is displayed.
+			 */
+			try {
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress("raiderplanner3120@gmail.com"));
+				message.setRecipient(Message.RecipientType.TO,
+						new InternetAddress(email.getText()));
+				message.setSubject("Welcome To RaiderPlanner");
+				message.setText("Hello, " + fullName.getText()
+						+ " we are sending you this email to confirm that you have succussfully "
+						+ " signed"
+						+ " up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
+						+ "The RaiderPlanner Team" + "\n"
+						+ "Here are your credentials, please do not lose these, your eyes only!"
+						+ "\n" + "Email: " + email.getText() + "\n" + "Wright State Username: "
+						+ accountNo.getText() + "\n" + "Major: " + majorId.getText());
+				Transport.send(message);
+				System.out.println("Done");
+			} catch (MessagingException e) {
+				throw new RuntimeException(e);
+			}
+
 			stage.close();
 		} else if (!validSuccess) {
 			invalidInputAlert.setHeaderText("Invalid Entries");
@@ -239,6 +317,7 @@ public class AccountController implements Initializable {
 
 	/**
 	 * Displays dialog and handles appropriate user choices if the full name field is empty.
+	 *
 	 * @return True if the user selects Okay
 	 */
 	public boolean handleEmptyName() {
