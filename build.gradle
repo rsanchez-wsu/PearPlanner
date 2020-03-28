@@ -152,6 +152,7 @@ dependencies {
     // add dependency for assembling web application WAR files
     compile 'org.apache.maven.plugins:maven-war-plugin:3.2.2'
 	runtime group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
+	runtime group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 }
 
 /**
