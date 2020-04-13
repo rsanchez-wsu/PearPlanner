@@ -73,6 +73,8 @@ public class AccountController implements Initializable {
 	@FXML
 	private TextField email;
 	@FXML
+	private TextField passwordId;
+	@FXML
 	private TextField majorId;
 	@FXML
 	private CheckBox famLast;
@@ -135,6 +137,67 @@ public class AccountController implements Initializable {
 			return false;
 		} else {
 			this.fullName.setStyle("");
+			return true;
+		}
+	}
+
+	/**
+	 * Determines if the user has entered a valid password by checking to see if the
+	 * password contains
+	 * an upper case letter, number, and is more than six characters. If the password does not fit
+	 * these requirements than isSuccess returns false.
+	 *
+	 * @return True if user entered a valid password
+	 */
+	public boolean validatePassword() {
+		if (this.passwordId.getText().trim().isEmpty()) {
+			return false;
+		} else if (!this.passwordId.getText().contains("0")
+				&& !this.passwordId.getText().contains("1")
+				&& !this.passwordId.getText().contains("2")
+				&& !this.passwordId.getText().contains("3")
+				&& !this.passwordId.getText().contains("4")
+				&& !this.passwordId.getText().contains("5")
+				&& !this.passwordId.getText().contains("6")
+				&& !this.passwordId.getText().contains("7")
+				&& !this.passwordId.getText().contains("8")
+				&& !this.passwordId.getText().contains("9")) {
+			System.out.println("Password must contain a number");
+			return false;
+		} else if (!this.passwordId.getText().contains("A")
+				&& !this.passwordId.getText().contains("B")
+				&& !this.passwordId.getText().contains("C")
+				&& !this.passwordId.getText().contains("D")
+				&& !this.passwordId.getText().contains("E")
+				&& !this.passwordId.getText().contains("F")
+				&& !this.passwordId.getText().contains("G")
+				&& !this.passwordId.getText().contains("H")
+				&& !this.passwordId.getText().contains("I")
+				&& !this.passwordId.getText().contains("J")
+				&& !this.passwordId.getText().contains("K")
+				&& !this.passwordId.getText().contains("L")
+				&& !this.passwordId.getText().contains("M")
+				&& !this.passwordId.getText().contains("N")
+				&& !this.passwordId.getText().contains("O")
+				&& !this.passwordId.getText().contains("P")
+				&& !this.passwordId.getText().contains("Q")
+				&& !this.passwordId.getText().contains("R")
+				&& !this.passwordId.getText().contains("S")
+				&& !this.passwordId.getText().contains("T")
+				&& !this.passwordId.getText().contains("U")
+				&& !this.passwordId.getText().contains("V")
+				&& !this.passwordId.getText().contains("V")
+				&& !this.passwordId.getText().contains("W")
+				&& !this.passwordId.getText().contains("X")
+				&& !this.passwordId.getText().contains("Y")
+				&& !this.passwordId.getText().contains("Z")) {
+			System.out.println("Password must contain a capital letter");
+			return false;
+		} else if (this.passwordId.getText().length() < 6
+				|| this.passwordId.getText().length() > 16) {
+			return false;
+		} else {
+			//this.passwordId.setStyle("");
 			return true;
 		}
 	}
@@ -235,6 +298,58 @@ public class AccountController implements Initializable {
 			invalidMessage += "Please enter a valid Major\n";
 			validSuccess = false;
 		}
+		if (!validatePassword()) {
+			if (this.passwordId.getText().trim().isEmpty()) {
+				invalidMessage += "Password field is empty\n";
+				validSuccess = false;
+			} else if (!this.passwordId.getText().contains("1")
+					&& !this.passwordId.getText().contains("2")
+					&& !this.passwordId.getText().contains("3")
+					&& !this.passwordId.getText().contains("4")
+					&& !this.passwordId.getText().contains("5")
+					&& !this.passwordId.getText().contains("6")
+					&& !this.passwordId.getText().contains("7")
+					&& !this.passwordId.getText().contains("8")
+					&& !this.passwordId.getText().contains("9")
+					&& !this.passwordId.getText().contains("0")) {
+				invalidMessage += "Password must have a number\n";
+				validSuccess = false;
+			} else if (!this.passwordId.getText().contains("A")
+					&& !this.passwordId.getText().contains("B")
+					&& !this.passwordId.getText().contains("C")
+					&& !this.passwordId.getText().contains("D")
+					&& !this.passwordId.getText().contains("E")
+					&& !this.passwordId.getText().contains("F")
+					&& !this.passwordId.getText().contains("G")
+					&& !this.passwordId.getText().contains("H")
+					&& !this.passwordId.getText().contains("I")
+					&& !this.passwordId.getText().contains("J")
+					&& !this.passwordId.getText().contains("K")
+					&& !this.passwordId.getText().contains("L")
+					&& !this.passwordId.getText().contains("M")
+					&& !this.passwordId.getText().contains("N")
+					&& !this.passwordId.getText().contains("O")
+					&& !this.passwordId.getText().contains("P")
+					&& !this.passwordId.getText().contains("Q")
+					&& !this.passwordId.getText().contains("R")
+					&& !this.passwordId.getText().contains("S")
+					&& !this.passwordId.getText().contains("T")
+					&& !this.passwordId.getText().contains("U")
+					&& !this.passwordId.getText().contains("V")
+					&& !this.passwordId.getText().contains("V")
+					&& !this.passwordId.getText().contains("W")
+					&& !this.passwordId.getText().contains("X")
+					&& !this.passwordId.getText().contains("Y")
+					&& !this.passwordId.getText().contains("Z")) {
+				invalidMessage += "Password must contain a capital letter";
+				validSuccess = false;
+			} else if (this.passwordId.getText().length() < 6
+					|| this.passwordId.getText().length() > 16) {
+				invalidMessage += "Password must be between 6 and 16 characters\n";
+				validSuccess = false;
+			}
+
+		}
 		if (this.fullName.getText().trim().isEmpty()) {
 			if (!this.handleEmptyName()) {
 				validName = false;
@@ -292,7 +407,8 @@ public class AccountController implements Initializable {
 						+ "The RaiderPlanner Team" + "\n"
 						+ "Here are your credentials, please do not lose these, your eyes only!"
 						+ "\n" + "Email: " + email.getText() + "\n" + "Wright State Username: "
-						+ accountNo.getText() + "\n" + "Major: " + majorId.getText());
+						+ accountNo.getText() + "\n" +  "Password" + passwordId.getText()
+						+ "\n" + "Major: " + majorId.getText());
 				Transport.send(message);
 				System.out.println("Done");
 			} catch (MessagingException e) {

@@ -51,7 +51,7 @@ public class StudyPlannerControllerTest {
 	 */
 	@BeforeEach
 	public void setUp() throws Exception {
-		Account account = new Account(new Person("Mr","Adrew",true),"100125464");
+		Account account = new Account(new Person("Mr","Adrew",true, null),"100125464");
 		studyPlannerController = new StudyPlannerController(account);
 
 		int v1 = 2;

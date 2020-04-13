@@ -51,7 +51,7 @@ public class VersionControlEntityTest extends ApplicationTest {
 	 */
 	@BeforeEach
 	public void setUp() throws Exception {
-		Person person = new Person("Mr.", "Greene", true);
+		Person person = new Person("Mr.", "Greene", true, null);
 		versionControlEntity = new Exam(4, person, person, person, 4, examEvent);
 	}
 

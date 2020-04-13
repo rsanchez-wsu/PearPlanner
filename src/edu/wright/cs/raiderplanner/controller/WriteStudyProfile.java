@@ -2,7 +2,7 @@
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
  * Bijan Ghasemi Afshar
  *
- * Copyright (C) 2020 - Joshua Ehlinger
+ * Copyright (C) 2020 - Joshua Ehlinger, Nathan Griffith, Sierra Sprungl, Bryten Jones
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,6 +85,8 @@ public class WriteStudyProfile {
 			personEmail.appendChild(doc.createTextNode("example.professor@wright.edu"));
 			Element personFamilyNameLast = doc.createElement("familyNameLast");
 			personFamilyNameLast.appendChild(doc.createTextNode("true"));
+			Element personPassword = doc.createElement("password");
+			personPassword.appendChild(doc.createTextNode("Password1234"));
 			person.appendChild(personName);
 			person.appendChild(personDetails);
 			person.appendChild(personVersion);
@@ -94,7 +96,9 @@ public class WriteStudyProfile {
 			person.appendChild(personSalutation);
 			person.appendChild(personEmail);
 			person.appendChild(personFamilyNameLast);
+			person.appendChild(personPassword);
 			assets.appendChild(persons);
+
 
 			//buildings
 			Element buildings = doc.createElement("buildings");
@@ -379,7 +383,7 @@ public class WriteStudyProfile {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+			transformer.setOutputProperty("{https://urldefense.proofpoint.com/v2/url?u=http-3A__xml.apache.org_xslt-257Dindent-2Damount&d=DwIGAg&c=3buyMx9JlH1z22L_G5pM28wz_Ru6WjhVHwo-vpeS0Gk&r=NJsaOkIcsbD11vowtkPWAH9wBPv9p9_R7PfbWk-WlRg&m=5Ls_Dbj5OtiJVEqbnNDOYixWoJu7aubauuPcc7dvm9M&s=7xzzWlao2NPDELNaj-bX1wxn4MXR2iO9ZUFPQLB0ceI&e= ", "4");
 			DOMSource source = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File(".\\StudyProfiles\\"
 					+ hubFile.getSemesterUId() + ".xml"));

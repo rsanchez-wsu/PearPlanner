@@ -46,8 +46,8 @@ public class AssignmentTest {
 	 */
 	@BeforeEach
 	public void setUp() throws Exception {
-		person1 = new Person("Dr.", "Mark Fisher", true);
-		person2 = new Person("Dr.", "Steven Laycock", true);
+		person1 = new Person("Dr.", "Mark Fisher", true, null);
+		person2 = new Person("Dr.", "Steven Laycock", true, null);
 		assignment = new Exam(30, person1, person1, person2, 100, examEvent1);
 	}
 

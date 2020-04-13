@@ -132,7 +132,7 @@ public class ModuleController implements Initializable {
 		} else {
 
 			Person organizer = new Person(this.salutation.getText(),
-					this.organizerName.getText(), true);
+					this.organizerName.getText(), true, null);
 
 			// Update the current Module:
 			this.module.setOrganiser(organizer);
