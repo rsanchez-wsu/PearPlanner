@@ -315,53 +315,53 @@ public class AccountController implements Initializable {
 		properties.put("mail.smtp.port", "587");
 		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-	 	Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator() {
-	 		@Override
+		Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator() {
+			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-	 			return new PasswordAuthentication(username,password);
-	 		}
-	 		});
-	 	try {
-	 		MimeMessage message = new MimeMessage(session);
-	 		message.setFrom(new InternetAddress(username));
-	 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
-	 		message.setSubject(Email_Subject);
-	 		MimeMultipart part = new MimeMultipart();
-	 		// message.setText(Email_Text);
-	 		String sb = "<head>"  +  "<style type=\"text/css\">"  +  " .red { color: #f00; }"
-	 				+  "</style>"  +  "</head>"
-	 				+  "<img src=\"cid:image\">"  +  "<h1 class=\red\">"
-	 				+  message.getSubject()
-	 				+  "</h1>"  +  "<p>"  +  "Hello, "
-	 				+  fullName.getText()
-	 				+  " we are sending you this email to confirm that "
-	 				+  "you have succussfully</h1> "
-	 				+ " signed" + " up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
-	 				+ "The RaiderPlanner Team" + "\n"
-	 				+ "Here are your credentials, please do not lose these, your eyes only!"
-	 				+ "\n" + "<ul><strong><li>Email: " + email.getText() + "\n</li>"
-	 				+ "<li>Wright State Username: "
-	 				+ accountNo.getText() + "\n</li>" +  "<li>Password:"
-	 				+ passwordId.getText()
-	 				+ "\n</li>" + "<li>Major: " + majorId.getText()
-	 				+ "</li></strong></ul>.</p>" + "<footer>"
-	 				+ "RaiderPlanner@CopyRight 2020" + "</footer>";
-	 		BodyPart messageBodyPart = new MimeBodyPart();
-	 		messageBodyPart.setContent(sb, "text/html; charset=utf-8");
-	 		part.addBodyPart(messageBodyPart);
-	 		messageBodyPart = new MimeBodyPart();
-	 		DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner"
-	 				+ "/src/edu/wright/cs/"
-	 				+ "raiderplanner/content/raiderlogo.png");
-	 		messageBodyPart.setDataHandler(new DataHandler(fds));
-	 		messageBodyPart.setHeader("Content-ID", "<image>");
-	 		part.addBodyPart(messageBodyPart);
-	 		message.setContent(part);
-	 		Transport.send(message);
-	 		System.out.println("message sent");
-	 	} 	catch (MessagingException ex) {
-	 		ex.printStackTrace();
-	 	}
+				return new PasswordAuthentication(username,password);
+			}
+			});
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
+			message.setSubject(Email_Subject);
+			MimeMultipart part = new MimeMultipart();
+			// message.setText(Email_Text);
+			String sb = "<head>"  +  "<style type=\"text/css\">"  +  " .red { color: #f00; }"
+					+  "</style>"  +  "</head>"
+					+  "<img src=\"cid:image\">"  +  "<h1 class=\red\">"
+					+  message.getSubject()
+					+  "</h1>"  +  "<p>"  +  "Hello, "
+					+  fullName.getText()
+					+  " we are sending you this email to confirm that "
+					+  "you have succussfully</h1> "
+					+ " signed" + " up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
+					+ "The RaiderPlanner Team" + "\n"
+					+ "Here are your credentials, please do not lose these, your eyes only!"
+					+ "\n" + "<ul><strong><li>Email: " + email.getText() + "\n</li>"
+					+ "<li>Wright State Username: "
+					+ accountNo.getText() + "\n</li>" +  "<li>Password:"
+					+ passwordId.getText()
+					+ "\n</li>" + "<li>Major: " + majorId.getText()
+					+ "</li></strong></ul>.</p>" + "<footer>"
+					+ "RaiderPlanner@CopyRight 2020" + "</footer>";
+			BodyPart messageBodyPart = new MimeBodyPart();
+			messageBodyPart.setContent(sb, "text/html; charset=utf-8");
+			part.addBodyPart(messageBodyPart);
+			messageBodyPart = new MimeBodyPart();
+			DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner"
+					+ "/src/edu/wright/cs/"
+					+ "raiderplanner/content/raiderlogo.png");
+			messageBodyPart.setDataHandler(new DataHandler(fds));
+			messageBodyPart.setHeader("Content-ID", "<image>");
+			part.addBodyPart(messageBodyPart);
+			message.setContent(part);
+			Transport.send(message);
+			System.out.println("message sent");
+		} 	catch (MessagingException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 
