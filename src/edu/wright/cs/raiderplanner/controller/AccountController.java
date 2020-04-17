@@ -69,6 +69,14 @@ import javax.mail.internet.MimeMultipart;
  * @author Zilvinas Ceikauskas
  */
 
+/**
+ * @author Twili
+ *
+ */
+/**
+ * @author Twili
+ *
+ */
 public class AccountController implements Initializable {
 	@FXML
 	private TextField accountNo;
@@ -285,11 +293,9 @@ public class AccountController implements Initializable {
 	}
 
 	/**
-	 * Gets the users email address, sets up the SMTP server to send out email to user upon
-	 * creation of new account. Sets up email to be sent and sets-up and applies HTML styling
-	 * to email.
+	 * Sets up smtp server for email transmisson, sets-up email and styling, does email styling
+	 * and sends user an email upon creating an account.
 	 *
-	 *@return Nothing
 	 */
 	public void sendEmailhtml() {
 		final String backgroundColor = "<body style='background-color:grey;'>";
@@ -323,44 +329,48 @@ public class AccountController implements Initializable {
 	 			return new PasswordAuthentication(username,password);
 	 		}
 	 		});
-	 		try {
-	 			MimeMessage message = new MimeMessage(session);
-	 			message.setFrom(new InternetAddress(username));
-	 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
-	 			message.setSubject(Email_Subject);
-	 			MimeMultipart part = new MimeMultipart();
-	 			// message.setText(Email_Text);
-	 			String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }"
-	 					+ "</style>" + "</head>"
-	 					+ "<img src=\"cid:image\">" + "<h1 class=\red\">" + message.getSubject()
-	 					+ "</h1>"  +  "<p>" + "Hello, "
-	 					+ fullName.getText()
-	 					+ " we are sending you this email to confirm that you have succussfully</h1> "
-	 					+ " signed"+" up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
-	 					+ "The RaiderPlanner Team" + "\n"
-	 					+ "Here are your credentials, please do not lose these, your eyes only!"
-	 					+ "\n" + "<ul><strong><li>Email: " + email.getText() + "\n</li>"
-	 					+ "<li>Wright State Username: "
-	 					+ accountNo.getText() + "\n</li>" +  "<li>Password:" + passwordId.getText()
-	 					+ "\n</li>" + "<li>Major: " + majorId.getText()
-	 					+ "</li></strong></ul>.</p>" + "<footer>"
-	 					+ "RaiderPlanner@CopyRight 2020" + "</footer>";
-	 			BodyPart messageBodyPart = new MimeBodyPart();
-	 			messageBodyPart.setContent(sb, "text/html; charset=utf-8");
-	 			part.addBodyPart(messageBodyPart);
-	 			messageBodyPart = new MimeBodyPart();
-	 			DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner/src/edu/wright/cs/"
-	 					+ "raiderplanner/content/raiderlogo.png");
-	 			messageBodyPart.setDataHandler(new DataHandler(fds));
-	 			messageBodyPart.setHeader("Content-ID", "<image>");
-	 			part.addBodyPart(messageBodyPart);
-	 			message.setContent(part);
-	 			Transport.send(message);
-	 			System.out.println("message sent");
-	 		}		catch (MessagingException ex) {
-	 						ex.printStackTrace();
-	 				}
-		}
+	 	try {
+	 		MimeMessage message = new MimeMessage(session);
+	 		message.setFrom(new InternetAddress(username));
+	 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
+	 		message.setSubject(Email_Subject);
+	 		MimeMultipart part = new MimeMultipart();
+	 		// message.setText(Email_Text);
+	 		String sb = "<head>"  +  "<style type=\"text/css\">"  +  " .red { color: #f00; }"
+	 				+  "</style>"  +  "</head>"
+	 				+  "<img src=\"cid:image\">"  +  "<h1 class=\red\">"
+	 				+  message.getSubject()
+	 				+  "</h1>"  +  "<p>"  +  "Hello, "
+	 				+  fullName.getText()
+	 				+  " we are sending you this email to confirm that "
+	 				+  "you have succussfully</h1> "
+	 				+ " signed" + " up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
+	 				+ "The RaiderPlanner Team" + "\n"
+	 				+ "Here are your credentials, please do not lose these, your eyes only!"
+	 				+ "\n" + "<ul><strong><li>Email: " + email.getText() + "\n</li>"
+	 				+ "<li>Wright State Username: "
+	 				+ accountNo.getText() + "\n</li>" +  "<li>Password:"
+	 				+ passwordId.getText()
+	 				+ "\n</li>" + "<li>Major: " + majorId.getText()
+	 				+ "</li></strong></ul>.</p>" + "<footer>"
+	 				+ "RaiderPlanner@CopyRight 2020" + "</footer>";
+	 		BodyPart messageBodyPart = new MimeBodyPart();
+	 		messageBodyPart.setContent(sb, "text/html; charset=utf-8");
+	 		part.addBodyPart(messageBodyPart);
+	 		messageBodyPart = new MimeBodyPart();
+	 		DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner"
+	 				+ "/src/edu/wright/cs/"
+	 				+ "raiderplanner/content/raiderlogo.png");
+	 		messageBodyPart.setDataHandler(new DataHandler(fds));
+	 		messageBodyPart.setHeader("Content-ID", "<image>");
+	 		part.addBodyPart(messageBodyPart);
+	 		message.setContent(part);
+	 		Transport.send(message);
+	 		System.out.println("message sent");
+	 	} 	catch (MessagingException ex) {
+	 			ex.printStackTrace();
+	 		}
+	}
 
 
 
@@ -370,7 +380,7 @@ public class AccountController implements Initializable {
 	 * an invalid input, they will be taken back to the page, to change fields. UPDATE: If the a
 	 * user enters valid input for all fields and an account is successfully created a confirmation
 	 * email is sent to the email provided by the user.
-	 * @return nothing
+	 *
 	 */
 	public void handleSubmit() {
 		String invalidMessage = "";
