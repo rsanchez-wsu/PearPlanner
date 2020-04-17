@@ -69,14 +69,6 @@ import javax.mail.internet.MimeMultipart;
  * @author Zilvinas Ceikauskas
  */
 
-/**
- * @author Twili
- *
- */
-/**
- * @author Twili
- *
- */
 public class AccountController implements Initializable {
 	@FXML
 	private TextField accountNo;
@@ -368,8 +360,8 @@ public class AccountController implements Initializable {
 	 		Transport.send(message);
 	 		System.out.println("message sent");
 	 	} 	catch (MessagingException ex) {
-	 			ex.printStackTrace();
-	 		}
+	 		ex.printStackTrace();
+	 	}
 	}
 
 

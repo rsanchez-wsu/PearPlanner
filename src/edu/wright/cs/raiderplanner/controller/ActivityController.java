@@ -302,7 +302,7 @@ public class ActivityController extends AccountController implements Initializab
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username,password);
-	 	}
+			}
 		});
 		try {
 			MimeMessage message = new MimeMessage(session);
@@ -310,7 +310,8 @@ public class ActivityController extends AccountController implements Initializab
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
 			message.setSubject(Email_Subject);
 			MimeMultipart part = new MimeMultipart();
-			String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }" + "</style>"
+			String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }"
+					+ "</style>"
 					+ "</head>" + "<img src=\"cid:image\">" + "<h1 class=\red\">"
 					+ message.getSubject() + "</h1>"  +  "<p>" + "Hello, you have "
 					+ "created/added a new task: " + this.details.getText() + "</p>" + "<footer>"
