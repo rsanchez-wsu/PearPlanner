@@ -92,7 +92,7 @@ public class AccountController implements Initializable {
 	private Alert invalidInputAlert = new Alert(AlertType.ERROR);
 	@FXML
 	private Alert emptyNameAlert = new Alert(AlertType.CONFIRMATION);
-	public String UserEmail;
+
 
 	//public String UserEmail = this.email.getText();
 
@@ -284,12 +284,20 @@ public class AccountController implements Initializable {
 		return true;
 	}
 
-
-	public void SendEmailHTML() {
+	/**
+	 * Gets the users email address, sets up the SMTP server to send out email to user upon
+	 * creation of new account. Sets up email to be sent and sets-up and applies HTML styling
+	 * to email.
+	 *
+	 *@return
+	 */
+	public void sendEmailhtml() {
 		final String backgroundColor = "<body style='background-color:grey;'>";
-		final String image = "<img src='https://en.wikipedia.org/wiki/Wright_State_Raiders#/media/File:Wright_State_Raiders_logo.svg' alt='Raider'>";
-		final String fontSize = "<font size='6'>Hello,we are sending you this email to confirm that you have succussfully signedup for RaiderPlanner</font>";
-		final String SMTP_SERVER = "smtp server";
+		final String image = "<img src='https://en.wikipedia.org/wiki/Wright_State_Raiders#/media/"
+				+ "File:Wright_State_Raiders_logo.svg' alt='Raider'>";
+		final String fontSize = "<font size='6'>Hello,we are sending you this email to confirm that "
+				+ "you have succussfully signedup for RaiderPlanner</font>";
+		final String smtp_Server = "smtp server";
 		final String username = "raiderplanner3120@gmail.com";
 		final String password = "Ngbjss3120";
 		final String Email_From = "raiderplanner3120@gmail.com";
@@ -319,47 +327,41 @@ public class AccountController implements Initializable {
 	 			return new PasswordAuthentication(username,password);
 	 		}
 	 		});
-	 try {
-		 MimeMessage message = new MimeMessage(session);
-		 message.setFrom(new InternetAddress(username));
-		 message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
-		 message.setSubject(Email_Subject);
-		 MimeMultipart part = new MimeMultipart();
-		// message.setText(Email_Text);
-		 String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }" + "</style>" + "</head>" + "<img src=\"cid:image\">" + "<h1 class=\red\">" + message.getSubject() + "</h1>"  +  "<p>" + "Hello, " + fullName.getText()
-			+ " we are sending you this email to confirm that you have succussfully</h1> "
-			+ " signed"
-			+ " up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
-			+ "The RaiderPlanner Team" + "\n"
-			+ "Here are your credentials, please do not lose these, your eyes only!"
-			+ "\n" + "<ul><strong><li>Email: " + email.getText() + "\n</li>" + "<li>Wright State Username: "
-			+ accountNo.getText() + "\n</li>" +  "<li>Password:" + passwordId.getText()
-			+ "\n</li>" + "<li>Major: " + majorId.getText() +"</li></strong></ul>.</p>" + "<footer>" + "RaiderPlanner@CopyRight 2020" + "</footer>";
-		 BodyPart messageBodyPart = new MimeBodyPart();
-		 messageBodyPart.setContent(sb, "text/html; charset=utf-8");
-		 part.addBodyPart(messageBodyPart);
-		 messageBodyPart = new MimeBodyPart();
-		 DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner/src/edu/wright/cs/raiderplanner/content/raiderlogo.png");
-		 messageBodyPart.setDataHandler(new DataHandler(fds));
-		 messageBodyPart.setHeader("Content-ID", "<image>");
-		 part.addBodyPart(messageBodyPart);
-		 message.setContent(part);
+	 			try {
+	 				MimeMessage message = new MimeMessage(session);
+	 				message.setFrom(new InternetAddress(username));
+	 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
+	 				message.setSubject(Email_Subject);
+	 				MimeMultipart part = new MimeMultipart();
+	 				// message.setText(Email_Text);
+	 				String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }" + "</style>" + "</head>"
+	 						+ "<img src=\"cid:image\">" + "<h1 class=\red\">" + message.getSubject() + "</h1>"  +  "<p>" + "Hello, "
+	 						+ fullName.getText()
+	 						+ " we are sending you this email to confirm that you have succussfully</h1> "
+	 						+ " signed"+" up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
+	 						+ "The RaiderPlanner Team" + "\n"
+	 						+ "Here are your credentials, please do not lose these, your eyes only!"
+	 						+ "\n" + "<ul><strong><li>Email: " + email.getText() + "\n</li>" + "<li>Wright State Username: "
+	 						+ accountNo.getText() + "\n</li>" +  "<li>Password:" + passwordId.getText()
+	 						+ "\n</li>" + "<li>Major: " + majorId.getText() + "</li></strong></ul>.</p>" + "<footer>"
+	 						+ "RaiderPlanner@CopyRight 2020" + "</footer>";
+	 				BodyPart messageBodyPart = new MimeBodyPart();
+	 				messageBodyPart.setContent(sb, "text/html; charset=utf-8");
+	 				part.addBodyPart(messageBodyPart);
+	 				messageBodyPart = new MimeBodyPart();
+	 				DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner/src/edu/wright/cs/"
+	 						+ "raiderplanner/content/raiderlogo.png");
+	 				messageBodyPart.setDataHandler(new DataHandler(fds));
+	 				messageBodyPart.setHeader("Content-ID", "<image>");
+	 				part.addBodyPart(messageBodyPart);
+	 				message.setContent(part);
+	 				Transport.send(message);
+	 				System.out.println("message sent");
 
-
-
-		 //message.setContent(sb, "text/html; charset=utf-8");
-		 //message.saveChanges();
-
-
-		 Transport.send(message);
-		 System.out.println("message sent");
-		 //System.out.println(UserEmail);
-
-	 }catch(MessagingException ex) {
-		 ex.printStackTrace();
-	 }
-
-	}
+	 				} catch(MessagingException ex) {
+	 					ex.printStackTrace();
+	 				}
+				}
 
 
 
@@ -454,86 +456,9 @@ public class AccountController implements Initializable {
 					this.majorId.getText().trim());
 			this.account = new Account(pers, this.accountNo.getText().trim());
 			this.success = true;
-			SendEmailHTML();
-			UserEmail = this.email.getText();
-			System.out.println(UserEmail);
-
-			/* Gets the username and password for the raiderplanner email account */
-			/*final String username = "raiderplanner3120@gmail.com";
-			final String password = "Ngbjss3120";*/
-
-
-
+			sendEmailhtml();
 		}
-
-
-
-
-
-
-			/*
-			 * Sets-up SMTP server and server information to prepare the program for sending an
-			 * email.
-			 */
-			/*Properties props = new Properties();
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.starttls.enable", "true");
-			props.put("mail.smtp.host", "smtp.gmail.com");
-			props.put("mail.smtp.port", "587");
-			props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-			*/
-
-			/*
-			 * Varifys that the username and password given for RaiderPlanner email account is valid
-			 */
-			/*Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-				@Override
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(username, password);
-				}
-			});
-
-			Stage stage = (Stage) this.submit.getScene().getWindow();
-*/
-			/*
-			 * Creates a new email message, by setting the sender, recipient, subject, and
-			 * text/content of the email message. After creating the email it is sent if no errors
-			 * arise. If an error occurs an error message is displayed.
-			 */
-			/*try {
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress("raiderplanner3120@gmail.com"));
-				message.setRecipient(Message.RecipientType.TO,
-						new InternetAddress(email.getText()));
-				message.setSubject("Welcome To RaiderPlanner");
-				message.setText("Hello, " + fullName.getText()
-						+ "we are sending you this email to confirm that you have succussfully</h1> "
-						+ " signed"
-						+ " up for RaiderPlanner!!" + "\n" + "Happy Studying," + "\n"
-						+ "The RaiderPlanner Team" + "\n"
-						+ "Here are your credentials, please do not lose these, your eyes only!"
-						+ "\n" + "Email: " + email.getText() + "\n" + "Wright State Username: "
-						+ accountNo.getText() + "\n" +  "Password" + passwordId.getText()
-						+ "\n" + "Major: " + majorId.getText());
-				Transport.send(message);
-				System.out.println("Done");
-			} catch (MessagingException e) {
-				throw new RuntimeException(e);
-			}
-
-			stage.close();
-		} else if (!validSuccess) {
-			invalidInputAlert.setHeaderText("Invalid Entries");
-			invalidInputAlert.setContentText(invalidMessage);
-			invalidInputAlert.showAndWait();
-		}*/
-
 	}
-
-
-
-
-
 
 	/**
 	 * Handle Quit button.

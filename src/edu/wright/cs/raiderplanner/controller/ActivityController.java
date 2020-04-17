@@ -6,6 +6,8 @@
  *
  * Copyright (C) 2020 - Sierra Sprungl, Nathan Griffith, Bryten Jones
  *
+ *
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -22,11 +24,13 @@
  */
 
 package edu.wright.cs.raiderplanner.controller;
+
 import edu.wright.cs.raiderplanner.controller.MainController;
 import edu.wright.cs.raiderplanner.model.Activity;
 import edu.wright.cs.raiderplanner.model.QuantityType;
 import edu.wright.cs.raiderplanner.model.Task;
 import edu.wright.cs.raiderplanner.view.UiManager;
+
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -281,67 +285,52 @@ public class ActivityController extends AccountController implements Initializab
 			this.activity.addTasks(this.tasks.getItems());
 		}
 
-		this.success = true;
-		Stage stage = (Stage) this.submit.getScene().getWindow();
-		stage.close();
-		System.out.println("Please enter email address so we can send you a notification:");
-		Scanner sc = new Scanner(System.in);
-		String uemail = sc.nextLine();
-		final String username = "raiderplanner3120@gmail.com";
-		final String password = "Ngbjss3120";
-		final String Email_From = "raiderplanner3120@gmail.com";
-	    final String Email_To = uemail;
-
-		//System.out.println(getEmail());
-		//final String Email_To = this.email.getText();
-		final String Email_Subject = this.name.getText();
-		Properties properties = System.getProperties();
-
-	 	properties.put("mail.smtp.auth", "true");
-		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.host", "smtp.gmail.com");
-		properties.put("mail.smtp.port", "587");
-		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-	 	Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator() {
+			this.success = true;
+			Stage stage = (Stage) this.submit.getScene().getWindow();
+			stage.close();
+			System.out.println("Please enter email address so we can send you a notification:");
+			Scanner sc = new Scanner(System.in);
+			String uemail = sc.nextLine();
+			final String username = "raiderplanner3120@gmail.com";
+			final String password = "Ngbjss3120";
+			final String Email_From = "raiderplanner3120@gmail.com";
+			final String Email_To = uemail;
+			final String Email_Subject = this.name.getText();
+			Properties properties = System.getProperties();
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.starttls.enable", "true");
+			properties.put("mail.smtp.host", "smtp.gmail.com");
+			properties.put("mail.smtp.port", "587");
+			properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+			Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator() {
 	 		@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 	 			return new PasswordAuthentication(username,password);
 	 		}
 	 		});
-	 try {
-		 MimeMessage message = new MimeMessage(session);
-		 message.setFrom(new InternetAddress(username));
-		 message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
-		 message.setSubject(Email_Subject);
-		 MimeMultipart part = new MimeMultipart();
-		// message.setText(Email_Text);
-		 String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }" + "</style>" + "</head>" + "<img src=\"cid:image\">" + "<h1 class=\red\">" + message.getSubject() + "</h1>"  +  "<p>" + "Hello, you have created/added a new task: " + this.details.getText() + "</p>" + "<footer>" + "RaiderPlanner@CopyRight 2020" + "</footer>";
-		 BodyPart messageBodyPart = new MimeBodyPart();
-		 messageBodyPart.setContent(sb, "text/html; charset=utf-8");
-		 part.addBodyPart(messageBodyPart);
-		 messageBodyPart = new MimeBodyPart();
-		 DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner/src/edu/wright/cs/raiderplanner/content/raiderlogo.png");
-		 messageBodyPart.setDataHandler(new DataHandler(fds));
-		 messageBodyPart.setHeader("Content-ID", "<image>");
-		 part.addBodyPart(messageBodyPart);
-		 message.setContent(part);
+				try {
+					MimeMessage message = new MimeMessage(session);
+					message.setFrom(new InternetAddress(username));
+					message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
+					message.setSubject(Email_Subject);
+					MimeMultipart part = new MimeMultipart();
+					String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }" + "</style>" + "</head>" + "<img src=\"cid:image\">" + "<h1 class=\red\">" + message.getSubject() + "</h1>"  +  "<p>" + "Hello, you have created/added a new task: " + this.details.getText() + "</p>" + "<footer>" + "RaiderPlanner@CopyRight 2020" + "</footer>";
+					BodyPart messageBodyPart = new MimeBodyPart();
+					messageBodyPart.setContent(sb, "text/html; charset=utf-8");
+					part.addBodyPart(messageBodyPart);
+					messageBodyPart = new MimeBodyPart();
+					DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner/src/edu/wright/cs/raiderplanner/content/raiderlogo.png");
+					messageBodyPart.setDataHandler(new DataHandler(fds));
+					messageBodyPart.setHeader("Content-ID", "<image>");
+					part.addBodyPart(messageBodyPart);
+					message.setContent(part);
+					Transport.send(message);
+					System.out.println("message sent");
 
-
-		 //message.setContent(sb, "text/html; charset=utf-8");
-		 //message.saveChanges();
-
-
-		 Transport.send(message);
-		 System.out.println("message sent");
-
-	 }catch(MessagingException ex) {
-		 ex.printStackTrace();
-	 }
-
-
-
-	}
+						} catch(MessagingException ex) {
+							ex.printStackTrace();
+							}
+					}
 
 	/**
 	 * Binds properties on the quit button as well as sets the button actions for exiting.
