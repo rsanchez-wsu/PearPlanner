@@ -44,7 +44,7 @@
                      <Font size="18.0" />
                 </font>
                 <padding>
-					<Insets top="80.0" />
+					<Insets top="30.0" />
 				</padding>
 	    	</Label>
 	    	<Label fx:id="nameLabel" style="-fx-text-fill: gold" text="Full Name: ">
@@ -52,7 +52,7 @@
         			<Font size="18.0" />
         		</font>
         		<padding>
-        			<Insets top="80.0" left="25.0" />
+        			<Insets top="30.0" left="25.0" />
         		</padding>
 	   		</Label>
     </HBox>
@@ -119,6 +119,8 @@
         	</Label>
         </HBox>
         
+
+        
         <HBox GridPane.rowIndex="4">
             <children>
                 <TextField fx:id="accountNo" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="w000xxx" GridPane.rowIndex="4">
@@ -139,20 +141,44 @@
                 </TextField>
             </children>
         </HBox>
+        
+        <HBox GridPane.rowIndex="5">
+        	<Label fx:id="passwordLabel" style="-fx-text-fill: gold" text="Password:                   ">
+        		<font>
+        			<Font size="18.0" />
+        		</font>
+        		<padding>
+        			<Insets top="-30.0" left="10" />
+        		</padding>
+        	</Label>
+        </HBox>
+        
+        <HBox GridPane.rowIndex="6">
+		<TextField fx:id="passwordId" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="Password" GridPane.rowIndex="6">
+            <HBox.margin>
+               <Insets bottom="5.0" left="10.0" right="-45.0" top="10.0" />
+		    </HBox.margin>
+			<font>
+	            <Font size="16.0" />
+	        </font>
+        </TextField>
+        </HBox>
 		
-		<HBox GridPane.rowIndex="5">
+		<HBox GridPane.rowIndex="7">
 		<Label fx:id="majorLabel" style="-fx-text-fill: gold" text="Major:       ">
         		<font>
         			<Font size="18.0" />
         		</font>
         		<padding>
-        			<Insets top="-30.0" left="10" />	
+        			<Insets top="10.0" left="10" />	
         		</padding>       		
         	</Label>
 		</HBox>
 		
-        <HBox GridPane.rowIndex="6">
-		<TextField fx:id="majorId" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="Computer Science" GridPane.rowIndex="6">
+        
+		
+        <HBox GridPane.rowIndex="8">
+		<TextField fx:id="majorId" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="Computer Science" GridPane.rowIndex="8">
                     <HBox.margin>
                         <Insets bottom="55.0" left="10.0" right="-45.0" top="10.0" />
 		    </HBox.margin>
@@ -162,7 +188,7 @@
                 </TextField>
             <children>
                 <Region prefHeight="51.0" prefWidth="65.0" />
-                <Button fx:id="submit" defaultButton="true" disable="false" mnemonicParsing="false" onMouseClicked="#handleSubmit" prefHeight="35.0" prefWidth="100.0" text="Enter" GridPane.rowIndex="6">
+                <Button fx:id="submit" defaultButton="true" disable="false" mnemonicParsing="false" onMouseClicked="#handleSubmit" prefHeight="35.0" prefWidth="100.0" text="Enter" GridPane.rowIndex="8">
                     <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </HBox.margin>

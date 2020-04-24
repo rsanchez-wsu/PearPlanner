@@ -227,15 +227,6 @@ public class MainController {
 					study.getPlanner().addNotification(not);
 					MainController.setSpc(study);
 					plannerFile = MainController.ui.savePlannerFileDialog();
-					//Create Study Profile
-					HubFile hubFile = null;
-					try {
-						hubFile = ui.createStudyProfile();
-					} catch (IOException e) {
-						UiManager.reportError("There was a problem creating the Study Profile");
-					}
-					//StudyProfile profile = new StudyProfile(hubFile);
-					WriteStudyProfile studyProfile = new WriteStudyProfile(hubFile);
 					if (plannerFile != null) {
 						if (plannerFile.getParentFile().exists()) {
 							if (plannerFile.getParentFile().canRead()) {
