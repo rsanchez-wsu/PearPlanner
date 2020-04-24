@@ -116,9 +116,7 @@
         		</padding>
         	</Label>
         </HBox>
-        
-
-        
+		
         <HBox GridPane.rowIndex="4">
             <children>
                 <TextField fx:id="accountNo" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="w000xxx" GridPane.rowIndex="4">
