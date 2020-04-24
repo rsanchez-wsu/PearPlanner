@@ -101,7 +101,7 @@
         </HBox>
         
 	<HBox GridPane.rowIndex="3">
-        	<Label fx:id="salutationLabel" style="-fx-text-fill: gold" text="Campus Username:                   ">
+        	<Label fx:id="campusUsernameLabel" style="-fx-text-fill: gold" text="Campus Username:                   ">
         		<font>
         			<Font size="18.0" />
         		</font>
