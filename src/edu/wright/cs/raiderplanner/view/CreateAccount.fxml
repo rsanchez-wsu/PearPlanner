@@ -15,30 +15,46 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="900.0" prefWidth="900.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="50.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="156.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
-	<RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-	<RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />  <!-- Welcome Line			-->
+		<RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />  <!-- Create Line			-->
+        <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />  <!-- Salutation Line		-->
+        <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />  <!-- Fields Line 1		-->
+		<RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />  <!-- Campus Username Line	-->
+		<RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />  <!-- Fields Line 2		-->
+		<RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />  <!-- Password Line		-->
+		<RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />  <!-- Fields Line 3		-->
+		<RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />  <!-- Major Line			-->
+		<RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />  <!-- Fields Line 4		-->
     </rowConstraints>
     <children>
-	<HBox GridPane.rowIndex="0">
-	    <Label fx:id="welcomeLabel" style="-fx-text-fill: gold" text="Welcome to RaiderPlanner!">
-		<font>
-		     <Font size="35.0" />
-	        </font>
-	    </Label>
-	    <padding>
-		    <Insets top="70.0" />
-	    </padding>
-	    <ImageView fitHeight="150" fitWidth="150" preserveRatio="true">
-	    	<image>
-	    		<Image url="@\../src/edu/wright/cs/RaiderPlanner/content/banner.png" />
-	    	</image>
-	    </ImageView>
-	</HBox>
+		<HBox GridPane.rowIndex="0">
+	    	<Label fx:id="welcomeLabel" style="-fx-text-fill: gold" text="Welcome to RaiderPlanner!">
+				<font>
+					<Font size="35.0" />
+	        	</font>
+	    	</Label>
+	    	<padding>
+		    	<Insets top="70.0" />
+	    	</padding>
+	    	<ImageView fitHeight="150" fitWidth="150" preserveRatio="true">
+	    		<image>
+	    			<Image url="@\../src/edu/wright/cs/RaiderPlanner/content/banner.png" />
+	    		</image>
+	    	</ImageView>
+		</HBox>
+
+		<HBox GridPane.rowIndex="1">
+			<Label fx:id="createAccountLabel" style="-fx-text-fill: gold" text="	 Create Account">
+				<font>
+					<Font size="31.0" />
+				</font>
+				<padding>
+					<Insets top="-10.0" left="-18"/>
+				</padding>
+			</Label>
+		</HBox>
 	
-	<HBox GridPane.rowIndex="1">
+		<HBox GridPane.rowIndex="2">
             <Label fx:id="salutationLabel" style="-fx-text-fill: gold" text="  Salutation:                             ">
                 <font>
                      <Font size="18.0" />
@@ -55,11 +71,11 @@
         			<Insets top="30.0" left="25.0" />
         		</padding>
 	   		</Label>
-    </HBox>
+    	</HBox>
 
-	<HBox GridPane.rowIndex="2">
+		<HBox GridPane.rowIndex="3">
             <children>
-                <ComboBox fx:id="salutation" prefHeight="37.0" prefWidth="100.0" promptText="Salutation" GridPane.rowIndex="2">
+                <ComboBox fx:id="salutation" prefHeight="37.0" prefWidth="100.0" promptText="Salutation">
 	                <items>
 		                <FXCollections fx:factory="observableArrayList">
 			                <String fx:value="Mr" />
@@ -68,129 +84,134 @@
 		                </FXCollections>
 	                </items>
                     <HBox.margin>
-                        <Insets bottom="0.0" left="10.0" right="132.0" top="45.0" />
+                        <Insets left="10.0" right="132.0" top="45.0" />
                     </HBox.margin>
                 </ComboBox>
                 
-                <TextField fx:id="fullName" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="110.0" promptText="John" GridPane.rowIndex="1">
+                <TextField fx:id="fullName" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="110.0" promptText="John">
                     <HBox.margin>
                         <Insets bottom="10.0" left="20.0" right="10.0" top="45.0" />
-		    </HBox.margin>
-		    <font>
-	                <Font size="16.0" />
-	            </font>
+		    		</HBox.margin>
+		    		<font>
+	                	<Font size="16.0" />
+	            	</font>
                 </TextField>
                 
-                <TextField fx:id="lastName" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="110.0" promptText="Smith" GridPane.rowIndex="1">
+                <TextField fx:id="lastName" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="110.0" promptText="Smith">
                     <HBox.margin>
                         <Insets bottom="10.0" left="20.0" right="10.0" top="45.0" />
-		    </HBox.margin>
-		   
-		    <font>
-	                <Font size="16.0" />
-	            </font>
+		    		</HBox.margin>
+					<font>
+	                	<Font size="16.0" />
+	            	</font>
                 </TextField>
                 
-                <CheckBox fx:id="famLast" mnemonicParsing="false" selected="true" text="Last Name " GridPane.rowIndex="3">
-                    <HBox.margin>
+                <CheckBox fx:id="famLast" mnemonicParsing="false" selected="true" text="Last Name " style="-fx-text-fill: gold">
+					<HBox.margin>
                         <Insets bottom="15.0" left="5.0" right="10.0" top="60.0" />
                     </HBox.margin>
                 </CheckBox>
-                
             </children>
         </HBox>
         
-	<HBox GridPane.rowIndex="3">
-        	<Label fx:id="salutationLabel" style="-fx-text-fill: gold" text="Campus Username:                   ">
-        		<font>
-        			<Font size="18.0" />
-        		</font>
-        		<padding>
-        			<Insets top="30.0" left="10" />
-        		</padding>
-        	</Label>
-        	<Label fx:id="emailLabel" style="-fx-text-fill: gold" text=" Email: ">
-        		<font>
-        			<Font size="18.0" />
-        		</font>
-        		<padding>
-        			<Insets top="30.0" />
-        		</padding>
-        	</Label>
+		<HBox GridPane.rowIndex="4">
+			<children>
+				<Label fx:id="campusUsernameLabel" style="-fx-text-fill: gold" text="Campus Username:                   ">
+					<font>
+						<Font size="18.0" />
+					</font>
+					<padding>
+						<Insets left="10" />
+					</padding>
+				</Label>
+				<Label fx:id="emailLabel" style="-fx-text-fill: gold" text=" Email: ">
+					<font>
+						<Font size="18.0" />
+					</font>
+					<padding>
+						<Insets left="1"/>
+					</padding>
+				</Label>
+			</children>
+			<padding>
+				<Insets top="45.0"/>
+			</padding>
         </HBox>
-        
-
-        
-        <HBox GridPane.rowIndex="4">
-            <children>
-                <TextField fx:id="accountNo" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="w000xxx" GridPane.rowIndex="4">
-                    <HBox.margin>
-                        <Insets bottom="55.0" left="10.0" right="10.0" top="10.0" />
-		    </HBox.margin>
-		    <font>
-	               	<Font size="16.0" />
-	            </font>
-                </TextField>
-                <TextField fx:id="email" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="name.1@wright.edu" GridPane.rowIndex="4">
-                    <HBox.margin>
-                        <Insets bottom="55.0" left="20.0" right="10.0" top="10.0" />
-		    </HBox.margin>
-		    <font>
-	               	<Font size="16.0" />
-	            </font>
-                </TextField>
-            </children>
-        </HBox>
-        
+		
         <HBox GridPane.rowIndex="5">
+            <children>
+                <TextField fx:id="accountNo" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="w000xxx">
+                    <HBox.margin>
+                        <Insets left="10.0" right="10.0"/> <!--"10.0" for top and "55.0" for bottom-->
+		    		</HBox.margin>
+					<font>
+	               		<Font size="16.0" />
+	            	</font>
+                </TextField>
+                <TextField fx:id="email" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="name.1@wright.edu">
+                    <HBox.margin>
+                        <Insets left="21.0" right="10.0"/> <!-- "10.0" for top and "55.0" for bottom-->
+		    		</HBox.margin>
+		    		<font>
+	               		<Font size="16.0" />
+	            	</font>
+                </TextField>
+            </children>
+			<padding>
+				<Insets top="48.0"/>
+			</padding>
+        </HBox>
+        
+        <HBox GridPane.rowIndex="6">
         	<Label fx:id="passwordLabel" style="-fx-text-fill: gold" text="Password:                   ">
         		<font>
         			<Font size="18.0" />
         		</font>
         		<padding>
-        			<Insets top="-30.0" left="10" />
+        			<Insets top="55.0" left="10" />
         		</padding>
         	</Label>
         </HBox>
         
-        <HBox GridPane.rowIndex="6">
-		<TextField fx:id="passwordId" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="Password" GridPane.rowIndex="6">
-            <HBox.margin>
-               <Insets bottom="5.0" left="10.0" right="-45.0" top="10.0" />
-		    </HBox.margin>
-			<font>
-	            <Font size="16.0" />
-	        </font>
-        </TextField>
+        <HBox GridPane.rowIndex="7">
+			<TextField fx:id="passwordId" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="Password">
+            	<HBox.margin>
+					<Insets left="10.0" right="-45.0"/>
+		    	</HBox.margin>
+				<font>
+	            	<Font size="16.0" />
+	        	</font>
+        	</TextField>
+			<padding>
+				<Insets top="60"/>
+			</padding>
         </HBox>
 		
-		<HBox GridPane.rowIndex="7">
-		<Label fx:id="majorLabel" style="-fx-text-fill: gold" text="Major:       ">
+		<HBox GridPane.rowIndex="8">
+			<Label fx:id="majorLabel" style="-fx-text-fill: gold" text="Major:       ">
         		<font>
         			<Font size="18.0" />
         		</font>
         		<padding>
-        			<Insets top="10.0" left="10" />	
-        		</padding>       		
+        			<Insets top="65.0" left="10" />
+        		</padding>
         	</Label>
 		</HBox>
 		
-        
-		
-        <HBox GridPane.rowIndex="8">
-		<TextField fx:id="majorId" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="Computer Science" GridPane.rowIndex="8">
-                    <HBox.margin>
-                        <Insets bottom="55.0" left="10.0" right="-45.0" top="10.0" />
-		    </HBox.margin>
-			<font>
+        <HBox GridPane.rowIndex="9">
+			<TextField fx:id="majorId" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="220.0" promptText="Computer Science">
+				<HBox.margin>
+					<Insets left="10.0" right="-45.0"/>
+		    	</HBox.margin>
+				<font>
 	               	<Font size="16.0" />
 	            </font>
-                </TextField>
+			</TextField>
             <children>
                 <Region prefHeight="51.0" prefWidth="65.0" />
-                <Button fx:id="submit" defaultButton="true" disable="false" mnemonicParsing="false" onMouseClicked="#handleSubmit" prefHeight="35.0" prefWidth="100.0" text="Enter" GridPane.rowIndex="8">
+                <Button fx:id="submit" defaultButton="true" disable="false" mnemonicParsing="false" onMouseClicked="#handleSubmit" prefHeight="35.0" prefWidth="100.0" text="Enter">
                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets left="10.0" right="10.0"/>
                     </HBox.margin>
                     <font>
 	          			<Font size="14.0" />
@@ -198,22 +219,17 @@
                 </Button>
                 <Button cancelButton="true" mnemonicParsing="false" onAction="#handleQuit" prefHeight="35.0" prefWidth="100.0" text="Cancel">
                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets left="10.0" right="10.0"/>
                     </HBox.margin>
                     <font>
 	          			<Font size="14.0" />
 	        		</font>
                 </Button>
             </children>
+			<padding>
+				<Insets top="72"/>
+			</padding>
         </HBox>
-        <Label fx:id="createAccountLabel" style="-fx-text-fill: gold" text="	 Create Account">
-            <font>
-                <Font size="31.0" />
-	    </font>
-	    <padding>
-		<Insets top="60.0" />
-	    </padding>
-        </Label>
     </children>
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
