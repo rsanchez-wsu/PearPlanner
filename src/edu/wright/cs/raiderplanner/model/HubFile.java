@@ -3,7 +3,7 @@
  * Bijan Ghasemi Afshar
  * Copyright (C) 2018 - Roberto C. Sánchez
  *
- *
+ * Copyright (C) 2020 - Joshua Ehlinger, Nathan Griffith, Sierra Sprungl, Bryten Jones
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -23,12 +23,14 @@ package edu.wright.cs.raiderplanner.model;
 
 import edu.wright.cs.raiderplanner.controller.DataController;
 import edu.wright.cs.raiderplanner.controller.XmlController;
+import edu.wright.cs.raiderplanner.view.ConsoleIo;
 
 import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +49,8 @@ public class HubFile implements Serializable {
 	private int version;
 	private int semester;
 	private int year;
+	private Deadline startDate;
+	private Deadline endDate;
 	private boolean updateFile;
 	private String semesterName;
 	private String semesterUId;
@@ -340,6 +344,24 @@ public class HubFile implements Serializable {
 	}
 
 	/**
+	 * Returns the start date of the details.
+	 *
+	 * @return The start date of the details
+	 */
+	public Date getStartDate() {
+		return startDate.getDate();
+	}
+
+	/**
+	 * Returns the end date of the details.
+	 *
+	 * @return The end date of the details
+	 */
+	public Date getEndDate() {
+		return endDate.getDate();
+	}
+
+	/**
 	 * Returns the extensions of the file.
 	 *
 	 * @return The extensions of the file
@@ -482,11 +504,24 @@ public class HubFile implements Serializable {
 		HashMap<String, XmlController.NodeReturn> personValues =
 				xmlTools.getSchemaValues(nc, HubFile.SCHEMA_PERSON);
 
+		//Added error correction code below for 'major',
+		//might want to add try catch blocks for each call to personValues
+		String major;
+		try {
+			major = personValues.get("major").getString();
+		} catch (Exception e) {
+			ConsoleIo.setConsoleMessage("Node: " + "'major'" + " not found.", true);
+			major = "none";
+			ConsoleIo.setConsoleMessage("Set " + "'major'" + " to \"none\".", true);
+		}
+
 		Person person = new Person(personValues.get("salutation").getString(),
 				personValues.get("givenNames").getString(),
 				personValues.get("familyName").getString(),
 				personValues.get("familyNameLast").getBoolean(),
-				personValues.get("email").getString());
+				personValues.get("email").getString(),
+				major, personValues.get("password").getString());
+
 
 		DataController.addVceProperties(person, personValues);
 		return person;

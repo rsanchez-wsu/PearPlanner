@@ -21,6 +21,10 @@
 
 package edu.wright.cs.raiderplanner.controller;
 
+import com.github.plushaze.traynotification.animations.Animations;
+import com.github.plushaze.traynotification.notification.Notifications;
+import com.github.plushaze.traynotification.notification.TrayNotification;
+
 import edu.wright.cs.raiderplanner.model.Milestone;
 import edu.wright.cs.raiderplanner.model.Task;
 import edu.wright.cs.raiderplanner.view.UiManager;
@@ -42,7 +46,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -93,10 +99,6 @@ public class MilestoneController implements Initializable {
 	@FXML private ListView<Task> tasks;
 
 	// Tooltips:
-	@FXML private Label nameTooltip;
-	@FXML private Label deadlineTooltip;
-	@FXML private Label detailsTooltip;
-	@FXML private Label tasksTooltip;
 	@FXML private Label headingTooltip;
 
 	/**
@@ -117,7 +119,7 @@ public class MilestoneController implements Initializable {
 			this.milestone.replaceTasks(this.tasks.getItems());
 
 			if (!this.milestone.isComplete()) {
-				this.completed.setVisible(false);
+				this.completed.setVisible(true);
 			} else {
 				this.completed.setVisible(true);
 			}
@@ -162,18 +164,27 @@ public class MilestoneController implements Initializable {
 	 * Submit the form and create a new Milestone.
 	 */
 	public void handleSubmit() {
+		TrayNotification trayNotif = new TrayNotification();
+		trayNotif.setTitle("Raider Planner");
+		trayNotif.setRectangleFill(Paint.valueOf("#2A9A84"));
+		trayNotif.setAnimation(Animations.POPUP);
+		trayNotif.setNotification(Notifications.SUCCESS);
+		trayNotif.showAndDismiss(Duration.seconds(2));
+
 		if (this.milestone == null) {
 			// Create a new Milestone:
 			this.milestone = new Milestone(this.name.getText(),
 					this.details.getText(), this.deadline.getValue());
 			this.milestone.addTasks(this.tasks.getItems());
 			// =================
+			trayNotif.setMessage("Milestone Successfully Created");
 		} else {
 			// Update the current Milestone:
 			this.milestone.setName(this.name.getText());
 			this.milestone.setDetails(this.details.getText());
 			this.milestone.setDeadline(this.deadline.getValue());
 			// =================
+			trayNotif.setMessage("Milestone Successfully Updated");
 		}
 
 		this.success = true;
@@ -278,12 +289,12 @@ public class MilestoneController implements Initializable {
 		this.tasks.getItems().addListener((ListChangeListener<Task>) c -> handleChange());
 		// =================
 
-		// Initialize tooltip messages:
-		nameTooltip.setTooltip(new Tooltip("Enter the name of the milestone."));
-		deadlineTooltip.setTooltip(new Tooltip("Enter a deadline for the milestone \n in "
+		// Initialize tooltips:
+		name.setTooltip(new Tooltip("Enter the name of the milestone."));
+		deadline.setTooltip(new Tooltip("Enter a deadline for the milestone \n in "
 				+ "the format: MM/DD/YYYY"));
-		detailsTooltip.setTooltip(new Tooltip("Enter any details for the milestone."));
-		tasksTooltip.setTooltip(new Tooltip("Add or remove tasks from you milestone."));
+		details.setTooltip(new Tooltip("Enter any details for the milestone."));
+		tasks.setTooltip(new Tooltip("Add or remove tasks from you milestone."));
 		headingTooltip.setTooltip(new Tooltip("A Milestone is a goal that you can set for "
 				+ "yourself to achieve\nin the future.  You can "
 				+ "give a deadline and tasks\nthat need to be completed to achieve this goal."));

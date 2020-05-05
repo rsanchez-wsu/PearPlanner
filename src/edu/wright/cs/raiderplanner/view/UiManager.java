@@ -1,9 +1,9 @@
 /*
  * Copyright (C) 2017 - Benjamin Dickson, Andrew Odintsov, Zilvinas Ceikauskas,
- * Bijan Ghasemi Afshar
+ * BHijan Ghasemi Afshar
  *
  * Copyright (C) 2018 - Clayton D. Terrill
- *
+ * Copyright (C) 2020 - Joshua Ehlinger
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -24,15 +24,20 @@ package edu.wright.cs.raiderplanner.view;
 import edu.wright.cs.raiderplanner.controller.AccountController;
 import edu.wright.cs.raiderplanner.controller.AccountLoader;
 import edu.wright.cs.raiderplanner.controller.ActivityController;
+import edu.wright.cs.raiderplanner.controller.AssignmentController;
 import edu.wright.cs.raiderplanner.controller.MenuController;
 import edu.wright.cs.raiderplanner.controller.MilestoneController;
+import edu.wright.cs.raiderplanner.controller.ModuleController;
+import edu.wright.cs.raiderplanner.controller.NewStudyProfileController;
 import edu.wright.cs.raiderplanner.controller.RequirementController;
 import edu.wright.cs.raiderplanner.controller.SettingsController;
 import edu.wright.cs.raiderplanner.controller.StartupController;
 import edu.wright.cs.raiderplanner.controller.TaskController;
+import edu.wright.cs.raiderplanner.controller.WriteStudyProfile;
 import edu.wright.cs.raiderplanner.model.Account;
 import edu.wright.cs.raiderplanner.model.Activity;
 import edu.wright.cs.raiderplanner.model.Assignment;
+import edu.wright.cs.raiderplanner.model.HubFile;
 import edu.wright.cs.raiderplanner.model.Milestone;
 import edu.wright.cs.raiderplanner.model.ModelEntity;
 import edu.wright.cs.raiderplanner.model.Module;
@@ -80,8 +85,12 @@ public class UiManager {
 			new FileChooser.ExtensionFilter("ICS file", "*.ics");
 	private URL activityFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Activity.fxml");
+	private URL assignmentFxml = getClass().getResource(
+					"/edu/wright/cs/raiderplanner/view/Assignment.fxml");
 	private URL milestoneFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Milestone.fxml");
+	private URL moduleFxml = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/Module.fxml");
 	private URL taskFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Task.fxml");
 	private URL requirementFxml = getClass().getResource(
@@ -96,6 +105,8 @@ public class UiManager {
 			"/edu/wright/cs/raiderplanner/view/Startup.fxml");
 	private URL settingsFxml = getClass().getResource(
 			"/edu/wright/cs/raiderplanner/view/Settings.fxml");
+	private URL newStudyProfileFxml = getClass().getResource(
+			"/edu/wright/cs/raiderplanner/view/NewStudyProfile.fxml");
 
 	private static int setupCount = 0;
 	/**
@@ -134,7 +145,7 @@ public class UiManager {
 		Parent root = loader.load();
 		// Set the scene:
 		Stage stage = new Stage();
-		stage.setScene(new Scene(root, 565, 232));
+		stage.setScene(new Scene(root));
 		stage.setTitle("Create Account");
 		stage.resizableProperty().setValue(false);
 		stage.getIcons().add(icon);
@@ -150,6 +161,30 @@ public class UiManager {
 
 		Account newAccount = accountControl.getAccount();
 		return newAccount;
+	}
+
+	/**
+	 * Displays a 'Create Study Profile' window and handles the creation of a new HubFile object.
+	 * @return newly created HubFile
+	 * @throws IOException for loader.load()
+	 */
+	public HubFile createStudyProfile() throws IOException {
+		NewStudyProfileController nspController = new NewStudyProfileController();
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello World!");
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(newStudyProfileFxml);
+		loader.setController(nspController);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root, 575, 332));
+		stage.setTitle("Create Study Profile");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+		//Handle creation of HubFile object
+		HubFile newHubFile = nspController.getHubFile();
+		return newHubFile;
 	}
 
 	/**
@@ -226,6 +261,34 @@ public class UiManager {
 		// Set the scene with the SettingsFxml:
 		mainStage.getScene().setRoot(root);
 		mainStage.setTitle("RaiderPlanner-Settings");
+	}
+
+	/**
+	 * Display the 'Add Assignment' window.
+	 * Checks to see if the creation is successful.
+	 * @param module - module containing this assignment.
+	 * @return newly created Assignment. If not successful return null.
+	 * @throws IOException exception if IO error is triggered
+	 */
+	public Assignment addAssignment(Module module) throws IOException {
+		AssignmentController ac = new AssignmentController(module);
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(assignmentFxml);
+		loader.setController(ac);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(root, 550, 358));
+		stage.setTitle("New Assignment");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+		// Add the assignment to the StudyPlanner
+		if (ac.isSuccess()) {
+			return ac.getAssignment();
+		}
+		return null;
 	}
 
 	/**
@@ -335,6 +398,34 @@ public class UiManager {
 	public void studyProfileDetails(StudyProfile profile) throws IOException {
 		UiManager.mc.main(MenuController.Window.PROFILES);
 		UiManager.mc.loadStudyProfile(profile);
+	}
+
+	/**
+	 * Displays the 'Add Module' window.
+	 * Checks to see if the module was added.
+	 * @return newly created Module object. if not return null.
+	 * @throws IOException if there is an error while loading the FXML GUI.
+	 */
+	public Module addModule() throws IOException {
+		ModuleController mc = new ModuleController();
+		// Load in the .fxml file:
+		FXMLLoader loader = new FXMLLoader(moduleFxml);
+		loader.setController(mc);
+		Parent root = loader.load();
+		// Set the scene:
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(root, 550, 355));
+		stage.setTitle("Module");
+		stage.resizableProperty().setValue(false);
+		stage.getIcons().add(icon);
+		stage.showAndWait();
+
+		// Add the Module to the StudyPlanner
+		if (mc.isSuccess()) {
+			return mc.getModule();
+		}
+		return null;
 	}
 
 	/**
@@ -475,6 +566,8 @@ public class UiManager {
 		stage.showAndWait();
 	}
 
+
+
 	/**
 	 * Display startup window.
 	 * @throws IOException if there is an error while loading the FXML GUI
@@ -523,6 +616,9 @@ public class UiManager {
 		fileChooser.setTitle("Save Ganttish Diagram");
 		fileChooser.getExtensionFilters().add(pngExtension);
 		File path = fileChooser.showSaveDialog(stage);
+		if (path == null) {
+			return null;
+		}
 		return path.getAbsolutePath();
 	}
 
@@ -579,6 +675,17 @@ public class UiManager {
 			System.exit(0);
 		}
 		setupCount++;//prevents the cancel button from closing the program except for initial setup.
+
+		//Create Study Profile
+		HubFile hubFile = null;
+		try {
+			hubFile = this.createStudyProfile();
+		} catch (IOException e) {
+			UiManager.reportError("There was a problem creating the Study Profile");
+		}
+		//StudyProfile profile = new StudyProfile(hubFile);
+		WriteStudyProfile studyProfile = new WriteStudyProfile(hubFile);
+
 		return file;
 	}
 
@@ -679,4 +786,17 @@ public class UiManager {
 		return savesFolder;
 	}
 
+	/** (non-Javadoc).
+	 * @param message to be displayed to user
+	 *
+	 */
+	public static ButtonType displayFileOpenError(String message) {
+		Alert alert = new Alert(Alert.AlertType.ERROR,
+			"Unable to open file. Please choose a new file.",
+			ButtonType.OK, ButtonType.CANCEL);
+		alert.setGraphic(null);
+		alert.setHeaderText(message);
+		alert.showAndWait();
+		return alert.getResult();
+	}
 }

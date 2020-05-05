@@ -184,11 +184,11 @@ public class QuantityType extends ModelEntity {
 
 		Pair[] staticTypes = {
 				new Pair("Other", "Other"),
-				new Pair("Hours", "Work in hours"),
-				new Pair("Books read", "Read this number of books"),
-				new Pair("Videos watched", "Watched this number of videos"),
-				new Pair("thousand words written", "Number of thousand words written"),
-				new Pair("questions answered", "Number of questions answered")
+				new Pair("Physics", "Solving problems"),
+				new Pair("History", "Research"),
+				new Pair("Computer Science/Engineering", "Programming"),
+				new Pair("English", "Reading/Writing"),
+				new Pair("Math", "Mathematics")
 		};
 		int jj = -1;
 		int ii = staticTypes.length;

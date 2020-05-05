@@ -44,7 +44,7 @@ public class AccountTest {
 	 */
 	@BeforeEach
 	public void setUp() throws Exception {
-		person = new edu.wright.cs.raiderplanner.model.Person("Mr","Andrew Odintsov", true);
+		person = new edu.wright.cs.raiderplanner.model.Person("Mr","Andrew Odintsov", true, null);
 		account = new Account(person, "10012721-UG");
 	}
 
