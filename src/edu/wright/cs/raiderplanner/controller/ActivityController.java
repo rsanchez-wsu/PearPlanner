@@ -26,6 +26,7 @@ import edu.wright.cs.raiderplanner.model.Activity;
 import edu.wright.cs.raiderplanner.model.QuantityType;
 import edu.wright.cs.raiderplanner.model.Task;
 import edu.wright.cs.raiderplanner.view.UiManager;
+
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -49,7 +50,23 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  * Handle actions associated with the GUI window for creating new activities.
@@ -60,7 +77,7 @@ import java.util.ResourceBundle;
  * @author Zilvinas Ceikauskas
  */
 
-public class ActivityController implements Initializable {
+public class ActivityController extends AccountController implements Initializable {
 	private Activity activity;
 	private boolean success = false;
 
@@ -93,6 +110,7 @@ public class ActivityController implements Initializable {
 	 *
 	 * @return true if the last submit operation succeeded, false otherwise.
 	 */
+	@Override
 	public boolean isSuccess() {
 		return success;
 	}
@@ -121,6 +139,8 @@ public class ActivityController implements Initializable {
 
 	// Tooltips:
 	@FXML private Label headingTooltip;
+
+
 
 	/**
 	 * Handle changes to the input fields.
@@ -246,6 +266,10 @@ public class ActivityController implements Initializable {
 	/**
 	 * Submit the form and create a new Activity.
 	 */
+
+
+
+	@Override
 	public void handleSubmit() {
 		if (this.activity == null) {
 			this.activity = new Activity(this.name.getText(),
@@ -260,11 +284,62 @@ public class ActivityController implements Initializable {
 		this.success = true;
 		Stage stage = (Stage) this.submit.getScene().getWindow();
 		stage.close();
+		System.out.println("Please enter email address so we can send you a notification:");
+		Scanner sc = new Scanner(System.in);
+		String uemail = sc.nextLine();
+		final String username = "raiderplanner3120@gmail.com";
+		final String password = "Ngbjss3120";
+		final String Email_From = "raiderplanner3120@gmail.com";
+		final String Email_To = uemail;
+		final String Email_Subject = this.name.getText();
+		Properties properties = System.getProperties();
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username,password);
+			}
+		});
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(Email_To));
+			message.setSubject(Email_Subject);
+			MimeMultipart part = new MimeMultipart();
+			String sb = "<head>" + "<style type=\"text/css\">" + " .red { color: #f00; }"
+					+ "</style>"
+					+ "</head>" + "<img src=\"cid:image\">" + "<h1 class=\red\">"
+					+ message.getSubject() + "</h1>"  +  "<p>" + "Hello, you have "
+					+ "created/added a new task: " + this.details.getText() + "</p>" + "<footer>"
+					+ "RaiderPlanner@CopyRight 2020" + "</footer>";
+			BodyPart messageBodyPart = new MimeBodyPart();
+			messageBodyPart.setContent(sb, "text/html; charset=utf-8");
+			part.addBodyPart(messageBodyPart);
+			messageBodyPart = new MimeBodyPart();
+			DataSource fds = new FileDataSource("/Users/Twili/git/RaiderPlanner/src/edu/"
+					+ "wright/cs/raiderplanner/content/raiderlogo.png");
+			messageBodyPart.setDataHandler(new DataHandler(fds));
+			messageBodyPart.setHeader("Content-ID", "<image>");
+			part.addBodyPart(messageBodyPart);
+			message.setContent(part);
+			Transport.send(message);
+			System.out.println("message sent");
+
+		} catch (MessagingException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	/**
 	 * Binds properties on the quit button as well as sets the button actions for exiting.
 	 */
+
+
+	@Override
 	public void handleQuit() {
 		Stage stage = (Stage) this.submit.getScene().getWindow();
 		stage.close();
@@ -283,6 +358,7 @@ public class ActivityController implements Initializable {
 		this.duration.setTextFormatter(new TextFormatter<String>(change
 				-> change.getControlNewText().length() <= 50 ? change : null));
 	}
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
